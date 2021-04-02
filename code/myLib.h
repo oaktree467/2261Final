@@ -33,6 +33,7 @@ typedef unsigned int u32;
 
 #define BG_CHARBLOCK(num) ((num) << 2)
 #define BG_SCREENBLOCK(num) ((num) << 8)
+#define BG_PRIORITY(num) ((num) << 1)
 #define BG_4BPP (0 << 7)
 #define BG_8BPP (1 << 7)
 #define BG_SIZE_SMALL (0 << 14) // 32x32 tiles

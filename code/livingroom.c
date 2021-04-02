@@ -2,6 +2,7 @@
 #include "livingroom.h"
 STATIONARYSPRITE livingRoomSpritesArr[LR_SPRITECOUNT];
 
+//initialize living room sprites
 void initLivingRoomSprites() {
     //podium
     livingRoomSpritesArr[0].sheetCol = 12;
@@ -64,7 +65,9 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[5].collisionColor = 0x03E4;
 }
 
+//check if player has collided with any sprites in living room or entered doorway
 void checkLivingRoomCollide() {
+    spriteCollisionBool = 0;
     for (int i = 0; i < LR_SPRITECOUNT; i++) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
             == livingRoomSpritesArr[i].collisionColor) {
@@ -72,7 +75,11 @@ void checkLivingRoomCollide() {
             spriteCollisionBool = 1;
         } else {
             livingRoomSpritesArr[i].hide = 1;
-            spriteCollisionBool = 0;
         }
+    }
+    //check if player has entered doorway
+    if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
+        == 0x0C6F) {
+        nextRoomBool = 1;
     }
 }

@@ -48,6 +48,8 @@ extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
+extern int messageActiveBool;
+extern int nextRoomBool;
 
 
 void initGame();
@@ -61,6 +63,7 @@ void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
 void loadLivingRoom();
 void loadKitchen();
+void checkSpriteCollision();
 # 2 "kitchen.c" 2
 # 1 "kitchen.h" 1
 
@@ -101,6 +104,7 @@ void initKitchenSprites() {
 }
 
 void checkKitchenCollide() {
+    spriteCollisionBool = 0;
     for (int i = 0; i < 2; i++) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
             == kitchenSpritesArr[i].collisionColor) {
@@ -110,4 +114,11 @@ void checkKitchenCollide() {
             kitchenSpritesArr[i].hide = 1;
         }
     }
+
+
+    if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
+        == 0x001F) {
+        nextRoomBool = 1;
+    }
+
 }

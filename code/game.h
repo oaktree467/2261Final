@@ -11,10 +11,16 @@
 #define WIDESPRITE 1 
 #define TALLSPRITE 2
 
-
+//Orientations
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
-//structs
+// States
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+int state;
+
+
+/* ----- STRUCTS ----- */
+//struct for protagonist
 typedef struct {
     int worldRow; //location in world, in pixels
     int worldCol; //location in world, in pixels
@@ -30,6 +36,7 @@ typedef struct {
     int sideOrientation;
 } PROTAGSPRITE;
 
+//stationary objects
 typedef struct {
     int worldRow; //location in world, in pixels
     int worldCol; //location in world, in pixels
@@ -42,22 +49,30 @@ typedef struct {
     int attr0_shape;
     int attr1_size;
     int hide;
-    unsigned short collisionColor;
+    unsigned short collisionColor; //color on collision map
 } STATIONARYSPRITE;
 
 
-
-//global variables
+/* -- GLOBAL VARIABLES -- */
 extern PROTAGSPRITE protag;
+extern STATIONARYSPRITE (* currSpriteArr)[]; //array of current sprites, depending on map
+extern int currSpriteArrCount;
+extern const unsigned short (* currCollisionMap)[]; //current collision map, depending on the map
+extern int spriteCollisionBool; //is the character currently in contact with a sprite?
+extern int messageActiveBool; //is a message active on screen?
+extern int nextRoomBool; //is the player moving to the next room?
+
 //horizontal and vertical offsets
 extern unsigned short hOff;
 extern unsigned short vOff;
-extern STATIONARYSPRITE (* currSpriteArr)[];
-extern int currSpriteArrCount;
-extern const unsigned short (* currCollisionMap)[];
-extern int spriteCollisionBool;
+extern unsigned short priorHoff;
+extern unsigned short priorVoff;
 
-//methods
+extern int priorState; //necessary for placement of protagonist if returning from pause
+
+extern char keyFound; //true if player has accessed refrigerator
+
+/* METHODS */
 void initGame();
 void initProtagonist();
 void updateGame();

@@ -5,39 +5,41 @@
 #include "livingroombg.h"
 #include "livingroomcollisionmap.h"
 #include "game.h"
+#include "livingroom.h"
 #include "kitchensprites.h"
 #include "kitchen.h"
 #include "kitchenbg.h"
+#include "messagescreen.h"
+#include "startscreen.h"
+#include "instructionscreen.h"
+#include "introscreen.h"
+#include "outroscreen.h"
+#include "pausescreen.h"
+#include "winscreen.h"
 
-extern int mode;
-// Prototypes
+//extern int mode;
+int priorState; 
 void initialize();
 
 // State Prototypes
 void goToStart();
 void start();
+void goToInstructions();
+void instructions();
+void goToIntro();
+void intro();
 void goToLivingRoom();
 void livingRoom();
 void goToKitchen();
 void kitchen();
+void goToOutro();
+void outro();
 void goToPause();
 void pause();
 void goToWin();
 void win();
-void goToLose();
-void lose();
 
-// States
-enum
-{
-    START,
-    LIVING_ROOM,
-    KITCHEN,
-    PAUSE,
-    WIN,
-    LOSE
-};
-int state;
+
 
 // Button Variables
 unsigned short buttons;
@@ -61,11 +63,20 @@ int main() {
         case START:
             start();
             break;
+        case INSTRUCTIONS: 
+            instructions();
+            break;
+        case INTRO:
+            intro();
+            break;
         case LIVING_ROOM:
             livingRoom();
             break;
         case KITCHEN:
             kitchen();
+            break;
+        case OUTRO:
+            outro();
             break;
         case PAUSE:
             pause();
@@ -73,11 +84,8 @@ int main() {
         case WIN:
             win();
             break;
-        case LOSE:
-            lose();
-            break;
         }
-
+        /*
         if (mode == 4) {
             REG_DISPCTL = MODE4 | BG2_ENABLE | DISP_BACKBUFFER;
             for (int i = 0; i < 240; i++) {
@@ -95,21 +103,24 @@ int main() {
             } 
             waitForVBlank();
             flipPage();
-        } else {
-            waitForVBlank();
-            REG_BG1HOFF = hOff;
-            REG_BG1VOFF = vOff;
-            DMANow(3, shadowOAM, OAM, 512);
-        }
-
+        } else { } */
+        waitForVBlank();
+        REG_BG1HOFF = hOff;
+        REG_BG1VOFF = vOff;
+        DMANow(3, shadowOAM, OAM, 512);
     }
 }
 
 // Sets up GBA
 void initialize()
-{
-    
+{    
+    DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
+    DMANow(3, messagescreenMap, &SCREENBLOCK[30], 1024 * 4);
+
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(30) | BG_4BPP | BG_SIZE_SMALL;
+
     REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+
     buttons = BUTTONS;
     oldButtons = 0;
 
@@ -119,24 +130,88 @@ void initialize()
 // Sets up the start state
 void goToStart() {
     state = START;
+    priorState = INTRO;
+
+    DMANow(3, startscreenPal, PALETTE, 256);
+    DMANow(3, startscreenTiles, &CHARBLOCK[1], startscreenTilesLen / 2);
+    DMANow(3, startscreenMap, &SCREENBLOCK[26], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
     initGame();
 }
 
 // Runs every frame of the start state
 void start() {
-    goToKitchen();
+    if (BUTTON_PRESSED(BUTTON_A)){
+        goToInstructions();
+    }
+    
 }
 
-// Sets up the game state
+//sets up the instruction state
+void goToInstructions() {
+    state = INSTRUCTIONS;
+    DMANow(3, instructionscreenPal, PALETTE, 256);
+    DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
+    DMANow(3, instructionscreenMap, &SCREENBLOCK[26], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+}
+
+//runs every frame of the instruction state
+void instructions() {
+    if (BUTTON_PRESSED(BUTTON_A)) {
+        switch (priorState) {
+            case INTRO:
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                goToKitchen();
+                break;
+            case OUTRO:
+                goToOutro();
+                break;
+        }
+    }
+}
+
+//sets up the intro state
+void goToIntro() {
+    state = INTRO;
+    priorState = INTRO;
+    DMANow(3, introscreenPal, PALETTE, 256);
+    DMANow(3, introscreenTiles, &CHARBLOCK[1], introscreenTilesLen / 2);
+    DMANow(3, introscreenMap, &SCREENBLOCK[26], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+}
+
+//runs every frame of the intro state
+void intro() {
+    if (BUTTON_PRESSED(BUTTON_A)){
+        goToLivingRoom();
+    }
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
+}
+
+//sets up the game state
 void goToLivingRoom() {
+    nextRoomBool = 0;
     state = LIVING_ROOM;
     loadLivingRoom();
+    priorState = LIVING_ROOM;
 
     DMANow(3, livingroombgPal, PALETTE, 256);
-    DMANow(3, livingroombgTiles, &CHARBLOCK[0], livingroombgTilesLen / 2);
-    DMANow(3, livingroombgMap, &SCREENBLOCK[28], 1024 * 4);
+    DMANow(3, livingroombgTiles, &CHARBLOCK[1], livingroombgTilesLen / 2);
+    DMANow(3, livingroombgMap, &SCREENBLOCK[26], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_LARGE;
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
@@ -149,17 +224,34 @@ void livingRoom() {
     updateGame();
     checkLivingRoomCollide();
     drawGame();
+
+    if (nextRoomBool) {
+        goToKitchen();
+    }
+
+    /* temporary */
+    if (BUTTON_PRESSED(BUTTON_R)) {
+        goToOutro();
+    }
+
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
 }
 
+//sets up the kitchen state
 void goToKitchen() {
+    nextRoomBool = 0;
     state = KITCHEN;
     loadKitchen();
+    priorState = KITCHEN;
+    
 
     DMANow(3, kitchenbgPal, PALETTE, 256);
-    DMANow(3, kitchenbgTiles, &CHARBLOCK[0], kitchenbgTilesLen / 2);
-    DMANow(3, kitchenbgMap, &SCREENBLOCK[28], 1024 * 4);
+    DMANow(3, kitchenbgTiles, &CHARBLOCK[1], kitchenbgTilesLen / 2);
+    DMANow(3, kitchenbgMap, &SCREENBLOCK[26], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL;
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     DMANow(3, kitchenspritesPal, SPRITEPALETTE, kitchenspritesPalLen / 2);
     DMANow(3, kitchenspritesTiles, &CHARBLOCK[4], kitchenspritesTilesLen / 2);
@@ -167,26 +259,117 @@ void goToKitchen() {
     hideSprites();
 }
 
+//runs every frame of the kitchen state
 void kitchen() {
     updateGame();
     checkKitchenCollide();
     drawGame();
+
+    if (nextRoomBool) {
+        goToLivingRoom();
+    }
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
+
+    /* temporary */
+    if (BUTTON_PRESSED(BUTTON_R)) {
+        goToOutro();
+    }
+}
+
+//sets up the outro state
+void goToOutro() {
+    vOff = 0;
+    hOff = 0;
+    state = OUTRO;
+    priorState = OUTRO;
+    hideSprites();
+    
+    DMANow(3, outroscreenPal, PALETTE, 256);
+    DMANow(3, outroscreenTiles, &CHARBLOCK[1], outroscreenTilesLen / 2);
+    DMANow(3, outroscreenMap, &SCREENBLOCK[26], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+}
+
+//runs every frame of the outro state
+void outro() {
+    if (BUTTON_PRESSED(BUTTON_A)) {
+        goToWin();
+    }
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
+
 }
 
 // Sets up the pause state
-void goToPause() {}
+void goToPause() {
+    state = PAUSE;
+    priorVoff = vOff;
+    priorHoff = hOff;
+    vOff = 0;
+    hOff = 0;
+    hideSprites();
+
+    DMANow(3, pausescreenPal, PALETTE, 256);
+    DMANow(3, pausescreenTiles, &CHARBLOCK[1], pausescreenTilesLen / 2);
+    DMANow(3, pausescreenMap, &SCREENBLOCK[26], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+}
 
 // Runs every frame of the pause state
-void pause() {}
+void pause() {
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        switch(priorState) {
+            case INTRO:
+                priorState = PAUSE;
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                priorState = PAUSE;
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                priorState = PAUSE;
+                goToKitchen();
+                break;
+            case OUTRO:
+                priorState = PAUSE;
+                goToOutro();
+                break;
+        }
+    }
+   
+   if (BUTTON_PRESSED(BUTTON_START)) {
+        goToStart();
+    }
+
+    if (BUTTON_PRESSED(BUTTON_B)) {
+        priorState = PAUSE;
+        goToInstructions();
+    }
+    
+}
 
 // Sets up the win state
-void goToWin() {}
+void goToWin() {
+    state = WIN;
+
+    hideSprites();
+
+    DMANow(3, winscreenPal, PALETTE, 256);
+    DMANow(3, winscreenTiles, &CHARBLOCK[1], winscreenTilesLen / 2);
+    DMANow(3, winscreenMap, &SCREENBLOCK[26], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+}
 
 // Runs every frame of the win state
-void win() {}
-
-// Sets up the lose state
-void goToLose() {}
-
-// Runs every frame of the lose state
-void lose() {}
+void win() {
+    if (BUTTON_PRESSED(BUTTON_A)) {
+        goToStart();
+    }
+}

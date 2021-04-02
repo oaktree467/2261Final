@@ -28,6 +28,7 @@ void initKitchenSprites() {
 }
 
 void checkKitchenCollide() {
+    spriteCollisionBool = 0;
     for (int i = 0; i < KITCHEN_SPRITECOUNT; i++) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
             == kitchenSpritesArr[i].collisionColor) {
@@ -35,7 +36,13 @@ void checkKitchenCollide() {
             spriteCollisionBool = 1;
         } else {
             kitchenSpritesArr[i].hide = 1;
-            spriteCollisionBool = 0;
         }
     }
+
+    
+    if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
+        == 0x001F) {
+        nextRoomBool = 1;
+    } 
+    
 }

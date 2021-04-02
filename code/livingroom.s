@@ -120,34 +120,52 @@ checkLivingRoomCollide:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, r5, r6, r7, r8, lr}
-	ldr	r4, .L10
-	ldr	r5, .L10+4
-	ldr	r7, .L10+8
+	mov	r3, #0
+	push	{r4, r5, r6, r7, r8, r9, r10, lr}
+	mov	r7, #1
+	mov	r9, r3
+	ldr	r8, .L13
+	ldr	r4, .L13+4
+	str	r3, [r8]
+	ldr	r10, .L13+8
+	ldr	r5, .L13+12
 	add	r6, r4, #288
-.L7:
-	ldr	r3, [r5, #16]
-	ldr	r0, [r5, #4]
+.L9:
+	ldr	r3, [r10, #16]
+	ldr	r0, [r10, #4]
 	add	r3, r3, r3, lsr #31
 	add	r0, r0, r3, asr #1
-	ldr	r1, [r5]
+	ldr	r1, [r10]
 	mov	lr, pc
-	bx	r7
+	bx	r5
 	ldrh	r3, [r4, #44]
-	subs	r3, r3, r0
-	movne	r3, #1
+	cmp	r3, r0
+	streq	r9, [r4, #40]
+	strne	r7, [r4, #40]
 	add	r4, r4, #48
-	str	r3, [r4, #-8]
+	streq	r7, [r8]
 	cmp	r4, r6
-	bne	.L7
-	pop	{r4, r5, r6, r7, r8, lr}
+	bne	.L9
+	ldr	r1, [r10]
+	ldr	r0, [r10, #4]
+	mov	lr, pc
+	bx	r5
+	ldr	r3, .L13+16
+	cmp	r0, r3
+	moveq	r2, #1
+	ldreq	r3, .L13+20
+	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+	streq	r2, [r3]
 	bx	lr
-.L11:
+.L14:
 	.align	2
-.L10:
+.L13:
+	.word	spriteCollisionBool
 	.word	livingRoomSpritesArr
 	.word	protag
 	.word	checkCollisionMapColor
+	.word	3183
+	.word	nextRoomBool
 	.size	checkLivingRoomCollide, .-checkLivingRoomCollide
 	.comm	livingRoomSpritesArr,288,4
 	.ident	"GCC: (devkitARM release 53) 9.1.0"
