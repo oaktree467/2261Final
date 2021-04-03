@@ -119,4 +119,5 @@ checkKitchenCollide:
 	.word	nextRoomBool
 	.size	checkKitchenCollide, .-checkKitchenCollide
 	.comm	kitchenSpritesArr,96,4
+	.comm	state,4,4
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

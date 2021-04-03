@@ -115,23 +115,14 @@ extern const unsigned short livingroomspritesPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 4 "game.c" 2
 # 1 "game.h" 1
-# 15 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum
-{
-    START,
-    INSTRUCTIONS,
-    INTRO,
-    LIVING_ROOM,
-    KITCHEN,
-    OUTRO,
-    PAUSE,
-    WIN,
-    LOSE
-};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
 int state;
+
+
 
 
 typedef struct {
@@ -148,6 +139,7 @@ typedef struct {
     int totalFrames;
     int sideOrientation;
 } PROTAGSPRITE;
+
 
 typedef struct {
     int worldRow;
@@ -166,20 +158,23 @@ typedef struct {
 
 
 
-
 extern PROTAGSPRITE protag;
-
-extern unsigned short hOff;
-extern unsigned short vOff;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
-extern int priorState;
+
+
+extern unsigned short hOff;
+extern unsigned short vOff;
 extern unsigned short priorHoff;
 extern unsigned short priorVoff;
+
+extern int priorState;
+
+extern char keyFound;
 
 
 void initGame();
@@ -251,6 +246,7 @@ const unsigned short (* currCollisionMap)[];
 int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
+char keyFound;
 
 unsigned short priorHoff;
 unsigned short priorVoff;
@@ -259,7 +255,9 @@ unsigned short vOff;
 int mapWidth;
 int mapHeight;
 
-int mode;
+
+
+
 
 void initGame(){
     spriteCollisionBool = 0;
@@ -267,6 +265,7 @@ void initGame(){
     nextRoomBool = 0;
     initProtagonist();
 }
+
 
 void initProtagonist() {
     protag.width = 20;
@@ -288,6 +287,8 @@ void drawGame() {
     drawProtagonist();
     drawSprites();
 }
+
+
 
 void updateProtagonist() {
     if (protag.aniState != PROTAGIDLE) {
@@ -311,11 +312,9 @@ void updateProtagonist() {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height - 1) != 0))) {
                     protag.worldRow--;
-
                 if ((vOff - 1 > 0) && (protag.screenRow <= (160 / 2))) {
                     vOff--;
                 }
-
             }
             protag.aniState = PROTAGBACK;
         }
@@ -380,20 +379,25 @@ void updateProtagonist() {
         protag.screenCol = protag.worldCol - hOff;
         protag.screenRow = protag.worldRow - vOff;
 
-    if ((!(~(oldButtons) & ((1 << 3))) && (~buttons & ((1 << 3))))) {
-        mode = 4;
-    }
+
+
+
+
 }
 
+
+
+
 void updateSprites() {
-    for (int i = 0; i < currSpriteArrCount; i++) {
+    for (int i = 0; i < 8; i++) {
         (*currSpriteArr)[i].screenCol = (*currSpriteArr)[i].worldCol - hOff;
         (*currSpriteArr)[i].screenRow = (*currSpriteArr)[i].worldRow - vOff;
     }
 }
 
+
 void drawSprites() {
-    for (int i = 0; i < currSpriteArrCount; i++) {
+    for (int i = 0; i < 8; i++) {
         if ((*currSpriteArr)[i].hide == 1) {
             shadowOAM[i + 1].attr0 = (2 << 8);
         } else {
@@ -404,23 +408,31 @@ void drawSprites() {
     }
 }
 
+
 void drawProtagonist() {
     shadowOAM[0].attr0 = (protag.screenRow | (1 << 13) | (0 << 14));
     shadowOAM[0].attr1 = (protag.screenCol | (2 << 14) | (protag.sideOrientation << 12));
     shadowOAM[0].attr2 = ((0) << 12) | ((protag.currFrame * 4)*32 + (protag.aniState * 8)) | ((2) << 10);
 }
 
+
 unsigned short checkCollisionMapColor(int x, int y) {
     return ((* currCollisionMap)[((y) * (mapWidth) + (x))]);
 }
 
+
 void loadLivingRoom() {
     if (priorState != PAUSE) {
-        protag.worldRow = 365;
-        protag.worldCol = 412;
+
+
+        protag.worldRow = 170;
+        protag.worldCol = 200;
         protag.aniState = PROTAGFRONT;
-        hOff = 300;
-        vOff = 300;
+
+
+
+        hOff = 100;
+        vOff = 100;
     } else {
         hOff = priorHoff;
         vOff = priorVoff;
@@ -430,11 +442,12 @@ void loadLivingRoom() {
     mapHeight = 478;
 
     initLivingRoomSprites();
-    currSpriteArrCount = 6;
+    currSpriteArrCount = 8;
     currSpriteArr = &livingRoomSpritesArr;
     currCollisionMap = &livingroomcollisionmapBitmap;
 
 }
+
 
 void loadKitchen() {
     if (priorState != PAUSE) {
@@ -456,6 +469,7 @@ void loadKitchen() {
     currSpriteArr = &kitchenSpritesArr;
     currCollisionMap = &kitchencollisionBitmap;
 }
+
 
 void checkSpriteCollision() {
     if (spriteCollisionBool) {

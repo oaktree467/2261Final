@@ -1334,7 +1334,7 @@ extern const unsigned short livingroomspritesPal[256];
 # 5 "main.c" 2
 # 1 "livingroombg.h" 1
 # 22 "livingroombg.h"
-extern const unsigned short livingroombgTiles[12656];
+extern const unsigned short livingroombgTiles[8848];
 
 
 extern const unsigned short livingroombgMap[4096];
@@ -1347,23 +1347,14 @@ extern const unsigned short livingroombgPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 7 "main.c" 2
 # 1 "game.h" 1
-# 15 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum
-{
-    START,
-    INSTRUCTIONS,
-    INTRO,
-    LIVING_ROOM,
-    KITCHEN,
-    OUTRO,
-    PAUSE,
-    WIN,
-    LOSE
-};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
 int state;
+
+
 
 
 typedef struct {
@@ -1380,6 +1371,7 @@ typedef struct {
     int totalFrames;
     int sideOrientation;
 } PROTAGSPRITE;
+
 
 typedef struct {
     int worldRow;
@@ -1398,20 +1390,23 @@ typedef struct {
 
 
 
-
 extern PROTAGSPRITE protag;
-
-extern unsigned short hOff;
-extern unsigned short vOff;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
-extern int priorState;
+
+
+extern unsigned short hOff;
+extern unsigned short vOff;
 extern unsigned short priorHoff;
 extern unsigned short priorVoff;
+
+extern int priorState;
+
+extern char keyFound;
 
 
 void initGame();
@@ -1617,9 +1612,9 @@ int main() {
 void initialize()
 {
     DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 352 / 2);
-    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[30], 1024 * 4);
+    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 
-    (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((30) << 8) | (0 << 7) | (0 << 14);
+    (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((24) << 8) | (0 << 7) | (0 << 14) | ((0) << 1);
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
 
@@ -1636,9 +1631,9 @@ void goToStart() {
 
     DMANow(3, startscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, startscreenTiles, &((charblock *)0x6000000)[1], 7328 / 2);
-    DMANow(3, startscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, startscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
     initGame();
 }
 
@@ -1650,15 +1645,17 @@ void start() {
 
 }
 
+
 void goToInstructions() {
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
-    DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
 
 }
+
 
 void instructions() {
     if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
@@ -1679,15 +1676,17 @@ void instructions() {
     }
 }
 
+
 void goToIntro() {
     state = INTRO;
     priorState = INTRO;
     DMANow(3, introscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, introscreenTiles, &((charblock *)0x6000000)[1], 3008 / 2);
-    DMANow(3, introscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, introscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
 }
+
 
 void intro() {
     if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))){
@@ -1698,6 +1697,7 @@ void intro() {
     }
 }
 
+
 void goToLivingRoom() {
     nextRoomBool = 0;
     state = LIVING_ROOM;
@@ -1705,10 +1705,10 @@ void goToLivingRoom() {
     priorState = LIVING_ROOM;
 
     DMANow(3, livingroombgPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 25312 / 2);
-    DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 17696 / 2);
+    DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (3 << 14) | ((1) << 1);
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (3 << 14) | ((1) << 1);
 
     DMANow(3, livingroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, livingroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
@@ -1736,6 +1736,7 @@ void livingRoom() {
     }
 }
 
+
 void goToKitchen() {
     nextRoomBool = 0;
     state = KITCHEN;
@@ -1745,15 +1746,16 @@ void goToKitchen() {
 
     DMANow(3, kitchenbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 3264 / 2);
-    DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
 
     DMANow(3, kitchenspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, kitchenspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
     hideSprites();
 }
+
 
 void kitchen() {
     updateGame();
@@ -1773,6 +1775,7 @@ void kitchen() {
     }
 }
 
+
 void goToOutro() {
     vOff = 0;
     hOff = 0;
@@ -1786,6 +1789,7 @@ void goToOutro() {
 
     (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
 }
+
 
 void outro() {
     if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {

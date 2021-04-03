@@ -10,6 +10,17 @@
 #define SQUARESPRITE 0
 #define WIDESPRITE 1 
 #define TALLSPRITE 2
+//collision map colors
+#define YELLOW_HIT 0x03FF
+#define AQUA_HIT 0x7F60
+#define FOREST_HIT 0x0E47
+#define RED_HIT 0x001F
+#define LIME_HIT 0x03E4
+#define PURPLE_HIT 0x6C15
+#define ORANGE_HIT 0x025F
+#define OCEAN_HIT 0x0C60
+#define MAROON_HIT 0x0C6F
+
 
 //Orientations
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};

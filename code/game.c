@@ -150,16 +150,17 @@ void updateProtagonist() {
         protag.screenCol = protag.worldCol - hOff;
         protag.screenRow = protag.worldRow - vOff;
 
+    /*
     if (BUTTON_PRESSED(BUTTON_START)) {
         mode = 4;
-    }
+    } */
 }
 
 
 
 //update sprite columns
 void updateSprites() {
-    for (int i = 0; i < currSpriteArrCount; i++) {
+    for (int i = 0; i < 8; i++) {
         (*currSpriteArr)[i].screenCol = (*currSpriteArr)[i].worldCol - hOff;
         (*currSpriteArr)[i].screenRow = (*currSpriteArr)[i].worldRow - vOff;
     }
@@ -167,7 +168,7 @@ void updateSprites() {
 
 //draw sprites, if unhidden
 void drawSprites() {
-    for (int i = 0; i < currSpriteArrCount; i++) {
+    for (int i = 0; i < 8; i++) {
         if ((*currSpriteArr)[i].hide == 1) {
             shadowOAM[i + 1].attr0 = ATTR0_HIDE;
         } else {
@@ -193,11 +194,16 @@ unsigned short checkCollisionMapColor(int x, int y) {
 //load living room attributes
 void loadLivingRoom() {
     if (priorState != PAUSE) {
-        protag.worldRow = 365;
-        protag.worldCol = 412;
+        //protag.worldRow = 365;
+        //protag.worldCol = 412;
+        protag.worldRow = 170;
+        protag.worldCol = 200;
         protag.aniState = PROTAGFRONT;
-        hOff = 300;
-        vOff = 300;
+        
+        //hOff = 300;
+        //vOff = 300;
+        hOff = 100;
+        vOff = 100;
     } else {
         hOff = priorHoff;
         vOff = priorVoff;

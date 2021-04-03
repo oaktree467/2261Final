@@ -115,9 +115,9 @@ int main() {
 void initialize()
 {    
     DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
-    DMANow(3, messagescreenMap, &SCREENBLOCK[30], 1024 * 4);
+    DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
 
-    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(30) | BG_4BPP | BG_SIZE_SMALL;
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
 
     REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
 
@@ -134,9 +134,9 @@ void goToStart() {
 
     DMANow(3, startscreenPal, PALETTE, 256);
     DMANow(3, startscreenTiles, &CHARBLOCK[1], startscreenTilesLen / 2);
-    DMANow(3, startscreenMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, startscreenMap, &SCREENBLOCK[20], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
     initGame();
 }
 
@@ -153,9 +153,9 @@ void goToInstructions() {
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
-    DMANow(3, instructionscreenMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, instructionscreenMap, &SCREENBLOCK[20], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
 }
 
@@ -185,9 +185,9 @@ void goToIntro() {
     priorState = INTRO;
     DMANow(3, introscreenPal, PALETTE, 256);
     DMANow(3, introscreenTiles, &CHARBLOCK[1], introscreenTilesLen / 2);
-    DMANow(3, introscreenMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, introscreenMap, &SCREENBLOCK[20], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 }
 
 //runs every frame of the intro state
@@ -209,9 +209,9 @@ void goToLivingRoom() {
 
     DMANow(3, livingroombgPal, PALETTE, 256);
     DMANow(3, livingroombgTiles, &CHARBLOCK[1], livingroombgTilesLen / 2);
-    DMANow(3, livingroombgMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, livingroombgMap, &SCREENBLOCK[20], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
@@ -249,9 +249,9 @@ void goToKitchen() {
 
     DMANow(3, kitchenbgPal, PALETTE, 256);
     DMANow(3, kitchenbgTiles, &CHARBLOCK[1], kitchenbgTilesLen / 2);
-    DMANow(3, kitchenbgMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, kitchenbgMap, &SCREENBLOCK[20], 1024 * 4);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     DMANow(3, kitchenspritesPal, SPRITEPALETTE, kitchenspritesPalLen / 2);
     DMANow(3, kitchenspritesTiles, &CHARBLOCK[4], kitchenspritesTilesLen / 2);

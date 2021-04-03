@@ -1,5 +1,5 @@
 
-#define LR_SPRITECOUNT 6
+#define LR_SPRITECOUNT 8
 
 //variables
 extern STATIONARYSPRITE livingRoomSpritesArr[];

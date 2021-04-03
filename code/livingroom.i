@@ -3,8 +3,14 @@
 # 1 "<command-line>"
 # 1 "livingroom.c"
 # 1 "game.h" 1
-# 15 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+
+
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+int state;
+
+
 
 
 typedef struct {
@@ -21,6 +27,7 @@ typedef struct {
     int totalFrames;
     int sideOrientation;
 } PROTAGSPRITE;
+
 
 typedef struct {
     int worldRow;
@@ -39,17 +46,23 @@ typedef struct {
 
 
 
-
 extern PROTAGSPRITE protag;
-
-extern unsigned short hOff;
-extern unsigned short vOff;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
+
+
+extern unsigned short hOff;
+extern unsigned short vOff;
+extern unsigned short priorHoff;
+extern unsigned short priorVoff;
+
+extern int priorState;
+
+extern char keyFound;
 
 
 void initGame();
@@ -76,7 +89,9 @@ extern STATIONARYSPRITE livingRoomSpritesArr[];
 void initLivingRoomSprites();
 void checkLivingRoomCollide();
 # 3 "livingroom.c" 2
-STATIONARYSPRITE livingRoomSpritesArr[6];
+STATIONARYSPRITE livingRoomSpritesArr[8];
+
+
 
 void initLivingRoomSprites() {
 
@@ -114,8 +129,8 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[3].sheetRow = 12;
     livingRoomSpritesArr[3].attr0_shape = 0;
     livingRoomSpritesArr[3].attr1_size = 3;
-    livingRoomSpritesArr[3].worldRow = 277;
-    livingRoomSpritesArr[3].worldCol = 150;
+    livingRoomSpritesArr[3].worldRow = 285;
+    livingRoomSpritesArr[3].worldCol = 132;
     livingRoomSpritesArr[3].hide = 1;
     livingRoomSpritesArr[3].collisionColor = 0x025F;
 
@@ -138,11 +153,32 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[5].worldCol = 342;
     livingRoomSpritesArr[5].hide = 1;
     livingRoomSpritesArr[5].collisionColor = 0x03E4;
+
+
+    livingRoomSpritesArr[6].sheetCol = 0;
+    livingRoomSpritesArr[6].sheetRow = 28;
+    livingRoomSpritesArr[6].attr0_shape = 0;
+    livingRoomSpritesArr[6].attr1_size = 1;
+    livingRoomSpritesArr[6].worldRow = 137;
+    livingRoomSpritesArr[6].worldCol = 454;
+    livingRoomSpritesArr[6].hide = 1;
+    livingRoomSpritesArr[6].collisionColor = 0x6C15;
+
+
+    livingRoomSpritesArr[6].sheetCol = 4;
+    livingRoomSpritesArr[6].sheetRow = 28;
+    livingRoomSpritesArr[6].attr0_shape = 2;
+    livingRoomSpritesArr[6].attr1_size = 1;
+    livingRoomSpritesArr[6].worldRow = 135;
+    livingRoomSpritesArr[6].worldCol = 235;
+    livingRoomSpritesArr[6].hide = 1;
+    livingRoomSpritesArr[6].collisionColor = 0x0E47;
 }
+
 
 void checkLivingRoomCollide() {
     spriteCollisionBool = 0;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
             == livingRoomSpritesArr[i].collisionColor) {
             livingRoomSpritesArr[i].hide = 0;

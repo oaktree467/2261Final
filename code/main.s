@@ -64,9 +64,9 @@ goToStart:
 	.word	startscreenPal
 	.word	100679680
 	.word	startscreenTiles
-	.word	100716544
+	.word	100704256
 	.word	startscreenMap
-	.word	6662
+	.word	5126
 	.word	initGame
 	.size	goToStart, .-goToStart
 	.align	2
@@ -94,7 +94,7 @@ initialize:
 	mov	lr, pc
 	bx	r4
 	mov	r3, #67108864
-	mov	r0, #7680
+	mov	r0, #6144
 	mov	r1, #4608
 	mov	r2, #0
 	strh	r0, [r3, #8]	@ movhi
@@ -112,7 +112,7 @@ initialize:
 .L8:
 	.word	DMANow
 	.word	messagescreenTiles
-	.word	100724736
+	.word	100712448
 	.word	messagescreenMap
 	.word	67109120
 	.word	buttons
@@ -165,9 +165,9 @@ goToInstructions:
 	.word	5200
 	.word	100679680
 	.word	instructionscreenTiles
-	.word	100716544
+	.word	100704256
 	.word	instructionscreenMap
-	.word	6662
+	.word	5126
 	.size	goToInstructions, .-goToInstructions
 	.align	2
 	.global	start
@@ -244,9 +244,9 @@ goToIntro:
 	.word	introscreenPal
 	.word	100679680
 	.word	introscreenTiles
-	.word	100716544
+	.word	100704256
 	.word	introscreenMap
-	.word	6662
+	.word	5126
 	.size	goToIntro, .-goToIntro
 	.align	2
 	.global	goToLivingRoom
@@ -318,12 +318,12 @@ goToLivingRoom:
 	.word	priorState
 	.word	DMANow
 	.word	livingroombgPal
-	.word	12656
+	.word	8848
 	.word	100679680
 	.word	livingroombgTiles
-	.word	100716544
+	.word	100704256
 	.word	livingroombgMap
-	.word	-9722
+	.word	-11258
 	.word	livingroomspritesPal
 	.word	83886592
 	.word	100728832
@@ -402,9 +402,9 @@ goToKitchen:
 	.word	kitchenbgPal
 	.word	100679680
 	.word	kitchenbgTiles
-	.word	100716544
+	.word	100704256
 	.word	kitchenbgMap
-	.word	6662
+	.word	5126
 	.word	83886592
 	.word	kitchenspritesPal
 	.word	100728832

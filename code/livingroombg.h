@@ -5,11 +5,11 @@
 //
 //	livingroombg, 512x512@4, 
 //	+ palette 256 entries, not compressed
-//	+ 791 tiles (t|f|p reduced) not compressed
+//	+ 553 tiles (t|f|p reduced) not compressed
 //	+ regular map (in SBBs), not compressed, 64x64 
-//	Total size: 512 + 25312 + 8192 = 34016
+//	Total size: 512 + 17696 + 8192 = 26400
 //
-//	Time-stamp: 2021-04-01, 17:58:56
+//	Time-stamp: 2021-04-03, 16:05:11
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.3
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -18,8 +18,8 @@
 #ifndef GRIT_LIVINGROOMBG_H
 #define GRIT_LIVINGROOMBG_H
 
-#define livingroombgTilesLen 25312
-extern const unsigned short livingroombgTiles[12656];
+#define livingroombgTilesLen 17696
+extern const unsigned short livingroombgTiles[8848];
 
 #define livingroombgMapLen 8192
 extern const unsigned short livingroombgMap[4096];

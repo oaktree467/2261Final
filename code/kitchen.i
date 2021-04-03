@@ -7,6 +7,12 @@
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+int state;
+
+
+
+
 typedef struct {
     int worldRow;
     int worldCol;
@@ -21,6 +27,7 @@ typedef struct {
     int totalFrames;
     int sideOrientation;
 } PROTAGSPRITE;
+
 
 typedef struct {
     int worldRow;
@@ -39,17 +46,23 @@ typedef struct {
 
 
 
-
 extern PROTAGSPRITE protag;
-
-extern unsigned short hOff;
-extern unsigned short vOff;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
+
+
+extern unsigned short hOff;
+extern unsigned short vOff;
+extern unsigned short priorHoff;
+extern unsigned short priorVoff;
+
+extern int priorState;
+
+extern char keyFound;
 
 
 void initGame();
