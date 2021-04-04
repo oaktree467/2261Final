@@ -58,66 +58,6 @@ initKitchenSprites:
 	.word	kitchenSpritesArr
 	.word	32608
 	.size	initKitchenSprites, .-initKitchenSprites
-	.align	2
-	.global	checkKitchenCollide
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	checkKitchenCollide, %function
-checkKitchenCollide:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	r3, #0
-	push	{r4, r5, r6, r7, r8, r9, r10, lr}
-	mov	r6, r3
-	mov	r9, r3
-	mov	r7, #1
-	ldr	r8, .L13
-	ldr	r5, .L13+4
-	str	r3, [r8]
-	ldr	r4, .L13+8
-	ldr	r10, .L13+12
-.L9:
-	ldr	r3, [r4, #16]
-	ldr	r0, [r4, #4]
-	add	r3, r3, r3, lsr #31
-	add	r0, r0, r3, asr #1
-	ldr	r1, [r4]
-	mov	lr, pc
-	bx	r10
-	ldrh	r3, [r5, #44]
-	cmp	r3, r0
-	streq	r9, [r5, #40]
-	strne	r7, [r5, #40]
-	streq	r7, [r8]
-	cmp	r6, #1
-	add	r5, r5, #48
-	bne	.L11
-	ldr	r3, [r4, #16]
-	ldr	r0, [r4, #4]
-	add	r3, r3, r3, lsr #31
-	ldr	r1, [r4]
-	add	r0, r0, r3, asr #1
-	mov	lr, pc
-	bx	r10
-	cmp	r0, #31
-	ldreq	r3, .L13+16
-	streq	r6, [r3]
-	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
-	bx	lr
-.L11:
-	mov	r6, #1
-	b	.L9
-.L14:
-	.align	2
-.L13:
-	.word	spriteCollisionBool
-	.word	kitchenSpritesArr
-	.word	protag
-	.word	checkCollisionMapColor
-	.word	nextRoomBool
-	.size	checkKitchenCollide, .-checkKitchenCollide
 	.comm	kitchenSpritesArr,96,4
 	.comm	state,4,4
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

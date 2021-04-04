@@ -3,7 +3,7 @@
 # 1 "<command-line>"
 # 1 "kitchen.c"
 # 1 "game.h" 1
-# 15 "game.h"
+# 25 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
@@ -26,6 +26,7 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
+    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -77,6 +78,7 @@ unsigned short checkCollisionMapColor(int x, int y);
 void loadLivingRoom();
 void loadKitchen();
 void checkSpriteCollision();
+void checkMoreInfo();
 # 2 "kitchen.c" 2
 # 1 "kitchen.h" 1
 
@@ -113,25 +115,5 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].worldCol = 109;
     kitchenSpritesArr[1].hide = 1;
     kitchenSpritesArr[1].collisionColor = 0x7F60;
-
-}
-
-void checkKitchenCollide() {
-    spriteCollisionBool = 0;
-    for (int i = 0; i < 2; i++) {
-        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-            == kitchenSpritesArr[i].collisionColor) {
-            kitchenSpritesArr[i].hide = 0;
-            spriteCollisionBool = 1;
-        } else {
-            kitchenSpritesArr[i].hide = 1;
-        }
-    }
-
-
-    if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-        == 0x001F) {
-        nextRoomBool = 1;
-    }
 
 }

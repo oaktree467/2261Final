@@ -384,44 +384,6 @@ updateProtagonist:
 	.word	spriteCollisionBool
 	.size	updateProtagonist, .-updateProtagonist
 	.align	2
-	.global	updateGame
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	updateGame, %function
-updateGame:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, lr}
-	bl	updateProtagonist
-	ldr	r3, .L85
-	ldr	r1, .L85+4
-	ldr	r2, .L85+8
-	ldr	r3, [r3]
-	ldrh	lr, [r1]
-	ldrh	ip, [r2]
-	add	r0, r3, #384
-.L82:
-	ldr	r1, [r3, #4]
-	ldr	r2, [r3]
-	sub	r1, r1, lr
-	sub	r2, r2, ip
-	str	r1, [r3, #12]
-	str	r2, [r3, #8]
-	add	r3, r3, #48
-	cmp	r3, r0
-	bne	.L82
-	pop	{r4, lr}
-	bx	lr
-.L86:
-	.align	2
-.L85:
-	.word	currSpriteArr
-	.word	hOff
-	.word	vOff
-	.size	updateGame, .-updateGame
-	.align	2
 	.global	updateSprites
 	.syntax unified
 	.arm
@@ -431,32 +393,38 @@ updateSprites:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L91
-	ldr	r1, .L91+4
-	ldr	r2, .L91+8
+	ldr	r3, .L89
+	ldr	ip, [r3]
+	cmp	ip, #0
+	bxle	lr
+	mov	r0, #0
+	ldr	r1, .L89+4
+	ldr	r2, .L89+8
+	ldr	r3, .L89+12
+	push	{r4, lr}
 	ldr	r3, [r3]
-	str	lr, [sp, #-4]!
-	ldrh	ip, [r2]
-	ldrh	lr, [r1]
-	add	r0, r3, #384
-.L88:
+	ldrh	r4, [r1]
+	ldrh	lr, [r2]
+.L83:
 	ldr	r1, [r3, #4]
 	ldr	r2, [r3]
-	sub	r1, r1, lr
-	sub	r2, r2, ip
+	add	r0, r0, #1
+	sub	r1, r1, r4
+	sub	r2, r2, lr
+	cmp	r0, ip
 	str	r1, [r3, #12]
 	str	r2, [r3, #8]
 	add	r3, r3, #48
-	cmp	r3, r0
-	bne	.L88
-	ldr	lr, [sp], #4
+	bne	.L83
+	pop	{r4, lr}
 	bx	lr
-.L92:
+.L90:
 	.align	2
-.L91:
-	.word	currSpriteArr
+.L89:
+	.word	currSpriteArrCount
 	.word	hOff
 	.word	vOff
+	.word	currSpriteArr
 	.size	updateSprites, .-updateSprites
 	.align	2
 	.global	drawSprites
@@ -468,42 +436,49 @@ drawSprites:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, r5, r6, lr}
-	mov	r4, #512
 	ldr	r3, .L99
+	push	{r4, r5, r6, r7, lr}
+	ldr	r4, [r3]
+	cmp	r4, #0
+	ble	.L91
+	mov	ip, #0
+	mov	r5, #512
+	ldr	r3, .L99+4
+	ldr	r1, .L99+8
 	ldr	r3, [r3]
-	ldr	r1, .L99+4
-	add	lr, r3, #384
-.L96:
+.L95:
 	ldr	r2, [r3, #40]
 	cmp	r2, #1
-	strheq	r4, [r1, #8]	@ movhi
-	beq	.L95
+	strheq	r5, [r1, #8]	@ movhi
+	add	ip, ip, #1
+	beq	.L94
 	add	r2, r3, #24
-	ldm	r2, {r2, ip}
-	ldr	r6, [r3, #32]
+	ldm	r2, {r2, lr}
+	ldr	r7, [r3, #32]
 	ldr	r0, [r3, #8]
-	ldr	r5, [r3, #36]
-	add	r2, r2, ip, lsl #4
-	ldr	ip, [r3, #12]
+	ldr	r6, [r3, #36]
+	add	r2, r2, lr, lsl #4
+	ldr	lr, [r3, #12]
 	lsl	r2, r2, #1
-	orr	r0, r0, r6, lsl #14
+	orr	r0, r0, r7, lsl #14
 	orr	r2, r2, #2048
 	orr	r0, r0, #8192
-	orr	ip, ip, r5, lsl #14
+	orr	lr, lr, r6, lsl #14
 	strh	r0, [r1, #8]	@ movhi
 	strh	r2, [r1, #12]	@ movhi
-	strh	ip, [r1, #10]	@ movhi
-.L95:
+	strh	lr, [r1, #10]	@ movhi
+.L94:
+	cmp	ip, r4
 	add	r3, r3, #48
-	cmp	r3, lr
 	add	r1, r1, #8
-	bne	.L96
-	pop	{r4, r5, r6, lr}
+	bne	.L95
+.L91:
+	pop	{r4, r5, r6, r7, lr}
 	bx	lr
 .L100:
 	.align	2
 .L99:
+	.word	currSpriteArrCount
 	.word	currSpriteArr
 	.word	shadowOAM
 	.size	drawSprites, .-drawSprites
@@ -597,46 +572,47 @@ loadLivingRoom:
 	cmp	r3, #6
 	push	{r4, lr}
 	beq	.L110
-	mov	r1, #170
-	mov	r2, #100
-	mov	lr, #200
-	mov	ip, #0
+	mov	r0, #412
+	mov	lr, #0
+	mov	ip, #272
+	mov	r1, #300
 	ldr	r3, .L113+4
-	ldr	r0, .L113+8
-	str	r1, [r3]
-	ldr	r1, .L113+12
-	str	lr, [r3, #4]
-	str	ip, [r3, #28]
-	strh	r2, [r0]	@ movhi
-	strh	r2, [r1]	@ movhi
+	ldr	r2, .L113+8
+	str	r0, [r3, #4]
+	str	r2, [r3]
+	ldr	r0, .L113+12
+	ldr	r2, .L113+16
+	str	lr, [r3, #28]
+	strh	ip, [r0]	@ movhi
+	strh	r1, [r2]	@ movhi
 .L111:
 	mov	ip, #512
-	ldr	r0, .L113+16
-	ldr	r2, .L113+20
-	ldr	r1, .L113+24
-	ldr	r3, .L113+28
+	ldr	r0, .L113+20
+	ldr	r2, .L113+24
+	ldr	r1, .L113+28
+	ldr	r3, .L113+32
 	str	ip, [r0]
 	str	r1, [r2]
 	mov	lr, pc
 	bx	r3
 	mov	lr, #8
-	ldr	ip, .L113+32
-	ldr	r1, .L113+36
-	ldr	r0, .L113+40
-	ldr	r3, .L113+44
-	ldr	r2, .L113+48
+	ldr	ip, .L113+36
+	ldr	r1, .L113+40
+	ldr	r0, .L113+44
+	ldr	r3, .L113+48
+	ldr	r2, .L113+52
 	str	lr, [ip]
 	str	r0, [r1]
 	str	r2, [r3]
 	pop	{r4, lr}
 	bx	lr
 .L110:
-	ldr	r2, .L113+52
-	ldr	r3, .L113+56
+	ldr	r2, .L113+56
+	ldr	r3, .L113+60
 	ldrh	r0, [r2]
-	ldr	r1, .L113+8
+	ldr	r1, .L113+12
 	ldrh	r2, [r3]
-	ldr	r3, .L113+12
+	ldr	r3, .L113+16
 	strh	r0, [r1]	@ movhi
 	strh	r2, [r3]	@ movhi
 	b	.L111
@@ -645,6 +621,7 @@ loadLivingRoom:
 .L113:
 	.word	priorState
 	.word	protag
+	.word	365
 	.word	hOff
 	.word	vOff
 	.word	mapWidth
@@ -744,8 +721,125 @@ checkSpriteCollision:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
+	mov	r1, #0
+	ldr	r3, .L139
+	ldr	r2, [r3, #28]
+	push	{r4, r5, r6, r7, lr}
+	ldr	r4, .L139+4
+	cmp	r2, #1
+	str	r1, [r4]
+	beq	.L122
+	cmp	r2, #2
+	beq	.L123
+	cmp	r2, r1
+	beq	.L138
+.L121:
+	pop	{r4, r5, r6, r7, lr}
+	bx	lr
+.L122:
+	ldr	r1, [r3, #20]
+	ldr	r0, .L139+8
+	ldr	r2, [r3]
+	ldr	ip, [r0]
+	add	r1, r1, r1, lsr #31
+	add	r2, r2, r1, asr #1
+	mul	r1, ip, r2
+	ldr	lr, [r3, #44]
+	cmp	lr, #1
+	ldr	r2, [r3, #4]
+	ldrne	r3, [r3, #16]
+	ldr	r0, .L139+12
+	addne	r3, r2, r3
+	ldr	r0, [r0]
+	addeq	r2, r2, r1
+	addne	r3, r3, r1
+	lsleq	r2, r2, #1
+	lslne	r3, r3, #1
+	ldrheq	r0, [r0, r2]
+	ldrhne	r0, [r0, r3]
+.L126:
+	cmp	r0, #0
+	beq	.L121
+	ldr	r3, .L139+16
+	ldr	ip, [r3]
+	cmp	ip, #0
+	ble	.L121
+	mov	lr, #0
+	mov	r5, #1
+	mov	r6, lr
+	mov	r2, lr
+	mov	r7, lr
+	ldr	r3, .L139+20
+	ldr	r3, [r3]
+.L132:
+	ldrh	r1, [r3, #44]
+	cmp	r1, r0
+	moveq	lr, #1
+	add	r2, r2, #1
+	streq	r7, [r3, #40]
+	strne	r5, [r3, #40]
+	moveq	r6, lr
+	cmp	r2, ip
+	add	r3, r3, #48
+	bne	.L132
+	cmp	lr, #0
+	strne	r6, [r4]
+	pop	{r4, r5, r6, r7, lr}
+	bx	lr
+.L138:
+	ldr	r1, [r3, #16]
+	ldr	r0, .L139+8
+	ldr	r2, [r3]
+	ldr	ip, [r3, #20]
+	ldr	r0, [r0]
+	add	r1, r1, r1, lsr #31
+	asr	r1, r1, #1
+	add	r2, r2, ip
+	mla	r2, r0, r2, r1
+	ldr	r3, [r3, #4]
+	ldr	r1, .L139+12
+	add	r3, r2, r3
+	ldr	r2, [r1]
+	lsl	r3, r3, #1
+	ldrh	r0, [r2, r3]
+	b	.L126
+.L123:
+	ldr	r1, .L139+8
+	ldr	r2, [r3]
+	ldr	r1, [r1]
+	mul	r2, r1, r2
+	ldr	r1, [r3, #16]
+	ldr	r0, [r3, #4]
+	add	r3, r1, r1, lsr #31
+	ldr	r1, .L139+12
+	add	r3, r2, r3, asr #1
+	add	r3, r3, r0
+	ldr	r2, [r1]
+	lsl	r3, r3, #1
+	ldrh	r0, [r2, r3]
+	b	.L126
+.L140:
+	.align	2
+.L139:
+	.word	protag
+	.word	spriteCollisionBool
+	.word	mapWidth
+	.word	currCollisionMap
+	.word	currSpriteArrCount
+	.word	currSpriteArr
+	.size	checkSpriteCollision, .-checkSpriteCollision
+	.align	2
+	.global	checkMoreInfo
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	checkMoreInfo, %function
+checkMoreInfo:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r3, .L124
+	ldr	r3, .L144
 	ldr	r3, [r3]
 	cmp	r3, #0
 	movne	r0, #1
@@ -753,16 +847,125 @@ checkSpriteCollision:
 	movne	r2, #4864
 	moveq	r3, #67108864
 	moveq	r2, #4608
-	ldrne	r1, .L124+4
+	ldrne	r1, .L144+4
 	strne	r0, [r1]
 	strh	r2, [r3]	@ movhi
 	bx	lr
-.L125:
+.L145:
 	.align	2
-.L124:
+.L144:
 	.word	spriteCollisionBool
 	.word	messageActiveBool
-	.size	checkSpriteCollision, .-checkSpriteCollision
+	.size	checkMoreInfo, .-checkMoreInfo
+	.align	2
+	.global	checkDoorway
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	checkDoorway, %function
+checkDoorway:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r3, .L154
+	ldr	r3, [r3]
+	cmp	r3, #3
+	beq	.L153
+	cmp	r3, #4
+	bxne	lr
+	ldr	r1, .L154+4
+	ldr	r2, .L154+8
+	ldr	r3, [r1]
+	ldr	r2, [r2]
+	mul	r3, r2, r3
+	ldr	r2, [r1, #16]
+	ldr	r0, [r1, #4]
+	add	r2, r2, r2, lsr #31
+	ldr	r1, .L154+12
+	add	r3, r3, r2, asr #1
+	add	r3, r3, r0
+	ldr	r2, [r1]
+	lsl	r3, r3, #1
+	ldrh	r3, [r2, r3]
+	cmp	r3, #31
+	bxne	lr
+.L149:
+	mov	r2, #1
+	ldr	r3, .L154+16
+	str	r2, [r3]
+	bx	lr
+.L153:
+	ldr	r2, .L154+4
+	ldr	r1, .L154+8
+	ldr	r3, [r2]
+	ldr	r1, [r1]
+	ldr	r2, [r2, #4]
+	mla	r3, r1, r3, r2
+	ldr	r2, .L154+12
+	ldr	r2, [r2]
+	lsl	r3, r3, #1
+	ldrh	r2, [r2, r3]
+	ldr	r3, .L154+20
+	cmp	r2, r3
+	bxne	lr
+	b	.L149
+.L155:
+	.align	2
+.L154:
+	.word	state
+	.word	protag
+	.word	mapWidth
+	.word	currCollisionMap
+	.word	nextRoomBool
+	.word	3183
+	.size	checkDoorway, .-checkDoorway
+	.align	2
+	.global	updateGame
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	updateGame, %function
+updateGame:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r4, lr}
+	bl	checkDoorway
+	bl	updateProtagonist
+	ldr	r3, .L161
+	ldr	ip, [r3]
+	cmp	ip, #0
+	ble	.L157
+	mov	r0, #0
+	ldr	r1, .L161+4
+	ldr	r2, .L161+8
+	ldr	r3, .L161+12
+	ldrh	r4, [r1]
+	ldrh	lr, [r2]
+	ldr	r3, [r3]
+.L158:
+	ldr	r1, [r3, #4]
+	ldr	r2, [r3]
+	add	r0, r0, #1
+	sub	r1, r1, r4
+	sub	r2, r2, lr
+	cmp	r0, ip
+	str	r1, [r3, #12]
+	str	r2, [r3, #8]
+	add	r3, r3, #48
+	bne	.L158
+.L157:
+	pop	{r4, lr}
+	b	checkSpriteCollision
+.L162:
+	.align	2
+.L161:
+	.word	currSpriteArrCount
+	.word	hOff
+	.word	vOff
+	.word	currSpriteArr
+	.size	updateGame, .-updateGame
 	.comm	mapHeight,4,4
 	.comm	mapWidth,4,4
 	.comm	vOff,2,2
@@ -776,6 +979,6 @@ checkSpriteCollision:
 	.comm	currCollisionMap,4,4
 	.comm	currSpriteArrCount,4,4
 	.comm	currSpriteArr,4,4
-	.comm	protag,48,4
+	.comm	protag,52,4
 	.comm	state,4,4
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

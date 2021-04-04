@@ -1347,7 +1347,7 @@ extern const unsigned short livingroombgPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 7 "main.c" 2
 # 1 "game.h" 1
-# 26 "game.h"
+# 25 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
@@ -1370,6 +1370,7 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
+    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -1421,6 +1422,7 @@ unsigned short checkCollisionMapColor(int x, int y);
 void loadLivingRoom();
 void loadKitchen();
 void checkSpriteCollision();
+void checkMoreInfo();
 # 8 "main.c" 2
 # 1 "livingroom.h" 1
 
@@ -1719,7 +1721,6 @@ void goToLivingRoom() {
 
 void livingRoom() {
     updateGame();
-    checkLivingRoomCollide();
     drawGame();
 
     if (nextRoomBool) {
@@ -1743,7 +1744,6 @@ void goToKitchen() {
     loadKitchen();
     priorState = KITCHEN;
 
-
     DMANow(3, kitchenbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 3264 / 2);
     DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
@@ -1759,7 +1759,6 @@ void goToKitchen() {
 
 void kitchen() {
     updateGame();
-    checkKitchenCollide();
     drawGame();
 
     if (nextRoomBool) {

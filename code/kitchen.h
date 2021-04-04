@@ -6,4 +6,3 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 //functions
 void initKitchenSprites();
-void checkKitchenCollide();

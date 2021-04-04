@@ -76,31 +76,18 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[6].collisionColor = PURPLE_HIT;
  
     //television screen
-    livingRoomSpritesArr[6].sheetCol = 4;
-    livingRoomSpritesArr[6].sheetRow = 28;
-    livingRoomSpritesArr[6].attr0_shape = TALLSPRITE;
-    livingRoomSpritesArr[6].attr1_size = SMALLSPRITE;
-    livingRoomSpritesArr[6].worldRow = 135;
-    livingRoomSpritesArr[6].worldCol = 235;
-    livingRoomSpritesArr[6].hide = 1;
-    livingRoomSpritesArr[6].collisionColor = FOREST_HIT;
+    livingRoomSpritesArr[7].sheetCol = 4;
+    livingRoomSpritesArr[7].sheetRow = 28;
+    livingRoomSpritesArr[7].attr0_shape = TALLSPRITE;
+    livingRoomSpritesArr[7].attr1_size = SMALLSPRITE;
+    livingRoomSpritesArr[7].worldRow = 135;
+    livingRoomSpritesArr[7].worldCol = 235;
+    livingRoomSpritesArr[7].hide = 1;
+    livingRoomSpritesArr[7].collisionColor = FOREST_HIT;
 }
 
-//check if player has collided with any sprites in living room or entered doorway
-void checkLivingRoomCollide() {
-    spriteCollisionBool = 0;
-    for (int i = 0; i < LR_SPRITECOUNT; i++) {
-        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-            == livingRoomSpritesArr[i].collisionColor) {
-            livingRoomSpritesArr[i].hide = 0;
-            spriteCollisionBool = 1;
-        } else {
-            livingRoomSpritesArr[i].hide = 1;
-        }
-    }
-    //check if player has entered doorway
-    if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
-        == MAROON_HIT) {
-        nextRoomBool = 1;
-    }
-}
+
+
+
+ 
+

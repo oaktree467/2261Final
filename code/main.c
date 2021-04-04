@@ -222,7 +222,6 @@ void goToLivingRoom() {
 // Runs every frame of the game state
 void livingRoom() {
     updateGame();
-    checkLivingRoomCollide();
     drawGame();
 
     if (nextRoomBool) {
@@ -246,7 +245,6 @@ void goToKitchen() {
     loadKitchen();
     priorState = KITCHEN;
     
-
     DMANow(3, kitchenbgPal, PALETTE, 256);
     DMANow(3, kitchenbgTiles, &CHARBLOCK[1], kitchenbgTilesLen / 2);
     DMANow(3, kitchenbgMap, &SCREENBLOCK[20], 1024 * 4);
@@ -262,7 +260,6 @@ void goToKitchen() {
 //runs every frame of the kitchen state
 void kitchen() {
     updateGame();
-    checkKitchenCollide();
     drawGame();
 
     if (nextRoomBool) {

@@ -115,7 +115,7 @@ extern const unsigned short livingroomspritesPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 4 "game.c" 2
 # 1 "game.h" 1
-# 26 "game.h"
+# 25 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
@@ -138,6 +138,7 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
+    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -186,9 +187,11 @@ void drawGame();
 void drawProtagonist();
 void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
+void checkSpriteCollision();
+void checkMoreInfo();
+void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
-void checkSpriteCollision();
 # 5 "game.c" 2
 # 1 "livingroom.h" 1
 
@@ -210,7 +213,6 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 
 void initKitchenSprites();
-void checkKitchenCollide();
 # 7 "game.c" 2
 # 1 "kitchencollision.h" 1
 # 20 "kitchencollision.h"
@@ -279,8 +281,10 @@ void initProtagonist() {
 }
 
 void updateGame() {
+    checkDoorway();
     updateProtagonist();
     updateSprites();
+    checkSpriteCollision();
 }
 
 void drawGame() {
@@ -306,7 +310,7 @@ void updateProtagonist() {
         }
     } else {
         if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
-            checkSpriteCollision();
+            checkMoreInfo();
         }
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 6)))) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
@@ -318,7 +322,6 @@ void updateProtagonist() {
             }
             protag.aniState = PROTAGBACK;
         }
-
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 7)))) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height + 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height + 1) != 0))) {
@@ -389,7 +392,7 @@ void updateProtagonist() {
 
 
 void updateSprites() {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < currSpriteArrCount; i++) {
         (*currSpriteArr)[i].screenCol = (*currSpriteArr)[i].worldCol - hOff;
         (*currSpriteArr)[i].screenRow = (*currSpriteArr)[i].worldRow - vOff;
     }
@@ -397,7 +400,7 @@ void updateSprites() {
 
 
 void drawSprites() {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < currSpriteArrCount; i++) {
         if ((*currSpriteArr)[i].hide == 1) {
             shadowOAM[i + 1].attr0 = (2 << 8);
         } else {
@@ -423,16 +426,13 @@ unsigned short checkCollisionMapColor(int x, int y) {
 
 void loadLivingRoom() {
     if (priorState != PAUSE) {
-
-
-        protag.worldRow = 170;
-        protag.worldCol = 200;
+        protag.worldRow = 365;
+        protag.worldCol = 412;
         protag.aniState = PROTAGFRONT;
 
+        hOff = 272;
+        vOff = 300;
 
-
-        hOff = 100;
-        vOff = 100;
     } else {
         hOff = priorHoff;
         vOff = priorVoff;
@@ -472,10 +472,55 @@ void loadKitchen() {
 
 
 void checkSpriteCollision() {
+    u16 currColor = 0;
+    spriteCollisionBool = 0;
+    switch (protag.aniState) {
+        case PROTAGBACK:
+            currColor = checkCollisionMapColor((protag.worldCol + (protag.width / 2)), protag.worldRow);
+            break;
+        case PROTAGFRONT:
+            currColor = checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height);
+            break;
+        case PROTAGSIDE:
+            if (protag.sideOrientation == 1) {
+                currColor = checkCollisionMapColor(protag.worldCol, protag.worldRow + (protag.height / 2));
+            } else {
+                currColor = checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + (protag.height / 2));
+            }
+            break;
+    }
+
+    if (currColor != 0) {
+        for (int i = 0; i < currSpriteArrCount; i++) {
+            if ((*currSpriteArr)[i].collisionColor == currColor) {
+                (*currSpriteArr)[i].hide = 0;
+                spriteCollisionBool = 1;
+            } else {
+                (*currSpriteArr)[i].hide = 1;
+            }
+        }
+    }
+}
+
+void checkMoreInfo() {
     if (spriteCollisionBool) {
         messageActiveBool = 1;
         (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
     } else {
         (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
+    }
+}
+
+void checkDoorway() {
+    if (state == LIVING_ROOM) {
+        if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == 0x0C6F) {
+            nextRoomBool = 1;
+        }
+    } else if (state == KITCHEN) {
+        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
+            == 0x001F) {
+            nextRoomBool = 1;
+        }
     }
 }

@@ -21,7 +21,6 @@
 #define OCEAN_HIT 0x0C60
 #define MAROON_HIT 0x0C6F
 
-
 //Orientations
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
@@ -45,6 +44,7 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
+    int movementDirection;
 } PROTAGSPRITE;
 
 //stationary objects
@@ -93,6 +93,8 @@ void drawGame();
 void drawProtagonist();
 void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
+void checkSpriteCollision();
+void checkMoreInfo();
+void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
-void checkSpriteCollision();

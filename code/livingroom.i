@@ -3,7 +3,7 @@
 # 1 "<command-line>"
 # 1 "livingroom.c"
 # 1 "game.h" 1
-# 26 "game.h"
+# 25 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
@@ -26,6 +26,7 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
+    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -77,6 +78,7 @@ unsigned short checkCollisionMapColor(int x, int y);
 void loadLivingRoom();
 void loadKitchen();
 void checkSpriteCollision();
+void checkMoreInfo();
 # 2 "livingroom.c" 2
 # 1 "livingroom.h" 1
 
@@ -165,31 +167,12 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[6].collisionColor = 0x6C15;
 
 
-    livingRoomSpritesArr[6].sheetCol = 4;
-    livingRoomSpritesArr[6].sheetRow = 28;
-    livingRoomSpritesArr[6].attr0_shape = 2;
-    livingRoomSpritesArr[6].attr1_size = 1;
-    livingRoomSpritesArr[6].worldRow = 135;
-    livingRoomSpritesArr[6].worldCol = 235;
-    livingRoomSpritesArr[6].hide = 1;
-    livingRoomSpritesArr[6].collisionColor = 0x0E47;
-}
-
-
-void checkLivingRoomCollide() {
-    spriteCollisionBool = 0;
-    for (int i = 0; i < 8; i++) {
-        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-            == livingRoomSpritesArr[i].collisionColor) {
-            livingRoomSpritesArr[i].hide = 0;
-            spriteCollisionBool = 1;
-        } else {
-            livingRoomSpritesArr[i].hide = 1;
-        }
-    }
-
-    if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
-        == 0x0C6F) {
-        nextRoomBool = 1;
-    }
+    livingRoomSpritesArr[7].sheetCol = 4;
+    livingRoomSpritesArr[7].sheetRow = 28;
+    livingRoomSpritesArr[7].attr0_shape = 2;
+    livingRoomSpritesArr[7].attr1_size = 1;
+    livingRoomSpritesArr[7].worldRow = 135;
+    livingRoomSpritesArr[7].worldCol = 235;
+    livingRoomSpritesArr[7].hide = 1;
+    livingRoomSpritesArr[7].collisionColor = 0x0E47;
 }

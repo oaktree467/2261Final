@@ -50,8 +50,10 @@ void initProtagonist() {
 }
 
 void updateGame() {
+    checkDoorway();
     updateProtagonist();
     updateSprites();
+    checkSpriteCollision();
 }
 
 void drawGame() {
@@ -77,7 +79,7 @@ void updateProtagonist() {
         }
     } else {
         if (BUTTON_PRESSED(BUTTON_A)) {
-            checkSpriteCollision();
+            checkMoreInfo();
         }
         if (BUTTON_HELD(BUTTON_UP)) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
@@ -89,7 +91,6 @@ void updateProtagonist() {
             }
             protag.aniState = PROTAGBACK;
         }
-
         if (BUTTON_HELD(BUTTON_DOWN)) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height + 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height + 1) != 0))) {
@@ -160,7 +161,7 @@ void updateProtagonist() {
 
 //update sprite columns
 void updateSprites() {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < currSpriteArrCount; i++) {
         (*currSpriteArr)[i].screenCol = (*currSpriteArr)[i].worldCol - hOff;
         (*currSpriteArr)[i].screenRow = (*currSpriteArr)[i].worldRow - vOff;
     }
@@ -168,7 +169,7 @@ void updateSprites() {
 
 //draw sprites, if unhidden
 void drawSprites() {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < currSpriteArrCount; i++) {
         if ((*currSpriteArr)[i].hide == 1) {
             shadowOAM[i + 1].attr0 = ATTR0_HIDE;
         } else {
@@ -194,16 +195,13 @@ unsigned short checkCollisionMapColor(int x, int y) {
 //load living room attributes
 void loadLivingRoom() {
     if (priorState != PAUSE) {
-        //protag.worldRow = 365;
-        //protag.worldCol = 412;
-        protag.worldRow = 170;
-        protag.worldCol = 200;
+        protag.worldRow = 365;
+        protag.worldCol = 412;
         protag.aniState = PROTAGFRONT;
         
-        //hOff = 300;
-        //vOff = 300;
-        hOff = 100;
-        vOff = 100;
+        hOff = 272;
+        vOff = 300;
+
     } else {
         hOff = priorHoff;
         vOff = priorVoff;
@@ -243,10 +241,55 @@ void loadKitchen() {
 
 //check if the player has collided with a sprite on the current map
 void checkSpriteCollision() {
+    u16 currColor = 0;
+    spriteCollisionBool = 0;
+    switch (protag.aniState) {
+        case PROTAGBACK:
+            currColor = checkCollisionMapColor((protag.worldCol + (protag.width / 2)), protag.worldRow);
+            break;
+        case PROTAGFRONT:
+            currColor = checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height);
+            break;
+        case PROTAGSIDE:
+            if (protag.sideOrientation == LEFTORIENTATION) {
+                currColor = checkCollisionMapColor(protag.worldCol, protag.worldRow + (protag.height / 2));
+            } else {
+                currColor = checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + (protag.height / 2));
+            }
+            break;
+    }
+
+    if (currColor != 0) {
+        for (int i = 0; i < currSpriteArrCount; i++) {
+            if ((*currSpriteArr)[i].collisionColor == currColor) {
+                (*currSpriteArr)[i].hide = 0;
+                spriteCollisionBool = 1;
+            } else {
+                (*currSpriteArr)[i].hide = 1;
+            }
+        }
+    }
+}
+
+void checkMoreInfo() {
     if (spriteCollisionBool) {
         messageActiveBool = 1;
         REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
     } else {
         REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+    }
+}
+
+void checkDoorway() {
+    if (state == LIVING_ROOM) {
+        if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == MAROON_HIT) {
+            nextRoomBool = 1;
+        }   
+    } else if (state == KITCHEN) {
+        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
+            == RED_HIT) {
+            nextRoomBool = 1;
+        } 
     }
 }

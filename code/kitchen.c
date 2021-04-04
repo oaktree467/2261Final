@@ -26,23 +26,3 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].collisionColor = 0x7F60;
 
 }
-
-void checkKitchenCollide() {
-    spriteCollisionBool = 0;
-    for (int i = 0; i < KITCHEN_SPRITECOUNT; i++) {
-        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-            == kitchenSpritesArr[i].collisionColor) {
-            kitchenSpritesArr[i].hide = 0;
-            spriteCollisionBool = 1;
-        } else {
-            kitchenSpritesArr[i].hide = 1;
-        }
-    }
-
-    
-    if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-        == 0x001F) {
-        nextRoomBool = 1;
-    } 
-    
-}

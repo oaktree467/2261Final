@@ -631,18 +631,15 @@ livingRoom:
 	mov	lr, pc
 	bx	r3
 	ldr	r3, .L70+8
-	mov	lr, pc
-	bx	r3
-	ldr	r3, .L70+12
 	ldr	r3, [r3]
 	cmp	r3, #0
 	bne	.L68
 .L58:
-	ldr	r4, .L70+16
+	ldr	r4, .L70+12
 	ldrh	r3, [r4]
 	tst	r3, #256
 	beq	.L59
-	ldr	r2, .L70+20
+	ldr	r2, .L70+16
 	ldrh	r2, [r2]
 	tst	r2, #256
 	beq	.L69
@@ -664,7 +661,6 @@ livingRoom:
 	.align	2
 .L70:
 	.word	updateGame
-	.word	checkLivingRoomCollide
 	.word	drawGame
 	.word	nextRoomBool
 	.word	oldButtons
@@ -724,25 +720,22 @@ kitchen:
 	mov	lr, pc
 	bx	r3
 	ldr	r3, .L99+8
-	mov	lr, pc
-	bx	r3
-	ldr	r3, .L99+12
 	ldr	r3, [r3]
 	cmp	r3, #0
 	bne	.L96
 .L83:
-	ldr	r4, .L99+16
+	ldr	r4, .L99+12
 	ldrh	r3, [r4]
 	tst	r3, #4
 	beq	.L84
-	ldr	r2, .L99+20
+	ldr	r2, .L99+16
 	ldrh	r2, [r2]
 	tst	r2, #4
 	beq	.L97
 .L84:
 	tst	r3, #256
 	beq	.L82
-	ldr	r3, .L99+20
+	ldr	r3, .L99+16
 	ldrh	r3, [r3]
 	tst	r3, #256
 	beq	.L98
@@ -763,7 +756,6 @@ kitchen:
 	.align	2
 .L99:
 	.word	updateGame
-	.word	checkKitchenCollide
 	.word	drawGame
 	.word	nextRoomBool
 	.word	oldButtons
