@@ -1419,10 +1419,11 @@ void drawGame();
 void drawProtagonist();
 void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
-void loadLivingRoom();
-void loadKitchen();
 void checkSpriteCollision();
 void checkMoreInfo();
+void checkDoorway();
+void loadLivingRoom();
+void loadKitchen();
 # 8 "main.c" 2
 # 1 "livingroom.h" 1
 
@@ -1451,11 +1452,10 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 
 void initKitchenSprites();
-void checkKitchenCollide();
 # 11 "main.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
-extern const unsigned short kitchenbgTiles[1632];
+extern const unsigned short kitchenbgTiles[3152];
 
 
 extern const unsigned short kitchenbgMap[1024];
@@ -1745,7 +1745,7 @@ void goToKitchen() {
     priorState = KITCHEN;
 
     DMANow(3, kitchenbgPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 3264 / 2);
+    DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 6304 / 2);
     DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
     (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);

@@ -359,7 +359,7 @@ goToKitchen:
 	ldr	r1, .L31+20
 	mov	lr, pc
 	bx	r4
-	mov	r3, #1632
+	mov	r3, #3152
 	mov	r0, #3
 	ldr	r2, .L31+24
 	ldr	r1, .L31+28

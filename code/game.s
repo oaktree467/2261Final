@@ -875,20 +875,22 @@ checkDoorway:
 	cmp	r3, #4
 	bxne	lr
 	ldr	r1, .L154+4
-	ldr	r2, .L154+8
-	ldr	r3, [r1]
-	ldr	r2, [r2]
-	mul	r3, r2, r3
+	ldr	r0, .L154+8
 	ldr	r2, [r1, #16]
-	ldr	r0, [r1, #4]
+	ldr	r3, [r1]
+	ldr	ip, [r1, #20]
+	ldr	r0, [r0]
 	add	r2, r2, r2, lsr #31
-	ldr	r1, .L154+12
-	add	r3, r3, r2, asr #1
-	add	r3, r3, r0
-	ldr	r2, [r1]
+	asr	r2, r2, #1
+	add	r3, r3, ip
+	mla	r3, r0, r3, r2
+	ldr	r1, [r1, #4]
+	ldr	r2, .L154+12
+	add	r3, r3, r1
+	ldr	r2, [r2]
 	lsl	r3, r3, #1
 	ldrh	r3, [r2, r3]
-	cmp	r3, #31
+	cmp	r3, #996
 	bxne	lr
 .L149:
 	mov	r2, #1

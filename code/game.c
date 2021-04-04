@@ -287,8 +287,8 @@ void checkDoorway() {
             nextRoomBool = 1;
         }   
     } else if (state == KITCHEN) {
-        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-            == RED_HIT) {
+        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
+            == LIME_HIT) {
             nextRoomBool = 1;
         } 
     }

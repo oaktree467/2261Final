@@ -220,7 +220,7 @@ extern const unsigned short kitchencollisionBitmap[65536];
 # 8 "game.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
-extern const unsigned short kitchenbgTiles[1632];
+extern const unsigned short kitchenbgTiles[3152];
 
 
 extern const unsigned short kitchenbgMap[1024];
@@ -518,8 +518,8 @@ void checkDoorway() {
             nextRoomBool = 1;
         }
     } else if (state == KITCHEN) {
-        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow)
-            == 0x001F) {
+        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
+            == 0x03E4) {
             nextRoomBool = 1;
         }
     }
