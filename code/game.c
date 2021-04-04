@@ -275,6 +275,7 @@ void checkSpriteCollision() {
 void checkMoreInfo() {
     if (spriteCollisionBool) {
         messageActiveBool = 1;
+        printText();
         REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
     } else {
         REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
@@ -293,4 +294,25 @@ void checkDoorway() {
             nextRoomBool = 1;
         } 
     }
+}
+
+void printText() {
+    int i = 0;
+    int j = 450;
+    while (((*(kitchenSpritesArr[0].message))[i]) != '\0') {
+        
+        if ((j - 477) % 32 == 0) {
+            j += 5;
+        }
+        
+        if (((*(kitchenSpritesArr[0].message))[i]) == '\\') {
+            j += 5;
+            i++;
+        }
+        messagescreenMap[j] = *(letterMap[((*(kitchenSpritesArr[0].message))[i]) - 32]);
+        i++;
+        j++;
+    }
+
+    DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
 }

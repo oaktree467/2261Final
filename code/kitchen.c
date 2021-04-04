@@ -3,6 +3,8 @@
 
 STATIONARYSPRITE kitchenSpritesArr[KITCHEN_SPRITECOUNT];
 
+char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated'the kitchen.";
+
 //functions
 void initKitchenSprites() {
     //picture frame
@@ -14,6 +16,7 @@ void initKitchenSprites() {
     kitchenSpritesArr[0].worldCol = 84;
     kitchenSpritesArr[0].hide = 1;
     kitchenSpritesArr[0].collisionColor = 0x03FF;
+    kitchenSpritesArr[0].message = &pictureFrame;
 
     //fridge
     kitchenSpritesArr[1].sheetCol = 4;

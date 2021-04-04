@@ -1334,7 +1334,7 @@ extern const unsigned short livingroomspritesPal[256];
 # 5 "main.c" 2
 # 1 "livingroombg.h" 1
 # 22 "livingroombg.h"
-extern const unsigned short livingroombgTiles[8848];
+extern const unsigned short livingroombgTiles[8832];
 
 
 extern const unsigned short livingroombgMap[4096];
@@ -1370,7 +1370,6 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
-    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -1387,6 +1386,7 @@ typedef struct {
     int attr1_size;
     int hide;
     unsigned short collisionColor;
+    char (* message)[];
 } STATIONARYSPRITE;
 
 
@@ -1424,6 +1424,7 @@ void checkMoreInfo();
 void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
+void printText();
 # 8 "main.c" 2
 # 1 "livingroom.h" 1
 
@@ -1465,10 +1466,10 @@ extern const unsigned short kitchenbgPal[256];
 # 12 "main.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1264];
+extern const unsigned short messagescreenTiles[1280];
 
 
-extern const unsigned short messagescreenMap[1024];
+extern unsigned short messagescreenMap[1024];
 
 
 extern const unsigned short messagescreenPal[256];
@@ -1613,7 +1614,7 @@ int main() {
 
 void initialize()
 {
-    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2528 / 2);
+    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 
     (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((24) << 8) | (0 << 7) | (0 << 14) | ((0) << 1);
@@ -1707,7 +1708,7 @@ void goToLivingRoom() {
     priorState = LIVING_ROOM;
 
     DMANow(3, livingroombgPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 17696 / 2);
+    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 17664 / 2);
     DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
     (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (3 << 14) | ((1) << 1);

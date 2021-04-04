@@ -44,7 +44,6 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
-    int movementDirection;
 } PROTAGSPRITE;
 
 //stationary objects
@@ -61,6 +60,7 @@ typedef struct {
     int attr1_size;
     int hide;
     unsigned short collisionColor; //color on collision map
+    char (* message)[];
 } STATIONARYSPRITE;
 
 
@@ -98,3 +98,4 @@ void checkMoreInfo();
 void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
+void printText();

@@ -138,7 +138,6 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
-    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -155,6 +154,7 @@ typedef struct {
     int attr1_size;
     int hide;
     unsigned short collisionColor;
+    char (* message)[];
 } STATIONARYSPRITE;
 
 
@@ -192,6 +192,7 @@ void checkMoreInfo();
 void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
+void printText();
 # 5 "game.c" 2
 # 1 "livingroom.h" 1
 
@@ -230,15 +231,16 @@ extern const unsigned short kitchenbgPal[256];
 # 9 "game.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1264];
+extern const unsigned short messagescreenTiles[1280];
 
 
-extern const unsigned short messagescreenMap[1024];
+extern unsigned short messagescreenMap[1024];
 
 
 extern const unsigned short messagescreenPal[256];
 # 10 "game.c" 2
 # 1 "text.h" 1
+extern unsigned short *letterMap[95];
 # 11 "game.c" 2
 
 
@@ -507,6 +509,7 @@ void checkSpriteCollision() {
 void checkMoreInfo() {
     if (spriteCollisionBool) {
         messageActiveBool = 1;
+        printText();
         (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
     } else {
         (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
@@ -525,4 +528,25 @@ void checkDoorway() {
             nextRoomBool = 1;
         }
     }
+}
+
+void printText() {
+    int i = 0;
+    int j = 450;
+    while (((*(kitchenSpritesArr[0].message))[i]) != '\0') {
+
+        if ((j - 477) % 32 == 0) {
+            j += 5;
+        }
+
+        if (((*(kitchenSpritesArr[0].message))[i]) == '\\') {
+            j += 5;
+            i++;
+        }
+        messagescreenMap[j] = *(letterMap[((*(kitchenSpritesArr[0].message))[i]) - 32]);
+        i++;
+        j++;
+    }
+
+    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 }

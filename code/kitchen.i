@@ -26,7 +26,6 @@ typedef struct {
     int currFrame;
     int totalFrames;
     int sideOrientation;
-    int movementDirection;
 } PROTAGSPRITE;
 
 
@@ -43,6 +42,7 @@ typedef struct {
     int attr1_size;
     int hide;
     unsigned short collisionColor;
+    char (* message)[];
 } STATIONARYSPRITE;
 
 
@@ -80,6 +80,7 @@ void checkMoreInfo();
 void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
+void printText();
 # 2 "kitchen.c" 2
 # 1 "kitchen.h" 1
 
@@ -94,6 +95,8 @@ void initKitchenSprites();
 
 STATIONARYSPRITE kitchenSpritesArr[2];
 
+char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated'the kitchen.";
+
 
 void initKitchenSprites() {
 
@@ -105,6 +108,7 @@ void initKitchenSprites() {
     kitchenSpritesArr[0].worldCol = 84;
     kitchenSpritesArr[0].hide = 1;
     kitchenSpritesArr[0].collisionColor = 0x03FF;
+    kitchenSpritesArr[0].message = &pictureFrame;
 
 
     kitchenSpritesArr[1].sheetCol = 4;

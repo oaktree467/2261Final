@@ -18,9 +18,9 @@
 	.type	livingroombgPal, %object
 	.size	livingroombgPal, 512
 livingroombgPal:
-	.short	0
-	.short	28960
 	.short	30751
+	.short	28960
+	.short	0
 	.short	11946
 	.short	31374
 	.short	8679
@@ -36,9 +36,9 @@ livingroombgPal:
 	.short	7536
 	.short	30751
 	.short	14140
+	.short	3376
+	.short	32767
 	.short	25567
-	.short	0
-	.short	0
 	.short	0
 	.short	0
 	.short	0
@@ -2387,471 +2387,471 @@ livingroombgMap:
 	.short	346
 	.short	347
 	.short	348
+	.short	0
 	.short	349
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	350
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	351
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
 	.short	352
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	353
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	354
+	.short	0
+	.short	0
 	.short	355
-	.short	349
-	.short	349
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	356
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	357
 	.short	358
+	.short	358
+	.short	358
+	.short	358
+	.short	358
+	.short	358
 	.short	359
-	.short	359
-	.short	359
-	.short	359
-	.short	359
-	.short	359
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	360
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
+	.short	361
 	.short	361
 	.short	362
-	.short	362
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	363
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	364
+	.short	0
+	.short	0
+	.short	355
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	365
-	.short	349
-	.short	349
-	.short	356
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	366
+	.short	358
+	.short	358
+	.short	358
+	.short	358
+	.short	358
+	.short	358
 	.short	367
-	.short	359
-	.short	359
-	.short	359
-	.short	359
-	.short	359
-	.short	359
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	368
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	369
 	.short	370
 	.short	371
 	.short	372
 	.short	373
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	374
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	375
 	.short	376
+	.short	376
 	.short	377
-	.short	377
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	378
-	.short	160
-	.short	160
-	.short	160
-	.short	160
+	.short	379
+	.short	379
+	.short	379
+	.short	379
+	.short	379
+	.short	379
 	.short	379
 	.short	380
-	.short	380
-	.short	380
-	.short	380
-	.short	380
-	.short	380
-	.short	380
 	.short	381
+	.short	160
+	.short	160
+	.short	160
 	.short	382
-	.short	160
-	.short	160
-	.short	160
 	.short	383
 	.short	384
 	.short	385
+	.short	383
 	.short	386
-	.short	384
 	.short	387
+	.short	160
+	.short	160
+	.short	160
 	.short	388
-	.short	160
-	.short	160
-	.short	160
+	.short	389
+	.short	389
 	.short	389
 	.short	390
-	.short	390
-	.short	390
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	391
-	.short	160
-	.short	160
-	.short	160
-	.short	160
+	.short	392
+	.short	392
+	.short	392
+	.short	392
+	.short	392
+	.short	392
 	.short	392
 	.short	393
-	.short	393
-	.short	393
-	.short	393
-	.short	393
-	.short	393
-	.short	393
 	.short	394
+	.short	160
+	.short	160
 	.short	395
-	.short	160
-	.short	160
 	.short	396
 	.short	397
 	.short	398
 	.short	399
 	.short	400
 	.short	401
+	.short	1419
+	.short	160
+	.short	160
+	.short	160
 	.short	402
-	.short	1420
-	.short	160
-	.short	160
-	.short	160
 	.short	403
 	.short	404
+	.short	404
 	.short	405
-	.short	405
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	406
-	.short	160
-	.short	160
-	.short	160
-	.short	160
+	.short	407
+	.short	407
+	.short	407
+	.short	407
+	.short	407
+	.short	407
 	.short	407
 	.short	408
-	.short	408
-	.short	408
-	.short	408
-	.short	408
-	.short	408
-	.short	408
 	.short	409
+	.short	160
+	.short	160
 	.short	410
-	.short	160
-	.short	160
 	.short	411
 	.short	412
 	.short	413
 	.short	414
 	.short	415
 	.short	416
+	.short	1434
+	.short	160
+	.short	160
+	.short	160
 	.short	417
-	.short	1435
-	.short	160
-	.short	160
-	.short	160
 	.short	418
 	.short	419
 	.short	420
 	.short	421
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	422
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	423
 	.short	424
-	.short	425
-	.short	425
-	.short	425
-	.short	425
+	.short	424
+	.short	424
+	.short	424
+	.short	424
 	.short	425
 	.short	426
 	.short	427
+	.short	160
+	.short	160
+	.short	410
 	.short	428
-	.short	160
-	.short	160
-	.short	411
 	.short	429
 	.short	430
 	.short	431
 	.short	432
 	.short	433
 	.short	434
+	.short	160
+	.short	160
+	.short	160
+	.short	417
 	.short	435
-	.short	160
-	.short	160
-	.short	160
-	.short	418
 	.short	436
 	.short	437
 	.short	438
+	.short	160
+	.short	160
+	.short	160
 	.short	439
-	.short	160
-	.short	160
-	.short	160
 	.short	440
+	.short	423
+	.short	423
+	.short	423
+	.short	423
+	.short	423
+	.short	423
+	.short	423
+	.short	423
 	.short	441
-	.short	424
-	.short	424
-	.short	424
-	.short	424
-	.short	424
-	.short	424
-	.short	424
-	.short	424
+	.short	160
+	.short	160
 	.short	442
-	.short	160
-	.short	160
 	.short	443
 	.short	444
 	.short	445
 	.short	446
 	.short	447
 	.short	448
+	.short	2435
+	.short	160
+	.short	160
+	.short	160
 	.short	449
-	.short	2436
-	.short	160
-	.short	160
-	.short	160
 	.short	450
 	.short	451
 	.short	452
 	.short	453
+	.short	160
+	.short	160
+	.short	160
 	.short	454
-	.short	160
-	.short	160
-	.short	160
 	.short	455
 	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
 	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
+	.short	160
+	.short	160
+	.short	160
 	.short	458
-	.short	160
-	.short	160
-	.short	160
 	.short	459
 	.short	460
 	.short	461
 	.short	462
 	.short	463
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	464
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	465
 	.short	466
+	.short	466
 	.short	467
-	.short	467
+	.short	160
+	.short	160
+	.short	160
 	.short	468
-	.short	160
-	.short	160
-	.short	160
 	.short	469
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
+	.short	456
 	.short	470
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
-	.short	457
+	.short	160
+	.short	160
+	.short	160
+	.short	160
 	.short	471
-	.short	160
-	.short	160
-	.short	160
-	.short	160
 	.short	472
+	.short	1496
 	.short	473
-	.short	1497
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	464
 	.short	474
+	.short	466
+	.short	466
+	.short	467
 	.short	160
 	.short	160
 	.short	160
-	.short	160
-	.short	160
-	.short	465
 	.short	475
-	.short	467
-	.short	467
-	.short	468
-	.short	160
-	.short	160
-	.short	160
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
 	.short	476
 	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
 	.short	478
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	464
+	.short	474
+	.short	466
+	.short	466
+	.short	467
+	.short	160
+	.short	160
+	.short	160
 	.short	479
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	465
-	.short	475
-	.short	467
-	.short	467
-	.short	468
-	.short	160
-	.short	160
-	.short	160
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
+	.short	476
 	.short	480
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
-	.short	477
 	.short	481
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	464
+	.short	474
+	.short	466
+	.short	466
+	.short	467
+	.short	160
+	.short	160
+	.short	160
 	.short	482
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	465
-	.short	475
-	.short	467
-	.short	467
-	.short	468
-	.short	160
-	.short	160
-	.short	160
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
 	.short	483
 	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
 	.short	485
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	464
+	.short	474
+	.short	466
+	.short	466
+	.short	467
 	.short	486
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	465
-	.short	475
-	.short	467
-	.short	467
-	.short	468
-	.short	487
+	.short	486
 	.short	487
 	.short	488
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
+	.short	483
 	.short	489
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
-	.short	484
 	.short	490
+	.short	486
+	.short	486
+	.short	486
+	.short	486
+	.short	486
+	.short	1511
+	.short	486
+	.short	486
+	.short	486
+	.short	486
+	.short	487
+	.short	486
 	.short	491
-	.short	487
-	.short	487
-	.short	487
-	.short	487
-	.short	487
-	.short	1512
-	.short	487
-	.short	487
-	.short	487
-	.short	487
-	.short	488
-	.short	487
 	.short	492
 	.short	493
+	.short	493
 	.short	494
-	.short	494
-	.short	495
 	.short	136
 	.short	137
+	.short	495
 	.short	496
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
 	.short	497
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	498
 	.short	137
 	.short	137
 	.short	137
@@ -2870,22 +2870,22 @@ livingroombgMap:
 	.short	139
 	.short	137
 	.short	151
+	.short	498
 	.short	499
 	.short	500
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
+	.short	200
 	.short	501
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
-	.short	200
 	.short	502
 	.short	503
-	.short	504
 	.short	152
 	.short	1175
 	.short	152
@@ -2902,22 +2902,22 @@ livingroombgMap:
 	.short	154
 	.short	152
 	.short	166
+	.short	504
 	.short	505
 	.short	506
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
 	.short	507
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
 	.short	508
 	.short	509
-	.short	510
 	.short	167
 	.short	1190
 	.short	167
@@ -2934,22 +2934,22 @@ livingroombgMap:
 	.short	169
 	.short	167
 	.short	178
+	.short	510
 	.short	511
 	.short	512
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
+	.short	336
 	.short	513
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
-	.short	336
 	.short	514
 	.short	515
-	.short	516
 	.short	178
 	.short	178
 	.short	178
@@ -2966,22 +2966,22 @@ livingroombgMap:
 	.short	178
 	.short	178
 	.short	2214
+	.short	516
 	.short	517
 	.short	518
+	.short	518
+	.short	518
+	.short	518
+	.short	518
+	.short	518
 	.short	519
-	.short	519
-	.short	519
-	.short	519
-	.short	519
-	.short	519
+	.short	518
+	.short	518
+	.short	518
+	.short	1543
 	.short	520
-	.short	519
-	.short	519
-	.short	519
-	.short	1544
 	.short	521
 	.short	522
-	.short	523
 	.short	2215
 	.short	3238
 	.short	2215
@@ -3189,38 +3189,38 @@ livingroombgMap:
 	.short	178
 	.short	178
 	.short	178
+	.short	523
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
 	.short	524
 	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	526
-	.short	525
-	.short	525
-	.short	525
-	.short	1550
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	1548
-	.short	525
-	.short	525
-	.short	525
-	.short	525
+	.short	524
+	.short	524
+	.short	524
+	.short	1549
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	1547
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	523
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
 	.short	524
 	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	526
-	.short	525
+	.short	524
 	.short	160
 	.short	160
 	.short	160
@@ -3381,8 +3381,8 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	1374
-	.short	349
+	.short	1373
+	.short	0
 	.short	1372
 	.short	1371
 	.short	1370
@@ -3401,23 +3401,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
+	.short	526
+	.short	527
+	.short	527
+	.short	527
+	.short	527
+	.short	527
+	.short	527
 	.short	527
 	.short	528
-	.short	528
-	.short	528
-	.short	528
-	.short	528
-	.short	528
-	.short	528
-	.short	529
 	.short	160
 	.short	160
 	.short	160
-	.short	1380
-	.short	349
-	.short	349
 	.short	1379
+	.short	0
+	.short	0
 	.short	1378
+	.short	1377
 	.short	160
 	.short	160
 	.short	160
@@ -3433,23 +3433,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
+	.short	529
 	.short	530
 	.short	531
+	.short	531
+	.short	531
+	.short	531
+	.short	531
+	.short	531
 	.short	532
-	.short	532
-	.short	532
-	.short	532
-	.short	532
-	.short	532
-	.short	533
 	.short	160
 	.short	160
 	.short	160
-	.short	1380
-	.short	349
-	.short	349
-	.short	1389
+	.short	1379
+	.short	0
+	.short	0
 	.short	1388
+	.short	1387
 	.short	160
 	.short	160
 	.short	160
@@ -3465,23 +3465,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1402
-	.short	377
-	.short	377
-	.short	1400
+	.short	1401
+	.short	376
+	.short	376
 	.short	1399
+	.short	1398
 	.short	160
 	.short	160
 	.short	160
@@ -3497,23 +3497,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1415
-	.short	390
-	.short	390
-	.short	390
-	.short	1413
+	.short	1414
+	.short	389
+	.short	389
+	.short	389
+	.short	1412
 	.short	160
 	.short	160
 	.short	160
@@ -3529,23 +3529,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1430
-	.short	405
-	.short	405
-	.short	1428
+	.short	1429
+	.short	404
+	.short	404
 	.short	1427
+	.short	1426
 	.short	160
 	.short	160
 	.short	160
@@ -3561,23 +3561,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1446
 	.short	1445
 	.short	1444
 	.short	1443
 	.short	1442
+	.short	1441
 	.short	160
 	.short	160
 	.short	160
@@ -3593,23 +3593,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1463
-	.short	438
-	.short	1461
+	.short	1462
+	.short	437
 	.short	1460
-	.short	1442
+	.short	1459
+	.short	1441
 	.short	160
 	.short	160
 	.short	160
@@ -3625,23 +3625,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1478
 	.short	1477
 	.short	1476
 	.short	1475
 	.short	1474
+	.short	1473
 	.short	160
 	.short	160
 	.short	160
@@ -3657,23 +3657,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1492
-	.short	467
-	.short	467
-	.short	1490
+	.short	1491
+	.short	466
+	.short	466
 	.short	1489
+	.short	1488
 	.short	160
 	.short	160
 	.short	160
@@ -3689,23 +3689,23 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
-	.short	1492
-	.short	467
-	.short	467
-	.short	1499
-	.short	1489
+	.short	1491
+	.short	466
+	.short	466
+	.short	1498
+	.short	1488
 	.short	160
 	.short	160
 	.short	160
@@ -3721,91 +3721,91 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
+	.short	160
+	.short	160
+	.short	160
+	.short	1491
+	.short	466
+	.short	466
+	.short	1498
+	.short	1488
+	.short	160
+	.short	160
 	.short	535
-	.short	160
-	.short	160
-	.short	160
-	.short	1492
-	.short	467
-	.short	467
-	.short	1499
-	.short	1489
-	.short	160
-	.short	160
 	.short	536
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	534
+	.short	160
+	.short	160
+	.short	160
+	.short	1491
+	.short	466
+	.short	466
+	.short	1498
+	.short	1488
+	.short	160
+	.short	160
 	.short	537
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	530
-	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
-	.short	160
-	.short	160
-	.short	160
-	.short	1492
-	.short	467
-	.short	467
-	.short	1499
-	.short	1489
-	.short	160
-	.short	160
 	.short	538
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	160
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	534
+	.short	160
+	.short	160
+	.short	160
+	.short	1491
+	.short	466
+	.short	466
+	.short	1498
+	.short	1488
+	.short	160
+	.short	160
 	.short	539
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	160
-	.short	530
-	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
-	.short	160
-	.short	160
-	.short	160
-	.short	1492
-	.short	467
-	.short	467
-	.short	1499
-	.short	1489
-	.short	160
-	.short	160
 	.short	540
-	.short	541
 	.short	160
 	.short	160
 	.short	160
@@ -3817,50 +3817,50 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.short	160
-	.short	530
+	.short	529
+	.short	533
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	534
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	349
-	.short	535
 	.short	160
 	.short	160
 	.short	160
+	.short	541
+	.short	493
+	.short	493
+	.short	1516
 	.short	542
-	.short	494
-	.short	494
-	.short	1517
+	.short	486
+	.short	486
 	.short	543
-	.short	487
-	.short	487
 	.short	544
+	.short	486
+	.short	486
+	.short	1511
+	.short	486
+	.short	486
+	.short	486
+	.short	486
+	.short	487
+	.short	486
+	.short	486
+	.short	486
 	.short	545
-	.short	487
-	.short	487
-	.short	1512
-	.short	487
-	.short	487
-	.short	487
-	.short	487
-	.short	488
-	.short	487
-	.short	487
-	.short	487
 	.short	546
 	.short	547
 	.short	548
+	.short	547
+	.short	547
+	.short	547
+	.short	1572
 	.short	549
-	.short	548
-	.short	548
-	.short	548
-	.short	1573
-	.short	550
-	.short	487
-	.short	487
-	.short	487
+	.short	486
+	.short	486
+	.short	486
 	.short	140
 	.short	137
 	.short	1163
@@ -3868,8 +3868,8 @@ livingroombgMap:
 	.short	1164
 	.short	137
 	.short	137
+	.short	550
 	.short	551
-	.short	552
 	.short	1160
 	.short	137
 	.short	1162
@@ -4213,38 +4213,38 @@ livingroombgMap:
 	.short	178
 	.short	178
 	.short	178
-	.short	525
-	.short	525
-	.short	1550
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	1548
-	.short	525
-	.short	525
-	.short	525
-	.short	525
+	.short	524
+	.short	524
+	.short	1549
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	1547
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	523
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
 	.short	524
 	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	526
-	.short	525
-	.short	525
-	.short	525
-	.short	1550
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
-	.short	525
+	.short	524
+	.short	524
+	.short	524
+	.short	1549
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
+	.short	524
 	.short	160
 	.short	160
 	.short	160
@@ -4374,7 +4374,7 @@ livingroombgMap:
 	.short	160
 	.short	160
 	.type	livingroombgTiles, %object
-	.size	livingroombgTiles, 17696
+	.size	livingroombgTiles, 17664
 livingroombgTiles:
 	.short	0
 	.short	0
@@ -5204,9 +5204,9 @@ livingroombgTiles:
 	.short	-21846
 	.short	-21811
 	.short	-21846
-	.short	24591
+	.short	25135
 	.short	-21846
-	.short	-16372
+	.short	-15828
 	.short	-21846
 	.short	30685
 	.short	4369
@@ -5289,13 +5289,13 @@ livingroombgTiles:
 	.short	26214
 	.short	26214
 	.short	26282
-	.short	173
+	.short	8877
 	.short	-14678
-	.short	-16186
+	.short	-15674
 	.short	26282
-	.short	-16372
+	.short	-15828
 	.short	26282
-	.short	198
+	.short	8902
 	.short	27306
 	.short	-14746
 	.short	27238
@@ -5304,13 +5304,13 @@ livingroombgTiles:
 	.short	-90
 	.short	27033
 	.short	-86
-	.short	26112
+	.short	26146
 	.short	-21846
-	.short	-1524
-	.short	-16384
-	.short	-1524
-	.short	204
-	.short	-10752
+	.short	-1492
+	.short	-15838
+	.short	-1492
+	.short	8908
+	.short	-10718
 	.short	26310
 	.short	-22932
 	.short	-9619
@@ -5349,9 +5349,9 @@ livingroombgTiles:
 	.short	4369
 	.short	-8943
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
 	.short	16657
 	.short	4369
@@ -5364,10 +5364,10 @@ livingroombgTiles:
 	.short	4369
 	.short	-8739
 	.short	-8739
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	4417
 	.short	4372
 	.short	5137
@@ -5380,10 +5380,10 @@ livingroombgTiles:
 	.short	16660
 	.short	-8739
 	.short	-8739
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	16657
 	.short	5137
 	.short	5140
@@ -5396,9 +5396,9 @@ livingroombgTiles:
 	.short	16705
 	.short	-8739
 	.short	5149
-	.short	0
+	.short	8738
 	.short	4381
-	.short	0
+	.short	8738
 	.short	5197
 	.short	4369
 	.short	26225
@@ -5513,45 +5513,45 @@ livingroombgTiles:
 	.short	4378
 	.short	16657
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3393
+	.short	11585
 	.short	4369
-	.short	3348
+	.short	11540
 	.short	4369
-	.short	3393
+	.short	11585
 	.short	4369
-	.short	3348
+	.short	11540
 	.short	16660
-	.short	3345
-	.short	0
-	.short	0
-	.short	0
-	.short	-12288
-	.short	0
-	.short	-8752
-	.short	0
+	.short	11537
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	-11742
+	.short	8738
+	.short	-8750
+	.short	8738
 	.short	-8739
-	.short	-12288
+	.short	-11742
 	.short	-8739
-	.short	-8960
+	.short	-8926
 	.short	-8739
-	.short	-8960
+	.short	-8926
 	.short	-8739
-	.short	-8752
+	.short	-8750
 	.short	-8739
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
 	.short	-8739
-	.short	0
+	.short	8738
 	.short	-8739
-	.short	221
+	.short	8925
 	.short	-8739
-	.short	3549
+	.short	11741
 	.short	-8739
 	.short	-8739
 	.short	-8739
@@ -5560,21 +5560,21 @@ livingroombgTiles:
 	.short	-8739
 	.short	-9558
 	.short	-8739
-	.short	0
+	.short	8738
 	.short	16669
-	.short	0
+	.short	8738
 	.short	16717
-	.short	0
+	.short	8738
 	.short	4429
-	.short	0
+	.short	8738
 	.short	4429
-	.short	12
+	.short	8748
 	.short	5149
-	.short	13
+	.short	8749
 	.short	4429
-	.short	13
+	.short	8749
 	.short	4381
-	.short	221
+	.short	8925
 	.short	4381
 	.short	16660
 	.short	4369
@@ -5705,36 +5705,36 @@ livingroombgTiles:
 	.short	30310
 	.short	4369
 	.short	4417
-	.short	3348
+	.short	11540
 	.short	5137
-	.short	3393
+	.short	11585
 	.short	4417
-	.short	3348
+	.short	11540
 	.short	16660
-	.short	3345
+	.short	11537
 	.short	5140
-	.short	3348
+	.short	11540
 	.short	16705
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3348
+	.short	11540
 	.short	5185
-	.short	3393
-	.short	-8752
+	.short	11585
+	.short	-8750
 	.short	-21027
-	.short	-8752
+	.short	-8750
 	.short	-21027
-	.short	-8752
+	.short	-8750
 	.short	-21027
-	.short	-8752
+	.short	-8750
 	.short	-8739
-	.short	-8752
+	.short	-8750
 	.short	-8739
-	.short	-8960
+	.short	-8926
 	.short	-8739
-	.short	-8960
+	.short	-8926
 	.short	-8739
-	.short	-12288
+	.short	-11742
 	.short	-8739
 	.short	-21846
 	.short	-8739
@@ -5752,21 +5752,21 @@ livingroombgTiles:
 	.short	-30584
 	.short	-30499
 	.short	-10104
-	.short	216
+	.short	8920
 	.short	16669
-	.short	216
+	.short	8920
 	.short	4381
-	.short	216
+	.short	8920
 	.short	4381
-	.short	221
+	.short	8925
 	.short	4381
-	.short	221
+	.short	8925
 	.short	4381
-	.short	13
+	.short	8749
 	.short	4381
-	.short	13
+	.short	8749
 	.short	4381
-	.short	0
+	.short	8738
 	.short	4381
 	.short	-24300
 	.short	4369
@@ -5913,45 +5913,45 @@ livingroombgTiles:
 	.short	16660
 	.short	16657
 	.short	16660
-	.short	3345
+	.short	11537
 	.short	5140
-	.short	3348
+	.short	11540
 	.short	5137
-	.short	3393
+	.short	11585
 	.short	17425
-	.short	3345
+	.short	11537
 	.short	4417
-	.short	3348
+	.short	11540
 	.short	5137
-	.short	3393
+	.short	11585
 	.short	16657
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3345
-	.short	0
+	.short	11537
+	.short	8738
 	.short	-8739
-	.short	0
-	.short	-8752
-	.short	0
-	.short	-12288
-	.short	0
-	.short	0
-	.short	-8960
+	.short	8738
+	.short	-8750
+	.short	8738
+	.short	-11742
+	.short	8738
+	.short	8738
+	.short	-8926
 	.short	-8739
-	.short	-29440
+	.short	-29406
 	.short	-29267
-	.short	-8960
+	.short	-8926
 	.short	-9507
-	.short	-29440
+	.short	-29406
 	.short	-9510
 	.short	-30499
-	.short	3463
+	.short	11655
 	.short	-30579
-	.short	216
+	.short	8920
 	.short	-10099
-	.short	0
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	-8739
 	.short	-8739
 	.short	-8787
@@ -5960,21 +5960,21 @@ livingroombgTiles:
 	.short	-8739
 	.short	-10024
 	.short	-21030
-	.short	0
+	.short	8738
 	.short	4381
-	.short	0
+	.short	8738
 	.short	4381
-	.short	0
+	.short	8738
 	.short	4381
-	.short	0
+	.short	8738
 	.short	4381
-	.short	13
+	.short	8749
 	.short	4381
-	.short	13
+	.short	8749
 	.short	4381
-	.short	13
+	.short	8749
 	.short	4381
-	.short	13
+	.short	8749
 	.short	16669
 	.short	4369
 	.short	16660
@@ -5994,52 +5994,52 @@ livingroombgTiles:
 	.short	-24303
 	.short	-21846
 	.short	-21846
-	.short	160
-	.short	0
-	.short	2560
-	.short	0
-	.short	-24576
-	.short	0
-	.short	0
-	.short	10
-	.short	160
-	.short	160
-	.short	2720
-	.short	2560
-	.short	-23904
-	.short	-24576
+	.short	8866
+	.short	8738
+	.short	10786
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	8738
+	.short	8746
+	.short	8866
+	.short	8866
+	.short	10914
+	.short	10786
+	.short	-24414
+	.short	-24030
 	.short	-21846
 	.short	-21846
-	.short	160
-	.short	-24576
-	.short	160
-	.short	2720
-	.short	-22016
-	.short	10
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	8866
+	.short	-24030
+	.short	8866
+	.short	10914
+	.short	-21982
+	.short	8746
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	-21996
 	.short	4378
 	.short	5290
 	.short	16660
-	.short	5280
+	.short	5282
 	.short	5185
-	.short	-22016
+	.short	-21982
 	.short	16810
-	.short	-24576
+	.short	-24030
 	.short	6826
-	.short	0
+	.short	8738
 	.short	-21846
-	.short	0
-	.short	2720
-	.short	0
-	.short	-22016
+	.short	8738
+	.short	10914
+	.short	8738
+	.short	-21982
 	.short	16657
 	.short	5137
 	.short	5140
@@ -6073,11 +6073,11 @@ livingroombgTiles:
 	.short	13107
 	.short	4435
 	.short	4372
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
-	.short	3345
+	.short	11537
 	.short	4369
 	.short	-8943
 	.short	4369
@@ -6088,28 +6088,28 @@ livingroombgTiles:
 	.short	4369
 	.short	4369
 	.short	4369
-	.short	-8960
+	.short	-8926
 	.short	-8739
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	-8739
-	.short	-8739
-	.short	4369
-	.short	4369
-	.short	4369
-	.short	4369
-	.short	4369
-	.short	4369
-	.short	4369
-	.short	4369
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	-8739
 	.short	-8739
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	4369
+	.short	4369
+	.short	4369
+	.short	4369
+	.short	4369
+	.short	4369
+	.short	4369
+	.short	4369
+	.short	-8739
+	.short	-8739
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	-8739
 	.short	-8739
 	.short	5140
@@ -6120,11 +6120,11 @@ livingroombgTiles:
 	.short	16660
 	.short	5185
 	.short	5185
-	.short	13
+	.short	8749
 	.short	5149
-	.short	0
+	.short	8738
 	.short	4429
-	.short	0
+	.short	8738
 	.short	5149
 	.short	-8739
 	.short	16669
@@ -6152,54 +6152,54 @@ livingroombgTiles:
 	.short	-24303
 	.short	4369
 	.short	-24303
-	.short	8864
-	.short	10
-	.short	8864
+	.short	162
+	.short	8746
 	.short	162
 	.short	8864
-	.short	2594
-	.short	8864
+	.short	162
+	.short	10752
+	.short	162
+	.short	-24576
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	8746
+	.short	8738
+	.short	8866
+	.short	8738
+	.short	10786
+	.short	-21854
 	.short	-24030
-	.short	8864
+	.short	8746
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	10
-	.short	0
-	.short	160
-	.short	0
-	.short	2560
-	.short	-21856
-	.short	-24576
-	.short	10
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	0
-	.short	-24576
+	.short	8738
+	.short	-24030
 	.short	-21846
 	.short	-21846
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
 	.short	16660
 	.short	4369
 	.short	5140
@@ -6296,54 +6296,54 @@ livingroombgTiles:
 	.short	-24303
 	.short	4372
 	.short	-24300
-	.short	8864
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	162
+	.short	0
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	8864
+	.short	-24022
 	.short	8738
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24566
-	.short	0
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
 	.short	16657
 	.short	5137
 	.short	5140
@@ -6536,22 +6536,22 @@ livingroombgTiles:
 	.short	-21846
 	.short	-21846
 	.short	-21846
-	.short	8864
-	.short	8738
-	.short	10752
-	.short	8738
-	.short	-24576
-	.short	8738
-	.short	10
+	.short	162
+	.short	0
+	.short	2594
+	.short	0
+	.short	-24030
+	.short	0
 	.short	8746
-	.short	173
-	.short	8864
-	.short	2730
-	.short	10752
-	.short	-21846
-	.short	-24576
-	.short	-21846
 	.short	10
+	.short	8877
+	.short	162
+	.short	10922
+	.short	2594
+	.short	-21846
+	.short	-24030
+	.short	-21846
+	.short	8746
 	.short	-21846
 	.short	-21846
 	.short	-21846
@@ -6745,9 +6745,9 @@ livingroombgTiles:
 	.short	-26215
 	.short	-26215
 	.short	-21846
-	.short	170
+	.short	8874
 	.short	-30582
-	.short	2730
+	.short	10922
 	.short	-30311
 	.short	-21848
 	.short	-26215
@@ -6760,32 +6760,32 @@ livingroombgTiles:
 	.short	-21879
 	.short	-26215
 	.short	-21879
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24566
-	.short	0
-	.short	-24406
-	.short	0
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24022
+	.short	8738
+	.short	-23894
+	.short	8738
 	.short	-21846
 	.short	-21846
 	.short	-9558
 	.short	-21846
 	.short	-21846
 	.short	-21846
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
-	.short	0
-	.short	-24576
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
+	.short	8738
+	.short	-24030
 	.short	-21846
 	.short	-21846
 	.short	-21846
@@ -8037,7 +8037,7 @@ livingroombgTiles:
 	.short	15015
 	.short	-22665
 	.short	7543
-	.short	1073
+	.short	9265
 	.short	-14473
 	.short	-21951
 	.short	16708
@@ -8080,14 +8080,14 @@ livingroombgTiles:
 	.short	5137
 	.short	-21846
 	.short	-21846
-	.short	20
-	.short	0
-	.short	3089
-	.short	0
+	.short	8724
+	.short	8738
+	.short	11281
+	.short	8738
 	.short	-16108
-	.short	-13120
+	.short	-13118
 	.short	-15295
-	.short	-16180
+	.short	-15668
 	.short	4372
 	.short	4369
 	.short	4369
@@ -8096,10 +8096,10 @@ livingroombgTiles:
 	.short	4369
 	.short	-21846
 	.short	-21846
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	-13108
 	.short	-13108
 	.short	-13108
@@ -8112,10 +8112,10 @@ livingroombgTiles:
 	.short	4369
 	.short	-21846
 	.short	-21846
-	.short	-24576
+	.short	-24030
 	.short	-21846
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
 	.short	-13108
 	.short	-13108
 	.short	-13108
@@ -8128,10 +8128,10 @@ livingroombgTiles:
 	.short	4372
 	.short	-21846
 	.short	-21846
-	.short	10
-	.short	0
-	.short	0
-	.short	0
+	.short	8746
+	.short	8738
+	.short	8738
+	.short	8738
 	.short	-13108
 	.short	-13108
 	.short	-13108
@@ -8144,10 +8144,10 @@ livingroombgTiles:
 	.short	5137
 	.short	-21846
 	.short	-21846
-	.short	0
-	.short	0
-	.short	0
-	.short	-13120
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	-13118
 	.short	-13108
 	.short	-13108
 	.short	-13108
@@ -8160,9 +8160,9 @@ livingroombgTiles:
 	.short	4369
 	.short	-21846
 	.short	-21846
-	.short	0
-	.short	0
-	.short	-13312
+	.short	8738
+	.short	8738
+	.short	-13278
 	.short	-13108
 	.short	-13108
 	.short	-13108
@@ -8176,7 +8176,7 @@ livingroombgTiles:
 	.short	4369
 	.short	-21846
 	.short	4369
-	.short	4352
+	.short	4386
 	.short	4369
 	.short	4380
 	.short	4369
@@ -8219,29 +8219,29 @@ livingroombgTiles:
 	.short	26487
 	.short	4524
 	.short	30583
-	.short	-22009
+	.short	-21977
 	.short	30583
-	.short	31239
+	.short	31271
 	.short	30583
 	.short	27335
 	.short	30583
-	.short	-21952
+	.short	-21950
 	.short	30583
 	.short	-21855
 	.short	30583
 	.short	-21855
 	.short	-10390
-	.short	2730
+	.short	10922
 	.short	30583
 	.short	14951
 	.short	30583
-	.short	-21952
+	.short	-21950
 	.short	30583
 	.short	-13660
 	.short	30519
-	.short	2762
+	.short	10954
 	.short	30637
-	.short	2634
+	.short	10826
 	.short	-4591
 	.short	-24246
 	.short	-20754
@@ -8250,13 +8250,13 @@ livingroombgTiles:
 	.short	-21846
 	.short	31482
 	.short	4369
-	.short	28836
+	.short	29348
 	.short	4369
-	.short	28672
+	.short	29218
 	.short	5137
-	.short	28672
+	.short	29218
 	.short	16705
-	.short	30400
+	.short	30402
 	.short	4372
 	.short	30412
 	.short	4417
@@ -8269,13 +8269,13 @@ livingroombgTiles:
 	.short	-20204
 	.short	-17477
 	.short	-19391
-	.short	11
+	.short	8747
 	.short	-20204
-	.short	11
+	.short	8747
 	.short	-20207
-	.short	267
+	.short	8491
 	.short	-19439
-	.short	1099
+	.short	9291
 	.short	-20159
 	.short	-28341
 	.short	-20204
@@ -8284,15 +8284,15 @@ livingroombgTiles:
 	.short	-13108
 	.short	-17477
 	.short	-17477
-	.short	0
-	.short	0
-	.short	20736
-	.short	256
-	.short	20736
-	.short	256
-	.short	20741
+	.short	8738
+	.short	8738
+	.short	20770
+	.short	8482
+	.short	20770
+	.short	8482
+	.short	20773
 	.short	21561
-	.short	21518
+	.short	21550
 	.short	20969
 	.short	-28331
 	.short	20793
@@ -8300,16 +8300,16 @@ livingroombgTiles:
 	.short	-13108
 	.short	-17477
 	.short	-17477
-	.short	0
-	.short	0
-	.short	0
-	.short	12288
-	.short	0
-	.short	-8189
-	.short	64
-	.short	12291
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	12834
+	.short	8738
+	.short	-7645
+	.short	8770
+	.short	12835
 	.short	6478
-	.short	13573
+	.short	13605
 	.short	20037
 	.short	-5741
 	.short	-13108
@@ -8317,13 +8317,13 @@ livingroombgTiles:
 	.short	-17477
 	.short	-17477
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	16
+	.short	8722
 	.short	-17477
-	.short	20548
+	.short	21060
 	.short	-17477
 	.short	-5868
 	.short	-17477
@@ -8332,15 +8332,15 @@ livingroombgTiles:
 	.short	-13108
 	.short	-17477
 	.short	-17477
-	.short	0
-	.short	0
-	.short	1296
-	.short	16
-	.short	1296
-	.short	16
-	.short	-27376
-	.short	1347
-	.short	-27328
+	.short	8738
+	.short	8738
+	.short	9490
+	.short	8722
+	.short	9490
+	.short	8722
+	.short	-27374
+	.short	9539
+	.short	-27326
 	.short	-6882
 	.short	-26347
 	.short	21779
@@ -8348,16 +8348,16 @@ livingroombgTiles:
 	.short	-13108
 	.short	-17477
 	.short	-17477
-	.short	0
-	.short	-20480
-	.short	0
-	.short	-19712
-	.short	12288
-	.short	-16896
-	.short	12292
-	.short	-19712
+	.short	8738
+	.short	-19934
+	.short	8738
+	.short	-19678
+	.short	12834
+	.short	-16862
+	.short	12836
+	.short	-19678
 	.short	20884
-	.short	-19632
+	.short	-19630
 	.short	13540
 	.short	-16743
 	.short	4380
@@ -8423,46 +8423,46 @@ livingroombgTiles:
 	.short	30583
 	.short	18231
 	.short	30583
-	.short	371
+	.short	8563
 	.short	-21897
-	.short	170
+	.short	8874
 	.short	30583
 	.short	-21897
 	.short	-23433
 	.short	30586
-	.short	71
-	.short	30624
-	.short	71
-	.short	16704
-	.short	10
-	.short	2628
-	.short	0
+	.short	8775
+	.short	30626
+	.short	8775
+	.short	16706
+	.short	8746
+	.short	10820
+	.short	8738
 	.short	17572
-	.short	0
+	.short	8738
 	.short	5994
-	.short	67
-	.short	-16384
-	.short	4
-	.short	1024
-	.short	170
-	.short	13472
+	.short	8771
+	.short	-15838
+	.short	8740
+	.short	9250
+	.short	8874
+	.short	13474
 	.short	-23481
 	.short	-11094
 	.short	30589
 	.short	30583
-	.short	18944
-	.short	30512
-	.short	0
-	.short	-23792
-	.short	17412
-	.short	16448
+	.short	18978
+	.short	30514
+	.short	8738
+	.short	-23790
+	.short	17444
+	.short	16962
 	.short	31402
 	.short	4372
-	.short	31392
+	.short	31394
 	.short	16705
-	.short	31232
+	.short	31266
 	.short	4372
-	.short	28682
+	.short	29226
 	.short	16657
 	.short	31399
 	.short	16660
@@ -8470,7 +8470,7 @@ livingroombgTiles:
 	.short	4369
 	.short	30583
 	.short	16660
-	.short	31744
+	.short	31778
 	.short	5185
 	.short	-20207
 	.short	-28341
@@ -8479,30 +8479,30 @@ livingroombgTiles:
 	.short	-20207
 	.short	-13109
 	.short	-20207
-	.short	11
+	.short	8747
 	.short	-20207
-	.short	11
+	.short	8747
 	.short	-20207
-	.short	11
+	.short	8747
 	.short	-20207
-	.short	12443
+	.short	12955
 	.short	-20207
-	.short	-8037
+	.short	-7525
 	.short	20830
 	.short	21561
 	.short	21598
 	.short	20969
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	1024
-	.short	0
-	.short	1024
-	.short	16384
-	.short	1040
-	.short	20800
-	.short	1353
+	.short	8738
+	.short	8738
+	.short	9250
+	.short	8738
+	.short	9250
+	.short	16930
+	.short	9234
+	.short	20802
+	.short	9545
 	.short	18755
 	.short	6478
 	.short	14659
@@ -8510,16 +8510,16 @@ livingroombgTiles:
 	.short	13662
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	2304
-	.short	4144
-	.short	2304
-	.short	4153
-	.short	2371
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	10530
+	.short	4658
+	.short	10530
+	.short	4665
+	.short	10563
 	.short	-17477
 	.short	-5868
 	.short	-17477
@@ -8527,30 +8527,30 @@ livingroombgTiles:
 	.short	-17477
 	.short	-13108
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	777
+	.short	9001
 	.short	-17477
-	.short	-25079
+	.short	-25047
 	.short	-27371
 	.short	-6845
 	.short	-27323
 	.short	21790
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	64
-	.short	0
-	.short	64
-	.short	1024
-	.short	65
-	.short	1300
-	.short	12372
+	.short	8738
+	.short	8738
+	.short	8770
+	.short	8738
+	.short	8770
+	.short	9250
+	.short	8769
+	.short	9492
+	.short	12884
 	.short	-27500
 	.short	12692
 	.short	-19564
@@ -8558,16 +8558,16 @@ livingroombgTiles:
 	.short	-19627
 	.short	-13108
 	.short	-17204
-	.short	0
-	.short	-20480
-	.short	0
-	.short	-20480
-	.short	0
-	.short	-20336
-	.short	259
-	.short	-20336
-	.short	12547
-	.short	-20332
+	.short	8738
+	.short	-19934
+	.short	8738
+	.short	-19934
+	.short	8738
+	.short	-19822
+	.short	8483
+	.short	-19822
+	.short	12579
+	.short	-19820
 	.short	16667
 	.short	5137
 	.short	5147
@@ -8596,10 +8596,10 @@ livingroombgTiles:
 	.short	5137
 	.short	-21846
 	.short	4417
-	.short	0
+	.short	8738
 	.short	4378
-	.short	0
-	.short	4512
+	.short	8738
+	.short	4514
 	.short	16660
 	.short	28945
 	.short	5140
@@ -8616,72 +8616,72 @@ livingroombgTiles:
 	.short	29713
 	.short	4369
 	.short	28945
-	.short	1911
-	.short	324
-	.short	16454
-	.short	1044
+	.short	10103
+	.short	8516
+	.short	16966
+	.short	9236
 	.short	16708
-	.short	0
-	.short	1030
-	.short	16452
-	.short	1028
-	.short	4160
-	.short	64
-	.short	16
-	.short	64
-	.short	0
-	.short	10
-	.short	64
-	.short	0
-	.short	4112
-	.short	4368
+	.short	8738
+	.short	9254
+	.short	16964
+	.short	9252
+	.short	4674
+	.short	8770
+	.short	8722
+	.short	8770
+	.short	8738
+	.short	8746
+	.short	8770
+	.short	8738
+	.short	4626
+	.short	4370
 	.short	17479
-	.short	-3008
+	.short	-3006
 	.short	16705
-	.short	16388
+	.short	16932
 	.short	17508
-	.short	4
-	.short	4160
-	.short	4
-	.short	68
-	.short	0
-	.short	4
-	.short	0
-	.short	0
+	.short	8740
+	.short	4674
+	.short	8740
+	.short	8772
+	.short	8738
+	.short	8740
+	.short	8738
+	.short	8738
 	.short	5140
-	.short	2685
-	.short	17472
-	.short	2678
-	.short	1044
-	.short	3236
-	.short	64
-	.short	16388
-	.short	68
-	.short	4
-	.short	17408
-	.short	16384
-	.short	0
-	.short	16384
-	.short	0
-	.short	0
-	.short	28672
+	.short	10877
+	.short	17474
+	.short	10870
+	.short	9236
+	.short	11428
+	.short	8770
+	.short	16932
+	.short	8772
+	.short	8740
+	.short	17442
+	.short	16930
+	.short	8738
+	.short	16930
+	.short	8738
+	.short	8738
+	.short	29218
 	.short	4369
-	.short	28676
+	.short	29220
 	.short	16660
 	.short	31761
 	.short	5185
-	.short	31748
+	.short	31780
 	.short	16657
-	.short	28736
+	.short	29250
 	.short	4372
-	.short	28676
+	.short	29220
 	.short	4417
-	.short	28672
+	.short	29218
 	.short	5137
-	.short	28672
+	.short	29218
 	.short	16657
 	.short	-20207
-	.short	12443
+	.short	12955
 	.short	-20207
 	.short	12699
 	.short	-20159
@@ -8691,11 +8691,11 @@ livingroombgTiles:
 	.short	-20207
 	.short	-13109
 	.short	-19439
-	.short	11
+	.short	8747
 	.short	-20159
-	.short	3595
+	.short	11819
 	.short	-20204
-	.short	5387
+	.short	5419
 	.short	21529
 	.short	16718
 	.short	21785
@@ -8706,13 +8706,13 @@ livingroombgTiles:
 	.short	17491
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	3584
-	.short	0
-	.short	256
-	.short	0
-	.short	16441
+	.short	8738
+	.short	8738
+	.short	11810
+	.short	8738
+	.short	8482
+	.short	8738
+	.short	16953
 	.short	7747
 	.short	5433
 	.short	6467
@@ -8722,14 +8722,14 @@ livingroombgTiles:
 	.short	6467
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	0
-	.short	1
-	.short	12289
-	.short	20481
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8737
+	.short	12833
+	.short	21025
 	.short	-17477
-	.short	-27895
+	.short	-27863
 	.short	-17477
 	.short	-27879
 	.short	-17477
@@ -8739,11 +8739,11 @@ livingroombgTiles:
 	.short	-17477
 	.short	-13108
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	224
+	.short	8930
 	.short	-17477
-	.short	336
+	.short	8530
 	.short	-6847
 	.short	-27628
 	.short	13649
@@ -8754,13 +8754,13 @@ livingroombgTiles:
 	.short	-27579
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	224
-	.short	0
-	.short	16
-	.short	4096
-	.short	13315
+	.short	8738
+	.short	8738
+	.short	8930
+	.short	8738
+	.short	8722
+	.short	4642
+	.short	13347
 	.short	-19996
 	.short	12627
 	.short	-20076
@@ -8770,12 +8770,12 @@ livingroombgTiles:
 	.short	-20076
 	.short	-13108
 	.short	-17204
-	.short	0
-	.short	-20480
-	.short	4096
-	.short	-20480
-	.short	4864
-	.short	-19200
+	.short	8738
+	.short	-19934
+	.short	4642
+	.short	-19934
+	.short	4898
+	.short	-19166
 	.short	4379
 	.short	16660
 	.short	16667
@@ -8824,22 +8824,22 @@ livingroombgTiles:
 	.short	4369
 	.short	4375
 	.short	16660
-	.short	10
-	.short	18944
-	.short	170
-	.short	-24576
-	.short	-22006
-	.short	-24566
-	.short	10
-	.short	-21856
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
+	.short	8746
+	.short	18978
+	.short	8874
+	.short	-24030
+	.short	-21974
+	.short	-24022
+	.short	8746
+	.short	-21854
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
 	.short	4372
 	.short	28945
 	.short	4369
@@ -8856,69 +8856,69 @@ livingroombgTiles:
 	.short	28945
 	.short	4369
 	.short	28945
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	3808
-	.short	-4594
-	.short	3808
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	12002
+	.short	-4562
+	.short	12002
 	.short	-4370
-	.short	-4608
+	.short	-4574
 	.short	-4370
-	.short	-4384
-	.short	-4594
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	16384
-	.short	0
-	.short	0
-	.short	0
-	.short	14
-	.short	0
-	.short	-7954
-	.short	224
+	.short	-4382
+	.short	-4562
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	16930
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8750
+	.short	8738
+	.short	-7442
+	.short	8930
 	.short	-4370
 	.short	-4370
-	.short	3822
+	.short	12014
 	.short	-4370
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	-4608
-	.short	3822
-	.short	3598
-	.short	3822
-	.short	-4594
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	-4574
+	.short	12014
+	.short	11822
+	.short	12014
+	.short	-4562
 	.short	-4370
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	28672
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	8738
+	.short	29218
 	.short	4369
-	.short	28672
+	.short	29218
 	.short	4369
-	.short	28672
+	.short	29218
 	.short	4369
-	.short	28672
+	.short	29218
 	.short	4369
-	.short	28910
+	.short	29422
 	.short	4369
-	.short	28910
+	.short	29422
 	.short	4369
-	.short	-12288
+	.short	-11742
 	.short	4369
-	.short	-12288
+	.short	-11742
 	.short	4369
 	.short	-20207
 	.short	5531
@@ -8933,27 +8933,27 @@ livingroombgTiles:
 	.short	-20207
 	.short	-13109
 	.short	-20204
-	.short	11
+	.short	8747
 	.short	-19391
-	.short	11
-	.short	1027
-	.short	13316
+	.short	8747
+	.short	9251
+	.short	13348
 	.short	-28349
-	.short	22789
+	.short	22821
 	.short	-28349
-	.short	13316
+	.short	13348
 	.short	-7021
 	.short	13332
 	.short	-28349
 	.short	14820
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	17673
-	.short	16542
-	.short	21761
-	.short	18692
+	.short	8738
+	.short	8738
+	.short	17705
+	.short	17054
+	.short	21793
+	.short	18724
 	.short	13636
 	.short	22929
 	.short	13713
@@ -8964,10 +8964,10 @@ livingroombgTiles:
 	.short	22849
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	20624
-	.short	0
+	.short	8738
+	.short	8738
+	.short	21138
+	.short	8738
 	.short	-17477
 	.short	12633
 	.short	-17477
@@ -8981,27 +8981,27 @@ livingroombgTiles:
 	.short	-17477
 	.short	-13108
 	.short	-17477
-	.short	0
+	.short	8738
 	.short	-17477
-	.short	-28672
-	.short	16448
-	.short	4928
+	.short	-28126
+	.short	16962
+	.short	4930
 	.short	22804
-	.short	17808
+	.short	17810
 	.short	18708
-	.short	4928
+	.short	4930
 	.short	20041
 	.short	4929
 	.short	18708
 	.short	5022
 	.short	-13108
 	.short	-13108
-	.short	0
-	.short	0
-	.short	-7088
-	.short	1033
-	.short	17744
-	.short	-19312
+	.short	8738
+	.short	8738
+	.short	-7086
+	.short	9257
+	.short	17746
+	.short	-19310
 	.short	4948
 	.short	-19047
 	.short	4953
@@ -9012,10 +9012,10 @@ livingroombgTiles:
 	.short	-19052
 	.short	-13108
 	.short	-17204
-	.short	0
-	.short	-20480
-	.short	1289
-	.short	-20480
+	.short	8738
+	.short	-19934
+	.short	9513
+	.short	-19934
 	.short	4379
 	.short	16657
 	.short	4379
@@ -9064,22 +9064,22 @@ livingroombgTiles:
 	.short	31402
 	.short	-21846
 	.short	31402
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
 	.short	4369
 	.short	28945
 	.short	4369
@@ -9096,8 +9096,8 @@ livingroombgTiles:
 	.short	5140
 	.short	16660
 	.short	16657
-	.short	160
-	.short	0
+	.short	8866
+	.short	8738
 	.short	30580
 	.short	30583
 	.short	4417
@@ -9112,8 +9112,8 @@ livingroombgTiles:
 	.short	4369
 	.short	4372
 	.short	16660
-	.short	0
-	.short	0
+	.short	8738
+	.short	8738
 	.short	30583
 	.short	30583
 	.short	5137
@@ -9128,7 +9128,7 @@ livingroombgTiles:
 	.short	5137
 	.short	4369
 	.short	16657
-	.short	16384
+	.short	16930
 	.short	4369
 	.short	29815
 	.short	4369
@@ -9145,7 +9145,7 @@ livingroombgTiles:
 	.short	16660
 	.short	16657
 	.short	-20207
-	.short	16571
+	.short	17083
 	.short	-20204
 	.short	19387
 	.short	-19391
@@ -9177,7 +9177,7 @@ livingroombgTiles:
 	.short	-17477
 	.short	-17477
 	.short	24149
-	.short	3657
+	.short	11849
 	.short	24213
 	.short	-17586
 	.short	-17477
@@ -9193,7 +9193,7 @@ livingroombgTiles:
 	.short	-17477
 	.short	-17477
 	.short	-17476
-	.short	-27648
+	.short	-27614
 	.short	-17460
 	.short	-27461
 	.short	-17460
@@ -9225,7 +9225,7 @@ livingroombgTiles:
 	.short	-17477
 	.short	-17477
 	.short	-27163
-	.short	-20252
+	.short	-19740
 	.short	-6679
 	.short	-17484
 	.short	-17477
@@ -9336,22 +9336,22 @@ livingroombgTiles:
 	.short	5140
 	.short	-17477
 	.short	19387
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-24576
-	.short	10
-	.short	-22016
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-24030
+	.short	8746
+	.short	-21982
 	.short	16657
 	.short	5137
 	.short	5140
@@ -9528,11 +9528,11 @@ livingroombgTiles:
 	.short	-21027
 	.short	-17477
 	.short	-21061
-	.short	10
-	.short	-21856
-	.short	10
+	.short	8746
+	.short	-21854
+	.short	8746
 	.short	-21846
-	.short	-22006
+	.short	-21974
 	.short	-21846
 	.short	-9558
 	.short	-8739
@@ -9831,7 +9831,7 @@ livingroombgTiles:
 	.short	26214
 	.short	-21914
 	.short	26214
-	.short	10922
+	.short	2730
 	.short	26214
 	.short	26214
 	.short	26214
@@ -9843,11 +9843,11 @@ livingroombgTiles:
 	.short	26214
 	.short	-21914
 	.short	-21850
-	.short	8874
-	.short	8746
-	.short	8738
-	.short	8738
-	.short	8738
+	.short	170
+	.short	10
+	.short	0
+	.short	0
+	.short	0
 	.short	26214
 	.short	-10650
 	.short	26214
@@ -9941,41 +9941,25 @@ livingroombgTiles:
 	.short	26214
 	.short	-21850
 	.short	26214
-	.short	8746
+	.short	10
 	.short	-22938
-	.short	8738
+	.short	0
 	.short	-21914
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8874
-	.short	8738
-	.short	8746
-	.short	8738
-	.short	8746
-	.short	8738
-	.short	8746
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
+	.short	0
+	.short	166
+	.short	0
+	.short	170
+	.short	0
+	.short	10
+	.short	0
+	.short	10
+	.short	0
+	.short	10
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	26218
 	.short	-10650
 	.short	26218
@@ -9986,11 +9970,11 @@ livingroombgTiles:
 	.short	-10650
 	.short	26282
 	.short	-10650
-	.short	27298
+	.short	27296
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
 	.short	-26215
 	.short	-13927
@@ -10056,37 +10040,37 @@ livingroombgTiles:
 	.short	26214
 	.short	-9831
 	.short	26214
-	.short	10854
-	.short	8738
-	.short	10854
-	.short	8738
-	.short	10918
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	27170
+	.short	2662
+	.short	0
+	.short	2662
+	.short	0
+	.short	2726
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
 	.short	-26215
 	.short	-13159
@@ -10216,22 +10200,22 @@ livingroombgTiles:
 	.short	26214
 	.short	-9831
 	.short	26214
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
+	.short	166
+	.short	0
 	.short	-26215
 	.short	-13111
 	.short	-26215
@@ -10392,10 +10376,10 @@ livingroombgTiles:
 	.short	26214
 	.short	-9831
 	.short	-8739
-	.short	8870
-	.short	8738
-	.short	8870
-	.short	8738
+	.short	166
+	.short	0
+	.short	166
+	.short	0
 	.short	-21850
 	.short	-21846
 	.short	26214
@@ -10408,10 +10392,10 @@ livingroombgTiles:
 	.short	26214
 	.short	-8739
 	.short	-8739
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	-21846
 	.short	-21846
 	.short	26214
@@ -10424,9 +10408,9 @@ livingroombgTiles:
 	.short	26214
 	.short	-8739
 	.short	-8739
-	.short	27170
+	.short	27136
 	.short	-10650
-	.short	27170
+	.short	27136
 	.short	-10650
 	.short	27306
 	.short	-10650
@@ -12882,12 +12866,12 @@ livingroombgTiles:
 	.short	-1
 	.short	-1
 	.short	-1
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
 	.short	-1
 	.short	-1
 	.short	-1
@@ -12898,12 +12882,12 @@ livingroombgTiles:
 	.short	-1
 	.short	-1
 	.short	-1
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	-1
 	.short	-24577
 	.short	-1
@@ -12914,43 +12898,43 @@ livingroombgTiles:
 	.short	-24577
 	.short	-1
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	-14
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
 	.short	-26215
 	.short	-26215
@@ -13128,65 +13112,65 @@ livingroombgTiles:
 	.short	-6
 	.short	-21846
 	.short	-21846
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
-	.short	12287
-	.short	8738
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
+	.short	4095
+	.short	0
 	.short	-21846
 	.short	-21846
 	.short	-21846
 	.short	-21846
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	-21846
 	.short	-21846
 	.short	-21846
 	.short	-21846
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
-	.short	8738
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	-9558
 	.short	-21846
 	.short	-9558
 	.short	-21846
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-24577
-	.short	-14
+	.short	-16
 	.short	-28673
-	.short	-14
+	.short	-16
 	.short	-16385
-	.short	-14
+	.short	-16
 	.short	-8193
-	.short	-14
+	.short	-16
 	.short	-20481
 	.short	-6
 	.short	-20481

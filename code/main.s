@@ -80,7 +80,7 @@ initialize:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, lr}
-	mov	r3, #1264
+	mov	r3, #1280
 	ldr	r4, .L8
 	mov	r2, #100663296
 	mov	r0, #3
@@ -278,33 +278,33 @@ goToLivingRoom:
 	mov	lr, pc
 	bx	r5
 	mov	r0, r4
-	ldr	r3, .L27+24
-	ldr	r2, .L27+28
-	ldr	r1, .L27+32
+	mov	r3, #8832
+	ldr	r2, .L27+24
+	ldr	r1, .L27+28
 	mov	lr, pc
 	bx	r5
 	mov	r0, r4
 	mov	r3, #4096
-	ldr	r2, .L27+36
-	ldr	r1, .L27+40
+	ldr	r2, .L27+32
+	ldr	r1, .L27+36
 	mov	lr, pc
 	bx	r5
 	mov	r3, #67108864
-	ldr	r2, .L27+44
+	ldr	r2, .L27+40
 	mov	r0, r4
 	strh	r2, [r3, #10]	@ movhi
-	ldr	r1, .L27+48
+	ldr	r1, .L27+44
 	mov	r3, #256
-	ldr	r2, .L27+52
+	ldr	r2, .L27+48
 	mov	lr, pc
 	bx	r5
 	mov	r0, r4
 	mov	r3, #16384
-	ldr	r2, .L27+56
-	ldr	r1, .L27+60
+	ldr	r2, .L27+52
+	ldr	r1, .L27+56
 	mov	lr, pc
 	bx	r5
-	ldr	r3, .L27+64
+	ldr	r3, .L27+60
 	mov	lr, pc
 	bx	r3
 	pop	{r4, r5, r6, lr}
@@ -318,7 +318,6 @@ goToLivingRoom:
 	.word	priorState
 	.word	DMANow
 	.word	livingroombgPal
-	.word	8848
 	.word	100679680
 	.word	livingroombgTiles
 	.word	100704256

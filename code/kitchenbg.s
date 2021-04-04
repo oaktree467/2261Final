@@ -36,9 +36,9 @@ kitchenbgPal:
 	.short	0
 	.short	30751
 	.short	14140
+	.short	3376
+	.short	32767
 	.short	25567
-	.short	0
-	.short	0
 	.short	0
 	.short	0
 	.short	0
