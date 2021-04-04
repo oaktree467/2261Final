@@ -7,6 +7,7 @@
 #include "kitchencollision.h"
 #include "kitchenbg.h"
 #include "messagescreen.h"
+#include "text.h"
 
 
 //global variables

@@ -75,10 +75,11 @@ void drawGame();
 void drawProtagonist();
 void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
-void loadLivingRoom();
-void loadKitchen();
 void checkSpriteCollision();
 void checkMoreInfo();
+void checkDoorway();
+void loadLivingRoom();
+void loadKitchen();
 # 2 "livingroom.c" 2
 # 1 "livingroom.h" 1
 

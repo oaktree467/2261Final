@@ -230,7 +230,7 @@ extern const unsigned short kitchenbgPal[256];
 # 9 "game.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[176];
+extern const unsigned short messagescreenTiles[1264];
 
 
 extern const unsigned short messagescreenMap[1024];
@@ -238,6 +238,8 @@ extern const unsigned short messagescreenMap[1024];
 
 extern const unsigned short messagescreenPal[256];
 # 10 "game.c" 2
+# 1 "text.h" 1
+# 11 "game.c" 2
 
 
 

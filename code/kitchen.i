@@ -75,10 +75,11 @@ void drawGame();
 void drawProtagonist();
 void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
-void loadLivingRoom();
-void loadKitchen();
 void checkSpriteCollision();
 void checkMoreInfo();
+void checkDoorway();
+void loadLivingRoom();
+void loadKitchen();
 # 2 "kitchen.c" 2
 # 1 "kitchen.h" 1
 
@@ -89,7 +90,6 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 
 void initKitchenSprites();
-void checkKitchenCollide();
 # 3 "kitchen.c" 2
 
 STATIONARYSPRITE kitchenSpritesArr[2];

@@ -1465,7 +1465,7 @@ extern const unsigned short kitchenbgPal[256];
 # 12 "main.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[176];
+extern const unsigned short messagescreenTiles[1264];
 
 
 extern const unsigned short messagescreenMap[1024];
@@ -1613,7 +1613,7 @@ int main() {
 
 void initialize()
 {
-    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 352 / 2);
+    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2528 / 2);
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 
     (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((24) << 8) | (0 << 7) | (0 << 14) | ((0) << 1);
