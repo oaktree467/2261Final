@@ -54,6 +54,7 @@ extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
+extern STATIONARYSPRITE *activeSprite;
 
 
 extern unsigned short hOff;
@@ -96,6 +97,7 @@ void initKitchenSprites();
 STATIONARYSPRITE kitchenSpritesArr[2];
 
 char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated'the kitchen.";
+char refrigerator[] = "It's the key you were      looking for... but why was it in the refrigerator?";
 
 
 void initKitchenSprites() {
@@ -119,5 +121,6 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].worldCol = 109;
     kitchenSpritesArr[1].hide = 1;
     kitchenSpritesArr[1].collisionColor = 0x7F60;
+    kitchenSpritesArr[1].message = &refrigerator;
 
 }

@@ -72,6 +72,7 @@ extern const unsigned short (* currCollisionMap)[]; //current collision map, dep
 extern int spriteCollisionBool; //is the character currently in contact with a sprite?
 extern int messageActiveBool; //is a message active on screen?
 extern int nextRoomBool; //is the player moving to the next room?
+extern STATIONARYSPRITE *activeSprite;
 
 //horizontal and vertical offsets
 extern unsigned short hOff;
@@ -99,3 +100,4 @@ void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
 void printText();
+void clearMessage();

@@ -166,6 +166,7 @@ extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
+extern STATIONARYSPRITE *activeSprite;
 
 
 extern unsigned short hOff;
@@ -193,6 +194,7 @@ void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
 void printText();
+void clearMessage();
 # 5 "game.c" 2
 # 1 "livingroom.h" 1
 
@@ -248,6 +250,7 @@ extern unsigned short *letterMap[95];
 PROTAGSPRITE protag;
 STATIONARYSPRITE(* currSpriteArr)[];
 int currSpriteArrCount;
+STATIONARYSPRITE *activeSprite;
 const unsigned short (* currCollisionMap)[];
 int spriteCollisionBool;
 int messageActiveBool;
@@ -499,6 +502,7 @@ void checkSpriteCollision() {
             if ((*currSpriteArr)[i].collisionColor == currColor) {
                 (*currSpriteArr)[i].hide = 0;
                 spriteCollisionBool = 1;
+                activeSprite = &(*currSpriteArr)[i];
             } else {
                 (*currSpriteArr)[i].hide = 1;
             }
@@ -531,22 +535,29 @@ void checkDoorway() {
 }
 
 void printText() {
+    clearMessage();
     int i = 0;
     int j = 450;
-    while (((*(kitchenSpritesArr[0].message))[i]) != '\0') {
+    while ((*(activeSprite->message))[i] != '\0') {
 
         if ((j - 477) % 32 == 0) {
             j += 5;
         }
 
-        if (((*(kitchenSpritesArr[0].message))[i]) == '\\') {
-            j += 5;
-            i++;
-        }
-        messagescreenMap[j] = *(letterMap[((*(kitchenSpritesArr[0].message))[i]) - 32]);
+        messagescreenMap[j] = *(letterMap[((*(activeSprite->message))[i]) - 32]);
         i++;
         j++;
     }
 
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+}
+
+void clearMessage() {
+    for (int i = 450; i < 604; i++) {
+        if ((i - 477) % 32 == 0) {
+            i += 5;
+        }
+        messagescreenMap[i] = messagescreenMap[748];
+    }
+
 }

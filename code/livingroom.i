@@ -54,6 +54,7 @@ extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
+extern STATIONARYSPRITE *activeSprite;
 
 
 extern unsigned short hOff;
@@ -81,6 +82,7 @@ void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
 void printText();
+void clearMessage();
 # 2 "livingroom.c" 2
 # 1 "livingroom.h" 1
 
@@ -96,6 +98,14 @@ void checkLivingRoomCollide();
 STATIONARYSPRITE livingRoomSpritesArr[8];
 
 
+char record[] = "A commemorative 50th       anniversary gold record of MMMBop by Hansen. Just a   little touch you added.";
+char tapestry[] = "";
+char painting[] = "";
+char poster[] = "";
+char bookcase[] = "";
+
+char TV[] = "Some show about being buried prematurely... you can't bear to watch this.";
+
 
 void initLivingRoomSprites() {
 
@@ -107,6 +117,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[0].worldCol = 312;
     livingRoomSpritesArr[0].hide = 1;
     livingRoomSpritesArr[0].collisionColor = 0x0C60;
+    livingRoomSpritesArr[0].message = &record;
 
 
     livingRoomSpritesArr[1].sheetCol = 12;
@@ -117,6 +128,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[1].worldCol = 189;
     livingRoomSpritesArr[1].hide = 1;
     livingRoomSpritesArr[1].collisionColor = 0x7F60;
+    livingRoomSpritesArr[1].message = &record;
 
 
     livingRoomSpritesArr[2].sheetCol = 0;

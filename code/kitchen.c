@@ -4,6 +4,7 @@
 STATIONARYSPRITE kitchenSpritesArr[KITCHEN_SPRITECOUNT];
 
 char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated'the kitchen.";
+char refrigerator[] = "It's the key you were      looking for... but why was it in the refrigerator?";
 
 //functions
 void initKitchenSprites() {
@@ -15,7 +16,7 @@ void initKitchenSprites() {
     kitchenSpritesArr[0].worldRow = 67;
     kitchenSpritesArr[0].worldCol = 84;
     kitchenSpritesArr[0].hide = 1;
-    kitchenSpritesArr[0].collisionColor = 0x03FF;
+    kitchenSpritesArr[0].collisionColor = YELLOW_HIT;
     kitchenSpritesArr[0].message = &pictureFrame;
 
     //fridge
@@ -26,6 +27,7 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].worldRow = 67;
     kitchenSpritesArr[1].worldCol = 109;
     kitchenSpritesArr[1].hide = 1;
-    kitchenSpritesArr[1].collisionColor = 0x7F60;
+    kitchenSpritesArr[1].collisionColor = AQUA_HIT;
+    kitchenSpritesArr[1].message = &refrigerator;
 
 }

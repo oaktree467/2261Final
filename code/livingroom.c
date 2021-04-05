@@ -2,6 +2,14 @@
 #include "livingroom.h"
 STATIONARYSPRITE livingRoomSpritesArr[LR_SPRITECOUNT];
 
+//message arrays
+char record[] = "A commemorative 50th       anniversary gold record of MMMBop by Hansen. Just a   little touch you added.";
+char tapestry[] = "";
+char painting[] = "";
+char poster[] = "";
+char bookcase[] = ""; 
+//char computerScreen[] = 
+char TV[] = "Some show about being buried prematurely... you can't bear to watch this."; 
 
 //initialize living room sprites
 void initLivingRoomSprites() {
@@ -14,6 +22,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[0].worldCol = 312;
     livingRoomSpritesArr[0].hide = 1;
     livingRoomSpritesArr[0].collisionColor = OCEAN_HIT;
+    livingRoomSpritesArr[0].message = &record;
 
     //record
     livingRoomSpritesArr[1].sheetCol = 12;
@@ -24,6 +33,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[1].worldCol = 189;
     livingRoomSpritesArr[1].hide = 1;
     livingRoomSpritesArr[1].collisionColor = AQUA_HIT;
+    livingRoomSpritesArr[1].message = &record;
 
     //tapestry
     livingRoomSpritesArr[2].sheetCol = 0;
