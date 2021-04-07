@@ -34,7 +34,7 @@ initKitchenSprites:
 	mov	r1, #67
 	ldr	r3, .L4
 	ldr	lr, .L4+4
-	add	r10, lr, #68
+	add	r10, lr, #76
 	str	lr, [r3, #48]
 	ldr	lr, .L4+8
 	str	r10, [r3, #100]
@@ -71,14 +71,14 @@ initKitchenSprites:
 	.align	2
 	.set	.LANCHOR0,. + 0
 	.type	pictureFrame, %object
-	.size	pictureFrame, 67
+	.size	pictureFrame, 74
 pictureFrame:
-	.ascii	"Your aunt, in her infinite wisdom, only ever 'updat"
-	.ascii	"ed'the kitchen.\000"
-	.space	1
+	.ascii	"Your aunt, in her infinitewisdom, only ever        "
+	.ascii	" 'updated'the kitchen.\000"
+	.space	2
 	.type	refrigerator, %object
-	.size	refrigerator, 78
+	.size	refrigerator, 76
 refrigerator:
-	.ascii	"It's the key you were      looking for... but why w"
-	.ascii	"as it in the refrigerator?\000"
+	.ascii	"It's the key you were     looking for... but why wa"
+	.ascii	"sit in the refrigerator?\000"
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

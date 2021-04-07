@@ -1398,6 +1398,7 @@ extern const unsigned short (* currCollisionMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
+extern STATIONARYSPRITE *activeSprite;
 
 
 extern unsigned short hOff;
@@ -1425,6 +1426,7 @@ void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
 void printText();
+void clearMessage();
 # 8 "main.c" 2
 # 1 "livingroom.h" 1
 

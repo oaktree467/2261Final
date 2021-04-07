@@ -82,6 +82,7 @@ void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
 void printText();
+void clearMessage();
 # 2 "kitchen.c" 2
 # 1 "kitchen.h" 1
 
@@ -96,8 +97,8 @@ void initKitchenSprites();
 
 STATIONARYSPRITE kitchenSpritesArr[2];
 
-char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated'the kitchen.";
-char refrigerator[] = "It's the key you were      looking for... but why was it in the refrigerator?";
+char pictureFrame[] = "Your aunt, in her infinitewisdom, only ever         'updated'the kitchen.";
+char refrigerator[] = "It's the key you were     looking for... but why wasit in the refrigerator?";
 
 
 void initKitchenSprites() {

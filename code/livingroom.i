@@ -98,13 +98,13 @@ void checkLivingRoomCollide();
 STATIONARYSPRITE livingRoomSpritesArr[8];
 
 
-char record[] = "A commemorative 50th       anniversary gold record of MMMBop by Hansen. Just a   little touch you added.";
-char tapestry[] = "";
+char record[] = "A commemorative 50th      anniversary gold record of'MMMBop' by Hansen. Just alittle touch you added to the room.";
+char tapestry[] = "You never really          understood this tapestry, but when your aunt passed and left you the house,   you kept it up in her     memory.";
 char painting[] = "";
 char poster[] = "";
 char bookcase[] = "";
 
-char TV[] = "Some show about being buried prematurely... you can't bear to watch this.";
+char TV[] = "Some show about being     buried alive... you can't bear to watch this.";
 
 
 void initLivingRoomSprites() {
@@ -139,6 +139,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[2].worldCol = 59;
     livingRoomSpritesArr[2].hide = 1;
     livingRoomSpritesArr[2].collisionColor = 0x03FF;
+    livingRoomSpritesArr[2].message = &tapestry;
 
 
     livingRoomSpritesArr[3].sheetCol = 8;
@@ -189,4 +190,6 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[7].worldCol = 235;
     livingRoomSpritesArr[7].hide = 1;
     livingRoomSpritesArr[7].collisionColor = 0x0E47;
+    livingRoomSpritesArr[7].message = &TV;
+
 }

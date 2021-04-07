@@ -3,8 +3,8 @@
 
 STATIONARYSPRITE kitchenSpritesArr[KITCHEN_SPRITECOUNT];
 
-char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated'the kitchen.";
-char refrigerator[] = "It's the key you were      looking for... but why was it in the refrigerator?";
+char pictureFrame[] = "Your aunt, in her infinitewisdom, only ever         'updated'the kitchen.";
+char refrigerator[] = "It's the key you were     looking for... but why wasit in the refrigerator?";
 
 //functions
 void initKitchenSprites() {

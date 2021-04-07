@@ -901,7 +901,7 @@ messagescreenTiles:
 	.short	17444
 	.short	8740
 	.short	17442
-	.short	17444
+	.short	17476
 	.short	17476
 	.short	17444
 	.short	17476
@@ -934,7 +934,7 @@ messagescreenTiles:
 	.short	8772
 	.short	17474
 	.short	17476
-	.short	17444
+	.short	17476
 	.short	17476
 	.short	17444
 	.short	17476
@@ -965,6 +965,8 @@ messagescreenTiles:
 	.short	17476
 	.short	8772
 	.short	17442
+	.short	17476
+	.short	17476
 	.short	9284
 	.short	17442
 	.short	9284
@@ -973,8 +975,6 @@ messagescreenTiles:
 	.short	17476
 	.short	8740
 	.short	17442
-	.short	9284
-	.short	17476
 	.short	9284
 	.short	17476
 	.short	9284
@@ -997,7 +997,7 @@ messagescreenTiles:
 	.short	17444
 	.short	8740
 	.short	17474
-	.short	17444
+	.short	17476
 	.short	17476
 	.short	17444
 	.short	17476
@@ -1045,7 +1045,7 @@ messagescreenTiles:
 	.short	17474
 	.short	8772
 	.short	17474
-	.short	17444
+	.short	17476
 	.short	17476
 	.short	17444
 	.short	17476
@@ -1061,11 +1061,11 @@ messagescreenTiles:
 	.short	17474
 	.short	17444
 	.short	17444
-	.short	8740
 	.short	17476
-	.short	9284
 	.short	17476
-	.short	9284
+	.short	17476
+	.short	17476
+	.short	8772
 	.short	17476
 	.short	9284
 	.short	17476
@@ -1129,10 +1129,10 @@ messagescreenTiles:
 	.short	17476
 	.short	17476
 	.short	17476
-	.short	8740
+	.short	17476
+	.short	17476
+	.short	8772
 	.short	17474
-	.short	17444
-	.short	17444
 	.short	17444
 	.short	17444
 	.short	8740
@@ -1275,8 +1275,8 @@ messagescreenTiles:
 	.short	17476
 	.short	17476
 	.short	17476
-	.short	17444
-	.short	17444
+	.short	16932
+	.short	17442
 	.short	16964
 	.short	17474
 	.short	8772
@@ -1493,6 +1493,8 @@ messagescreenTiles:
 	.short	17476
 	.short	17442
 	.short	17476
+	.short	17476
+	.short	17476
 	.short	9284
 	.short	17442
 	.short	16964
@@ -1505,8 +1507,6 @@ messagescreenTiles:
 	.short	17476
 	.short	17476
 	.short	17476
-	.short	9284
-	.short	17474
 	.short	9284
 	.short	17474
 	.short	17476

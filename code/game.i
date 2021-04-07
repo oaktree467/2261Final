@@ -321,7 +321,7 @@ void updateProtagonist() {
         }
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 6)))) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
-                && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height - 1) != 0))) {
+                && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow - 1) != 0))) {
                     protag.worldRow--;
                 if ((vOff - 1 > 0) && (protag.screenRow <= (160 / 2))) {
                     vOff--;
@@ -346,7 +346,7 @@ void updateProtagonist() {
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 4)))) {
             if ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
-                && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height) != 0))) {
+                && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
 
                 if (((hOff + 1) < (mapWidth - 240)) && protag.screenCol >= (240 / 2)) {
@@ -364,7 +364,7 @@ void updateProtagonist() {
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 5)))) {
             if ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow) != 0)
-                && ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow + protag.height) != 0))) {
+                && ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
 
                 if (((hOff - 1) > 0) && protag.screenCol <= (240 / 2)) {
@@ -432,21 +432,30 @@ unsigned short checkCollisionMapColor(int x, int y) {
 
 
 void loadLivingRoom() {
-    if (priorState != PAUSE) {
-        protag.worldRow = 365;
-        protag.worldCol = 412;
-        protag.aniState = PROTAGFRONT;
+    mapWidth = 512;
+    mapHeight = 478;
 
-        hOff = 272;
-        vOff = 300;
+    if (priorState != PAUSE) {
+        if (priorState == KITCHEN) {
+            protag.worldRow = 370;
+            protag.worldCol = 450;
+
+            hOff = (mapWidth - 240);
+            vOff = (mapHeight - 160);
+
+        } else {
+            protag.worldRow = 140;
+            protag.worldCol = 30;
+            protag.aniState = PROTAGFRONT;
+
+            hOff = 0;
+            vOff = 40;
+        }
 
     } else {
         hOff = priorHoff;
         vOff = priorVoff;
     }
-
-    mapWidth = 512;
-    mapHeight = 478;
 
     initLivingRoomSprites();
     currSpriteArrCount = 8;
@@ -460,7 +469,7 @@ void loadKitchen() {
     if (priorState != PAUSE) {
         protag.worldRow = 120;
         protag.worldCol = 30;
-        protag.aniState = PROTAGFRONT;
+        protag.aniState = PROTAGBACK;
         hOff = 0;
         vOff = 0;
     } else {
@@ -537,11 +546,11 @@ void checkDoorway() {
 void printText() {
     clearMessage();
     int i = 0;
-    int j = 450;
+    int j = 418;
     while ((*(activeSprite->message))[i] != '\0') {
 
-        if ((j - 477) % 32 == 0) {
-            j += 5;
+        if ((j - 444) % 32 == 0) {
+            j += 6;
         }
 
         messagescreenMap[j] = *(letterMap[((*(activeSprite->message))[i]) - 32]);
@@ -553,9 +562,9 @@ void printText() {
 }
 
 void clearMessage() {
-    for (int i = 450; i < 604; i++) {
-        if ((i - 477) % 32 == 0) {
-            i += 5;
+    for (int i = 418; i < 604; i++) {
+        if ((i - 444) % 32 == 0) {
+            i += 6;
         }
         messagescreenMap[i] = messagescreenMap[748];
     }
