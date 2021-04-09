@@ -9,13 +9,19 @@
 #include "kitchensprites.h"
 #include "kitchen.h"
 #include "kitchenbg.h"
+#include "bedroombg.h"
+#include "bedroomsprites.h"
 #include "messagescreen.h"
 #include "startscreen.h"
+#include "safesprites.h"
+#include "safebg.h"
+#include "safe.h"
 #include "instructionscreen.h"
 #include "introscreen.h"
 #include "outroscreen.h"
 #include "pausescreen.h"
 #include "winscreen.h"
+//#include "spritetest.h"
 
 //extern int mode;
 int priorState; 
@@ -32,6 +38,10 @@ void goToLivingRoom();
 void livingRoom();
 void goToKitchen();
 void kitchen();
+void goToBedroom();
+void bedroom();
+void goToSafe();
+void safe();
 void goToOutro();
 void outro();
 void goToPause();
@@ -75,6 +85,12 @@ int main() {
         case KITCHEN:
             kitchen();
             break;
+        case BEDROOM:
+            bedroom();
+            break;
+        case SAFE:
+            safe();
+            break;
         case OUTRO:
             outro();
             break;
@@ -85,7 +101,7 @@ int main() {
             win();
             break;
         }
-        /*
+        
         if (mode == 4) {
             REG_DISPCTL = MODE4 | BG2_ENABLE | DISP_BACKBUFFER;
             for (int i = 0; i < 240; i++) {
@@ -103,11 +119,12 @@ int main() {
             } 
             waitForVBlank();
             flipPage();
-        } else { } */
+        } else { 
         waitForVBlank();
         REG_BG1HOFF = hOff;
         REG_BG1VOFF = vOff;
         DMANow(3, shadowOAM, OAM, 512);
+        }
     }
 }
 
@@ -123,7 +140,6 @@ void initialize()
 
     buttons = BUTTONS;
     oldButtons = 0;
-
     goToStart();
 }
 
@@ -142,6 +158,7 @@ void goToStart() {
 
 // Runs every frame of the start state
 void start() {
+    goToBedroom();
     if (BUTTON_PRESSED(BUTTON_A)){
         goToInstructions();
     }
@@ -262,9 +279,12 @@ void kitchen() {
     updateGame();
     drawGame();
 
-    if (nextRoomBool) {
+    if (nextRoomBool == 1) {
         goToLivingRoom();
+    } else if (nextRoomBool == 2) {
+        goToBedroom();
     }
+
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
         goToPause();
     }
@@ -273,6 +293,72 @@ void kitchen() {
     if (BUTTON_PRESSED(BUTTON_R)) {
         goToOutro();
     }
+}
+
+void goToBedroom() {
+    nextRoomBool = 0;
+    priorState = state;
+    state = BEDROOM;
+    loadBedroom();
+    
+    DMANow(3, bedroombgPal, PALETTE, 256);
+    DMANow(3, bedroombgTiles, &CHARBLOCK[1], bedroombgTilesLen / 2);
+    DMANow(3, bedroombgMap, &SCREENBLOCK[20], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+
+    DMANow(3, bedroomspritesPal, SPRITEPALETTE, bedroomspritesPalLen / 2);
+    DMANow(3, bedroomspritesTiles, &CHARBLOCK[4], bedroomspritesTilesLen / 2);
+
+    hideSprites();
+
+}
+
+void bedroom() {
+    updateGame();
+    drawGame();
+
+    if (nextRoomBool == 1) {
+        goToKitchen();
+    } else if (nextRoomBool == 2) {
+        goToSafe();
+    }
+
+}
+
+void goToSafe() {
+    priorState = state;
+    state = SAFE;
+    priorHoff = hOff;
+    priorVoff = vOff;
+    loadSafe();
+
+    DMANow(3, safebgPal, PALETTE, 256);
+    DMANow(3, safebgTiles, &CHARBLOCK[1], safebgTilesLen / 2);
+    DMANow(3, safebgMap, &SCREENBLOCK[20], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    DMANow(3, safespritesPal, SPRITEPALETTE, safespritesPalLen / 2);
+    DMANow(3, safespritesTiles, &CHARBLOCK[4], safespritesTilesLen / 2);
+
+    hideSprites();
+
+}
+
+void safe() {
+    updateCursor();
+    drawSafeSprites();
+    
+    if (BUTTON_PRESSED(BUTTON_B)) {
+        goToBedroom();
+    }
+
+    if (openSafeBool) {
+        goToKitchen();
+    }
+
+
 }
 
 //sets up the outro state

@@ -119,7 +119,7 @@ extern const unsigned short livingroomcollisionmapBitmap[262144];
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -174,9 +174,15 @@ extern unsigned short vOff;
 extern unsigned short priorHoff;
 extern unsigned short priorVoff;
 
+extern int mode;
+
 extern int priorState;
 
 extern char keyFound;
+extern int totalMapWidth;
+extern int visMapWidth;
+extern int totalMapHeight;
+extern int visMapHeight;
 
 
 void initGame();
@@ -190,9 +196,10 @@ void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
-void checkDoorway();
+void checkThreshold();
 void loadLivingRoom();
 void loadKitchen();
+void loadBedroom();
 void printText();
 void clearMessage();
 # 5 "game.c" 2
@@ -216,11 +223,27 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 
 void initKitchenSprites();
+void loadKitchen();
 # 7 "game.c" 2
 # 1 "kitchencollision.h" 1
 # 20 "kitchencollision.h"
 extern const unsigned short kitchencollisionBitmap[65536];
 # 8 "game.c" 2
+# 1 "bedroomcollision.h" 1
+# 20 "bedroomcollision.h"
+extern const unsigned short bedroomcollisionBitmap[131072];
+# 9 "game.c" 2
+# 1 "bedroom.h" 1
+
+
+
+
+extern STATIONARYSPRITE bedroomSpritesArr[];
+
+
+void initBedroomSprites();
+void loadBedroom ();
+# 10 "game.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
 extern const unsigned short kitchenbgTiles[3152];
@@ -230,7 +253,7 @@ extern const unsigned short kitchenbgMap[1024];
 
 
 extern const unsigned short kitchenbgPal[256];
-# 9 "game.c" 2
+# 11 "game.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
 extern const unsigned short messagescreenTiles[1280];
@@ -240,11 +263,20 @@ extern unsigned short messagescreenMap[1024];
 
 
 extern const unsigned short messagescreenPal[256];
-# 10 "game.c" 2
+# 12 "game.c" 2
+# 1 "safebg.h" 1
+# 22 "safebg.h"
+extern const unsigned short safebgTiles[480];
+
+
+extern const unsigned short safebgMap[1024];
+
+
+extern const unsigned short safebgPal[256];
+# 13 "game.c" 2
 # 1 "text.h" 1
 extern unsigned short *letterMap[95];
-# 11 "game.c" 2
-
+# 14 "game.c" 2
 
 
 PROTAGSPRITE protag;
@@ -261,17 +293,22 @@ unsigned short priorHoff;
 unsigned short priorVoff;
 unsigned short hOff;
 unsigned short vOff;
-int mapWidth;
-int mapHeight;
+int visMapWidth;
+int totalMapWidth;
+int visMapHeight;
+int totalMapHeight;
+int mode;
 
 
 
 
 
 void initGame(){
+    keyFound = 0;
     spriteCollisionBool = 0;
     messageActiveBool = 0;
     nextRoomBool = 0;
+    mode = 0;
     initProtagonist();
 }
 
@@ -288,7 +325,7 @@ void initProtagonist() {
 }
 
 void updateGame() {
-    checkDoorway();
+    checkThreshold();
     updateProtagonist();
     updateSprites();
     checkSpriteCollision();
@@ -336,7 +373,7 @@ void updateProtagonist() {
                 protag.worldRow++;
 
 
-                if (((vOff + 1) < (mapHeight - 160)) && (protag.screenRow >= (160 / 2))) {
+                if (((vOff + 1) < (visMapHeight - 160)) && (protag.screenRow >= (160 / 2))) {
                     vOff++;
                 }
 
@@ -349,7 +386,7 @@ void updateProtagonist() {
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
 
-                if (((hOff + 1) < (mapWidth - 240)) && protag.screenCol >= (240 / 2)) {
+                if (((hOff + 1) < (visMapWidth - 240)) && protag.screenCol >= (240 / 2)) {
                     hOff++;
                 }
 
@@ -363,8 +400,8 @@ void updateProtagonist() {
         }
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 5)))) {
-            if ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow) != 0)
-                && ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow + protag.height - 1) != 0))) {
+            if ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
+                && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
 
                 if (((hOff - 1) > 0) && protag.screenCol <= (240 / 2)) {
@@ -390,12 +427,10 @@ void updateProtagonist() {
         protag.screenRow = protag.worldRow - vOff;
 
 
-
-
-
+    if ((!(~(oldButtons) & ((1 << 3))) && (~buttons & ((1 << 3))))) {
+        mode = 4;
+    }
 }
-
-
 
 
 void updateSprites() {
@@ -427,63 +462,7 @@ void drawProtagonist() {
 
 
 unsigned short checkCollisionMapColor(int x, int y) {
-    return ((* currCollisionMap)[((y) * (mapWidth) + (x))]);
-}
-
-
-void loadLivingRoom() {
-    mapWidth = 512;
-    mapHeight = 478;
-
-    if (priorState != PAUSE) {
-        if (priorState == KITCHEN) {
-            protag.worldRow = 370;
-            protag.worldCol = 450;
-
-            hOff = (mapWidth - 240);
-            vOff = (mapHeight - 160);
-
-        } else {
-            protag.worldRow = 140;
-            protag.worldCol = 30;
-            protag.aniState = PROTAGFRONT;
-
-            hOff = 0;
-            vOff = 40;
-        }
-
-    } else {
-        hOff = priorHoff;
-        vOff = priorVoff;
-    }
-
-    initLivingRoomSprites();
-    currSpriteArrCount = 8;
-    currSpriteArr = &livingRoomSpritesArr;
-    currCollisionMap = &livingroomcollisionmapBitmap;
-
-}
-
-
-void loadKitchen() {
-    if (priorState != PAUSE) {
-        protag.worldRow = 120;
-        protag.worldCol = 30;
-        protag.aniState = PROTAGBACK;
-        hOff = 0;
-        vOff = 0;
-    } else {
-        hOff = priorHoff;
-        vOff = priorVoff;
-    }
-
-    mapWidth = 256;
-    mapHeight = 160;
-
-    initKitchenSprites();
-    currSpriteArrCount = 2;
-    currSpriteArr = &kitchenSpritesArr;
-    currCollisionMap = &kitchencollisionBitmap;
+    return ((* currCollisionMap)[((y) * (totalMapWidth) + (x))]);
 }
 
 
@@ -521,15 +500,22 @@ void checkSpriteCollision() {
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
-        messageActiveBool = 1;
-        printText();
-        (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+        if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3]) {
+            nextRoomBool = 2;
+        } else {
+            if (activeSprite == &kitchenSpritesArr[1]) {
+                keyFound = 1;
+            }
+            messageActiveBool = 1;
+            printText();
+            (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+        }
     } else {
         (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
     }
 }
 
-void checkDoorway() {
+void checkThreshold() {
     if (state == LIVING_ROOM) {
         if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == 0x0C6F) {
@@ -538,6 +524,14 @@ void checkDoorway() {
     } else if (state == KITCHEN) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == 0x03E4) {
+            nextRoomBool = 1;
+        } else if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == 0x001F){
+            nextRoomBool = 2;
+        }
+    } else if (state == BEDROOM) {
+        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
+            == 0x025F) {
             nextRoomBool = 1;
         }
     }

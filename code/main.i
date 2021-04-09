@@ -1351,7 +1351,7 @@ extern const unsigned short livingroomcollisionmapBitmap[262144];
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -1406,9 +1406,15 @@ extern unsigned short vOff;
 extern unsigned short priorHoff;
 extern unsigned short priorVoff;
 
+extern int mode;
+
 extern int priorState;
 
 extern char keyFound;
+extern int totalMapWidth;
+extern int visMapWidth;
+extern int totalMapHeight;
+extern int visMapHeight;
 
 
 void initGame();
@@ -1422,9 +1428,10 @@ void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
-void checkDoorway();
+void checkThreshold();
 void loadLivingRoom();
 void loadKitchen();
+void loadBedroom();
 void printText();
 void clearMessage();
 # 8 "main.c" 2
@@ -1455,6 +1462,7 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 
 void initKitchenSprites();
+void loadKitchen();
 # 11 "main.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
@@ -1466,6 +1474,23 @@ extern const unsigned short kitchenbgMap[1024];
 
 extern const unsigned short kitchenbgPal[256];
 # 12 "main.c" 2
+# 1 "bedroombg.h" 1
+# 22 "bedroombg.h"
+extern const unsigned short bedroombgTiles[5648];
+
+
+extern const unsigned short bedroombgMap[2048];
+
+
+extern const unsigned short bedroombgPal[256];
+# 13 "main.c" 2
+# 1 "bedroomsprites.h" 1
+# 21 "bedroomsprites.h"
+extern const unsigned short bedroomspritesTiles[16384];
+
+
+extern const unsigned short bedroomspritesPal[256];
+# 14 "main.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
 extern const unsigned short messagescreenTiles[1280];
@@ -1475,7 +1500,7 @@ extern unsigned short messagescreenMap[1024];
 
 
 extern const unsigned short messagescreenPal[256];
-# 13 "main.c" 2
+# 15 "main.c" 2
 # 1 "startscreen.h" 1
 # 22 "startscreen.h"
 extern const unsigned short startscreenTiles[3664];
@@ -1485,7 +1510,42 @@ extern const unsigned short startscreenMap[1024];
 
 
 extern const unsigned short startscreenPal[256];
-# 14 "main.c" 2
+# 16 "main.c" 2
+# 1 "safesprites.h" 1
+# 21 "safesprites.h"
+extern const unsigned short safespritesTiles[16384];
+
+
+extern const unsigned short safespritesPal[256];
+# 17 "main.c" 2
+# 1 "safebg.h" 1
+# 22 "safebg.h"
+extern const unsigned short safebgTiles[480];
+
+
+extern const unsigned short safebgMap[1024];
+
+
+extern const unsigned short safebgPal[256];
+# 18 "main.c" 2
+# 1 "safe.h" 1
+
+
+
+extern STATIONARYSPRITE safeSpritesArr[];
+extern int enteredCode[4];
+extern int answerCode[4];
+extern char openSafeBool;
+
+
+
+
+void initSafeSprites();
+void loadSafe();
+void drawSafeSprites();
+void updateCursor();
+int checkCode();
+# 19 "main.c" 2
 # 1 "instructionscreen.h" 1
 # 22 "instructionscreen.h"
 extern const unsigned short instructionscreenTiles[5200];
@@ -1495,7 +1555,7 @@ extern const unsigned short instructionscreenMap[1024];
 
 
 extern const unsigned short instructionscreenPal[256];
-# 15 "main.c" 2
+# 20 "main.c" 2
 # 1 "introscreen.h" 1
 # 22 "introscreen.h"
 extern const unsigned short introscreenTiles[1504];
@@ -1505,7 +1565,7 @@ extern const unsigned short introscreenMap[1024];
 
 
 extern const unsigned short introscreenPal[256];
-# 16 "main.c" 2
+# 21 "main.c" 2
 # 1 "outroscreen.h" 1
 # 22 "outroscreen.h"
 extern const unsigned short outroscreenTiles[1504];
@@ -1515,7 +1575,7 @@ extern const unsigned short outroscreenMap[1024];
 
 
 extern const unsigned short outroscreenPal[256];
-# 17 "main.c" 2
+# 22 "main.c" 2
 # 1 "pausescreen.h" 1
 # 22 "pausescreen.h"
 extern const unsigned short pausescreenTiles[2800];
@@ -1525,7 +1585,7 @@ extern const unsigned short pausescreenMap[1024];
 
 
 extern const unsigned short pausescreenPal[256];
-# 18 "main.c" 2
+# 23 "main.c" 2
 # 1 "winscreen.h" 1
 # 22 "winscreen.h"
 extern const unsigned short winscreenTiles[2032];
@@ -1535,7 +1595,8 @@ extern const unsigned short winscreenMap[1024];
 
 
 extern const unsigned short winscreenPal[256];
-# 19 "main.c" 2
+# 24 "main.c" 2
+
 
 
 int priorState;
@@ -1552,6 +1613,10 @@ void goToLivingRoom();
 void livingRoom();
 void goToKitchen();
 void kitchen();
+void goToBedroom();
+void bedroom();
+void goToSafe();
+void safe();
 void goToOutro();
 void outro();
 void goToPause();
@@ -1595,6 +1660,12 @@ int main() {
         case KITCHEN:
             kitchen();
             break;
+        case BEDROOM:
+            bedroom();
+            break;
+        case SAFE:
+            safe();
+            break;
         case OUTRO:
             outro();
             break;
@@ -1605,11 +1676,30 @@ int main() {
             win();
             break;
         }
-# 107 "main.c"
+
+        if (mode == 4) {
+            (*(volatile unsigned short *)0x4000000) = 4 | (1 << 10) | (1 << 4);
+            for (int i = 0; i < 240; i++) {
+                for (int j = 0; j < 160; j++) {
+                    if (checkCollisionMapColor(i + hOff, j + vOff) == 0) {
+                        setPixel4(i, j, 0);
+                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x07FFF) {
+                        setPixel4(i, j, 1);
+                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x7F60) {
+                        setPixel4(i, j, 2);
+                    } else {
+                        setPixel4(i, j, 3);
+                    }
+                }
+            }
+            waitForVBlank();
+            flipPage();
+        } else {
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
         DMANow(3, shadowOAM, ((OBJ_ATTR *)(0x7000000)), 512);
+        }
     }
 }
 
@@ -1625,7 +1715,6 @@ void initialize()
 
     buttons = (*(volatile unsigned short *)0x04000130);
     oldButtons = 0;
-
     goToStart();
 }
 
@@ -1644,6 +1733,7 @@ void goToStart() {
 
 
 void start() {
+    goToBedroom();
     if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))){
         goToInstructions();
     }
@@ -1764,9 +1854,12 @@ void kitchen() {
     updateGame();
     drawGame();
 
-    if (nextRoomBool) {
+    if (nextRoomBool == 1) {
         goToLivingRoom();
+    } else if (nextRoomBool == 2) {
+        goToBedroom();
     }
+
     if ((!(~(oldButtons) & ((1 << 2))) && (~buttons & ((1 << 2))))) {
         goToPause();
     }
@@ -1775,6 +1868,72 @@ void kitchen() {
     if ((!(~(oldButtons) & ((1 << 8))) && (~buttons & ((1 << 8))))) {
         goToOutro();
     }
+}
+
+void goToBedroom() {
+    nextRoomBool = 0;
+    priorState = state;
+    state = BEDROOM;
+    loadBedroom();
+
+    DMANow(3, bedroombgPal, ((unsigned short *)0x5000000), 256);
+    DMANow(3, bedroombgTiles, &((charblock *)0x6000000)[1], 11296 / 2);
+    DMANow(3, bedroombgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (1 << 14) | ((1) << 1);
+
+    DMANow(3, bedroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, bedroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    hideSprites();
+
+}
+
+void bedroom() {
+    updateGame();
+    drawGame();
+
+    if (nextRoomBool == 1) {
+        goToKitchen();
+    } else if (nextRoomBool == 2) {
+        goToSafe();
+    }
+
+}
+
+void goToSafe() {
+    priorState = state;
+    state = SAFE;
+    priorHoff = hOff;
+    priorVoff = vOff;
+    loadSafe();
+
+    DMANow(3, safebgPal, ((unsigned short *)0x5000000), 256);
+    DMANow(3, safebgTiles, &((charblock *)0x6000000)[1], 960 / 2);
+    DMANow(3, safebgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+
+    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+
+    DMANow(3, safespritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, safespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    hideSprites();
+
+}
+
+void safe() {
+    updateCursor();
+    drawSafeSprites();
+
+    if ((!(~(oldButtons) & ((1 << 1))) && (~buttons & ((1 << 1))))) {
+        goToBedroom();
+    }
+
+    if (openSafeBool) {
+        goToKitchen();
+    }
+
+
 }
 
 

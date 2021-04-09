@@ -25,7 +25,7 @@
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 // States
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -80,9 +80,15 @@ extern unsigned short vOff;
 extern unsigned short priorHoff;
 extern unsigned short priorVoff;
 
+extern int mode;
+
 extern int priorState; //necessary for placement of protagonist if returning from pause
 
 extern char keyFound; //true if player has accessed refrigerator
+extern int totalMapWidth;
+extern int visMapWidth;
+extern int totalMapHeight;
+extern int visMapHeight;
 
 /* METHODS */
 void initGame();
@@ -96,8 +102,9 @@ void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
-void checkDoorway();
+void checkThreshold();
 void loadLivingRoom();
 void loadKitchen();
+void loadBedroom();
 void printText();
 void clearMessage();

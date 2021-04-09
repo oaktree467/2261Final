@@ -1,5 +1,6 @@
 #include "game.h"
 #include "kitchen.h"
+#include "kitchencollision.h"
 
 STATIONARYSPRITE kitchenSpritesArr[KITCHEN_SPRITECOUNT];
 
@@ -30,4 +31,28 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].collisionColor = AQUA_HIT;
     kitchenSpritesArr[1].message = &refrigerator;
 
+}
+
+//load kitchen attributes
+void loadKitchen() {
+    if (priorState != PAUSE) {
+        protag.worldRow = 120;
+        protag.worldCol = 30;
+        protag.aniState = PROTAGBACK;
+        hOff = 0;
+        vOff = 0;
+    } else {
+        hOff = priorHoff;
+        vOff = priorVoff;
+    }
+
+    totalMapWidth = 256;
+    visMapWidth = 256;
+    totalMapHeight = 256;
+    visMapHeight = 160;
+
+    initKitchenSprites();
+    currSpriteArrCount = KITCHEN_SPRITECOUNT;
+    currSpriteArr = &kitchenSpritesArr;
+    currCollisionMap = &kitchencollisionBitmap;
 }

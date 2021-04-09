@@ -63,6 +63,85 @@ initKitchenSprites:
 	.word	.LANCHOR0
 	.word	32608
 	.size	initKitchenSprites, .-initKitchenSprites
+	.align	2
+	.global	loadKitchen
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	loadKitchen, %function
+loadKitchen:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	ldr	r3, .L10
+	ldr	r3, [r3]
+	cmp	r3, #7
+	push	{r4, lr}
+	beq	.L7
+	mov	r1, #120
+	mov	r2, #0
+	mov	lr, #30
+	mov	ip, #2
+	ldr	r3, .L10+4
+	ldr	r0, .L10+8
+	str	r1, [r3]
+	ldr	r1, .L10+12
+	str	lr, [r3, #4]
+	str	ip, [r3, #28]
+	strh	r2, [r0]	@ movhi
+	strh	r2, [r1]	@ movhi
+.L8:
+	mov	r3, #256
+	mov	r1, #160
+	ldr	lr, .L10+16
+	ldr	ip, .L10+20
+	ldr	r0, .L10+24
+	ldr	r2, .L10+28
+	str	r3, [lr]
+	str	r3, [ip]
+	str	r3, [r0]
+	str	r1, [r2]
+	bl	initKitchenSprites
+	mov	lr, #2
+	ldr	ip, .L10+32
+	ldr	r1, .L10+36
+	ldr	r0, .L10+40
+	ldr	r3, .L10+44
+	ldr	r2, .L10+48
+	str	lr, [ip]
+	str	r0, [r1]
+	str	r2, [r3]
+	pop	{r4, lr}
+	bx	lr
+.L7:
+	ldr	r2, .L10+52
+	ldr	r3, .L10+56
+	ldrh	r0, [r2]
+	ldr	r1, .L10+8
+	ldrh	r2, [r3]
+	ldr	r3, .L10+12
+	strh	r0, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
+	b	.L8
+.L11:
+	.align	2
+.L10:
+	.word	priorState
+	.word	protag
+	.word	hOff
+	.word	vOff
+	.word	totalMapWidth
+	.word	visMapWidth
+	.word	totalMapHeight
+	.word	visMapHeight
+	.word	currSpriteArrCount
+	.word	currSpriteArr
+	.word	kitchenSpritesArr
+	.word	currCollisionMap
+	.word	kitchencollisionBitmap
+	.word	priorHoff
+	.word	priorVoff
+	.size	loadKitchen, .-loadKitchen
 	.global	refrigerator
 	.global	pictureFrame
 	.comm	kitchenSpritesArr,104,4

@@ -1,5 +1,8 @@
 #include "game.h"
 #include "livingroom.h"
+#include "livingroomcollisionmap.h"
+#include "mylib.h"
+
 STATIONARYSPRITE livingRoomSpritesArr[LR_SPRITECOUNT];
 
 //message arrays
@@ -97,6 +100,41 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[7].collisionColor = FOREST_HIT;
     livingRoomSpritesArr[7].message = &TV;
     
+}
+
+//load living room attributes
+void loadLivingRoom() {
+    visMapWidth = 512;
+    totalMapWidth = 512;
+    visMapHeight = 478;
+    totalMapHeight = 512;
+    
+    if (priorState != PAUSE) {
+        if (priorState == KITCHEN) {
+            protag.worldRow = 370;
+            protag.worldCol = 450;
+
+            hOff = (visMapWidth - SCREENWIDTH);
+            vOff = (visMapHeight - SCREENHEIGHT);
+
+        } else {
+            protag.worldRow = 140;
+            protag.worldCol = 30;
+            protag.aniState = PROTAGFRONT;
+        
+            hOff = 0;
+            vOff = 40;
+        }
+
+    } else {
+        hOff = priorHoff;
+        vOff = priorVoff;
+    }
+
+    initLivingRoomSprites();
+    currSpriteArrCount = LR_SPRITECOUNT;
+    currSpriteArr = &livingRoomSpritesArr;
+    currCollisionMap = &livingroomcollisionmapBitmap;
 }
 
 

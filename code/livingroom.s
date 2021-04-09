@@ -151,6 +151,103 @@ initLivingRoomSprites:
 	.word	342
 	.word	3655
 	.size	initLivingRoomSprites, .-initLivingRoomSprites
+	.align	2
+	.global	loadLivingRoom
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	loadLivingRoom, %function
+loadLivingRoom:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	mov	r3, #512
+	ldr	r2, .L12
+	ldr	r0, .L12+4
+	ldr	r2, [r2]
+	push	{r4, lr}
+	ldr	ip, .L12+8
+	ldr	lr, .L12+12
+	ldr	r1, .L12+16
+	str	r3, [r0]
+	ldr	r0, .L12+20
+	cmp	r2, #7
+	str	r3, [lr]
+	str	r3, [ip]
+	str	r0, [r1]
+	beq	.L7
+	cmp	r2, #4
+	beq	.L11
+	mov	r1, #140
+	mov	r2, #0
+	mov	lr, #30
+	mov	r0, #40
+	ldr	r3, .L12+24
+	ldr	ip, .L12+28
+	str	r1, [r3]
+	ldr	r1, .L12+32
+	str	lr, [r3, #4]
+	str	r2, [r3, #28]
+	strh	r2, [ip]	@ movhi
+	strh	r0, [r1]	@ movhi
+.L9:
+	bl	initLivingRoomSprites
+	mov	lr, #8
+	ldr	ip, .L12+36
+	ldr	r1, .L12+40
+	ldr	r0, .L12+44
+	ldr	r3, .L12+48
+	ldr	r2, .L12+52
+	str	lr, [ip]
+	str	r0, [r1]
+	str	r2, [r3]
+	pop	{r4, lr}
+	bx	lr
+.L11:
+	mov	lr, #272
+	ldr	r1, .L12+28
+	ldr	r3, .L12+24
+	ldr	ip, .L12+56
+	ldr	r2, .L12+32
+	strh	lr, [r1]	@ movhi
+	ldr	r1, .L12+60
+	sub	r0, r0, #28
+	str	ip, [r3]
+	str	r0, [r3, #4]
+	strh	r1, [r2]	@ movhi
+	b	.L9
+.L7:
+	ldr	r2, .L12+64
+	ldr	r3, .L12+68
+	ldrh	r0, [r2]
+	ldr	r1, .L12+28
+	ldrh	r2, [r3]
+	ldr	r3, .L12+32
+	strh	r0, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
+	b	.L9
+.L13:
+	.align	2
+.L12:
+	.word	priorState
+	.word	visMapWidth
+	.word	totalMapHeight
+	.word	totalMapWidth
+	.word	visMapHeight
+	.word	478
+	.word	protag
+	.word	hOff
+	.word	vOff
+	.word	currSpriteArrCount
+	.word	currSpriteArr
+	.word	livingRoomSpritesArr
+	.word	currCollisionMap
+	.word	livingroomcollisionmapBitmap
+	.word	370
+	.word	318
+	.word	priorHoff
+	.word	priorVoff
+	.size	loadLivingRoom, .-loadLivingRoom
 	.global	TV
 	.global	bookcase
 	.global	poster

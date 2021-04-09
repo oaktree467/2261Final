@@ -7,7 +7,7 @@
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -62,9 +62,15 @@ extern unsigned short vOff;
 extern unsigned short priorHoff;
 extern unsigned short priorVoff;
 
+extern int mode;
+
 extern int priorState;
 
 extern char keyFound;
+extern int totalMapWidth;
+extern int visMapWidth;
+extern int totalMapHeight;
+extern int visMapHeight;
 
 
 void initGame();
@@ -81,6 +87,7 @@ void checkMoreInfo();
 void checkDoorway();
 void loadLivingRoom();
 void loadKitchen();
+void loadBedroom();
 void printText();
 void clearMessage();
 # 2 "kitchen.c" 2
@@ -93,7 +100,12 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 
 void initKitchenSprites();
+void loadKitchen();
 # 3 "kitchen.c" 2
+# 1 "kitchencollision.h" 1
+# 20 "kitchencollision.h"
+extern const unsigned short kitchencollisionBitmap[65536];
+# 4 "kitchen.c" 2
 
 STATIONARYSPRITE kitchenSpritesArr[2];
 
@@ -124,4 +136,28 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].collisionColor = 0x7F60;
     kitchenSpritesArr[1].message = &refrigerator;
 
+}
+
+
+void loadKitchen() {
+    if (priorState != PAUSE) {
+        protag.worldRow = 120;
+        protag.worldCol = 30;
+        protag.aniState = PROTAGBACK;
+        hOff = 0;
+        vOff = 0;
+    } else {
+        hOff = priorHoff;
+        vOff = priorVoff;
+    }
+
+    totalMapWidth = 256;
+    visMapWidth = 256;
+    totalMapHeight = 256;
+    visMapHeight = 160;
+
+    initKitchenSprites();
+    currSpriteArrCount = 2;
+    currSpriteArr = &kitchenSpritesArr;
+    currCollisionMap = &kitchencollisionBitmap;
 }

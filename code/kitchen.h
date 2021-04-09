@@ -6,3 +6,4 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 
 //functions
 void initKitchenSprites();
+void loadKitchen();

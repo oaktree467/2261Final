@@ -5,10 +5,12 @@
 #include "livingroom.h"
 #include "kitchen.h"
 #include "kitchencollision.h"
+#include "bedroomcollision.h"
+#include "bedroom.h"
 #include "kitchenbg.h"
 #include "messagescreen.h"
+#include "safebg.h"
 #include "text.h"
-
 
 //global variables
 PROTAGSPRITE protag;
@@ -25,17 +27,22 @@ unsigned short priorHoff;
 unsigned short priorVoff;
 unsigned short hOff;
 unsigned short vOff;
-int mapWidth;
-int mapHeight;
+int visMapWidth;
+int totalMapWidth;
+int visMapHeight;
+int totalMapHeight;
+int mode;
 
 
 //int mode;
 
 //initialize game
 void initGame(){
+    keyFound = 0;
     spriteCollisionBool = 0;
     messageActiveBool = 0;
     nextRoomBool = 0;
+    mode = 0;
     initProtagonist();
 }
 
@@ -52,7 +59,7 @@ void initProtagonist() {
 }
 
 void updateGame() {
-    checkDoorway();
+    checkThreshold();
     updateProtagonist();
     updateSprites();
     checkSpriteCollision();
@@ -100,7 +107,7 @@ void updateProtagonist() {
                 protag.worldRow++;
                 
                 
-                if (((vOff + 1) < (mapHeight - SCREENHEIGHT)) && (protag.screenRow >= (SCREENHEIGHT / 2))) {
+                if (((vOff + 1) < (visMapHeight - SCREENHEIGHT)) && (protag.screenRow >= (SCREENHEIGHT / 2))) {
                     vOff++;
                 }  
                 
@@ -113,7 +120,7 @@ void updateProtagonist() {
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
                 
-                if (((hOff + 1) < (mapWidth - SCREENWIDTH)) && protag.screenCol >= (SCREENWIDTH / 2)) {
+                if (((hOff + 1) < (visMapWidth - SCREENWIDTH)) && protag.screenCol >= (SCREENWIDTH / 2)) {
                     hOff++;
                 }
                 
@@ -127,8 +134,8 @@ void updateProtagonist() {
         }
 
         if (BUTTON_HELD(BUTTON_LEFT)) {
-            if ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow) != 0)
-                && ((checkCollisionMapColor(protag.worldCol - 1, protag.worldRow + protag.height - 1) != 0))) {
+            if ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
+                && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
                 
                 if (((hOff - 1) > 0) && protag.screenCol <= (SCREENWIDTH / 2)) {
@@ -153,13 +160,11 @@ void updateProtagonist() {
         protag.screenCol = protag.worldCol - hOff;
         protag.screenRow = protag.worldRow - vOff;
 
-    /*
+    
     if (BUTTON_PRESSED(BUTTON_START)) {
         mode = 4;
-    } */
+    }
 }
-
-
 
 //update sprite columns
 void updateSprites() {
@@ -191,63 +196,7 @@ void drawProtagonist() {
 
 //check the collision map color to see if area is valid for movement
 unsigned short checkCollisionMapColor(int x, int y) {
-    return ((* currCollisionMap)[OFFSET(x, y, mapWidth)]);
-}
-
-//load living room attributes
-void loadLivingRoom() {
-    mapWidth = 512;
-    mapHeight = 478;
-    
-    if (priorState != PAUSE) {
-        if (priorState == KITCHEN) {
-            protag.worldRow = 370;
-            protag.worldCol = 450;
-
-            hOff = (mapWidth - SCREENWIDTH);
-            vOff = (mapHeight - SCREENHEIGHT);
-
-        } else {
-            protag.worldRow = 140;
-            protag.worldCol = 30;
-            protag.aniState = PROTAGFRONT;
-        
-            hOff = 0;
-            vOff = 40;
-        }
-
-    } else {
-        hOff = priorHoff;
-        vOff = priorVoff;
-    }
-
-    initLivingRoomSprites();
-    currSpriteArrCount = LR_SPRITECOUNT;
-    currSpriteArr = &livingRoomSpritesArr;
-    currCollisionMap = &livingroomcollisionmapBitmap;
-
-}
-
-//load kitchen attributes
-void loadKitchen() {
-    if (priorState != PAUSE) {
-        protag.worldRow = 120;
-        protag.worldCol = 30;
-        protag.aniState = PROTAGBACK;
-        hOff = 0;
-        vOff = 0;
-    } else {
-        hOff = priorHoff;
-        vOff = priorVoff;
-    }
-
-    mapWidth = 256;
-    mapHeight = 160;
-
-    initKitchenSprites();
-    currSpriteArrCount = KITCHEN_SPRITECOUNT;
-    currSpriteArr = &kitchenSpritesArr;
-    currCollisionMap = &kitchencollisionBitmap;
+    return ((* currCollisionMap)[OFFSET(x, y, totalMapWidth)]);
 }
 
 //check if the player has collided with a sprite on the current map
@@ -285,15 +234,22 @@ void checkSpriteCollision() {
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
-        messageActiveBool = 1;
-        printText();
-        REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+        if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3]) {
+            nextRoomBool = 2;
+        } else {
+            if (activeSprite == &kitchenSpritesArr[1]) {
+                keyFound = 1;
+            }
+            messageActiveBool = 1;
+            printText();
+            REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+        }
     } else {
         REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
     }
 }
 
-void checkDoorway() {
+void checkThreshold() {
     if (state == LIVING_ROOM) {
         if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == MAROON_HIT) {
@@ -303,7 +259,15 @@ void checkDoorway() {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == LIME_HIT) {
             nextRoomBool = 1;
-        } 
+        } else if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == RED_HIT){
+            nextRoomBool = 2;
+        }
+    } else if (state == BEDROOM) {
+        if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
+            == ORANGE_HIT) {
+            nextRoomBool = 1;
+        }
     }
 }
 
