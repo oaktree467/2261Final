@@ -69,6 +69,7 @@ extern PROTAGSPRITE protag;
 extern STATIONARYSPRITE (* currSpriteArr)[]; //array of current sprites, depending on map
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[]; //current collision map, depending on the map
+extern unsigned short (* currMessageMap)[];
 extern int spriteCollisionBool; //is the character currently in contact with a sprite?
 extern int messageActiveBool; //is a message active on screen?
 extern int nextRoomBool; //is the player moving to the next room?

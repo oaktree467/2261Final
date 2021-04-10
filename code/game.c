@@ -11,6 +11,7 @@
 #include "messagescreen.h"
 #include "safebg.h"
 #include "text.h"
+#include "safe.h"
 
 //global variables
 PROTAGSPRITE protag;
@@ -18,10 +19,12 @@ STATIONARYSPRITE(* currSpriteArr)[];
 int currSpriteArrCount;
 STATIONARYSPRITE *activeSprite;
 const unsigned short (* currCollisionMap)[];
+unsigned short (* currMessageMap)[];
 int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
 char keyFound;
+
 
 unsigned short priorHoff;
 unsigned short priorVoff;
@@ -116,7 +119,7 @@ void updateProtagonist() {
         }
 
         if (BUTTON_HELD(BUTTON_RIGHT)) {
-            if ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
+            if ((protag.worldCol + protag.width < visMapWidth) && (checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
                 
@@ -134,7 +137,7 @@ void updateProtagonist() {
         }
 
         if (BUTTON_HELD(BUTTON_LEFT)) {
-            if ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
+            if ((protag.worldCol > 1) && (checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
                 
@@ -234,7 +237,7 @@ void checkSpriteCollision() {
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
-        if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3]) {
+        if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3] && !openSafeBool) {
             nextRoomBool = 2;
         } else {
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -281,7 +284,7 @@ void printText() {
             j += 6;
         }
         
-        messagescreenMap[j] = *(letterMap[((*(activeSprite->message))[i]) - 32]);
+        messagescreenMap[j] = messagescreenMap[(letterMap[((*(activeSprite->message))[i]) - 32])];
         i++;
         j++;
     }

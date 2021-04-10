@@ -17,10 +17,13 @@
 #include "safebg.h"
 #include "safe.h"
 #include "instructionscreen.h"
-#include "introscreen.h"
 #include "outroscreen.h"
 #include "pausescreen.h"
 #include "winscreen.h"
+#include "chapter1bg.h"
+#include "colddarkmessagebg.h"
+#include "colddark.h"
+#include "blackbg.h"
 //#include "spritetest.h"
 
 //extern int mode;
@@ -131,10 +134,6 @@ int main() {
 // Sets up GBA
 void initialize()
 {    
-    DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
-    DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
-
-    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
 
     REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
 
@@ -158,7 +157,7 @@ void goToStart() {
 
 // Runs every frame of the start state
 void start() {
-    goToBedroom();
+    
     if (BUTTON_PRESSED(BUTTON_A)){
         goToInstructions();
     }
@@ -171,8 +170,6 @@ void goToInstructions() {
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
     DMANow(3, instructionscreenMap, &SCREENBLOCK[20], 1024 * 4);
-
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
 }
 
@@ -200,21 +197,37 @@ void instructions() {
 void goToIntro() {
     state = INTRO;
     priorState = INTRO;
-    DMANow(3, introscreenPal, PALETTE, 256);
-    DMANow(3, introscreenTiles, &CHARBLOCK[1], introscreenTilesLen / 2);
-    DMANow(3, introscreenMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, blackbgPal, PALETTE, 256);
+    DMANow(3, blackbgTiles, &CHARBLOCK[1], blackbgTilesLen / 2);
+    DMANow(3, blackbgMap, &SCREENBLOCK[20], 1024 * 4);
 
+    DMANow(3, colddarkmessagebgTiles, &CHARBLOCK[0], colddarkmessagebgTilesLen / 2);
+    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+
+    initColdDark();
 }
 
 //runs every frame of the intro state
 void intro() {
+
+    updateColdDark();
+    
+    /*
     if (BUTTON_PRESSED(BUTTON_A)){
+        DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
+        DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
         goToLivingRoom();
     }
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
         goToPause();
     }
+    */
+    
 }
 
 //sets up the game state
@@ -232,6 +245,8 @@ void goToLivingRoom() {
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
+
+    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
 
     hideSprites();
 }
@@ -342,6 +357,8 @@ void goToSafe() {
     DMANow(3, safespritesPal, SPRITEPALETTE, safespritesPalLen / 2);
     DMANow(3, safespritesTiles, &CHARBLOCK[4], safespritesTilesLen / 2);
 
+    REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+
     hideSprites();
 
 }
@@ -351,6 +368,7 @@ void safe() {
     drawSafeSprites();
     
     if (BUTTON_PRESSED(BUTTON_B)) {
+        REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
         goToBedroom();
     }
 

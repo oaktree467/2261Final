@@ -9,7 +9,7 @@ STATIONARYSPRITE livingRoomSpritesArr[LR_SPRITECOUNT];
 char record[] = "A commemorative 50th      anniversary gold record of'MMMBop' by Hansen. Just alittle touch you added to the room.";
 char tapestry[] = "You never really          understood this tapestry, but when your aunt passed and left you the house,   you kept it up in her     memory.";
 char painting[] = "";
-char poster[] = "";
+char poster[] = "'2001: A Space Odyssey'   Suspended animation, the  question of sentience...  this movie haunts you.";
 char bookcase[] = ""; 
 //char computerScreen[] = 
 char TV[] = "Some show about being     buried alive... you can't bear to watch this."; 
@@ -68,6 +68,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[4].worldCol = 287;
     livingRoomSpritesArr[4].hide = 1;
     livingRoomSpritesArr[4].collisionColor = RED_HIT;
+    livingRoomSpritesArr[4].message = &poster;
 
     //bookcase
     livingRoomSpritesArr[5].sheetCol = 8;

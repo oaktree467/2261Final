@@ -163,6 +163,7 @@ extern PROTAGSPRITE protag;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
+extern unsigned short (* currMessageMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
@@ -243,6 +244,7 @@ extern STATIONARYSPRITE bedroomSpritesArr[];
 
 void initBedroomSprites();
 void loadBedroom ();
+void safeOpenMessage();
 # 10 "game.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
@@ -275,8 +277,28 @@ extern const unsigned short safebgMap[1024];
 extern const unsigned short safebgPal[256];
 # 13 "game.c" 2
 # 1 "text.h" 1
-extern unsigned short *letterMap[95];
+extern int letterMap[95];
 # 14 "game.c" 2
+# 1 "safe.h" 1
+
+
+
+extern STATIONARYSPRITE safeSpritesArr[];
+extern int enteredCode[4];
+extern int answerCode[4];
+extern char openSafeBool;
+
+
+
+
+void initSafeSprites();
+void loadSafe();
+void drawSafeSprites();
+void updateCursor();
+int checkCode();
+void clearSafeMessage();
+void safeText();
+# 15 "game.c" 2
 
 
 PROTAGSPRITE protag;
@@ -284,10 +306,12 @@ STATIONARYSPRITE(* currSpriteArr)[];
 int currSpriteArrCount;
 STATIONARYSPRITE *activeSprite;
 const unsigned short (* currCollisionMap)[];
+unsigned short (* currMessageMap)[];
 int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
 char keyFound;
+
 
 unsigned short priorHoff;
 unsigned short priorVoff;
@@ -382,7 +406,7 @@ void updateProtagonist() {
         }
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 4)))) {
-            if ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
+            if ((protag.worldCol + protag.width < visMapWidth) && (checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
 
@@ -400,7 +424,7 @@ void updateProtagonist() {
         }
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 5)))) {
-            if ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
+            if ((protag.worldCol > 1) && (checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
 
@@ -500,7 +524,7 @@ void checkSpriteCollision() {
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
-        if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3]) {
+        if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3] && !openSafeBool) {
             nextRoomBool = 2;
         } else {
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -547,7 +571,7 @@ void printText() {
             j += 6;
         }
 
-        messagescreenMap[j] = *(letterMap[((*(activeSprite->message))[i]) - 32]);
+        messagescreenMap[j] = messagescreenMap[(letterMap[((*(activeSprite->message))[i]) - 32])];
         i++;
         j++;
     }

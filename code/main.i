@@ -1395,6 +1395,7 @@ extern PROTAGSPRITE protag;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
+extern unsigned short (* currMessageMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
@@ -1545,6 +1546,8 @@ void loadSafe();
 void drawSafeSprites();
 void updateCursor();
 int checkCode();
+void clearSafeMessage();
+void safeText();
 # 19 "main.c" 2
 # 1 "instructionscreen.h" 1
 # 22 "instructionscreen.h"
@@ -1556,16 +1559,6 @@ extern const unsigned short instructionscreenMap[1024];
 
 extern const unsigned short instructionscreenPal[256];
 # 20 "main.c" 2
-# 1 "introscreen.h" 1
-# 22 "introscreen.h"
-extern const unsigned short introscreenTiles[1504];
-
-
-extern const unsigned short introscreenMap[1024];
-
-
-extern const unsigned short introscreenPal[256];
-# 21 "main.c" 2
 # 1 "outroscreen.h" 1
 # 22 "outroscreen.h"
 extern const unsigned short outroscreenTiles[1504];
@@ -1575,7 +1568,7 @@ extern const unsigned short outroscreenMap[1024];
 
 
 extern const unsigned short outroscreenPal[256];
-# 22 "main.c" 2
+# 21 "main.c" 2
 # 1 "pausescreen.h" 1
 # 22 "pausescreen.h"
 extern const unsigned short pausescreenTiles[2800];
@@ -1585,7 +1578,7 @@ extern const unsigned short pausescreenMap[1024];
 
 
 extern const unsigned short pausescreenPal[256];
-# 23 "main.c" 2
+# 22 "main.c" 2
 # 1 "winscreen.h" 1
 # 22 "winscreen.h"
 extern const unsigned short winscreenTiles[2032];
@@ -1595,7 +1588,50 @@ extern const unsigned short winscreenMap[1024];
 
 
 extern const unsigned short winscreenPal[256];
+# 23 "main.c" 2
+# 1 "chapter1bg.h" 1
+# 22 "chapter1bg.h"
+extern const unsigned short chapter1bgTiles[2720];
+
+
+extern const unsigned short chapter1bgMap[1024];
+
+
+extern const unsigned short chapter1bgPal[256];
 # 24 "main.c" 2
+# 1 "colddarkmessagebg.h" 1
+# 22 "colddarkmessagebg.h"
+extern const unsigned short colddarkmessagebgTiles[2240];
+
+
+extern unsigned short colddarkmessagebgMap[1024];
+
+
+extern const unsigned short colddarkmessagebgPal[256];
+# 25 "main.c" 2
+# 1 "colddark.h" 1
+
+
+
+extern int intervals[];
+extern char (* activeMessage)[];
+
+void initColdDark();
+void updateHighlight();
+void updateColdDark();
+void loadColdMessage();
+void loadMessageUnedited();
+# 26 "main.c" 2
+# 1 "blackbg.h" 1
+# 22 "blackbg.h"
+extern const unsigned short blackbgTiles[48];
+
+
+extern unsigned short blackbgMap[1024];
+
+
+extern const unsigned short blackbgPal[256];
+# 27 "main.c" 2
 
 
 
@@ -1706,10 +1742,6 @@ int main() {
 
 void initialize()
 {
-    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
-    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
-
-    (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((24) << 8) | (0 << 7) | (0 << 14) | ((0) << 1);
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
 
@@ -1733,7 +1765,7 @@ void goToStart() {
 
 
 void start() {
-    goToBedroom();
+
     if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))){
         goToInstructions();
     }
@@ -1746,8 +1778,6 @@ void goToInstructions() {
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
     DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
-
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
 
 }
 
@@ -1775,21 +1805,26 @@ void instructions() {
 void goToIntro() {
     state = INTRO;
     priorState = INTRO;
-    DMANow(3, introscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, introscreenTiles, &((charblock *)0x6000000)[1], 3008 / 2);
-    DMANow(3, introscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, blackbgPal, ((unsigned short *)0x5000000), 256);
+    DMANow(3, blackbgTiles, &((charblock *)0x6000000)[1], 96 / 2);
+    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
+    DMANow(3, colddarkmessagebgTiles, &((charblock *)0x6000000)[0], 4480 / 2);
+    DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+
+    (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((24) << 8) | (0 << 7) | (0 << 14) | ((0) << 1);
     (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+
+    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+
+    initColdDark();
 }
 
 
 void intro() {
-    if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))){
-        goToLivingRoom();
-    }
-    if ((!(~(oldButtons) & ((1 << 2))) && (~buttons & ((1 << 2))))) {
-        goToPause();
-    }
+
+    updateColdDark();
+# 231 "main.c"
 }
 
 
@@ -1807,6 +1842,8 @@ void goToLivingRoom() {
 
     DMANow(3, livingroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, livingroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
 
     hideSprites();
 }
@@ -1917,6 +1954,8 @@ void goToSafe() {
     DMANow(3, safespritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, safespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
+    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+
     hideSprites();
 
 }
@@ -1926,6 +1965,7 @@ void safe() {
     drawSafeSprites();
 
     if ((!(~(oldButtons) & ((1 << 1))) && (~buttons & ((1 << 1))))) {
+        (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
         goToBedroom();
     }
 

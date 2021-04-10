@@ -19,62 +19,61 @@
 	.type	initLivingRoomSprites, %function
 initLivingRoomSprites:
 	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 8
+	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
+	ldr	r0, .L4
+	ldr	r3, .L4+4
 	push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
-	mov	r9, #3168
-	ldr	r3, .L4
-	strh	r9, [r3, #44]	@ movhi
-	mov	r9, #107
-	str	r9, [r3, #52]
-	mov	r9, #189
-	str	r9, [r3, #56]
-	mov	r9, #70
-	str	r9, [r3, #104]
-	mov	r9, #59
+	add	fp, r0, #116
+	str	fp, [r3, #152]
+	ldr	fp, .L4+8
+	str	fp, [r3]
+	mov	fp, #312
+	str	fp, [r3, #4]
+	mov	fp, #3168	@ movhi
+	mov	r7, #189
+	strh	fp, [r3, #44]	@ movhi
+	mov	fp, #107
+	mvn	r4, #64512
+	str	r7, [r3, #56]
+	ldr	r7, .L4+12
 	mov	r2, #1
 	mov	r1, #0
-	mov	r0, #3
-	mov	ip, #12
-	mov	r6, #2
-	mov	r7, #4
-	str	r9, [r3, #108]
-	mov	r10, #312
-	mvn	r9, #64512
-	ldr	lr, .L4+4
-	sub	sp, sp, #12
-	str	lr, [r3, #48]
-	str	lr, [r3, #100]
-	add	fp, lr, #116
-	add	lr, lr, #256
-	str	lr, [sp, #4]
-	ldr	lr, .L4+8
-	str	fp, [r3, #152]
-	strh	lr, [r3, #96]	@ movhi
-	ldr	fp, .L4+12
-	ldr	lr, .L4+16
-	str	ip, [r3, #24]
-	str	lr, [r3, #156]
-	str	ip, [r3, #76]
-	str	ip, [r3, #132]
-	str	ip, [r3, #184]
+	mov	ip, #3
+	mov	lr, #12
+	mov	r8, #2
+	mov	r9, #4
+	mov	r10, #8
+	str	fp, [r3, #52]
+	strh	r7, [r3, #96]	@ movhi
+	mov	fp, #70
+	mov	r7, #59
+	strh	r4, [r3, #148]	@ movhi
+	ldr	r4, .L4+16
+	str	r0, [r3, #48]
+	str	r0, [r3, #100]
+	str	fp, [r3, #104]
+	str	r7, [r3, #108]
+	str	lr, [r3, #24]
+	str	r4, [r3, #156]
+	str	lr, [r3, #76]
+	str	lr, [r3, #132]
+	str	lr, [r3, #184]
 	str	r1, [r3, #28]
 	str	r1, [r3, #32]
 	str	r1, [r3, #128]
 	str	r1, [r3, #136]
 	str	r1, [r3, #188]
-	str	r6, [r3, #36]
-	str	r6, [r3, #84]
-	str	r0, [r3, #88]
-	str	r0, [r3, #140]
-	str	fp, [r3]
-	str	r10, [r3, #4]
-	strh	r9, [r3, #148]	@ movhi
+	str	r8, [r3, #36]
+	str	r8, [r3, #84]
+	str	r9, [r3, #80]
+	str	ip, [r3, #88]
+	str	ip, [r3, #140]
+	str	ip, [r3, #192]
 	str	r2, [r3, #40]
 	str	r2, [r3, #92]
 	str	r2, [r3, #144]
-	str	r7, [r3, #80]
-	str	r0, [r3, #192]
+	str	r10, [r3, #180]
 	str	r1, [r3, #232]
 	str	r1, [r3, #240]
 	str	r1, [r3, #336]
@@ -85,65 +84,63 @@ initLivingRoomSprites:
 	str	r1, [r3, #208]
 	add	r1, r1, #186
 	str	r1, [r3, #212]
+	add	r1, r0, #256
+	str	r1, [r3, #256]
 	mov	r1, #113
 	str	r1, [r3, #260]
 	mov	r1, #137
-	mov	ip, #132
+	mov	lr, #132
 	str	r1, [r3, #312]
 	ldr	r1, .L4+24
-	str	r0, [r3, #244]
-	str	r0, [r3, #296]
-	mov	r0, #31	@ movhi
-	str	ip, [r3, #160]
 	str	r1, [r3, #316]
-	mov	ip, #235
 	mov	r1, #135
-	mov	r8, #8
-	mov	r5, #20
-	mov	r4, #28
-	str	r6, [r3, #396]
-	mov	r6, #996	@ movhi
-	strh	r0, [r3, #252]	@ movhi
-	ldr	lr, .L4+28
-	ldr	r0, .L4+32
+	str	lr, [r3, #160]
+	mov	lr, #996	@ movhi
+	str	ip, [r3, #244]
+	str	ip, [r3, #296]
+	mov	ip, #31	@ movhi
+	ldr	r4, .L4+28
 	str	r1, [r3, #364]
-	str	ip, [r3, #368]
 	add	r1, r3, #304
-	add	ip, r3, #356
-	str	r0, [r3, #264]
-	strh	r6, [r1]	@ movhi
-	strh	lr, [ip]	@ movhi
-	str	r8, [r3, #180]
+	strh	lr, [r1]	@ movhi
+	add	lr, r3, #356
+	mov	r6, #20
+	mov	r5, #28
+	strh	r4, [lr]	@ movhi
+	mov	lr, #235
+	strh	ip, [r3, #252]	@ movhi
+	ldr	ip, .L4+32
+	str	ip, [r3, #264]
+	ldr	ip, .L4+36
+	add	r0, r0, #360
+	add	r1, r3, #408
+	str	r10, [r3, #284]
+	str	r9, [r3, #388]
+	str	r8, [r3, #396]
+	str	r6, [r3, #236]
+	str	r6, [r3, #288]
+	str	r5, [r3, #340]
 	str	r2, [r3, #196]
 	str	r2, [r3, #248]
-	str	r8, [r3, #284]
 	str	r2, [r3, #292]
 	str	r2, [r3, #300]
 	str	r2, [r3, #348]
 	str	r2, [r3, #352]
-	str	r7, [r3, #388]
 	str	r2, [r3, #400]
-	ldr	r0, .L4+36
-	str	r5, [r3, #236]
-	str	r5, [r3, #288]
-	str	r4, [r3, #340]
-	ldr	lr, [sp, #4]
-	add	r1, r3, #408
-	str	r4, [r3, #392]
+	str	r5, [r3, #392]
+	str	lr, [r3, #368]
+	str	r0, [r3, #412]
 	str	r2, [r3, #404]
-	str	lr, [r3, #412]
-	strh	r0, [r1]	@ movhi
-	add	sp, sp, #12
-	@ sp needed
+	strh	ip, [r1]	@ movhi
 	pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
 .L5:
 	.align	2
 .L4:
-	.word	livingRoomSpritesArr
 	.word	.LANCHOR0
-	.word	32608
+	.word	livingRoomSpritesArr
 	.word	355
+	.word	32608
 	.word	285
 	.word	607
 	.word	454
@@ -171,7 +168,7 @@ loadLivingRoom:
 	ldr	r1, .L12+16
 	str	r3, [r0]
 	ldr	r0, .L12+20
-	cmp	r2, #7
+	cmp	r2, #8
 	str	r3, [lr]
 	str	r3, [ip]
 	str	r0, [r1]
@@ -273,6 +270,12 @@ tapestry:
 	.ascii	" but when your aunt passed and left you the house, "
 	.ascii	"  you kept it up in her     memory.\000"
 	.space	2
+	.type	poster, %object
+	.size	poster, 101
+poster:
+	.ascii	"'2001: A Space Odyssey'   Suspended animation, the "
+	.ascii	" question of sentience...  this movie haunts you.\000"
+	.space	3
 	.type	TV, %object
 	.size	TV, 72
 TV:
@@ -283,11 +286,6 @@ TV:
 	.type	bookcase, %object
 	.size	bookcase, 1
 bookcase:
-	.space	1
-	.space	3
-	.type	poster, %object
-	.size	poster, 1
-poster:
 	.space	1
 	.space	3
 	.type	painting, %object

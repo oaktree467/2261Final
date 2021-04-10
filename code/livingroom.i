@@ -7,7 +7,7 @@
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -84,7 +84,7 @@ void drawSprites();
 unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
-void checkDoorway();
+void checkThreshold();
 void loadLivingRoom();
 void loadKitchen();
 void loadBedroom();
@@ -214,7 +214,7 @@ STATIONARYSPRITE livingRoomSpritesArr[8];
 char record[] = "A commemorative 50th      anniversary gold record of'MMMBop' by Hansen. Just alittle touch you added to the room.";
 char tapestry[] = "You never really          understood this tapestry, but when your aunt passed and left you the house,   you kept it up in her     memory.";
 char painting[] = "";
-char poster[] = "";
+char poster[] = "'2001: A Space Odyssey'   Suspended animation, the  question of sentience...  this movie haunts you.";
 char bookcase[] = "";
 
 char TV[] = "Some show about being     buried alive... you can't bear to watch this.";
@@ -273,6 +273,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[4].worldCol = 287;
     livingRoomSpritesArr[4].hide = 1;
     livingRoomSpritesArr[4].collisionColor = 0x001F;
+    livingRoomSpritesArr[4].message = &poster;
 
 
     livingRoomSpritesArr[5].sheetCol = 8;
