@@ -1940,7 +1940,7 @@ void goToSafe() {
     DMANow(3, safespritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, safespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
 
     hideSprites();
 

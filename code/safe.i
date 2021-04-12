@@ -231,6 +231,7 @@ int enteredCode[4] = {0, 0, 0, 0};
 char sm_1[] = "Your secret safe. It lookslike you need your key anda code." ;
 char openSafeBool;
 char introMessageBool;
+extern char keyFound;
 
 
 void loadSafe() {
@@ -238,9 +239,12 @@ void loadSafe() {
     vOff = 0;
     cursor = 0;
     openSafeBool = 0;
-    introMessageBool = 0;
     if (!keyFound) {
         safeText();
+        (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        introMessageBool = 0;
+    } else {
+        introMessageBool = 1;
     }
 
     initSafeSprites();

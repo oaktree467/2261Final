@@ -352,7 +352,7 @@ void goToSafe() {
     DMANow(3, safespritesPal, SPRITEPALETTE, safespritesPalLen / 2);
     DMANow(3, safespritesTiles, &CHARBLOCK[4], safespritesTilesLen / 2);
 
-    REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
 
     hideSprites();
 

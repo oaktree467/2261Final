@@ -542,28 +542,36 @@ loadSafe:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	mov	r3, #0
 	push	{r4, lr}
-	ldr	r2, .L98
-	ldrb	r2, [r2]	@ zero_extendqisi2
-	ldr	lr, .L98+4
-	ldr	ip, .L98+8
-	ldr	r0, .L98+12
-	ldr	r1, .L98+16
-	cmp	r2, r3
-	ldr	r2, .L98+20
-	strh	r3, [lr]	@ movhi
+	ldr	r2, .L99
+	ldrb	r4, [r2]	@ zero_extendqisi2
+	ldr	ip, .L99+4
+	ldr	r0, .L99+8
+	ldr	r1, .L99+12
+	ldr	r2, .L99+16
+	cmp	r4, r3
 	strh	r3, [ip]	@ movhi
-	str	r3, [r0]
-	strb	r3, [r1]
+	strh	r3, [r0]	@ movhi
+	str	r3, [r1]
 	strb	r3, [r2]
-	popne	{r4, lr}
-	bne	initSafeSprites
-.L97:
-	bl	safeText
+	beq	.L98
+	mov	r2, #1
+	ldr	r3, .L99+20
+	strb	r2, [r3]
 	pop	{r4, lr}
 	b	initSafeSprites
-.L99:
-	.align	2
 .L98:
+	bl	safeText
+	mov	r2, #67108864
+	ldrh	r3, [r2]
+	ldr	r1, .L99+20
+	orr	r3, r3, #256
+	strh	r3, [r2]	@ movhi
+	strb	r4, [r1]
+	pop	{r4, lr}
+	b	initSafeSprites
+.L100:
+	.align	2
+.L99:
 	.word	keyFound
 	.word	hOff
 	.word	vOff
@@ -581,29 +589,29 @@ clearSafeMessage:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	ip, .L106
+	ldr	ip, .L107
 	str	lr, [sp, #-4]!
-	ldr	r3, .L106+4
+	ldr	r3, .L107+4
 	ldrh	lr, [ip, #8]
 	sub	ip, ip, #1488
-	b	.L101
-.L103:
+	b	.L102
+.L104:
 	tst	r2, #31
 	movne	r3, r1
 	addeq	r3, r3, #7
-.L101:
+.L102:
 	add	r1, r3, #1
 	sub	r2, r3, #440
 	lsl	r0, r3, #1
 	cmp	r1, #604
 	strh	lr, [ip, r0]	@ movhi
 	sub	r2, r2, #3
-	blt	.L103
+	blt	.L104
 	ldr	lr, [sp], #4
 	bx	lr
-.L107:
+.L108:
 	.align	2
-.L106:
+.L107:
 	.word	messagescreenMap+1488
 	.word	418
 	.size	clearSafeMessage, .-clearSafeMessage
