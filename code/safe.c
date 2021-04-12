@@ -12,7 +12,7 @@ STATIONARYSPRITE * middleHighlight[5];
 int cursor;
 int answerCode[4] = {2, 0, 0, 1};
 int enteredCode[4] = {0, 0, 0, 0};
-char sm_1[] = "Your secret safe. It lookslike you need your key anda code." ;
+char sm_1[] = "Your secret safe. It lookslike you need a key and a code." ;
 char openSafeBool;
 char introMessageBool;
 extern char keyFound;
@@ -22,11 +22,11 @@ void loadSafe() {
     hOff = 0;
     vOff = 0;
     cursor = 0;
-    openSafeBool = 0;
+    openSafeBool = 0; 
     if (!keyFound) {
         safeText();
-        REG_DISPCTL |= BG0_ENABLE;
         introMessageBool = 0;
+        REG_DISPCTL |= BG0_ENABLE;
     } else {
         introMessageBool = 1;
     }

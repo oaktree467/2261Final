@@ -648,9 +648,12 @@ goToSafe:
 	ldr	r1, .L55+64
 	mov	lr, pc
 	bx	r4
-	mov	r2, #4608
+	mov	r3, #6144
+	strh	r3, [r5, #8]	@ movhi
+	ldrh	r3, [r5]
+	orr	r3, r3, #4608
+	strh	r3, [r5]	@ movhi
 	ldr	r3, .L55+68
-	strh	r2, [r5]	@ movhi
 	mov	lr, pc
 	bx	r3
 	pop	{r4, r5, r6, lr}

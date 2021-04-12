@@ -1940,7 +1940,9 @@ void goToSafe() {
     DMANow(3, safespritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, safespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+    (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
+
+    (*(volatile unsigned short *)0x4000000) |= 0 | (1<<9) | (1<<12);
 
     hideSprites();
 
@@ -2005,7 +2007,7 @@ void goToPause() {
 
 
 void pause() {
-# 453 "main.c"
+# 455 "main.c"
 }
 
 

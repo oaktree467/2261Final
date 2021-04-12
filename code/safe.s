@@ -562,11 +562,11 @@ loadSafe:
 .L98:
 	bl	safeText
 	mov	r2, #67108864
+	ldr	r3, .L99+20
+	strb	r4, [r3]
 	ldrh	r3, [r2]
-	ldr	r1, .L99+20
 	orr	r3, r3, #256
 	strh	r3, [r2]	@ movhi
-	strb	r4, [r1]
 	pop	{r4, lr}
 	b	initSafeSprites
 .L100:
@@ -638,10 +638,10 @@ answerCode:
 	.word	0
 	.word	1
 	.type	sm_1, %object
-	.size	sm_1, 60
+	.size	sm_1, 58
 sm_1:
-	.ascii	"Your secret safe. It lookslike you need your key an"
-	.ascii	"da code.\000"
+	.ascii	"Your secret safe. It lookslike you need a key and a"
+	.ascii	" code.\000"
 	.bss
 	.align	2
 	.set	.LANCHOR0,. + 0
