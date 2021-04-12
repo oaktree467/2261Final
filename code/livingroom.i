@@ -51,6 +51,7 @@ extern PROTAGSPRITE protag;
 extern STATIONARYSPRITE (* currSpriteArr)[];
 extern int currSpriteArrCount;
 extern const unsigned short (* currCollisionMap)[];
+extern unsigned short (* currMessageMap)[];
 extern int spriteCollisionBool;
 extern int messageActiveBool;
 extern int nextRoomBool;
@@ -117,15 +118,13 @@ typedef unsigned int u32;
 # 65 "mylib.h"
 extern volatile unsigned short *videoBuffer;
 # 86 "mylib.h"
-typedef struct
-{
-    u16 tileimg[8192];
+typedef struct {
+ u16 tileimg[8192];
 } charblock;
 
 
-typedef struct
-{
-    u16 tilemap[1024];
+typedef struct {
+ u16 tilemap[1024];
 } screenblock;
 
 
@@ -150,8 +149,8 @@ void flipPage();
 
 
 
-typedef struct
-{
+
+typedef struct {
     unsigned short attr0;
     unsigned short attr1;
     unsigned short attr2;
@@ -161,7 +160,7 @@ typedef struct
 
 
 extern OBJ_ATTR shadowOAM[];
-# 160 "mylib.h"
+# 158 "mylib.h"
 void hideSprites();
 
 
@@ -169,10 +168,7 @@ void hideSprites();
 
 
 
-typedef struct
-{
-    int screenRow;
-    int screenCol;
+typedef struct {
     int worldRow;
     int worldCol;
     int rdel;
@@ -186,12 +182,11 @@ typedef struct
     int numFrames;
     int hide;
 } ANISPRITE;
-# 203 "mylib.h"
+# 199 "mylib.h"
 extern unsigned short oldButtons;
 extern unsigned short buttons;
-# 213 "mylib.h"
-typedef volatile struct
-{
+# 210 "mylib.h"
+typedef volatile struct {
     volatile const void *src;
     volatile void *dst;
     volatile unsigned int cnt;
@@ -199,12 +194,11 @@ typedef volatile struct
 
 
 extern DMA *dma;
-# 254 "mylib.h"
+# 250 "mylib.h"
 void DMANow(int channel, volatile const void *src, volatile void *dst, unsigned int cnt);
-
-
-
-
+# 286 "mylib.h"
+typedef void (*ihp)(void);
+# 307 "mylib.h"
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
 # 5 "livingroom.c" 2
 

@@ -39,6 +39,7 @@ typedef unsigned int u32;
 #define BG_SIZE_WIDE        (1<<14)  // 64x32 tiles
 #define BG_SIZE_TALL        (2<<14)  // 32x64 tiles
 #define BG_SIZE_LARGE       (3<<14)  // 64x64 tiles
+#define BG_PRIORITY(num)    ((num)<<1)
 
 // Background Offset Registers
 #define REG_BG0HOFF (*(volatile unsigned short *)0x04000010)
@@ -297,6 +298,7 @@ typedef void (*ihp)(void);
 #define INT_TM1 1<<4    
 #define INT_TM2 1<<5    
 #define INT_TM3 1<<6    
+#define INT_DMA3 1<<11
 #define INT_BUTTON 1 << 12
 
 // ============================== MISCELLANEOUS ===============================

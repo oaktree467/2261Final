@@ -1235,15 +1235,13 @@ typedef unsigned int u32;
 # 65 "myLib.h"
 extern volatile unsigned short *videoBuffer;
 # 86 "myLib.h"
-typedef struct
-{
-    u16 tileimg[8192];
+typedef struct {
+ u16 tileimg[8192];
 } charblock;
 
 
-typedef struct
-{
-    u16 tilemap[1024];
+typedef struct {
+ u16 tilemap[1024];
 } screenblock;
 
 
@@ -1268,8 +1266,8 @@ void flipPage();
 
 
 
-typedef struct
-{
+
+typedef struct {
     unsigned short attr0;
     unsigned short attr1;
     unsigned short attr2;
@@ -1279,7 +1277,7 @@ typedef struct
 
 
 extern OBJ_ATTR shadowOAM[];
-# 160 "myLib.h"
+# 158 "myLib.h"
 void hideSprites();
 
 
@@ -1287,10 +1285,7 @@ void hideSprites();
 
 
 
-typedef struct
-{
-    int screenRow;
-    int screenCol;
+typedef struct {
     int worldRow;
     int worldCol;
     int rdel;
@@ -1304,12 +1299,11 @@ typedef struct
     int numFrames;
     int hide;
 } ANISPRITE;
-# 203 "myLib.h"
+# 199 "myLib.h"
 extern unsigned short oldButtons;
 extern unsigned short buttons;
-# 213 "myLib.h"
-typedef volatile struct
-{
+# 210 "myLib.h"
+typedef volatile struct {
     volatile const void *src;
     volatile void *dst;
     volatile unsigned int cnt;
@@ -1317,12 +1311,11 @@ typedef volatile struct
 
 
 extern DMA *dma;
-# 254 "myLib.h"
+# 250 "myLib.h"
 void DMANow(int channel, volatile const void *src, volatile void *dst, unsigned int cnt);
-
-
-
-
+# 286 "myLib.h"
+typedef void (*ihp)(void);
+# 307 "myLib.h"
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
 # 4 "main.c" 2
 # 1 "livingroomsprites.h" 1
@@ -1591,7 +1584,7 @@ extern const unsigned short winscreenPal[256];
 # 23 "main.c" 2
 # 1 "chapter1bg.h" 1
 # 22 "chapter1bg.h"
-extern const unsigned short chapter1bgTiles[2720];
+extern const unsigned short chapter1bgTiles[2736];
 
 
 extern const unsigned short chapter1bgMap[1024];
@@ -1615,12 +1608,19 @@ extern const unsigned short colddarkmessagebgPal[256];
 
 extern int intervals[];
 extern char (* activeMessage)[];
+extern int nextRoomBool;
 
 void initColdDark();
+void introMessage();
+void chapterIntro();
 void updateHighlight();
 void updateColdDark();
 void loadColdMessage();
 void loadMessageUnedited();
+void printColdText();
+void coldDarkInterruptHandler();
+void setUpColdDarkInterrupts();
+void timerWait(int start, int freq);
 # 26 "main.c" 2
 # 1 "blackbg.h" 1
 # 22 "blackbg.h"
@@ -1712,30 +1712,12 @@ int main() {
             win();
             break;
         }
-
-        if (mode == 4) {
-            (*(volatile unsigned short *)0x4000000) = 4 | (1 << 10) | (1 << 4);
-            for (int i = 0; i < 240; i++) {
-                for (int j = 0; j < 160; j++) {
-                    if (checkCollisionMapColor(i + hOff, j + vOff) == 0) {
-                        setPixel4(i, j, 0);
-                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x07FFF) {
-                        setPixel4(i, j, 1);
-                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x7F60) {
-                        setPixel4(i, j, 2);
-                    } else {
-                        setPixel4(i, j, 3);
-                    }
-                }
-            }
-            waitForVBlank();
-            flipPage();
-        } else {
+# 128 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
-        DMANow(3, shadowOAM, ((OBJ_ATTR *)(0x7000000)), 512);
-        }
+        DMANow(3, shadowOAM, ((OBJ_ATTR*)(0x7000000)), 512);
+
     }
 }
 
@@ -1743,7 +1725,7 @@ int main() {
 void initialize()
 {
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
 
     buttons = (*(volatile unsigned short *)0x04000130);
     oldButtons = 0;
@@ -1753,97 +1735,104 @@ void initialize()
 
 void goToStart() {
     state = START;
-    priorState = INTRO;
 
     DMANow(3, startscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, startscreenTiles, &((charblock *)0x6000000)[1], 7328 / 2);
     DMANow(3, startscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
     initGame();
 }
 
 
 void start() {
 
-    if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))){
+    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))){
         goToInstructions();
     }
 
 }
 
 
+
 void goToInstructions() {
+
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
     DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
+
 }
 
 
 void instructions() {
-    if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
-        switch (priorState) {
-            case INTRO:
-                goToIntro();
-                break;
-            case LIVING_ROOM:
-                goToLivingRoom();
-                break;
-            case KITCHEN:
-                goToKitchen();
-                break;
-            case OUTRO:
-                goToOutro();
-                break;
-        }
+    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+        goToLivingRoom();
     }
 }
 
 
 void goToIntro() {
+
     state = INTRO;
-    priorState = INTRO;
+
+    initColdDark();
+
     DMANow(3, blackbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, blackbgTiles, &((charblock *)0x6000000)[1], 96 / 2);
     DMANow(3, blackbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    DMANow(3, colddarkmessagebgTiles, &((charblock *)0x6000000)[0], 4480 / 2);
-    DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, chapter1bgTiles, &((charblock *)0x6000000)[0], 5472 / 2);
+    DMANow(3, chapter1bgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 
-    (*(volatile unsigned short *)0x4000008) = ((0) << 2) | ((24) << 8) | (0 << 7) | (0 << 14) | ((0) << 1);
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
 
-    initColdDark();
+    chapterIntro();
+
 }
 
 
 void intro() {
 
     updateColdDark();
-# 231 "main.c"
+    if (nextRoomBool == 1) {
+        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
+        DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+        goToLivingRoom();
+    }
+
+
 }
 
 
 void goToLivingRoom() {
+
     nextRoomBool = 0;
     state = LIVING_ROOM;
     loadLivingRoom();
-    priorState = LIVING_ROOM;
 
     DMANow(3, livingroombgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 17664 / 2);
     DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (3 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (3<<14) | ((1)<<1);
 
     DMANow(3, livingroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, livingroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
+    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
+    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+
+    (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
+
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
 
     hideSprites();
 }
@@ -1858,11 +1847,11 @@ void livingRoom() {
     }
 
 
-    if ((!(~(oldButtons) & ((1 << 8))) && (~buttons & ((1 << 8))))) {
+    if ((!(~(oldButtons)&((1<<8))) && (~buttons & ((1<<8))))) {
         goToOutro();
     }
 
-    if ((!(~(oldButtons) & ((1 << 2))) && (~buttons & ((1 << 2))))) {
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
         goToPause();
     }
 }
@@ -1872,13 +1861,12 @@ void goToKitchen() {
     nextRoomBool = 0;
     state = KITCHEN;
     loadKitchen();
-    priorState = KITCHEN;
 
     DMANow(3, kitchenbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 6304 / 2);
     DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     DMANow(3, kitchenspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, kitchenspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
@@ -1897,19 +1885,18 @@ void kitchen() {
         goToBedroom();
     }
 
-    if ((!(~(oldButtons) & ((1 << 2))) && (~buttons & ((1 << 2))))) {
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
         goToPause();
     }
 
 
-    if ((!(~(oldButtons) & ((1 << 8))) && (~buttons & ((1 << 8))))) {
+    if ((!(~(oldButtons)&((1<<8))) && (~buttons & ((1<<8))))) {
         goToOutro();
     }
 }
 
 void goToBedroom() {
     nextRoomBool = 0;
-    priorState = state;
     state = BEDROOM;
     loadBedroom();
 
@@ -1917,7 +1904,7 @@ void goToBedroom() {
     DMANow(3, bedroombgTiles, &((charblock *)0x6000000)[1], 11296 / 2);
     DMANow(3, bedroombgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (1 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (1<<14) | ((1)<<1);
 
     DMANow(3, bedroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, bedroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
@@ -1939,7 +1926,6 @@ void bedroom() {
 }
 
 void goToSafe() {
-    priorState = state;
     state = SAFE;
     priorHoff = hOff;
     priorVoff = vOff;
@@ -1949,12 +1935,12 @@ void goToSafe() {
     DMANow(3, safebgTiles, &((charblock *)0x6000000)[1], 960 / 2);
     DMANow(3, safebgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((20) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     DMANow(3, safespritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, safespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
 
     hideSprites();
 
@@ -1964,8 +1950,8 @@ void safe() {
     updateCursor();
     drawSafeSprites();
 
-    if ((!(~(oldButtons) & ((1 << 1))) && (~buttons & ((1 << 1))))) {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
+    if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1))))) {
+        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
         goToBedroom();
     }
 
@@ -1981,22 +1967,21 @@ void goToOutro() {
     vOff = 0;
     hOff = 0;
     state = OUTRO;
-    priorState = OUTRO;
     hideSprites();
 
     DMANow(3, outroscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, outroscreenTiles, &((charblock *)0x6000000)[1], 3008 / 2);
     DMANow(3, outroscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 }
 
 
 void outro() {
-    if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
+    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
         goToWin();
     }
-    if ((!(~(oldButtons) & ((1 << 2))) && (~buttons & ((1 << 2))))) {
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
         goToPause();
     }
 
@@ -2015,41 +2000,12 @@ void goToPause() {
     DMANow(3, pausescreenTiles, &((charblock *)0x6000000)[1], 5600 / 2);
     DMANow(3, pausescreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 }
 
 
 void pause() {
-    if ((!(~(oldButtons) & ((1 << 2))) && (~buttons & ((1 << 2))))) {
-        switch(priorState) {
-            case INTRO:
-                priorState = PAUSE;
-                goToIntro();
-                break;
-            case LIVING_ROOM:
-                priorState = PAUSE;
-                goToLivingRoom();
-                break;
-            case KITCHEN:
-                priorState = PAUSE;
-                goToKitchen();
-                break;
-            case OUTRO:
-                priorState = PAUSE;
-                goToOutro();
-                break;
-        }
-    }
-
-   if ((!(~(oldButtons) & ((1 << 3))) && (~buttons & ((1 << 3))))) {
-        goToStart();
-    }
-
-    if ((!(~(oldButtons) & ((1 << 1))) && (~buttons & ((1 << 1))))) {
-        priorState = PAUSE;
-        goToInstructions();
-    }
-
+# 453 "main.c"
 }
 
 
@@ -2062,12 +2018,12 @@ void goToWin() {
     DMANow(3, winscreenTiles, &((charblock *)0x6000000)[1], 4064 / 2);
     DMANow(3, winscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
 
-    (*(volatile unsigned short *)0x400000A) = ((1) << 2) | ((26) << 8) | (0 << 7) | (0 << 14) | ((1) << 1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 }
 
 
 void win() {
-    if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
+    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
         goToStart();
     }
 }

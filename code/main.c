@@ -105,6 +105,7 @@ int main() {
             break;
         }
         
+        /*
         if (mode == 4) {
             REG_DISPCTL = MODE4 | BG2_ENABLE | DISP_BACKBUFFER;
             for (int i = 0; i < 240; i++) {
@@ -123,11 +124,12 @@ int main() {
             waitForVBlank();
             flipPage();
         } else { 
+        */
         waitForVBlank();
         REG_BG1HOFF = hOff;
         REG_BG1VOFF = vOff;
         DMANow(3, shadowOAM, OAM, 512);
-        }
+        
     }
 }
 
@@ -145,13 +147,13 @@ void initialize()
 // Sets up the start state
 void goToStart() {
     state = START;
-    priorState = INTRO;
 
     DMANow(3, startscreenPal, PALETTE, 256);
     DMANow(3, startscreenTiles, &CHARBLOCK[1], startscreenTilesLen / 2);
     DMANow(3, startscreenMap, &SCREENBLOCK[20], 1024 * 4);
 
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
     initGame();
 }
 
@@ -164,78 +166,69 @@ void start() {
     
 }
 
+
 //sets up the instruction state
 void goToInstructions() {
+    
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
     DMANow(3, instructionscreenMap, &SCREENBLOCK[20], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    
 
 }
 
 //runs every frame of the instruction state
 void instructions() {
     if (BUTTON_PRESSED(BUTTON_A)) {
-        switch (priorState) {
-            case INTRO:
-                goToIntro();
-                break;
-            case LIVING_ROOM:
-                goToLivingRoom();
-                break;
-            case KITCHEN:
-                goToKitchen();
-                break;
-            case OUTRO:
-                goToOutro();
-                break;
-        }
+        goToLivingRoom();
     }
 }
 
 //sets up the intro state
 void goToIntro() {
+    
     state = INTRO;
-    priorState = INTRO;
+
+    initColdDark();
+
     DMANow(3, blackbgPal, PALETTE, 256);
     DMANow(3, blackbgTiles, &CHARBLOCK[1], blackbgTilesLen / 2);
     DMANow(3, blackbgMap, &SCREENBLOCK[20], 1024 * 4);
 
-    DMANow(3, colddarkmessagebgTiles, &CHARBLOCK[0], colddarkmessagebgTilesLen / 2);
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, chapter1bgTiles, &CHARBLOCK[0], chapter1bgTilesLen / 2);
+    DMANow(3, chapter1bgMap, &SCREENBLOCK[24], 1024 * 4);
 
     REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
 
-    initColdDark();
+    chapterIntro();
+    
 }
 
 //runs every frame of the intro state
 void intro() {
-
-    updateColdDark();
     
-    /*
-    if (BUTTON_PRESSED(BUTTON_A)){
+    updateColdDark();
+    if (nextRoomBool == 1) {
         DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
         DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
         goToLivingRoom();
     }
-    if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goToPause();
-    }
-    */
+    
     
 }
 
 //sets up the game state
 void goToLivingRoom() {
+    
     nextRoomBool = 0;
     state = LIVING_ROOM;
     loadLivingRoom();
-    priorState = LIVING_ROOM;
 
     DMANow(3, livingroombgPal, PALETTE, 256);
     DMANow(3, livingroombgTiles, &CHARBLOCK[1], livingroombgTilesLen / 2);
@@ -245,6 +238,11 @@ void goToLivingRoom() {
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
+
+    DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
+    DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
+
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
 
     REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
 
@@ -275,7 +273,6 @@ void goToKitchen() {
     nextRoomBool = 0;
     state = KITCHEN;
     loadKitchen();
-    priorState = KITCHEN;
     
     DMANow(3, kitchenbgPal, PALETTE, 256);
     DMANow(3, kitchenbgTiles, &CHARBLOCK[1], kitchenbgTilesLen / 2);
@@ -312,7 +309,6 @@ void kitchen() {
 
 void goToBedroom() {
     nextRoomBool = 0;
-    priorState = state;
     state = BEDROOM;
     loadBedroom();
     
@@ -342,7 +338,6 @@ void bedroom() {
 }
 
 void goToSafe() {
-    priorState = state;
     state = SAFE;
     priorHoff = hOff;
     priorVoff = vOff;
@@ -384,7 +379,6 @@ void goToOutro() {
     vOff = 0;
     hOff = 0;
     state = OUTRO;
-    priorState = OUTRO;
     hideSprites();
     
     DMANow(3, outroscreenPal, PALETTE, 256);
@@ -423,6 +417,7 @@ void goToPause() {
 
 // Runs every frame of the pause state
 void pause() {
+    /*
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
         switch(priorState) {
             case INTRO:
@@ -443,6 +438,7 @@ void pause() {
                 break;
         }
     }
+    
    
    if (BUTTON_PRESSED(BUTTON_START)) {
         goToStart();
@@ -452,6 +448,7 @@ void pause() {
         priorState = PAUSE;
         goToInstructions();
     }
+    */
     
 }
 

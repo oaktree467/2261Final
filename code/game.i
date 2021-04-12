@@ -13,15 +13,13 @@ typedef unsigned int u32;
 # 65 "myLib.h"
 extern volatile unsigned short *videoBuffer;
 # 86 "myLib.h"
-typedef struct
-{
-    u16 tileimg[8192];
+typedef struct {
+ u16 tileimg[8192];
 } charblock;
 
 
-typedef struct
-{
-    u16 tilemap[1024];
+typedef struct {
+ u16 tilemap[1024];
 } screenblock;
 
 
@@ -46,8 +44,8 @@ void flipPage();
 
 
 
-typedef struct
-{
+
+typedef struct {
     unsigned short attr0;
     unsigned short attr1;
     unsigned short attr2;
@@ -57,7 +55,7 @@ typedef struct
 
 
 extern OBJ_ATTR shadowOAM[];
-# 160 "myLib.h"
+# 158 "myLib.h"
 void hideSprites();
 
 
@@ -65,10 +63,7 @@ void hideSprites();
 
 
 
-typedef struct
-{
-    int screenRow;
-    int screenCol;
+typedef struct {
     int worldRow;
     int worldCol;
     int rdel;
@@ -82,12 +77,11 @@ typedef struct
     int numFrames;
     int hide;
 } ANISPRITE;
-# 203 "myLib.h"
+# 199 "myLib.h"
 extern unsigned short oldButtons;
 extern unsigned short buttons;
-# 213 "myLib.h"
-typedef volatile struct
-{
+# 210 "myLib.h"
+typedef volatile struct {
     volatile const void *src;
     volatile void *dst;
     volatile unsigned int cnt;
@@ -95,12 +89,11 @@ typedef volatile struct
 
 
 extern DMA *dma;
-# 254 "myLib.h"
+# 250 "myLib.h"
 void DMANow(int channel, volatile const void *src, volatile void *dst, unsigned int cnt);
-
-
-
-
+# 286 "myLib.h"
+typedef void (*ihp)(void);
+# 307 "myLib.h"
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
 # 2 "game.c" 2
 # 1 "livingroomsprites.h" 1
@@ -372,15 +365,15 @@ void updateProtagonist() {
     }
 
     if (messageActiveBool) {
-        if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
-            (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
+        if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
             messageActiveBool = 0;
         }
     } else {
-        if ((!(~(oldButtons) & ((1 << 0))) && (~buttons & ((1 << 0))))) {
+        if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
             checkMoreInfo();
         }
-        if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 6)))) {
+        if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<6)))) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow - 1) != 0))) {
                     protag.worldRow--;
@@ -390,7 +383,7 @@ void updateProtagonist() {
             }
             protag.aniState = PROTAGBACK;
         }
-        if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 7)))) {
+        if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<7)))) {
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height + 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height + 1) != 0))) {
 
@@ -405,7 +398,7 @@ void updateProtagonist() {
             protag.aniState = PROTAGFRONT;
         }
 
-        if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 4)))) {
+        if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<4)))) {
             if ((protag.worldCol + protag.width < visMapWidth) && (checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
@@ -423,7 +416,7 @@ void updateProtagonist() {
             protag.sideOrientation = 0;
         }
 
-        if ((~((*(volatile unsigned short *)0x04000130)) & ((1 << 5)))) {
+        if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<5)))) {
             if ((protag.worldCol > 1) && (checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
@@ -451,7 +444,7 @@ void updateProtagonist() {
         protag.screenRow = protag.worldRow - vOff;
 
 
-    if ((!(~(oldButtons) & ((1 << 3))) && (~buttons & ((1 << 3))))) {
+    if ((!(~(oldButtons)&((1<<3))) && (~buttons & ((1<<3))))) {
         mode = 4;
     }
 }
@@ -468,25 +461,25 @@ void updateSprites() {
 void drawSprites() {
     for (int i = 0; i < currSpriteArrCount; i++) {
         if ((*currSpriteArr)[i].hide == 1) {
-            shadowOAM[i + 1].attr0 = (2 << 8);
+            shadowOAM[i + 1].attr0 = (2<<8);
         } else {
-            shadowOAM[i + 1].attr0 = ((*currSpriteArr)[i].screenRow | (1 << 13) | (((*currSpriteArr)[i].attr0_shape) << 14));
+            shadowOAM[i + 1].attr0 = ((*currSpriteArr)[i].screenRow | (1<<13) | (((*currSpriteArr)[i].attr0_shape) << 14));
             shadowOAM[i + 1].attr1 = ((*currSpriteArr)[i].screenCol | ((*currSpriteArr)[i].attr1_size) << 14);
-            shadowOAM[i + 1].attr2 = ((0) << 12) | (((*currSpriteArr)[i].sheetRow)*32 + ((*currSpriteArr)[i].sheetCol * 2)) | ((2) << 10);
+            shadowOAM[i + 1].attr2 = ((0)<<12) | (((*currSpriteArr)[i].sheetRow)*32+((*currSpriteArr)[i].sheetCol * 2)) | ((2)<<10);
         }
     }
 }
 
 
 void drawProtagonist() {
-    shadowOAM[0].attr0 = (protag.screenRow | (1 << 13) | (0 << 14));
-    shadowOAM[0].attr1 = (protag.screenCol | (2 << 14) | (protag.sideOrientation << 12));
-    shadowOAM[0].attr2 = ((0) << 12) | ((protag.currFrame * 4)*32 + (protag.aniState * 8)) | ((2) << 10);
+    shadowOAM[0].attr0 = (protag.screenRow | (1<<13) | (0<<14));
+    shadowOAM[0].attr1 = (protag.screenCol | (2<<14) | (protag.sideOrientation << 12));
+    shadowOAM[0].attr2 = ((0)<<12) | ((protag.currFrame * 4)*32+(protag.aniState * 8)) | ((2)<<10);
 }
 
 
 unsigned short checkCollisionMapColor(int x, int y) {
-    return ((* currCollisionMap)[((y) * (totalMapWidth) + (x))]);
+    return ((* currCollisionMap)[((y)*(totalMapWidth)+(x))]);
 }
 
 
@@ -532,10 +525,10 @@ void checkMoreInfo() {
             }
             messageActiveBool = 1;
             printText();
-            (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 8) | (1 << 12);
+            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
         }
     } else {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1 << 9) | (1 << 12);
+        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
     }
 }
 

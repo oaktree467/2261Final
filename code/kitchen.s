@@ -75,7 +75,7 @@ loadKitchen:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	ldr	r3, .L10
 	ldr	r3, [r3]
-	cmp	r3, #7
+	cmp	r3, #8
 	push	{r4, lr}
 	beq	.L7
 	mov	r1, #120
