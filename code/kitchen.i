@@ -141,13 +141,20 @@ void initKitchenSprites() {
 
 
 void loadKitchen() {
-    if (priorState != PAUSE) {
+    if (priorState == LIVING_ROOM) {
         protag.worldRow = 120;
         protag.worldCol = 30;
         protag.aniState = PROTAGBACK;
         hOff = 0;
         vOff = 0;
+    } else if (priorState == BEDROOM) {
+        protag.worldRow = 75;
+        protag.worldCol = 30;
+        protag.aniState = PROTAGFRONT;
+        hOff = 0;
+        vOff = 0;
     } else {
+
         hOff = priorHoff;
         vOff = priorVoff;
     }

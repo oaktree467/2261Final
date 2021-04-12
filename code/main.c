@@ -169,7 +169,7 @@ void start() {
 
 //sets up the instruction state
 void goToInstructions() {
-    
+    priorState = state;
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
@@ -183,13 +183,12 @@ void goToInstructions() {
 //runs every frame of the instruction state
 void instructions() {
     if (BUTTON_PRESSED(BUTTON_A)) {
-        goToLivingRoom();
+        goToIntro();
     }
 }
 
 //sets up the intro state
 void goToIntro() {
-    
     state = INTRO;
 
     initColdDark();
@@ -227,6 +226,7 @@ void intro() {
 void goToLivingRoom() {
     
     nextRoomBool = 0;
+    priorState = state;
     state = LIVING_ROOM;
     loadLivingRoom();
 
@@ -271,6 +271,7 @@ void livingRoom() {
 //sets up the kitchen state
 void goToKitchen() {
     nextRoomBool = 0;
+    priorState = state;
     state = KITCHEN;
     loadKitchen();
     
@@ -309,6 +310,7 @@ void kitchen() {
 
 void goToBedroom() {
     nextRoomBool = 0;
+    priorState = state;
     state = BEDROOM;
     loadBedroom();
     
@@ -338,6 +340,7 @@ void bedroom() {
 }
 
 void goToSafe() {
+    priorState = state;
     state = SAFE;
     priorHoff = hOff;
     priorVoff = vOff;
@@ -372,8 +375,6 @@ void safe() {
     if (openSafeBool) {
         goToKitchen();
     }
-
-
 }
 
 //sets up the outro state
@@ -403,6 +404,7 @@ void outro() {
 
 // Sets up the pause state
 void goToPause() {
+    priorState = state;
     state = PAUSE;
     priorVoff = vOff;
     priorHoff = hOff;
@@ -419,23 +421,19 @@ void goToPause() {
 
 // Runs every frame of the pause state
 void pause() {
-    /*
+    
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
         switch(priorState) {
             case INTRO:
-                priorState = PAUSE;
                 goToIntro();
                 break;
             case LIVING_ROOM:
-                priorState = PAUSE;
                 goToLivingRoom();
                 break;
             case KITCHEN:
-                priorState = PAUSE;
                 goToKitchen();
                 break;
             case OUTRO:
-                priorState = PAUSE;
                 goToOutro();
                 break;
         }
@@ -450,7 +448,7 @@ void pause() {
         priorState = PAUSE;
         goToInstructions();
     }
-    */
+    
     
 }
 

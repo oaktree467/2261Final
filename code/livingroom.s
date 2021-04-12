@@ -41,7 +41,7 @@ initLivingRoomSprites:
 	mov	r1, #0
 	mov	ip, #3
 	mov	lr, #12
-	mov	r8, #2
+	mov	r5, #2
 	mov	r9, #4
 	mov	r10, #8
 	str	fp, [r3, #52]
@@ -64,73 +64,79 @@ initLivingRoomSprites:
 	str	r1, [r3, #128]
 	str	r1, [r3, #136]
 	str	r1, [r3, #188]
-	str	r8, [r3, #36]
-	str	r8, [r3, #84]
+	str	r5, [r3, #36]
+	str	r5, [r3, #84]
+	str	r2, [r3, #40]
+	str	r2, [r3, #92]
+	str	r2, [r3, #144]
 	str	r9, [r3, #80]
 	str	ip, [r3, #88]
 	str	ip, [r3, #140]
 	str	ip, [r3, #192]
-	str	r2, [r3, #40]
-	str	r2, [r3, #92]
-	str	r2, [r3, #144]
 	str	r10, [r3, #180]
+	str	ip, [r3, #244]
+	str	ip, [r3, #296]
+	mov	ip, #101
+	str	ip, [r3, #208]
+	mov	ip, #31	@ movhi
+	strh	ip, [r3, #252]	@ movhi
+	mov	ip, #113
 	str	r1, [r3, #232]
 	str	r1, [r3, #240]
 	str	r1, [r3, #336]
 	str	r1, [r3, #344]
 	ldr	r1, .L4+20
 	strh	r1, [r3, #200]	@ movhi
-	mov	r1, #101
-	str	r1, [r3, #208]
-	add	r1, r1, #186
+	sub	r1, r1, #320
 	str	r1, [r3, #212]
 	add	r1, r0, #256
 	str	r1, [r3, #256]
-	mov	r1, #113
-	str	r1, [r3, #260]
+	ldr	r1, .L4+24
+	str	ip, [r3, #260]
+	add	ip, ip, #229
+	str	r1, [r3, #204]
+	str	ip, [r3, #264]
+	add	ip, r1, r9
+	add	r1, r1, r10
+	str	r1, [r3, #360]
 	mov	r1, #137
+	str	ip, [r3, #308]
+	mov	ip, #996	@ movhi
+	mov	r8, #20
+	mov	r6, #28
 	mov	lr, #132
 	str	r1, [r3, #312]
-	ldr	r1, .L4+24
+	ldr	r1, .L4+28
 	str	r1, [r3, #316]
-	mov	r1, #135
-	str	lr, [r3, #160]
-	mov	lr, #996	@ movhi
-	str	ip, [r3, #244]
-	str	ip, [r3, #296]
-	mov	ip, #31	@ movhi
-	ldr	r4, .L4+28
-	str	r1, [r3, #364]
 	add	r1, r3, #304
-	strh	lr, [r1]	@ movhi
-	add	lr, r3, #356
-	mov	r6, #20
-	mov	r5, #28
-	strh	r4, [lr]	@ movhi
-	mov	lr, #235
-	strh	ip, [r3, #252]	@ movhi
+	strh	ip, [r1]	@ movhi
 	ldr	ip, .L4+32
-	str	ip, [r3, #264]
-	ldr	ip, .L4+36
-	add	r0, r0, #360
-	add	r1, r3, #408
-	str	r10, [r3, #284]
-	str	r9, [r3, #388]
-	str	r8, [r3, #396]
-	str	r6, [r3, #236]
-	str	r6, [r3, #288]
-	str	r5, [r3, #340]
+	add	r1, r3, #356
+	strh	ip, [r1]	@ movhi
+	str	lr, [r3, #160]
 	str	r2, [r3, #196]
 	str	r2, [r3, #248]
+	str	r10, [r3, #284]
 	str	r2, [r3, #292]
 	str	r2, [r3, #300]
 	str	r2, [r3, #348]
 	str	r2, [r3, #352]
+	str	r9, [r3, #388]
+	str	r8, [r3, #236]
+	str	r8, [r3, #288]
+	str	r6, [r3, #340]
+	str	r6, [r3, #392]
 	str	r2, [r3, #400]
-	str	r5, [r3, #392]
-	str	lr, [r3, #368]
-	str	r0, [r3, #412]
 	str	r2, [r3, #404]
+	mov	r2, #135
+	str	r2, [r3, #364]
+	mov	r2, #235
+	ldr	ip, .L4+36
+	add	r0, r0, #360
+	add	r1, r3, #408
+	str	r5, [r3, #396]
+	str	r0, [r3, #412]
+	str	r2, [r3, #368]
 	strh	ip, [r1]	@ movhi
 	pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
@@ -143,9 +149,9 @@ initLivingRoomSprites:
 	.word	32608
 	.word	285
 	.word	607
+	.word	.LANCHOR1
 	.word	454
 	.word	27669
-	.word	342
 	.word	3655
 	.size	initLivingRoomSprites, .-initLivingRoomSprites
 	.align	2
@@ -246,6 +252,7 @@ loadLivingRoom:
 	.word	priorVoff
 	.size	loadLivingRoom, .-loadLivingRoom
 	.global	TV
+	.global	computerScreen
 	.global	bookcase
 	.global	poster
 	.global	painting
@@ -283,13 +290,19 @@ TV:
 	.ascii	" bear to watch this.\000"
 	.bss
 	.align	2
+	.set	.LANCHOR1,. + 0
+	.type	painting, %object
+	.size	painting, 1
+painting:
+	.space	1
+	.space	3
 	.type	bookcase, %object
 	.size	bookcase, 1
 bookcase:
 	.space	1
 	.space	3
-	.type	painting, %object
-	.size	painting, 1
-painting:
+	.type	computerScreen, %object
+	.size	computerScreen, 1
+computerScreen:
 	.space	1
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

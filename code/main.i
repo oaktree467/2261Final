@@ -1757,7 +1757,7 @@ void start() {
 
 
 void goToInstructions() {
-
+    priorState = state;
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
@@ -1771,13 +1771,12 @@ void goToInstructions() {
 
 void instructions() {
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        goToLivingRoom();
+        goToIntro();
     }
 }
 
 
 void goToIntro() {
-
     state = INTRO;
 
     initColdDark();
@@ -1815,6 +1814,7 @@ void intro() {
 void goToLivingRoom() {
 
     nextRoomBool = 0;
+    priorState = state;
     state = LIVING_ROOM;
     loadLivingRoom();
 
@@ -1859,6 +1859,7 @@ void livingRoom() {
 
 void goToKitchen() {
     nextRoomBool = 0;
+    priorState = state;
     state = KITCHEN;
     loadKitchen();
 
@@ -1897,6 +1898,7 @@ void kitchen() {
 
 void goToBedroom() {
     nextRoomBool = 0;
+    priorState = state;
     state = BEDROOM;
     loadBedroom();
 
@@ -1926,6 +1928,7 @@ void bedroom() {
 }
 
 void goToSafe() {
+    priorState = state;
     state = SAFE;
     priorHoff = hOff;
     priorVoff = vOff;
@@ -1960,8 +1963,6 @@ void safe() {
     if (openSafeBool) {
         goToKitchen();
     }
-
-
 }
 
 
@@ -1991,6 +1992,7 @@ void outro() {
 
 
 void goToPause() {
+    priorState = state;
     state = PAUSE;
     priorVoff = vOff;
     priorHoff = hOff;
@@ -2007,7 +2009,35 @@ void goToPause() {
 
 
 void pause() {
-# 455 "main.c"
+
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        switch(priorState) {
+            case INTRO:
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                goToKitchen();
+                break;
+            case OUTRO:
+                goToOutro();
+                break;
+        }
+    }
+
+
+   if ((!(~(oldButtons)&((1<<3))) && (~buttons & ((1<<3))))) {
+        goToStart();
+    }
+
+    if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1))))) {
+        priorState = PAUSE;
+        goToInstructions();
+    }
+
+
 }
 
 

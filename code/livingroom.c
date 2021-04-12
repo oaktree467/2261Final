@@ -11,7 +11,7 @@ char tapestry[] = "You never really          understood this tapestry, but when 
 char painting[] = "";
 char poster[] = "'2001: A Space Odyssey'   Suspended animation, the  question of sentience...  this movie haunts you.";
 char bookcase[] = ""; 
-//char computerScreen[] = 
+char computerScreen[] = "";
 char TV[] = "Some show about being     buried alive... you can't bear to watch this."; 
 
 //initialize living room sprites
@@ -58,6 +58,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[3].worldCol = 132;
     livingRoomSpritesArr[3].hide = 1;
     livingRoomSpritesArr[3].collisionColor = ORANGE_HIT;
+    livingRoomSpritesArr[3].message = &painting;
 
     //2001 poster
     livingRoomSpritesArr[4].sheetCol = 0;
@@ -79,6 +80,8 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[5].worldCol = 342;
     livingRoomSpritesArr[5].hide = 1;
     livingRoomSpritesArr[5].collisionColor = LIME_HIT;
+    livingRoomSpritesArr[5].message = &bookcase;
+
 
     //computer screen
     livingRoomSpritesArr[6].sheetCol = 0;
@@ -89,6 +92,7 @@ void initLivingRoomSprites() {
     livingRoomSpritesArr[6].worldCol = 454;
     livingRoomSpritesArr[6].hide = 1;
     livingRoomSpritesArr[6].collisionColor = PURPLE_HIT;
+    livingRoomSpritesArr[6].message = &computerScreen;
  
     //television screen
     livingRoomSpritesArr[7].sheetCol = 4;
@@ -111,6 +115,7 @@ void loadLivingRoom() {
     totalMapHeight = 512;
     
     if (priorState != PAUSE) {
+        //entering living room from kitchen
         if (priorState == KITCHEN) {
             protag.worldRow = 370;
             protag.worldCol = 450;
@@ -119,6 +124,7 @@ void loadLivingRoom() {
             vOff = (visMapHeight - SCREENHEIGHT);
 
         } else {
+            //starting position
             protag.worldRow = 140;
             protag.worldCol = 30;
             protag.aniState = PROTAGFRONT;

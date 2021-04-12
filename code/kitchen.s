@@ -73,61 +73,77 @@ loadKitchen:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L10
+	ldr	r3, .L13
 	ldr	r3, [r3]
-	cmp	r3, #8
+	cmp	r3, #3
 	push	{r4, lr}
-	beq	.L7
-	mov	r1, #120
-	mov	r2, #0
-	mov	lr, #30
-	mov	ip, #2
-	ldr	r3, .L10+4
-	ldr	r0, .L10+8
-	str	r1, [r3]
-	ldr	r1, .L10+12
-	str	lr, [r3, #4]
-	str	ip, [r3, #28]
-	strh	r2, [r0]	@ movhi
-	strh	r2, [r1]	@ movhi
+	beq	.L11
+	cmp	r3, #5
+	beq	.L12
+	ldr	r2, .L13+4
+	ldr	r3, .L13+8
+	ldrh	r0, [r2]
+	ldr	r1, .L13+12
+	ldrh	r2, [r3]
+	ldr	r3, .L13+16
+	strh	r0, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
 .L8:
 	mov	r3, #256
 	mov	r1, #160
-	ldr	lr, .L10+16
-	ldr	ip, .L10+20
-	ldr	r0, .L10+24
-	ldr	r2, .L10+28
+	ldr	lr, .L13+20
+	ldr	ip, .L13+24
+	ldr	r0, .L13+28
+	ldr	r2, .L13+32
 	str	r3, [lr]
 	str	r3, [ip]
 	str	r3, [r0]
 	str	r1, [r2]
 	bl	initKitchenSprites
 	mov	lr, #2
-	ldr	ip, .L10+32
-	ldr	r1, .L10+36
-	ldr	r0, .L10+40
-	ldr	r3, .L10+44
-	ldr	r2, .L10+48
+	ldr	ip, .L13+36
+	ldr	r1, .L13+40
+	ldr	r0, .L13+44
+	ldr	r3, .L13+48
+	ldr	r2, .L13+52
 	str	lr, [ip]
 	str	r0, [r1]
 	str	r2, [r3]
 	pop	{r4, lr}
 	bx	lr
-.L7:
-	ldr	r2, .L10+52
-	ldr	r3, .L10+56
-	ldrh	r0, [r2]
-	ldr	r1, .L10+8
-	ldrh	r2, [r3]
-	ldr	r3, .L10+12
-	strh	r0, [r1]	@ movhi
-	strh	r2, [r3]	@ movhi
+.L12:
+	mov	r3, #0
+	mov	lr, #75
+	mov	ip, #30
+	ldr	r2, .L13+56
+	ldr	r0, .L13+12
+	ldr	r1, .L13+16
+	str	lr, [r2]
+	str	ip, [r2, #4]
+	str	r3, [r2, #28]
+	strh	r3, [r0]	@ movhi
+	strh	r3, [r1]	@ movhi
 	b	.L8
 .L11:
+	mov	r1, #120
+	mov	r2, #0
+	mov	lr, #30
+	mov	ip, #2
+	ldr	r3, .L13+56
+	ldr	r0, .L13+12
+	str	r1, [r3]
+	ldr	r1, .L13+16
+	str	lr, [r3, #4]
+	str	ip, [r3, #28]
+	strh	r2, [r0]	@ movhi
+	strh	r2, [r1]	@ movhi
+	b	.L8
+.L14:
 	.align	2
-.L10:
+.L13:
 	.word	priorState
-	.word	protag
+	.word	priorHoff
+	.word	priorVoff
 	.word	hOff
 	.word	vOff
 	.word	totalMapWidth
@@ -139,8 +155,7 @@ loadKitchen:
 	.word	kitchenSpritesArr
 	.word	currCollisionMap
 	.word	kitchencollisionBitmap
-	.word	priorHoff
-	.word	priorVoff
+	.word	protag
 	.size	loadKitchen, .-loadKitchen
 	.global	refrigerator
 	.global	pictureFrame

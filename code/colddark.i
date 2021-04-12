@@ -156,6 +156,8 @@ int moveForwardBool;
 int sniffBool;
 
 void initColdDark() {
+    setUpColdDarkInterrupts();
+
     cursor = 0;
     coldMessageBool = 0;
     blinkBool = 0;
@@ -169,8 +171,6 @@ void initColdDark() {
 }
 
 void chapterIntro() {
-    setUpColdDarkInterrupts();
-
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
@@ -194,11 +194,6 @@ void chapterIntro() {
     DMANow(3, colddarkmessagebgTiles, &((charblock *)0x6000000)[0], 4480 / 2);
     DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], ((0 << 30) | (1024 * 4)));
     updateHighlight();
-
-}
-
-void introMessage() {
-    char intro_m1 = "Where... where am I?";
 
 }
 
