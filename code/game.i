@@ -173,6 +173,9 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char openSafeBool;
+extern char documentsUploaded;
+extern char computerAccessBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -304,6 +307,9 @@ int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
 char keyFound;
+char documentsFound;
+char documentsUploaded;
+char computerAccessBool;
 
 
 unsigned short priorHoff;
@@ -319,12 +325,14 @@ int mode;
 
 
 
-
 void initGame(){
     keyFound = 0;
+    documentsFound = 0;
+    documentsUploaded = 0;
     spriteCollisionBool = 0;
     messageActiveBool = 0;
     nextRoomBool = 0;
+    computerAccessBool = 0;
     mode = 0;
     initProtagonist();
 }
@@ -517,9 +525,13 @@ void checkSpriteCollision() {
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
+
         if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3] && !openSafeBool) {
             nextRoomBool = 2;
+        } else if (activeSprite == &livingRoomSpritesArr[6]) {
+            computerAccessBool = 1;
         } else {
+
             if (activeSprite == &kitchenSpritesArr[1]) {
                 keyFound = 1;
             }

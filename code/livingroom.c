@@ -114,7 +114,7 @@ void loadLivingRoom() {
     visMapHeight = 478;
     totalMapHeight = 512;
     
-    if (priorState != PAUSE) {
+    if (priorState != PAUSE && priorState != COMPUTER) {
         //entering living room from kitchen
         if (priorState == KITCHEN) {
             protag.worldRow = 370;

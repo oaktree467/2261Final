@@ -50,13 +50,13 @@ computerscreenbgPal:
 	.short	0
 	.short	0
 	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	31775
+	.short	13741
+	.short	31743
+	.short	24311
+	.short	12639
+	.short	7840
+	.short	11071
 	.short	0
 	.short	0
 	.short	0

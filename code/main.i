@@ -1405,6 +1405,9 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char openSafeBool;
+extern char documentsUploaded;
+extern char computerAccessBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -1668,6 +1671,7 @@ void checkComputerSpriteCollision();
 void initMouse();
 void drawMouse();
 void updateMouse();
+void loadSecondaryScreen();
 # 30 "main.c" 2
 
 
@@ -1791,8 +1795,8 @@ void goToStart() {
 void start() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))){
+        goToInstructions();
 
-        goToComputer();
     }
 
 }
@@ -1889,6 +1893,10 @@ void livingRoom() {
         goToKitchen();
     }
 
+    if (computerAccessBool) {
+        goToComputer();
+    }
+
 
     if ((!(~(oldButtons)&((1<<8))) && (~buttons & ((1<<8))))) {
         goToOutro();
@@ -1923,6 +1931,11 @@ void goToComputer() {
 void computer() {
     updateComputer();
     drawComputer();
+
+    if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1))))) {
+        computerAccessBool = 0;
+        goToLivingRoom();
+    }
 }
 
 
@@ -2024,13 +2037,9 @@ void safe() {
     updateCursor();
     drawSafeSprites();
 
-    if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1))))) {
+    if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1)))) || openSafeBool) {
         (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
         goToBedroom();
-    }
-
-    if (openSafeBool) {
-        goToKitchen();
     }
 }
 

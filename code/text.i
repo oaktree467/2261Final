@@ -68,6 +68,8 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char documentsFound;
+extern char documentsUploaded;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;

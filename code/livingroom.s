@@ -164,17 +164,18 @@ loadLivingRoom:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
+	ldr	r3, .L12
+	ldr	r2, [r3]
 	mov	r3, #512
-	ldr	r2, .L12
+	cmp	r2, #9
+	cmpne	r2, #4
 	ldr	r0, .L12+4
-	ldr	r2, [r2]
 	push	{r4, lr}
 	ldr	ip, .L12+8
 	ldr	lr, .L12+12
 	ldr	r1, .L12+16
 	str	r3, [r0]
 	ldr	r0, .L12+20
-	cmp	r2, #9
 	str	r3, [lr]
 	str	r3, [ip]
 	str	r0, [r1]
@@ -193,14 +194,24 @@ loadLivingRoom:
 	str	r2, [r3, #28]
 	strh	r2, [ip]	@ movhi
 	strh	r0, [r1]	@ movhi
+	b	.L9
+.L7:
+	ldr	r2, .L12+36
+	ldr	r3, .L12+40
+	ldrh	r0, [r2]
+	ldr	r1, .L12+28
+	ldrh	r2, [r3]
+	ldr	r3, .L12+32
+	strh	r0, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
 .L9:
 	bl	initLivingRoomSprites
 	mov	lr, #8
-	ldr	ip, .L12+36
-	ldr	r1, .L12+40
-	ldr	r0, .L12+44
-	ldr	r3, .L12+48
-	ldr	r2, .L12+52
+	ldr	ip, .L12+44
+	ldr	r1, .L12+48
+	ldr	r0, .L12+52
+	ldr	r3, .L12+56
+	ldr	r2, .L12+60
 	str	lr, [ip]
 	str	r0, [r1]
 	str	r2, [r3]
@@ -210,24 +221,14 @@ loadLivingRoom:
 	mov	lr, #272
 	ldr	r1, .L12+28
 	ldr	r3, .L12+24
-	ldr	ip, .L12+56
+	ldr	ip, .L12+64
 	ldr	r2, .L12+32
 	strh	lr, [r1]	@ movhi
-	ldr	r1, .L12+60
+	ldr	r1, .L12+68
 	sub	r0, r0, #28
 	str	ip, [r3]
 	str	r0, [r3, #4]
 	strh	r1, [r2]	@ movhi
-	b	.L9
-.L7:
-	ldr	r2, .L12+64
-	ldr	r3, .L12+68
-	ldrh	r0, [r2]
-	ldr	r1, .L12+28
-	ldrh	r2, [r3]
-	ldr	r3, .L12+32
-	strh	r0, [r1]	@ movhi
-	strh	r2, [r3]	@ movhi
 	b	.L9
 .L13:
 	.align	2
@@ -241,6 +242,8 @@ loadLivingRoom:
 	.word	protag
 	.word	hOff
 	.word	vOff
+	.word	priorHoff
+	.word	priorVoff
 	.word	currSpriteArrCount
 	.word	currSpriteArr
 	.word	livingRoomSpritesArr
@@ -248,8 +251,6 @@ loadLivingRoom:
 	.word	livingroomcollisionmapBitmap
 	.word	370
 	.word	318
-	.word	priorHoff
-	.word	priorVoff
 	.size	loadLivingRoom, .-loadLivingRoom
 	.global	TV
 	.global	computerScreen

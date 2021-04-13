@@ -169,8 +169,7 @@ void goToStart() {
 void start() {
     
     if (BUTTON_PRESSED(BUTTON_A)){
-        //goToInstructions();
-        goToComputer();
+        goToInstructions();
     }
     
 }
@@ -267,6 +266,10 @@ void livingRoom() {
         goToKitchen();
     }
 
+    if (computerAccessBool) {
+        goToComputer();
+    }
+
     /* temporary */
     if (BUTTON_PRESSED(BUTTON_R)) {
         goToOutro();
@@ -301,6 +304,11 @@ void goToComputer() {
 void computer() {
     updateComputer();
     drawComputer();
+
+    if (BUTTON_PRESSED(BUTTON_B)) {
+        computerAccessBool = 0;
+        goToLivingRoom();
+    }
 }
 
 //sets up the kitchen state
@@ -402,13 +410,9 @@ void safe() {
     updateCursor();
     drawSafeSprites();
     
-    if (BUTTON_PRESSED(BUTTON_B)) {
+    if (BUTTON_PRESSED(BUTTON_B) || openSafeBool) {
         REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
         goToBedroom();
-    }
-
-    if (openSafeBool) {
-        goToKitchen();
     }
 }
 

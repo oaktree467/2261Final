@@ -86,6 +86,9 @@ extern int mode;
 extern int priorState; //necessary for placement of protagonist if returning from pause
 
 extern char keyFound; //true if player has accessed refrigerator
+extern char openSafeBool; //true if player has obtained docs from safe
+extern char documentsUploaded; // true if player has uploaded docs
+extern char computerAccessBool; //true if player is accessing computer in living room
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;

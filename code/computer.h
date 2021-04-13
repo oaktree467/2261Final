@@ -16,3 +16,4 @@ void checkComputerSpriteCollision();
 void initMouse();
 void drawMouse();
 void updateMouse();
+void loadSecondaryScreen();

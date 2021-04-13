@@ -68,6 +68,9 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char documentsFound;
+extern char documentsUploaded;
+extern char computerAccessBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -313,7 +316,7 @@ void loadLivingRoom() {
     visMapHeight = 478;
     totalMapHeight = 512;
 
-    if (priorState != PAUSE) {
+    if (priorState != PAUSE && priorState != COMPUTER) {
 
         if (priorState == KITCHEN) {
             protag.worldRow = 370;
