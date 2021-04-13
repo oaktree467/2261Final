@@ -1344,7 +1344,7 @@ extern const unsigned short livingroomcollisionmapBitmap[262144];
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -1632,6 +1632,43 @@ extern unsigned short blackbgMap[1024];
 
 extern const unsigned short blackbgPal[256];
 # 27 "main.c" 2
+# 1 "computerscreenbg.h" 1
+# 22 "computerscreenbg.h"
+extern const unsigned short computerscreenbgTiles[1168];
+
+
+extern const unsigned short computerscreenbgMap[1024];
+
+
+extern const unsigned short computerscreenbgPal[256];
+# 28 "main.c" 2
+# 1 "computersprites.h" 1
+# 21 "computersprites.h"
+extern const unsigned short computerspritesTiles[16384];
+
+
+extern const unsigned short computerspritesPal[256];
+# 29 "main.c" 2
+# 1 "computer.h" 1
+
+
+
+extern STATIONARYSPRITE computerSpritesArr[];
+extern PROTAGSPRITE mouse;
+
+
+void updateComputer();
+void drawComputer();
+
+void loadComputer();
+
+void initComputerSprites();
+void drawComputerSprites();
+void checkComputerSpriteCollision();
+void initMouse();
+void drawMouse();
+void updateMouse();
+# 30 "main.c" 2
 
 
 
@@ -1647,6 +1684,8 @@ void goToIntro();
 void intro();
 void goToLivingRoom();
 void livingRoom();
+void goToComputer();
+void computer();
 void goToKitchen();
 void kitchen();
 void goToBedroom();
@@ -1693,6 +1732,9 @@ int main() {
         case LIVING_ROOM:
             livingRoom();
             break;
+        case COMPUTER:
+            computer();
+            break;
         case KITCHEN:
             kitchen();
             break;
@@ -1712,7 +1754,7 @@ int main() {
             win();
             break;
         }
-# 128 "main.c"
+# 136 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
@@ -1749,7 +1791,8 @@ void goToStart() {
 void start() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))){
-        goToInstructions();
+
+        goToComputer();
     }
 
 }
@@ -1854,6 +1897,32 @@ void livingRoom() {
     if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
         goToPause();
     }
+}
+
+void goToComputer() {
+    nextRoomBool = 0;
+    priorState = state;
+    state = COMPUTER;
+    loadComputer();
+
+    DMANow(3, computerscreenbgPal, ((unsigned short *)0x5000000), 256);
+    DMANow(3, computerscreenbgTiles, &((charblock *)0x6000000)[1], 2336 / 2);
+    DMANow(3, computerscreenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
+    DMANow(3, computerspritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, computerspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+
+    hideSprites();
+
+}
+
+void computer() {
+    updateComputer();
+    drawComputer();
 }
 
 

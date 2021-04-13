@@ -24,6 +24,9 @@
 #include "colddarkmessagebg.h"
 #include "colddark.h"
 #include "blackbg.h"
+#include "computerscreenbg.h"
+#include "computersprites.h"
+#include "computer.h"
 //#include "spritetest.h"
 
 //extern int mode;
@@ -39,6 +42,8 @@ void goToIntro();
 void intro();
 void goToLivingRoom();
 void livingRoom();
+void goToComputer();
+void computer();
 void goToKitchen();
 void kitchen();
 void goToBedroom();
@@ -84,6 +89,9 @@ int main() {
             break;
         case LIVING_ROOM:
             livingRoom();
+            break;
+        case COMPUTER:
+            computer();
             break;
         case KITCHEN:
             kitchen();
@@ -161,7 +169,8 @@ void goToStart() {
 void start() {
     
     if (BUTTON_PRESSED(BUTTON_A)){
-        goToInstructions();
+        //goToInstructions();
+        goToComputer();
     }
     
 }
@@ -266,6 +275,32 @@ void livingRoom() {
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
         goToPause();
     }
+}
+
+void goToComputer() {
+    nextRoomBool = 0;
+    priorState = state;
+    state = COMPUTER;
+    loadComputer();
+
+    DMANow(3, computerscreenbgPal, PALETTE, 256);
+    DMANow(3, computerscreenbgTiles, &CHARBLOCK[1], computerscreenbgTilesLen / 2);
+    DMANow(3, computerscreenbgMap, &SCREENBLOCK[20], 1024 * 4);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    DMANow(3, computerspritesPal, SPRITEPALETTE, computerspritesPalLen / 2);
+    DMANow(3, computerspritesTiles, &CHARBLOCK[4], computerspritesTilesLen / 2);
+
+    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+
+    hideSprites();
+
+}
+
+void computer() {
+    updateComputer();
+    drawComputer();
 }
 
 //sets up the kitchen state

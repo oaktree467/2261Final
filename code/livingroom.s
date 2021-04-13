@@ -174,12 +174,12 @@ loadLivingRoom:
 	ldr	r1, .L12+16
 	str	r3, [r0]
 	ldr	r0, .L12+20
-	cmp	r2, #8
+	cmp	r2, #9
 	str	r3, [lr]
 	str	r3, [ip]
 	str	r0, [r1]
 	beq	.L7
-	cmp	r2, #4
+	cmp	r2, #5
 	beq	.L11
 	mov	r1, #140
 	mov	r2, #0

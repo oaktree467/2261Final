@@ -401,9 +401,9 @@ checkThreshold:
 	ldr	r3, [r3]
 	cmp	r3, #3
 	beq	.L66
-	cmp	r3, #4
-	beq	.L67
 	cmp	r3, #5
+	beq	.L67
+	cmp	r3, #6
 	bxne	lr
 	ldr	r1, .L68+4
 	ldr	r0, .L68+8
@@ -572,7 +572,7 @@ checkMoreInfo:
 	ldr	r3, .L96+4
 	ldr	r2, [r3]
 	ldr	r3, .L96+8
-	cmp	r2, #5
+	cmp	r2, #6
 	ldr	r3, [r3]
 	beq	.L95
 .L89:

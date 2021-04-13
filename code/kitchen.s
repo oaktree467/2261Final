@@ -78,7 +78,7 @@ loadKitchen:
 	cmp	r3, #3
 	push	{r4, lr}
 	beq	.L11
-	cmp	r3, #5
+	cmp	r3, #6
 	beq	.L12
 	ldr	r2, .L13+4
 	ldr	r3, .L13+8

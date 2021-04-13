@@ -17,7 +17,7 @@ char openSafeBool;
 char introMessageBool;
 extern char keyFound;
 
-//load bedroom attributes
+//load safe attributes
 void loadSafe() {
     hOff = 0;
     vOff = 0;
