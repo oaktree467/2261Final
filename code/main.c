@@ -205,7 +205,7 @@ void goToIntro() {
 
     REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
 
-    chapterIntro();
+    chapterOneIntro();
     
 }
 

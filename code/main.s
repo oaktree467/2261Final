@@ -249,7 +249,7 @@ goToIntro:
 	.word	100712448
 	.word	chapter1bgMap
 	.word	5126
-	.word	chapterIntro
+	.word	chapterOneIntro
 	.size	goToIntro, .-goToIntro
 	.align	2
 	.global	instructions

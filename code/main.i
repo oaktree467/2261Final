@@ -1612,7 +1612,7 @@ extern int nextRoomBool;
 
 void initColdDark();
 void introMessage();
-void chapterIntro();
+void chapterOneIntro();
 void updateHighlight();
 void updateColdDark();
 void loadColdMessage();
@@ -1793,7 +1793,7 @@ void goToIntro() {
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
 
-    chapterIntro();
+    chapterOneIntro();
 
 }
 

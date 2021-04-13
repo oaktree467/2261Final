@@ -8,17 +8,20 @@ int intervals[] = {418, 482, 546};
 unsigned short messageUnedited[255];
 int cursor;
 int coldMessageBool;
+int timerI;
+int timerJ;
+
 char (* activeMessage)[];
 char sniff[] = "It only smells...         well, cold.";
 char moveForward[] = "You can't move your arms, or your legs. Everything  feels rigid.";
 char blink[] = "You can't blink. You can'teven tell if your eyes areopen or closed.";
-int timerI;
-int timerJ;
 
+//check if all options have been selected
 int blinkBool;
 int moveForwardBool;
 int sniffBool;
 
+//initialize state settings
 void initColdDark() {
     setUpColdDarkInterrupts();
 
@@ -34,7 +37,8 @@ void initColdDark() {
     
 }
 
-void chapterIntro() {
+//CHAPTER 1: THE COLD DARK
+void chapterOneIntro() {
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
@@ -42,11 +46,7 @@ void chapterIntro() {
         }
     }
 
-    REG_TM0CNT |= TIMER_OFF;
-    REG_TM0D = 20000;
-    REG_TM0CNT |= TM_FREQ_64 | TIMER_ON;
-    while (REG_TM0D < 65500);
-    REG_TM0CNT = TIMER_OFF;
+    timerWait(20000, 64);
 
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[706];
@@ -55,12 +55,12 @@ void chapterIntro() {
         }
     }
 
+    //switch BG0 to message box
     DMANow(3, colddarkmessagebgTiles, &CHARBLOCK[0], colddarkmessagebgTilesLen / 2);
     DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((0 << 30) | (1024 * 4)));
     updateHighlight();
 
 }
-
 
 void updateColdDark() {
     if (BUTTON_PRESSED(BUTTON_DOWN)) {
@@ -89,9 +89,6 @@ void updateColdDark() {
     if (blinkBool && moveForwardBool && sniffBool) {
         nextRoomBool = 1;
     }
-
-
-
 }
 
 void updateHighlight() {
@@ -118,8 +115,10 @@ void loadColdMessage() {
             colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
         }
     }
+    //DMA in the clear board
     DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
 
+    //determine cursor position
     switch (cursor) {
         case 0:
             activeMessage = &sniff;
@@ -134,9 +133,11 @@ void loadColdMessage() {
             blinkBool = 1;
             break;
     }
+    //now print the text
     printColdText();
 }
 
+//reset the message bg
 void loadMessageUnedited() {
     for (int i = 0; i < 255; i++) {
         colddarkmessagebgMap[384 + i] = messageUnedited[i];
@@ -145,6 +146,8 @@ void loadMessageUnedited() {
     coldMessageBool = 0;
 }
 
+
+//print the selected text
 void printColdText() {
     REG_TM1CNT |= TIMER_OFF;
     REG_TM1CNT = TM_FREQ_64;
@@ -196,4 +199,29 @@ void coldDarkInterruptHandler() {
     REG_IF = REG_IF;
 
     REG_IME = 1;
+}
+
+void timerWait(int start, int frequency) {
+    REG_TM0CNT = TIMER_OFF;
+    REG_TM0D = start;
+    
+    switch (frequency) {
+        case 1:
+            REG_TM0CNT |= TM_FREQ_1;
+            break;
+        case 64:
+            REG_TM0CNT |= TM_FREQ_64;
+            break;
+        case 256:
+            REG_TM0CNT |= TM_FREQ_256;
+            break;
+        case 1024:
+            REG_TM0CNT |= TM_FREQ_1024;
+            break;
+    }
+
+    REG_TM0CNT |= TIMER_ON;
+    while (REG_TM0D < 65500);
+    REG_TM0CNT = TIMER_OFF;
+
 }

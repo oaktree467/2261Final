@@ -7,7 +7,7 @@ extern int nextRoomBool;
 
 void initColdDark();
 void introMessage();
-void chapterIntro();
+void chapterOneIntro();
 void updateHighlight();
 void updateColdDark();
 void loadColdMessage();

@@ -187,12 +187,12 @@ updateHighlight:
 	.word	blackbgMap
 	.size	updateHighlight, .-updateHighlight
 	.align	2
-	.global	chapterIntro
+	.global	chapterOneIntro
 	.syntax unified
 	.arm
 	.fpu softvfp
-	.type	chapterIntro, %function
-chapterIntro:
+	.type	chapterOneIntro, %function
+chapterOneIntro:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
@@ -225,14 +225,17 @@ chapterIntro:
 	cmp	r4, #600
 	bne	.L34
 .L42:
+	mov	r0, #0
 	ldr	r3, .L44+16
 	mov	r2, r3
+	ldr	r1, .L44+20
+	strh	r0, [r3, #2]	@ movhi
+	strh	r1, [r3]	@ movhi
 	ldrh	r1, [r3, #2]
-	ldr	r0, .L44+20
+	orr	r1, r1, #1
 	strh	r1, [r3, #2]	@ movhi
-	strh	r0, [r3]	@ movhi
 	ldrh	r1, [r3, #2]
-	orr	r1, r1, #129
+	orr	r1, r1, #128
 	strh	r1, [r3, #2]	@ movhi
 	ldr	r1, .L44+24
 .L35:
@@ -293,7 +296,7 @@ chapterIntro:
 	.word	colddarkmessagebgTiles
 	.word	100712448
 	.word	colddarkmessagebgMap
-	.size	chapterIntro, .-chapterIntro
+	.size	chapterOneIntro, .-chapterOneIntro
 	.align	2
 	.global	loadMessageUnedited
 	.syntax unified
@@ -633,15 +636,76 @@ setUpColdDarkInterrupts:
 	.word	50360320
 	.word	coldDarkInterruptHandler
 	.size	setUpColdDarkInterrupts, .-setUpColdDarkInterrupts
+	.align	2
+	.global	timerWait
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	timerWait, %function
+timerWait:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	mov	r2, #0
+	ldr	r3, .L118
+	lsl	r0, r0, #16
+	lsr	r0, r0, #16
+	cmp	r1, #256
+	strh	r2, [r3, #2]	@ movhi
+	strh	r0, [r3]	@ movhi
+	beq	.L110
+	bgt	.L111
+	cmp	r1, #1
+	beq	.L112
+	cmp	r1, #64
+	ldrheq	r2, [r3, #2]
+	orreq	r2, r2, #1
+	strheq	r2, [r3, #2]	@ movhi
+.L114:
+	ldr	r3, .L118
+	mov	r2, r3
+	ldrh	r1, [r3, #2]
+	orr	r1, r1, #128
+	strh	r1, [r3, #2]	@ movhi
+	ldr	r1, .L118+4
+.L116:
+	ldrh	r3, [r2]
+	cmp	r3, r1
+	bls	.L116
+	mov	r3, #0
+	strh	r3, [r2, #2]	@ movhi
+	bx	lr
+.L111:
+	cmp	r1, #1024
+	ldrheq	r2, [r3, #2]
+	orreq	r2, r2, #3
+	strheq	r2, [r3, #2]	@ movhi
+	b	.L114
+.L110:
+	ldrh	r2, [r3, #2]
+	orr	r2, r2, #2
+	strh	r2, [r3, #2]	@ movhi
+	b	.L114
+.L112:
+	ldrh	r2, [r3, #2]
+	strh	r2, [r3, #2]	@ movhi
+	b	.L114
+.L119:
+	.align	2
+.L118:
+	.word	67109120
+	.word	65499
+	.size	timerWait, .-timerWait
 	.comm	sniffBool,4,4
 	.comm	moveForwardBool,4,4
 	.comm	blinkBool,4,4
-	.comm	timerJ,4,4
-	.comm	timerI,4,4
 	.global	blink
 	.global	moveForward
 	.global	sniff
 	.comm	activeMessage,4,4
+	.comm	timerJ,4,4
+	.comm	timerI,4,4
 	.comm	coldMessageBool,4,4
 	.comm	cursor,4,4
 	.comm	messageUnedited,510,4
