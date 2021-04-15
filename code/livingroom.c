@@ -2,6 +2,7 @@
 #include "livingroom.h"
 #include "livingroomcollisionmap.h"
 #include "mylib.h"
+#include <string.h>
 #include "chapter2bg.h"
 #include "messagescreen.h"
 
@@ -152,7 +153,7 @@ void loadLivingRoom() {
     visMapHeight = 478;
     totalMapHeight = 512;
     
-    if (priorState != PAUSE && priorState != COMPUTER) {
+    if (priorState != PAUSE && priorState != COMPUTER && priorState != INSTRUCTIONS) {
         //entering living room from kitchen
         if (priorState == KITCHEN) {
             protag.worldRow = 370;
@@ -260,11 +261,14 @@ void answerPhone() {
 
 void chapterTwoIntro() {
     timerWait(0, 256);
+
+    unsigned short chapter2bgMapCopy[chapter2bgMapLen];
+    memcpy (chapter2bgMapCopy, chapter2bgMap, chapter2bgMapLen);
     
     for (int i = 0; i < 700; i++) {
-        chapter2bgMap[i] = chapter2bgMap[701];
+        chapter2bgMapCopy[i] = chapter2bgMap[701];
         if (i % 32 == 0) {
-            DMANow(3, chapter2bgMap, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, chapter2bgMapCopy, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
         }
     }
 
@@ -272,7 +276,6 @@ void chapterTwoIntro() {
 
     DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
     DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
-
 
 }
 

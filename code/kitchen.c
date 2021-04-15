@@ -50,7 +50,7 @@ void loadKitchen() {
         hOff = 0;
         vOff = 0;
     } else {
-        //if prior state is pause
+        //if prior state is pause OR instructions (coming from pause)
         hOff = priorHoff;
         vOff = priorVoff;
     }

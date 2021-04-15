@@ -1223,6 +1223,53 @@ _putchar_unlocked(int _c)
 # 797 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdio.h" 3
 
 # 50 "main.c" 2
+# 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 1 3
+# 17 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+# 1 "/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h" 1 3 4
+# 18 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 2 3
+# 27 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+
+
+void * memchr (const void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void * memcpy (void *restrict, const void *restrict, size_t);
+void * memmove (void *, const void *, size_t);
+void * memset (void *, int, size_t);
+char *strcat (char *restrict, const char *restrict);
+char *strchr (const char *, int);
+int strcmp (const char *, const char *);
+int strcoll (const char *, const char *);
+char *strcpy (char *restrict, const char *restrict);
+size_t strcspn (const char *, const char *);
+char *strerror (int);
+size_t strlen (const char *);
+char *strncat (char *restrict, const char *restrict, size_t);
+int strncmp (const char *, const char *, size_t);
+char *strncpy (char *restrict, const char *restrict, size_t);
+char *strpbrk (const char *, const char *);
+char *strrchr (const char *, int);
+size_t strspn (const char *, const char *);
+char *strstr (const char *, const char *);
+
+char *strtok (char *restrict, const char *restrict);
+
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+# 86 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+char *_strdup_r (struct _reent *, const char *);
+
+
+
+char *_strndup_r (struct _reent *, const char *, size_t);
+# 112 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+char * _strerror_r (struct _reent *, int, int, int *);
+# 134 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+char *strsignal (int __signo);
+# 175 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+# 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/sys/string.h" 1 3
+# 176 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 2 3
+
+
+# 51 "main.c" 2
 # 1 "myLib.h" 1
 
 
@@ -1318,14 +1365,14 @@ void DMANow(int channel, volatile const void *src, volatile void *dst, unsigned 
 typedef void (*ihp)(void);
 # 307 "myLib.h"
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
-# 51 "main.c" 2
+# 52 "main.c" 2
 # 1 "livingroomsprites.h" 1
 # 21 "livingroomsprites.h"
 extern const unsigned short livingroomspritesTiles[16384];
 
 
 extern const unsigned short livingroomspritesPal[256];
-# 52 "main.c" 2
+# 53 "main.c" 2
 # 1 "livingroombg.h" 1
 # 22 "livingroombg.h"
 extern const unsigned short livingroombgTiles[8848];
@@ -1335,11 +1382,11 @@ extern const unsigned short livingroombgMap[4096];
 
 
 extern const unsigned short livingroombgPal[256];
-# 53 "main.c" 2
+# 54 "main.c" 2
 # 1 "livingroomcollisionmap.h" 1
 # 20 "livingroomcollisionmap.h"
 extern const unsigned short livingroomcollisionmapBitmap[262144];
-# 54 "main.c" 2
+# 55 "main.c" 2
 # 1 "game.h" 1
 # 25 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
@@ -1436,7 +1483,7 @@ void clearMessage();
 void setUpInterrupts();
 void interruptHandler();
 void timerWait();
-# 55 "main.c" 2
+# 56 "main.c" 2
 # 1 "livingroom.h" 1
 
 
@@ -1460,14 +1507,14 @@ void drawRing();
 void updateRing();
 void answerPhone();
 void chapterTwoIntro();
-# 56 "main.c" 2
+# 57 "main.c" 2
 # 1 "kitchensprites.h" 1
 # 21 "kitchensprites.h"
 extern const unsigned short kitchenspritesTiles[16384];
 
 
 extern const unsigned short kitchenspritesPal[256];
-# 57 "main.c" 2
+# 58 "main.c" 2
 # 1 "kitchen.h" 1
 
 
@@ -1479,7 +1526,7 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 void initKitchenSprites();
 void loadKitchen();
 void reassignRefrigeratorMessage();
-# 58 "main.c" 2
+# 59 "main.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
 extern const unsigned short kitchenbgTiles[3152];
@@ -1489,7 +1536,7 @@ extern const unsigned short kitchenbgMap[1024];
 
 
 extern const unsigned short kitchenbgPal[256];
-# 59 "main.c" 2
+# 60 "main.c" 2
 # 1 "bedroombg.h" 1
 # 22 "bedroombg.h"
 extern const unsigned short bedroombgTiles[5648];
@@ -1499,14 +1546,14 @@ extern const unsigned short bedroombgMap[2048];
 
 
 extern const unsigned short bedroombgPal[256];
-# 60 "main.c" 2
+# 61 "main.c" 2
 # 1 "bedroomsprites.h" 1
 # 21 "bedroomsprites.h"
 extern const unsigned short bedroomspritesTiles[16384];
 
 
 extern const unsigned short bedroomspritesPal[256];
-# 61 "main.c" 2
+# 62 "main.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
 extern const unsigned short messagescreenTiles[1280];
@@ -1516,7 +1563,7 @@ extern unsigned short messagescreenMap[1024];
 
 
 extern const unsigned short messagescreenPal[256];
-# 62 "main.c" 2
+# 63 "main.c" 2
 # 1 "startscreen.h" 1
 # 22 "startscreen.h"
 extern const unsigned short startscreenTiles[3664];
@@ -1526,14 +1573,14 @@ extern const unsigned short startscreenMap[1024];
 
 
 extern const unsigned short startscreenPal[256];
-# 63 "main.c" 2
+# 64 "main.c" 2
 # 1 "safesprites.h" 1
 # 21 "safesprites.h"
 extern const unsigned short safespritesTiles[16384];
 
 
 extern const unsigned short safespritesPal[256];
-# 64 "main.c" 2
+# 65 "main.c" 2
 # 1 "safebg.h" 1
 # 22 "safebg.h"
 extern const unsigned short safebgTiles[480];
@@ -1543,7 +1590,7 @@ extern const unsigned short safebgMap[1024];
 
 
 extern const unsigned short safebgPal[256];
-# 65 "main.c" 2
+# 66 "main.c" 2
 # 1 "safe.h" 1
 
 
@@ -1563,7 +1610,7 @@ void updateCursor();
 int checkCode();
 void clearSafeMessage();
 void safeText();
-# 66 "main.c" 2
+# 67 "main.c" 2
 # 1 "instructionscreen.h" 1
 # 22 "instructionscreen.h"
 extern const unsigned short instructionscreenTiles[5200];
@@ -1573,7 +1620,7 @@ extern const unsigned short instructionscreenMap[1024];
 
 
 extern const unsigned short instructionscreenPal[256];
-# 67 "main.c" 2
+# 68 "main.c" 2
 # 1 "outroscreen.h" 1
 # 22 "outroscreen.h"
 extern const unsigned short outroscreenTiles[1504];
@@ -1583,7 +1630,7 @@ extern const unsigned short outroscreenMap[1024];
 
 
 extern const unsigned short outroscreenPal[256];
-# 68 "main.c" 2
+# 69 "main.c" 2
 # 1 "pausescreen.h" 1
 # 22 "pausescreen.h"
 extern const unsigned short pausescreenTiles[2800];
@@ -1593,7 +1640,7 @@ extern const unsigned short pausescreenMap[1024];
 
 
 extern const unsigned short pausescreenPal[256];
-# 69 "main.c" 2
+# 70 "main.c" 2
 # 1 "winscreen.h" 1
 # 22 "winscreen.h"
 extern const unsigned short winscreenTiles[2032];
@@ -1603,7 +1650,7 @@ extern const unsigned short winscreenMap[1024];
 
 
 extern const unsigned short winscreenPal[256];
-# 70 "main.c" 2
+# 71 "main.c" 2
 # 1 "chapter1bg.h" 1
 # 22 "chapter1bg.h"
 extern const unsigned short chapter1bgTiles[2736];
@@ -1613,7 +1660,7 @@ extern const unsigned short chapter1bgMap[1024];
 
 
 extern const unsigned short chapter1bgPal[256];
-# 71 "main.c" 2
+# 72 "main.c" 2
 # 1 "chapter2bg.h" 1
 # 22 "chapter2bg.h"
 extern const unsigned short chapter2bgTiles[2160];
@@ -1623,7 +1670,7 @@ extern unsigned short chapter2bgMap[1024];
 
 
 extern const unsigned short chapter2bgPal[256];
-# 72 "main.c" 2
+# 73 "main.c" 2
 # 1 "colddarkmessagebg.h" 1
 # 22 "colddarkmessagebg.h"
 extern const unsigned short colddarkmessagebgTiles[2240];
@@ -1633,7 +1680,7 @@ extern unsigned short colddarkmessagebgMap[1024];
 
 
 extern const unsigned short colddarkmessagebgPal[256];
-# 73 "main.c" 2
+# 74 "main.c" 2
 # 1 "colddark.h" 1
 
 
@@ -1656,7 +1703,7 @@ void timerWait(int start, int freq);
 void messagesNonInteractive();
 void clearBoard();
 void chapterOneOutro();
-# 74 "main.c" 2
+# 75 "main.c" 2
 # 1 "blackbg.h" 1
 # 22 "blackbg.h"
 extern const unsigned short blackbgTiles[48];
@@ -1666,7 +1713,7 @@ extern unsigned short blackbgMap[1024];
 
 
 extern const unsigned short blackbgPal[256];
-# 75 "main.c" 2
+# 76 "main.c" 2
 # 1 "computerscreenbg.h" 1
 # 22 "computerscreenbg.h"
 extern const unsigned short computerscreenbgTiles[1184];
@@ -1676,14 +1723,14 @@ extern const unsigned short computerscreenbgMap[1024];
 
 
 extern const unsigned short computerscreenbgPal[256];
-# 76 "main.c" 2
+# 77 "main.c" 2
 # 1 "computersprites.h" 1
 # 21 "computersprites.h"
 extern const unsigned short computerspritesTiles[16384];
 
 
 extern const unsigned short computerspritesPal[256];
-# 77 "main.c" 2
+# 78 "main.c" 2
 # 1 "computer.h" 1
 
 
@@ -1704,7 +1751,7 @@ void initMouse();
 void drawMouse();
 void updateMouse();
 void loadSecondaryScreen();
-# 78 "main.c" 2
+# 79 "main.c" 2
 # 1 "bedroom.h" 1
 
 
@@ -1716,8 +1763,7 @@ extern STATIONARYSPRITE bedroomSpritesArr[];
 void initBedroomSprites();
 void loadBedroom();
 void safeOpenMessage();
-# 79 "main.c" 2
-
+# 80 "main.c" 2
 
 
 int priorState;
@@ -1863,14 +1909,26 @@ void goToInstructions() {
 
 void instructions() {
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        goToIntro();
+        switch(priorState) {
+            case START:
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                goToKitchen();
+                break;
+            case BEDROOM:
+                goToBedroom();
+                break;
+        }
     }
 }
 
 
 void goToIntro() {
     state = INTRO;
-
     initColdDark();
 
     DMANow(3, blackbgPal, ((unsigned short *)0x5000000), 256);
@@ -2057,6 +2115,10 @@ void bedroom() {
     updateGame();
     drawGame();
 
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        goToPause();
+    }
+
     if (nextRoomBool == 1) {
         goToKitchen();
     } else if (nextRoomBool == 2) {
@@ -2155,6 +2217,9 @@ void pause() {
             case KITCHEN:
                 goToKitchen();
                 break;
+            case BEDROOM:
+                goToBedroom();
+                break;
             case OUTRO:
                 goToOutro();
                 break;
@@ -2167,7 +2232,7 @@ void pause() {
     }
 
     if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1))))) {
-        priorState = PAUSE;
+        state = priorState;
         goToInstructions();
     }
 

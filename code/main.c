@@ -21,8 +21,7 @@
 3) ANY BUGS?
     - The email notification icon hovers on the screen after access, obscuring some text.
     - I forgot to add ':' to the font, so it appears as a blank when used in text.
-    - The state machine freaks out when you restart the game from Pause, but only for the intro state.
-        I don't know why. The state machine and I will be Having a Talk.
+    - If the game is paused while the phone is ringing, the phone doesn't stop ringing.
 4) HOW TO PLAY (OR SPEEDRUN, I GUESS)
     - Approaching an object and facing it will allow you to interact with it (Press A).
         - Objects you can interact with will glow when faced.
@@ -47,6 +46,7 @@
 */
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "myLib.h"
 #include "livingroomsprites.h"
 #include "livingroombg.h"
@@ -76,7 +76,6 @@
 #include "computersprites.h"
 #include "computer.h"
 #include "bedroom.h"
-//#include "spritetest.h"
 
 //extern int mode;
 int priorState; 
@@ -244,14 +243,26 @@ void goToInstructions() {
 //runs every frame of the instruction state
 void instructions() {
     if (BUTTON_PRESSED(BUTTON_A)) {
-        goToIntro();
+        switch(priorState) {
+            case START:
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                goToKitchen();
+                break;
+            case BEDROOM:
+                goToBedroom();
+                break;
+        }
     }
 }
 
 //sets up the intro state
 void goToIntro() {
     state = INTRO;
-
     initColdDark();
 
     DMANow(3, blackbgPal, PALETTE, 256);
@@ -438,6 +449,10 @@ void bedroom() {
     updateGame();
     drawGame();
 
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
+
     if (nextRoomBool == 1) {
         goToKitchen();
     } else if (nextRoomBool == 2) {
@@ -536,6 +551,9 @@ void pause() {
             case KITCHEN:
                 goToKitchen();
                 break;
+            case BEDROOM:
+                goToBedroom();
+                break;
             case OUTRO:
                 goToOutro();
                 break;
@@ -548,7 +566,7 @@ void pause() {
     }
 
     if (BUTTON_PRESSED(BUTTON_B)) {
-        priorState = PAUSE;
+        state = priorState;
         goToInstructions();
     }
     

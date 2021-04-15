@@ -130,65 +130,67 @@ loadBedroom:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L10
+	ldr	r3, .L11
 	ldr	r3, [r3]
-	sub	r3, r3, #7
-	bics	r3, r3, #2
+	bic	r2, r3, #8
+	cmp	r2, #1
+	cmpne	r3, #7
 	push	{r4, lr}
-	beq	.L7
-	mov	r0, #120
-	mov	r2, #30
-	mov	lr, #2
-	mov	ip, #0
-	mov	r1, #10
-	ldr	r3, .L10+4
-	str	r0, [r3]
-	str	r2, [r3, #4]
-	ldr	r0, .L10+8
-	ldr	r2, .L10+12
-	str	lr, [r3, #28]
-	strh	ip, [r0]	@ movhi
-	strh	r1, [r2]	@ movhi
+	bne	.L10
+	ldr	r2, .L11+4
+	ldr	r3, .L11+8
+	ldrh	r0, [r2]
+	ldr	r1, .L11+12
+	ldrh	r2, [r3]
+	ldr	r3, .L11+16
+	strh	r0, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
 .L8:
 	mov	r1, #512
 	mov	lr, #388
 	mov	r0, #256
 	mov	r2, #170
-	ldr	r3, .L10+16
-	ldr	ip, .L10+20
+	ldr	r3, .L11+20
+	ldr	ip, .L11+24
 	str	r1, [r3]
-	ldr	r1, .L10+24
-	ldr	r3, .L10+28
+	ldr	r1, .L11+28
+	ldr	r3, .L11+32
 	str	lr, [ip]
 	str	r0, [r1]
 	str	r2, [r3]
 	bl	initBedroomSprites
 	mov	lr, #6
-	ldr	ip, .L10+32
-	ldr	r1, .L10+36
-	ldr	r0, .L10+40
-	ldr	r3, .L10+44
-	ldr	r2, .L10+48
+	ldr	ip, .L11+36
+	ldr	r1, .L11+40
+	ldr	r0, .L11+44
+	ldr	r3, .L11+48
+	ldr	r2, .L11+52
 	str	lr, [ip]
 	str	r0, [r1]
 	str	r2, [r3]
 	pop	{r4, lr}
 	bx	lr
-.L7:
-	ldr	r2, .L10+52
-	ldr	r3, .L10+56
-	ldrh	r0, [r2]
-	ldr	r1, .L10+8
-	ldrh	r2, [r3]
-	ldr	r3, .L10+12
-	strh	r0, [r1]	@ movhi
-	strh	r2, [r3]	@ movhi
-	b	.L8
-.L11:
-	.align	2
 .L10:
+	mov	r0, #120
+	mov	r2, #30
+	mov	lr, #2
+	mov	ip, #0
+	mov	r1, #10
+	ldr	r3, .L11+56
+	str	r0, [r3]
+	str	r2, [r3, #4]
+	ldr	r0, .L11+12
+	ldr	r2, .L11+16
+	str	lr, [r3, #28]
+	strh	ip, [r0]	@ movhi
+	strh	r1, [r2]	@ movhi
+	b	.L8
+.L12:
+	.align	2
+.L11:
 	.word	priorState
-	.word	protag
+	.word	priorHoff
+	.word	priorVoff
 	.word	hOff
 	.word	vOff
 	.word	totalMapWidth
@@ -200,8 +202,7 @@ loadBedroom:
 	.word	bedroomSpritesArr
 	.word	currCollisionMap
 	.word	bedroomcollisionBitmap
-	.word	priorHoff
-	.word	priorVoff
+	.word	protag
 	.size	loadBedroom, .-loadBedroom
 	.align	2
 	.global	safeOpenMessage

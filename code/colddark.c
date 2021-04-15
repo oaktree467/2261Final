@@ -4,9 +4,11 @@
 #include "game.h"
 #include "colddarkmessagebg.h"
 #include "text.h"
+#include <string.h>
 
 int intervals[] = {418, 482, 546};
 unsigned short messageUnedited[255];
+unsigned short cdmessageMapCopy[colddarkmessagebgMapLen];
 int cursor;
 int coldMessageBool;
 int timerI;
@@ -26,6 +28,7 @@ int sniffBool;
 
 //initialize state settings
 void initColdDark() {
+    memcpy(cdmessageMapCopy, colddarkmessagebgMap, colddarkmessagebgMapLen);
 
     cursor = 0;
     coldMessageBool = 0;
@@ -36,7 +39,7 @@ void initColdDark() {
     nonInteractText = 0;
 
     for (int i = 0; i < 255; i++) {
-        messageUnedited[i] = colddarkmessagebgMap[384 + i];
+        messageUnedited[i] = cdmessageMapCopy[384 + i];
     }
     
 }
@@ -61,7 +64,7 @@ void chapterOneIntro() {
 
     //switch BG0 to message box
     DMANow(3, colddarkmessagebgTiles, &CHARBLOCK[0], colddarkmessagebgTilesLen / 2);
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((0 << 30) | (1024 * 4)));
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], ((0 << 30) | (1024 * 4)));
     messagesNonInteractive();
 
 }
@@ -127,7 +130,7 @@ void messagesNonInteractive() {
 
     clearBoard();
     //DMA in the clear board
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], 1024 * 4);
 
     switch (nonInteractText) {
         case 0:
@@ -170,7 +173,7 @@ void loadColdMessage() {
     
     clearBoard();
     //DMA in the clear board
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], 1024 * 4);
 
     //determine cursor position
     switch (cursor) {
@@ -195,7 +198,7 @@ void clearBoard() {
     //clear board
     for (int i = 0; i < 26; i++) {
         for (int j = 0; j < 6; j++) {
-            colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
+            cdmessageMapCopy[418 + i + (j * 32)] = cdmessageMapCopy[748];
         }
     }
 }
@@ -204,9 +207,9 @@ void clearBoard() {
 //reset the message bg
 void loadMessageUnedited() {
     for (int i = 0; i < 255; i++) {
-        colddarkmessagebgMap[384 + i] = messageUnedited[i];
+        cdmessageMapCopy[384 + i] = messageUnedited[i];
     }
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], 1024 * 4);
     coldMessageBool = 0;
 }
 
@@ -225,9 +228,9 @@ void printColdText() {
             timerJ += 6;
         }
         
-        colddarkmessagebgMap[timerJ] = colddarkmessagebgMap[(letterMap[((*activeMessage)[timerI]) - 32])];
+        cdmessageMapCopy[timerJ] = cdmessageMapCopy[(letterMap[((*activeMessage)[timerI]) - 32])];
 
-        DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+        DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], 1024 * 4);
         
     }
     REG_TM1CNT |= TIMER_OFF;
@@ -236,7 +239,7 @@ void printColdText() {
 
 void chapterOneOutro() {
 
-    for (int i = 0; i < 700; i++) {
+    for (int i = 0; i < 640; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
             DMANow(3, blackbgMap, &SCREENBLOCK[20], (1024 * 4));
@@ -244,9 +247,9 @@ void chapterOneOutro() {
     }
 
     for (int i = 0; i < 700; i++) {
-        colddarkmessagebgMap[i] = colddarkmessagebgMap[0];
+        cdmessageMapCopy[i] = cdmessageMapCopy[0];
         if (i % 32 == 0) {
-            DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
         }
     }
 

@@ -240,43 +240,29 @@ loadLivingRoom:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L16
+	ldr	r3, .L17
 	ldr	r2, [r3]
-	mov	r3, #512
-	cmp	r2, #9
+	bic	r3, r2, #8
+	cmp	r3, #1
 	cmpne	r2, #4
-	ldr	r0, .L16+4
+	mov	r3, #512
+	ldr	r0, .L17+4
 	push	{r4, r5, r6, lr}
-	ldr	ip, .L16+8
-	ldr	lr, .L16+12
-	ldr	r1, .L16+16
+	ldr	ip, .L17+8
+	ldr	lr, .L17+12
+	ldr	r1, .L17+16
 	str	r3, [r0]
-	ldr	r0, .L16+20
+	ldr	r0, .L17+20
 	str	r3, [lr]
 	str	r3, [ip]
 	str	r0, [r1]
-	beq	.L12
-	cmp	r2, #5
-	bne	.L13
-	mov	lr, #272
-	ldr	r1, .L16+24
-	ldr	r3, .L16+28
-	ldr	ip, .L16+32
-	ldr	r2, .L16+36
-	strh	lr, [r1]	@ movhi
-	ldr	r1, .L16+40
-	sub	r0, r0, #28
-	str	ip, [r3]
-	str	r0, [r3, #4]
-	strh	r1, [r2]	@ movhi
-	b	.L14
-.L12:
-	ldr	r2, .L16+44
-	ldr	r3, .L16+48
+	bne	.L16
+	ldr	r2, .L17+24
+	ldr	r3, .L17+28
 	ldrh	r0, [r2]
-	ldr	r1, .L16+24
+	ldr	r1, .L17+32
 	ldrh	r2, [r3]
-	ldr	r3, .L16+36
+	ldr	r3, .L17+36
 	strh	r0, [r1]	@ movhi
 	strh	r2, [r3]	@ movhi
 .L14:
@@ -284,30 +270,45 @@ loadLivingRoom:
 	mov	r0, #8
 	mov	r2, #0
 	mov	lr, #1
-	ldr	r1, .L16+52
-	ldr	r3, .L16+56
-	ldr	ip, .L16+60
+	ldr	r1, .L17+40
+	ldr	r3, .L17+44
+	ldr	ip, .L17+48
 	str	r0, [r1]
 	str	r2, [r3]
-	ldr	r1, .L16+64
-	ldr	r0, .L16+68
-	ldr	r3, .L16+72
-	ldr	r2, .L16+76
+	ldr	r1, .L17+52
+	ldr	r0, .L17+56
+	ldr	r3, .L17+60
+	ldr	r2, .L17+64
 	str	lr, [ip]
 	pop	{r4, r5, r6, lr}
 	str	r0, [r1]
 	str	r2, [r3]
 	b	ringSettings
+.L16:
+	cmp	r2, #5
+	bne	.L13
+	mov	lr, #272
+	ldr	r1, .L17+32
+	ldr	r3, .L17+68
+	ldr	ip, .L17+72
+	ldr	r2, .L17+36
+	strh	lr, [r1]	@ movhi
+	ldr	r1, .L17+76
+	sub	r0, r0, #28
+	str	ip, [r3]
+	str	r0, [r3, #4]
+	strh	r1, [r2]	@ movhi
+	b	.L14
 .L13:
 	mov	r1, #30
 	mov	r2, #0
 	mov	ip, #140
 	mov	r0, #40
-	ldr	r3, .L16+28
-	ldr	r5, .L16+24
-	ldr	r4, .L16+36
+	ldr	r3, .L17+68
+	ldr	r5, .L17+32
+	ldr	r4, .L17+36
 	str	r1, [r3, #4]
-	ldr	r1, .L16+80
+	ldr	r1, .L17+80
 	str	r2, [r3, #28]
 	str	ip, [r3]
 	strh	r2, [r5]	@ movhi
@@ -320,22 +321,19 @@ loadLivingRoom:
 	ldrh	r2, [r4]
 	strh	r2, [r3, #22]	@ movhi
 	b	.L14
-.L17:
+.L18:
 	.align	2
-.L16:
+.L17:
 	.word	priorState
 	.word	visMapWidth
 	.word	totalMapHeight
 	.word	totalMapWidth
 	.word	visMapHeight
 	.word	478
-	.word	hOff
-	.word	protag
-	.word	370
-	.word	vOff
-	.word	318
 	.word	priorHoff
 	.word	priorVoff
+	.word	hOff
+	.word	vOff
 	.word	currSpriteArrCount
 	.word	currRing
 	.word	phoneMessageIndex
@@ -343,6 +341,9 @@ loadLivingRoom:
 	.word	livingRoomSpritesArr
 	.word	currCollisionMap
 	.word	livingroomcollisionmapBitmap
+	.word	protag
+	.word	370
+	.word	318
 	.word	waitForVBlank
 	.size	loadLivingRoom, .-loadLivingRoom
 	.align	2
@@ -355,14 +356,14 @@ updateRing:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r1, .L22
-	ldr	r2, .L22+4
-	ldr	r3, .L22+8
+	ldr	r1, .L23
+	ldr	r2, .L23+4
+	ldr	r3, .L23+8
 	str	lr, [sp, #-4]!
 	ldrh	ip, [r2]
 	ldrh	lr, [r1]
 	add	r0, r3, #208
-.L19:
+.L20:
 	ldr	r1, [r3, #4]
 	ldr	r2, [r3]
 	sub	r1, r1, lr
@@ -371,12 +372,12 @@ updateRing:
 	str	r2, [r3, #8]
 	add	r3, r3, #52
 	cmp	r3, r0
-	bne	.L19
+	bne	.L20
 	ldr	lr, [sp], #4
 	bx	lr
-.L23:
+.L24:
 	.align	2
-.L22:
+.L23:
 	.word	hOff
 	.word	vOff
 	.word	phoneRingSpritesArr
@@ -393,14 +394,14 @@ drawRing:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, lr}
 	mov	r4, #512
-	ldr	r3, .L30
-	ldr	r1, .L30+4
+	ldr	r3, .L31
+	ldr	r1, .L31+4
 	add	lr, r3, #208
-.L27:
+.L28:
 	ldr	r2, [r3, #40]
 	cmp	r2, #1
 	strheq	r4, [r1, #72]	@ movhi
-	beq	.L26
+	beq	.L27
 	add	r2, r3, #24
 	ldm	r2, {r2, ip}
 	ldr	r0, [r3, #8]
@@ -412,16 +413,16 @@ drawRing:
 	strh	r2, [r1, #76]	@ movhi
 	strh	r0, [r1, #72]	@ movhi
 	strh	ip, [r1, #74]	@ movhi
-.L26:
+.L27:
 	add	r3, r3, #52
 	cmp	r3, lr
 	add	r1, r1, #8
-	bne	.L27
+	bne	.L28
 	pop	{r4, lr}
 	bx	lr
-.L31:
+.L32:
 	.align	2
-.L30:
+.L31:
 	.word	phoneRingSpritesArr
 	.word	shadowOAM
 	.size	drawRing, .-drawRing
@@ -456,7 +457,7 @@ answerPhone:
 	push	{r4, lr}
 	sub	sp, sp, #296
 	mov	ip, sp
-	ldr	lr, .L45
+	ldr	lr, .L46
 	ldmia	lr!, {r0, r1, r2, r3}
 	stmia	ip!, {r0, r1, r2, r3}
 	ldmia	lr!, {r0, r1, r2, r3}
@@ -464,59 +465,59 @@ answerPhone:
 	ldmia	lr!, {r0, r1, r2, r3}
 	stmia	ip!, {r0, r1, r2, r3}
 	ldr	r3, [lr]
-	ldr	r4, .L45+4
+	ldr	r4, .L46+4
 	mov	r2, #80
-	ldr	r1, .L45+8
+	ldr	r1, .L46+8
 	add	r0, sp, #132
 	strh	r3, [ip]	@ movhi
 	mov	lr, pc
 	bx	r4
 	mov	r2, #82
-	ldr	r1, .L45+12
+	ldr	r1, .L46+12
 	add	r0, sp, #212
 	mov	lr, pc
 	bx	r4
 	mov	r2, #78
-	ldr	r1, .L45+16
+	ldr	r1, .L46+16
 	add	r0, sp, #52
 	mov	lr, pc
 	bx	r4
-	ldr	r3, .L45+20
+	ldr	r3, .L46+20
 	ldrh	r3, [r3]
-	ldr	r2, .L45+24
+	ldr	r2, .L46+24
 	tst	r3, #1
 	ldr	r3, [r2]
-	beq	.L33
-	ldr	r1, .L45+28
+	beq	.L34
+	ldr	r1, .L46+28
 	ldrh	r1, [r1]
 	tst	r1, #1
 	addeq	r3, r3, #1
 	streq	r3, [r2]
-.L33:
+.L34:
 	sub	r3, r3, #1
 	cmp	r3, #3
 	ldrls	pc, [pc, r3, asl #2]
-	b	.L34
-.L36:
+	b	.L35
+.L37:
+	.word	.L40
 	.word	.L39
 	.word	.L38
-	.word	.L37
-	.word	.L35
-.L35:
-	ldr	r2, .L45+32
+	.word	.L36
+.L36:
+	ldr	r2, .L46+32
 	add	r1, sp, #52
-	ldr	r3, .L45+36
+	ldr	r3, .L46+36
 	str	r1, [r2, #48]
 	mov	lr, pc
 	bx	r3
-.L32:
+.L33:
 	add	sp, sp, #296
 	@ sp needed
 	pop	{r4, lr}
 	bx	lr
-.L39:
-	ldr	r2, .L45+32
-	ldr	r3, .L45+36
+.L40:
+	ldr	r2, .L46+32
+	ldr	r3, .L46+36
 	str	sp, [r2, #48]
 	mov	lr, pc
 	bx	r3
@@ -524,10 +525,10 @@ answerPhone:
 	@ sp needed
 	pop	{r4, lr}
 	bx	lr
-.L38:
-	ldr	r2, .L45+32
+.L39:
+	ldr	r2, .L46+32
 	add	r1, sp, #132
-	ldr	r3, .L45+36
+	ldr	r3, .L46+36
 	str	r1, [r2, #48]
 	mov	lr, pc
 	bx	r3
@@ -535,10 +536,10 @@ answerPhone:
 	@ sp needed
 	pop	{r4, lr}
 	bx	lr
-.L37:
-	ldr	r2, .L45+32
+.L38:
+	ldr	r2, .L46+32
 	add	r1, sp, #212
-	ldr	r3, .L45+36
+	ldr	r3, .L46+36
 	str	r1, [r2, #48]
 	mov	lr, pc
 	bx	r3
@@ -546,23 +547,23 @@ answerPhone:
 	@ sp needed
 	pop	{r4, lr}
 	bx	lr
-.L34:
+.L35:
 	mov	r0, #0
 	mov	lr, #1
 	mov	r3, #67108864
 	mov	r2, #4608
-	ldr	r1, .L45+40
-	ldr	ip, .L45+44
+	ldr	r1, .L46+40
+	ldr	ip, .L46+44
 	strb	r0, [r1]
-	ldr	r1, .L45+32
-	ldr	r0, .L45+48
+	ldr	r1, .L46+32
+	ldr	r0, .L46+48
 	strb	lr, [ip]
 	str	r0, [r1, #48]
 	strh	r2, [r3]	@ movhi
-	b	.L32
-.L46:
+	b	.L33
+.L47:
 	.align	2
-.L45:
+.L46:
 	.word	.LC0
 	.word	memcpy
 	.word	.LC1
@@ -585,63 +586,74 @@ answerPhone:
 	.type	chapterTwoIntro, %function
 chapterTwoIntro:
 	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
+	@ args = 0, pretend = 0, frame = 4096
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, r5, r6, r7, r8, r9, r10, lr}
-	ldr	r5, .L53
+	push	{r4, r5, r6, r7, r8, r9, lr}
+	sub	sp, sp, #4096
+	sub	sp, sp, #4
 	mov	r1, #256
 	mov	r0, #0
-	ldr	r3, .L53+4
-	add	r6, r5, #1392
+	ldr	r3, .L54
+	mov	lr, pc
+	bx	r3
+	mov	r0, sp
+	mov	r2, #2048
+	ldr	r1, .L54+4
+	ldr	r3, .L54+8
 	mov	lr, pc
 	bx	r3
 	mov	r4, #0
-	ldr	r7, .L53+8
-	ldr	r10, .L53+12
-	ldr	r9, .L53+16
-	add	r6, r6, #2
-	add	r8, r5, #2
-	b	.L49
-.L48:
-	cmp	r4, #700
-	beq	.L52
+	ldr	r6, .L54+12
+	ldr	r7, .L54+16
+	ldr	r9, .L54+20
+	ldr	r8, .L54+24
+	sub	r5, sp, #2
+	b	.L50
 .L49:
-	ldrh	r0, [r6, #10]
+	cmp	r4, #700
+	beq	.L53
+.L50:
+	ldrh	r1, [r6, #10]
 	tst	r4, #31
-	strh	r0, [r5, #2]!	@ movhi
+	strh	r1, [r5, #2]!	@ movhi
 	add	r4, r4, #1
-	bne	.L48
-	mov	r3, r10
-	mov	r2, r9
-	mov	r1, r8
+	bne	.L49
+	mov	r3, r9
+	mov	r2, r8
+	mov	r1, sp
 	mov	r0, #3
 	mov	lr, pc
 	bx	r7
 	cmp	r4, #700
-	bne	.L49
-.L52:
+	bne	.L50
+.L53:
 	mov	r2, #67108864
 	mov	r1, #4608
 	mov	r3, #1280
 	strh	r1, [r2]	@ movhi
 	mov	r0, #3
 	mov	r2, #100663296
-	ldr	r1, .L53+20
+	ldr	r1, .L54+28
 	mov	lr, pc
 	bx	r7
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L53+16
-	ldr	r1, .L53+24
+	ldr	r2, .L54+24
+	ldr	r1, .L54+32
 	mov	lr, pc
 	bx	r7
-	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+	add	sp, sp, #4096
+	add	sp, sp, #4
+	@ sp needed
+	pop	{r4, r5, r6, r7, r8, r9, lr}
 	bx	lr
-.L54:
+.L55:
 	.align	2
-.L53:
-	.word	chapter2bgMap-2
+.L54:
 	.word	timerWait
+	.word	chapter2bgMap
+	.word	memcpy
+	.word	chapter2bgMap+1392
 	.word	DMANow
 	.word	1073745920
 	.word	100712448

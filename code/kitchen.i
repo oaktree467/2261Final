@@ -73,6 +73,7 @@ extern char phoneRinging;
 extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
+extern char allEmailsBool;
 extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
