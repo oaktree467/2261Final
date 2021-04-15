@@ -163,9 +163,13 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char enableKeyFind;
+extern char phoneRinging;
 extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
+extern char allEmailsBool;
+extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -184,11 +188,11 @@ unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
 void checkThreshold();
-void loadLivingRoom();
-void loadKitchen();
-void loadBedroom();
 void printText();
 void clearMessage();
+void setUpInterrupts();
+void interruptHandler();
+void timerWait();
 # 4 "computer.c" 2
 # 1 "/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h" 1 3 4
 # 143 "/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h" 3 4
@@ -303,6 +307,9 @@ extern const unsigned short inboxmessagecollisionBitmap[65536];
 
 STATIONARYSPRITE computerSpritesArr[8];
 PROTAGSPRITE mouse;
+char ruthEmailBool;
+char marleyEmailBool;
+extern char allEmailsBool;
 
 
 void loadComputer() {
@@ -317,6 +324,9 @@ void loadComputer() {
 
     visMapWidth = 240;
     visMapHeight = 160;
+
+    ruthEmailBool = 0;
+    marleyEmailBool = 0;
 
     currCollisionMap = &desktopcollisionBitmap;
 
@@ -487,9 +497,9 @@ void updateMouse() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
         if (activeSprite != 
-# 203 "computer.c" 3 4
+# 209 "computer.c" 3 4
                            ((void *)0)
-# 203 "computer.c"
+# 209 "computer.c"
                                ) {
             loadSecondaryScreen();
         }
@@ -497,16 +507,15 @@ void updateMouse() {
 
     mouse.screenCol = mouse.worldCol - hOff;
     mouse.screenRow = mouse.worldRow - vOff;
-
 }
 
 void checkComputerSpriteCollision() {
     u16 currColor = 0;
     currColor = checkCollisionMapColor(mouse.worldCol, mouse.worldRow);
     activeSprite = 
-# 216 "computer.c" 3 4
+# 221 "computer.c" 3 4
                   ((void *)0)
-# 216 "computer.c"
+# 221 "computer.c"
                       ;
 
     if (currColor != 0) {
@@ -564,11 +573,17 @@ void loadSecondaryScreen() {
         DMANow(3, inboxruthTiles, &((charblock *)0x6000000)[0], 10272 / 2);
         DMANow(3, inboxruthMap, &((screenblock *)0x6000000)[24], 1024 * 4);
         currCollisionMap = &inboxmessagecollisionBitmap;
+        ruthEmailBool = 1;
     } else if (activeSprite == &computerSpritesArr[5]) {
 
         DMANow(3, inboxmarleyTiles, &((charblock *)0x6000000)[0], 8000 / 2);
         DMANow(3, inboxmarleyMap, &((screenblock *)0x6000000)[24], 1024 * 4);
         currCollisionMap = &inboxmessagecollisionBitmap;
+        marleyEmailBool = 1;
+    }
+
+    if (ruthEmailBool && marleyEmailBool) {
+        allEmailsBool = 1;
     }
 
     computerSpritesArr[3].screenRow = computerSpritesArr[3].worldRow;

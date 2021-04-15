@@ -68,8 +68,11 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
-extern char documentsFound;
+extern char phoneRinging;
+extern char openSafeBool;
 extern char documentsUploaded;
+extern char computerAccessBool;
+extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -88,11 +91,11 @@ unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
 void checkThreshold();
-void loadLivingRoom();
-void loadKitchen();
-void loadBedroom();
 void printText();
 void clearMessage();
+void setUpInterrupts();
+void interruptHandler();
+void timerWait();
 # 2 "bedroom.c" 2
 # 1 "bedroom.h" 1
 
@@ -103,7 +106,7 @@ extern STATIONARYSPRITE bedroomSpritesArr[];
 
 
 void initBedroomSprites();
-void loadBedroom ();
+void loadBedroom();
 void safeOpenMessage();
 # 3 "bedroom.c" 2
 # 1 "bedroomcollision.h" 1
@@ -113,6 +116,11 @@ extern const unsigned short bedroomcollisionBitmap[131072];
 
 STATIONARYSPRITE bedroomSpritesArr[6];
 char wallsafe[] = "The safe is empty.";
+char bedFrame[] = "God only knows how old this bedframe is, but you DID just buy the mattress last year.";
+char wardrobe[] = "If you spend too long with your head stuck in the wardrobe, it begins to feel like one of your attacks...";
+char vanity[] = "Your aunt's vanity. When you first inherited it, far more of the family jewelry remained in the drawers.";
+char chair[] = "A beautiful chair that is also, unfortunately, not terribly comfortable.";
+char bookshelfTwo[] = "Your aunt couldn't fool you with all those Jane Austen novels. This shelf is packed with vampire bestsellers.";
 
 
 void initBedroomSprites() {
@@ -125,7 +133,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[0].worldRow = 76;
     bedroomSpritesArr[0].hide = 1;
     bedroomSpritesArr[0].collisionColor = 0x03FF;
-
+    bedroomSpritesArr[0].message = &bedFrame;
 
 
     bedroomSpritesArr[1].sheetCol = 0;
@@ -136,7 +144,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[1].worldRow = 45;
     bedroomSpritesArr[1].hide = 1;
     bedroomSpritesArr[1].collisionColor = 0x7F60;
-
+    bedroomSpritesArr[1].message = &wardrobe;
 
 
     bedroomSpritesArr[2].sheetCol = 8;
@@ -147,7 +155,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[2].worldRow = 49;
     bedroomSpritesArr[2].hide = 1;
     bedroomSpritesArr[2].collisionColor = 0x0E47;
-
+    bedroomSpritesArr[2].message = &vanity;
 
 
     bedroomSpritesArr[3].sheetCol = 12;
@@ -169,7 +177,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[4].worldRow = 60;
     bedroomSpritesArr[4].hide = 1;
     bedroomSpritesArr[4].collisionColor = 0x03E4;
-
+    bedroomSpritesArr[4].message = &chair;
 
 
     bedroomSpritesArr[5].sheetCol = 12;
@@ -180,7 +188,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[5].worldRow = 60;
     bedroomSpritesArr[5].hide = 1;
     bedroomSpritesArr[5].collisionColor = 0x6C15;
-
+    bedroomSpritesArr[5].message = &bookshelfTwo;
 
 }
 

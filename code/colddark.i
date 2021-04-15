@@ -21,6 +21,9 @@ void printColdText();
 void coldDarkInterruptHandler();
 void setUpColdDarkInterrupts();
 void timerWait(int start, int freq);
+void messagesNonInteractive();
+void clearBoard();
+void chapterOneOutro();
 # 2 "colddark.c" 2
 # 1 "blackbg.h" 1
 # 22 "blackbg.h"
@@ -126,6 +129,101 @@ typedef void (*ihp)(void);
 # 307 "myLib.h"
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
 # 4 "colddark.c" 2
+# 1 "game.h" 1
+# 25 "game.h"
+enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+
+
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+int state;
+
+
+
+
+typedef struct {
+    int worldRow;
+    int worldCol;
+    int screenRow;
+    int screenCol;
+    int width;
+    int height;
+    int aniCounter;
+    int aniState;
+    int prevAniState;
+    int currFrame;
+    int totalFrames;
+    int sideOrientation;
+} PROTAGSPRITE;
+
+
+typedef struct {
+    int worldRow;
+    int worldCol;
+    int screenRow;
+    int screenCol;
+    int width;
+    int height;
+    int sheetCol;
+    int sheetRow;
+    int attr0_shape;
+    int attr1_size;
+    int hide;
+    unsigned short collisionColor;
+    char (* message)[];
+} STATIONARYSPRITE;
+
+
+
+extern PROTAGSPRITE protag;
+extern STATIONARYSPRITE (* currSpriteArr)[];
+extern int currSpriteArrCount;
+extern const unsigned short (* currCollisionMap)[];
+extern unsigned short (* currMessageMap)[];
+extern int spriteCollisionBool;
+extern int messageActiveBool;
+extern int nextRoomBool;
+extern STATIONARYSPRITE *activeSprite;
+
+
+extern unsigned short hOff;
+extern unsigned short vOff;
+extern unsigned short priorHoff;
+extern unsigned short priorVoff;
+
+extern int mode;
+
+extern int priorState;
+
+extern char keyFound;
+extern char phoneRinging;
+extern char openSafeBool;
+extern char documentsUploaded;
+extern char computerAccessBool;
+extern char phoneAnswerBool;
+extern int totalMapWidth;
+extern int visMapWidth;
+extern int totalMapHeight;
+extern int visMapHeight;
+
+
+void initGame();
+void initProtagonist();
+void updateGame();
+void updateProtagonist();
+void updateSprites();
+void drawGame();
+void drawProtagonist();
+void drawSprites();
+unsigned short checkCollisionMapColor(int x, int y);
+void checkSpriteCollision();
+void checkMoreInfo();
+void checkThreshold();
+void printText();
+void clearMessage();
+void setUpInterrupts();
+void interruptHandler();
+void timerWait();
+# 5 "colddark.c" 2
 # 1 "colddarkmessagebg.h" 1
 # 22 "colddarkmessagebg.h"
 extern const unsigned short colddarkmessagebgTiles[2240];
@@ -135,10 +233,10 @@ extern unsigned short colddarkmessagebgMap[1024];
 
 
 extern const unsigned short colddarkmessagebgPal[256];
-# 5 "colddark.c" 2
+# 6 "colddark.c" 2
 # 1 "text.h" 1
 extern int letterMap[95];
-# 6 "colddark.c" 2
+# 7 "colddark.c" 2
 
 int intervals[] = {418, 482, 546};
 unsigned short messageUnedited[255];
@@ -146,6 +244,8 @@ int cursor;
 int coldMessageBool;
 int timerI;
 int timerJ;
+int stage;
+int nonInteractText;
 
 char (* activeMessage)[];
 char sniff[] = "It only smells...         well, cold.";
@@ -159,13 +259,14 @@ int sniffBool;
 
 
 void initColdDark() {
-    setUpColdDarkInterrupts();
 
     cursor = 0;
     coldMessageBool = 0;
     blinkBool = 0;
     moveForwardBool = 0;
     sniffBool = 0;
+    stage = 0;
+    nonInteractText = 0;
 
     for (int i = 0; i < 255; i++) {
         messageUnedited[i] = colddarkmessagebgMap[384 + i];
@@ -194,36 +295,42 @@ void chapterOneIntro() {
 
     DMANow(3, colddarkmessagebgTiles, &((charblock *)0x6000000)[0], 4480 / 2);
     DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], ((0 << 30) | (1024 * 4)));
-    updateHighlight();
+    messagesNonInteractive();
 
 }
 
 void updateColdDark() {
-    if ((!(~(oldButtons)&((1<<7))) && (~buttons & ((1<<7))))) {
-        cursor = (cursor + 1) % 3;
-        updateHighlight();
-    }
-
-    if ((!(~(oldButtons)&((1<<6))) && (~buttons & ((1<<6))))) {
-        if (cursor == 0) {
-            cursor = 2;
-        } else {
-            cursor--;
+    if (stage != 1) {
+        if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+            nonInteractText++;
+            messagesNonInteractive();
+        }
+    } else {
+        if ((!(~(oldButtons)&((1<<7))) && (~buttons & ((1<<7))))) {
+            cursor = (cursor + 1) % 3;
+            updateHighlight();
         }
 
-        updateHighlight();
-    }
-
-    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        if (!coldMessageBool) {
-            loadColdMessage();
-        } else {
-            loadMessageUnedited();
+        if ((!(~(oldButtons)&((1<<6))) && (~buttons & ((1<<6))))) {
+            if (cursor == 0) {
+                cursor = 2;
+            } else {
+                cursor--;
+            }
+            updateHighlight();
         }
-    }
 
-    if (blinkBool && moveForwardBool && sniffBool) {
-        nextRoomBool = 1;
+        if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+            if (blinkBool && moveForwardBool && sniffBool) {
+                nonInteractText = 5;
+                stage = 2;
+                messagesNonInteractive();
+            } else if (!coldMessageBool) {
+                loadColdMessage();
+            } else {
+                loadMessageUnedited();
+            }
+        }
     }
 }
 
@@ -243,14 +350,58 @@ void updateHighlight() {
 
 }
 
+void messagesNonInteractive() {
+    char cd_m0[] = "Oh, Lord...";
+    char cd_m1[] = "It's cold. Dark. You can'tmove or see a thing.";
+    char cd_m2[] = "Usually during an attack, you can at least see...";
+    char cd_m3[] = "Are you...? No. No, you   can't be. Let's not think about that. There must be a way out.";
+    char cd_m4[] = "Okay, calm down. You've   been taking preventative  measures against this     outcome for months.";
+    char cd_m5[] = "Maybe you should just try to remember how you got   here, and then you can getout...";
+
+    clearBoard();
+
+    DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+
+    switch (nonInteractText) {
+        case 0:
+            activeMessage = &cd_m0;
+            printColdText();
+            break;
+        case 1:
+            activeMessage = &cd_m1;
+            printColdText();
+            break;
+        case 2:
+            activeMessage = &cd_m2;
+            printColdText();
+            break;
+        case 3:
+            activeMessage = &cd_m3;
+            printColdText();
+            break;
+        case 4:
+            updateHighlight();
+            loadMessageUnedited();
+            stage = 1;
+            break;
+        case 5:
+            activeMessage = &cd_m4;
+            printColdText();
+            break;
+        case 6:
+            activeMessage = &cd_m5;
+            printColdText();
+            break;
+        case 7:
+            chapterOneOutro();
+            break;
+    }
+}
+
 void loadColdMessage() {
     coldMessageBool = 1;
 
-    for (int i = 0; i < 25; i++) {
-        for (int j = 0; j < 6; j++) {
-            colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
-        }
-    }
+    clearBoard();
 
     DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 
@@ -272,6 +423,16 @@ void loadColdMessage() {
 
     printColdText();
 }
+
+void clearBoard() {
+
+    for (int i = 0; i < 26; i++) {
+        for (int j = 0; j < 6; j++) {
+            colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
+        }
+    }
+}
+
 
 
 void loadMessageUnedited() {
@@ -301,63 +462,28 @@ void printColdText() {
 
         DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 
-
     }
     *(volatile unsigned short*)0x4000106 |= (0<<7);
 
 }
 
+void chapterOneOutro() {
 
-void setUpColdDarkInterrupts() {
-    *(unsigned short*)0x4000208 = 0;
-
-    *((ihp*)0x03007FFC) = coldDarkInterruptHandler;
-
-    *(unsigned short*)0x4000200 |= 1<<11 | 1<<4;
-    *(unsigned short*)0x4000208 = 1;
-}
-
-void coldDarkInterruptHandler() {
-    *(unsigned short*)0x4000208 = 0;
-
-    if (*(volatile unsigned short*)0x4000202 & 1<<11) {
-        *(volatile unsigned short*)0x4000102 |= (0<<7);
-        *(volatile unsigned short*)0x4000100 = 30000;
-        *(volatile unsigned short*)0x4000102 |= 1 | (1<<7);
-        while (*(volatile unsigned short*)0x4000100 < 65500);
+    for (int i = 0; i < 700; i++) {
+        blackbgMap[i] = blackbgMap[706];
+        if (i % 32 == 0) {
+            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[20], (1024 * 4));
+        }
     }
 
-    if (*(volatile unsigned short*)0x4000202 & 1<<4) {
-        timerI++;
-        timerJ++;
+    for (int i = 0; i < 700; i++) {
+        colddarkmessagebgMap[i] = colddarkmessagebgMap[0];
+        if (i % 32 == 0) {
+            DMANow(3, colddarkmessagebgMap, &((screenblock *)0x6000000)[24], ((1 << 30) | (1024 * 4)));
+        }
     }
 
-    *(volatile unsigned short*)0x4000202 = *(volatile unsigned short*)0x4000202;
+    timerWait(20000, 1024);
 
-    *(unsigned short*)0x4000208 = 1;
-}
-
-void timerWait(int start, int frequency) {
-    *(volatile unsigned short*)0x4000102 = (0<<7);
-    *(volatile unsigned short*)0x4000100 = start;
-
-    switch (frequency) {
-        case 1:
-            *(volatile unsigned short*)0x4000102 |= 0;
-            break;
-        case 64:
-            *(volatile unsigned short*)0x4000102 |= 1;
-            break;
-        case 256:
-            *(volatile unsigned short*)0x4000102 |= 2;
-            break;
-        case 1024:
-            *(volatile unsigned short*)0x4000102 |= 3;
-            break;
-    }
-
-    *(volatile unsigned short*)0x4000102 |= (1<<7);
-    while (*(volatile unsigned short*)0x4000100 < 65500);
-    *(volatile unsigned short*)0x4000102 = (0<<7);
-
+    nextRoomBool = 1;
 }

@@ -180551,6 +180551,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	31936
+	.short	31936
 	.short	31936
 	.short	31936
 	.short	31936
@@ -180567,21 +180575,13 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	0
+	.short	0
 	.short	31936
 	.short	31936
 	.short	31936
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -181063,6 +181063,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	31936
+	.short	31936
 	.short	31936
 	.short	31936
 	.short	31936
@@ -181079,21 +181087,13 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	0
+	.short	0
 	.short	31936
 	.short	31936
 	.short	31936
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -181575,6 +181575,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	31936
+	.short	31936
 	.short	31936
 	.short	31936
 	.short	31936
@@ -181591,21 +181599,13 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	0
+	.short	0
 	.short	31936
 	.short	31936
 	.short	31936
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -182081,31 +182081,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -182118,6 +182093,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -182473,12 +182473,6 @@ livingroomcollisionmapBitmap:
 	.short	607
 	.short	607
 	.short	607
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -182599,25 +182593,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -182630,6 +182605,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -182985,10 +182985,6 @@ livingroomcollisionmapBitmap:
 	.short	607
 	.short	607
 	.short	607
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -183109,27 +183105,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
-	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -183142,6 +183117,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -183497,8 +183497,6 @@ livingroomcollisionmapBitmap:
 	.short	607
 	.short	607
 	.short	607
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -183609,39 +183607,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -183664,6 +183629,33 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -183824,6 +183816,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -184009,12 +184009,6 @@ livingroomcollisionmapBitmap:
 	.short	607
 	.short	607
 	.short	607
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -184135,25 +184129,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -184166,6 +184141,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -184449,11 +184449,6 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -184646,26 +184641,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -184678,6 +184653,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -184961,9 +184961,6 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -185159,27 +185156,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -185189,7 +185165,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -185473,8 +185473,6 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -185667,29 +185665,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -185702,6 +185677,31 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
+	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -186183,25 +186183,15 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -186384,6 +186374,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -186695,25 +186695,19 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -186896,6 +186890,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -187207,25 +187207,9 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -187408,6 +187392,22 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -187719,25 +187719,13 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -187920,6 +187908,18 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -188231,25 +188231,17 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -188432,6 +188424,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -188462,6 +188462,12 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -188523,6 +188529,23 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -188542,10 +188565,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -188743,25 +188762,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
 	.short	32767
 	.short	32767
 	.short	32767
@@ -189255,25 +189255,25 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -189767,25 +189767,19 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -189968,6 +189962,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -190279,25 +190279,13 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -190480,6 +190468,18 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -190791,25 +190791,7 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
-	.short	31936
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -190992,6 +190974,24 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -203393,25 +203393,17 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -203792,6 +203784,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -203905,25 +203905,11 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -204304,6 +204290,20 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -204331,6 +204331,9 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -204417,25 +204420,19 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -204816,6 +204813,9 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -204929,25 +204929,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -205328,6 +205319,15 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -205441,25 +205441,10 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -205840,6 +205825,21 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -205954,24 +205954,21 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -206352,6 +206349,9 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -206467,23 +206467,18 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -206864,6 +206859,11 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -206979,23 +206979,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -207376,6 +207369,13 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -207492,22 +207492,15 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -207888,6 +207881,13 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -207911,6 +207911,16 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -208004,22 +208014,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -208400,6 +208394,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -208516,22 +208516,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -208912,6 +208906,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -209028,22 +209028,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -209424,6 +209418,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -209540,22 +209540,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -209936,6 +209930,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -210052,22 +210052,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -210448,6 +210442,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -210564,22 +210564,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -210960,6 +210954,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -211076,22 +211076,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -211472,6 +211466,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -211589,21 +211589,17 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -211984,6 +211980,10 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -212007,6 +212007,19 @@ livingroomcollisionmapBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -212101,21 +212114,7 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -212496,6 +212495,7 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -212613,21 +212613,6 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -213008,6 +212993,21 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -213125,21 +213125,8 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -213520,6 +213507,19 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -213637,21 +213637,10 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -214032,6 +214021,17 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -214149,21 +214149,12 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -214544,6 +214535,15 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -214661,21 +214661,14 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -215056,6 +215049,13 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -215173,21 +215173,16 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -215568,6 +215563,11 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -215685,21 +215685,18 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -216080,6 +216077,9 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	0
 	.short	0
 	.short	0
@@ -216197,21 +216197,21 @@ livingroomcollisionmapBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
+	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767

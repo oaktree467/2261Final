@@ -68,8 +68,12 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
-extern char documentsFound;
+extern char enableKeyFind;
+extern char phoneRinging;
+extern char openSafeBool;
 extern char documentsUploaded;
+extern char computerAccessBool;
+extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -88,11 +92,11 @@ unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
 void checkThreshold();
-void loadLivingRoom();
-void loadKitchen();
-void loadBedroom();
 void printText();
 void clearMessage();
+void setUpInterrupts();
+void interruptHandler();
+void timerWait();
 # 2 "safe.c" 2
 # 1 "myLib.h" 1
 
@@ -221,6 +225,41 @@ void safeText();
 # 1 "text.h" 1
 extern int letterMap[95];
 # 6 "safe.c" 2
+# 1 "sound.h" 1
+void setupSounds();
+void playSoundA(const signed char* sound, int length, int loops);
+void playSoundB(const signed char* sound, int length, int loops);
+
+void setupInterrupts();
+void interruptHandler();
+
+void pauseSound();
+void unpauseSound();
+void stopSound();
+void stopSoundA();
+void stopSoundB();
+# 51 "sound.h"
+typedef struct{
+    const signed char* data;
+    int length;
+    int frequency;
+    int isPlaying;
+    int loops;
+    int duration;
+    int priority;
+    int vBlankCount;
+} SOUND;
+
+SOUND soundA;
+SOUND soundB;
+# 7 "safe.c" 2
+# 1 "safesfx.h" 1
+
+
+extern const unsigned int safesfx_sampleRate;
+extern const unsigned int safesfx_length;
+extern const signed char safesfx_data[];
+# 8 "safe.c" 2
 
 STATIONARYSPRITE safeSpritesArr[19];
 STATIONARYSPRITE * upArrows[4];
@@ -230,7 +269,7 @@ STATIONARYSPRITE * middleHighlight[5];
 int cursor;
 int answerCode[4] = {2, 0, 0, 1};
 int enteredCode[4] = {0, 0, 0, 0};
-char sm_1[] = "Your secret safe. It lookslike you need a key and a code." ;
+char sm_1[] = "Your secret safe. It looks like you need a key and a code." ;
 char openSafeBool;
 char introMessageBool;
 extern char keyFound;
@@ -408,6 +447,7 @@ void updateCursor() {
         if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0)))) && cursor == 4) {
             if (checkCode() && keyFound) {
                 openSafeBool = 1;
+                playSoundB(safesfx_data, safesfx_length, 0);
             } else {
                 for (int i = 0; i < 4; i++) {
                     codeNumbers[i]->sheetRow = 0;

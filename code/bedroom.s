@@ -22,81 +22,91 @@ initBedroomSprites:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
-	mov	r8, #16
+	mvn	r8, #64512
 	ldr	r3, .L4
+	strh	r8, [r3, #44]	@ movhi
+	mov	r8, #16
 	str	r8, [r3, #80]
 	mov	r8, #84
+	mov	r10, #21
+	mov	r9, #76
 	str	r8, [r3, #56]
 	mov	r8, #45
-	mvn	r9, #64512
+	stm	r3, {r9, r10}
+	mov	r9, #130
 	str	r8, [r3, #52]
 	ldr	r8, .L4+4
+	ldr	r1, .L4+8
 	strh	r8, [r3, #96]	@ movhi
-	ldr	r8, .L4+8
-	strh	r9, [r3, #44]	@ movhi
+	ldr	r8, .L4+12
 	strh	r8, [r3, #148]	@ movhi
-	mov	r9, #130
-	mov	r8, #198
+	add	r8, r1, #196
 	mov	r2, #1
-	mov	r1, #12
-	mov	ip, #0
-	mov	lr, #3
-	mov	r0, #2
-	mov	r5, #8
-	mov	r6, #49
-	mov	fp, #21
-	mov	r10, #76
+	mov	r0, #12
+	mov	lr, #0
+	mov	ip, #2
+	mov	r4, #3
+	mov	r6, #8
+	mov	r7, #49
 	str	r9, [r3, #108]
-	str	r8, [r3, #160]
+	str	r8, [r3, #152]
 	mov	r9, #10
-	mov	r8, #31	@ movhi
-	mov	r4, #60
-	mov	r7, #996
-	stm	r3, {r10, fp}
-	str	ip, [r3, #24]
-	str	ip, [r3, #76]
-	str	ip, [r3, #84]
+	mov	r8, #198
+	add	fp, r1, #88
+	str	fp, [r3, #100]
+	str	r1, [r3, #48]
 	str	r9, [r3, #184]
-	strh	r8, [r3, #200]	@ movhi
-	str	r1, [r3, #28]
-	str	r1, [r3, #132]
-	str	r1, [r3, #180]
-	str	lr, [r3, #36]
-	str	lr, [r3, #140]
-	str	r5, [r3, #128]
-	str	r6, [r3, #104]
+	str	r8, [r3, #160]
+	str	lr, [r3, #24]
+	str	lr, [r3, #76]
+	str	lr, [r3, #84]
+	str	r0, [r3, #28]
+	str	r0, [r3, #132]
+	str	r0, [r3, #180]
 	str	r2, [r3, #32]
 	str	r2, [r3, #40]
 	str	r2, [r3, #92]
 	str	r2, [r3, #136]
 	str	r2, [r3, #144]
 	str	r2, [r3, #188]
+	str	r4, [r3, #36]
+	str	r4, [r3, #140]
+	str	ip, [r3, #88]
+	str	ip, [r3, #192]
+	str	r6, [r3, #128]
+	str	r7, [r3, #104]
 	str	r2, [r3, #196]
-	str	r0, [r3, #88]
-	str	r0, [r3, #192]
-	str	r6, [r3, #156]
-	ldr	r6, .L4+12
-	str	r5, [r3, #236]
-	str	r6, [r3, #204]
-	ldr	r5, .L4+16
-	ldr	r6, .L4+20
-	str	ip, [r3, #288]
-	ldr	ip, .L4+24
-	str	r1, [r3, #232]
-	str	r1, [r3, #284]
-	add	r1, r3, #304
-	str	lr, [r3, #296]
-	str	r6, [r3, #212]
-	strh	r7, [r3, #252]	@ movhi
-	str	r5, [r3, #264]
-	str	r4, [r3, #208]
-	str	r4, [r3, #260]
 	str	r2, [r3, #240]
-	str	r0, [r3, #244]
 	str	r2, [r3, #248]
-	str	r0, [r3, #292]
+	str	r4, [r3, #296]
 	str	r2, [r3, #300]
-	strh	ip, [r1]	@ movhi
+	add	r4, r1, #304
+	mov	r2, #31	@ movhi
+	mov	r5, #60
+	str	r4, [r3, #204]
+	mov	r4, #996	@ movhi
+	str	r0, [r3, #232]
+	str	r6, [r3, #236]
+	str	r0, [r3, #284]
+	ldr	r6, .L4+16
+	str	lr, [r3, #288]
+	ldr	r0, .L4+20
+	ldr	lr, .L4+24
+	str	ip, [r3, #244]
+	str	ip, [r3, #292]
+	strh	r2, [r3, #200]	@ movhi
+	add	ip, r1, #324
+	add	r2, r3, #304
+	add	r1, r1, #400
+	str	r7, [r3, #156]
+	str	r6, [r3, #212]
+	strh	r4, [r3, #252]	@ movhi
+	str	lr, [r3, #264]
+	str	r5, [r3, #208]
+	str	r5, [r3, #260]
+	str	ip, [r3, #256]
+	str	r1, [r3, #308]
+	strh	r0, [r2]	@ movhi
 	pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
 .L5:
@@ -104,11 +114,11 @@ initBedroomSprites:
 .L4:
 	.word	bedroomSpritesArr
 	.word	32608
-	.word	3655
 	.word	.LANCHOR0
-	.word	355
+	.word	3655
 	.word	285
 	.word	27669
+	.word	355
 	.size	initBedroomSprites, .-initBedroomSprites
 	.align	2
 	.global	loadBedroom
@@ -206,14 +216,52 @@ safeOpenMessage:
 	@ link register save eliminated.
 	bx	lr
 	.size	safeOpenMessage, .-safeOpenMessage
+	.global	bookshelfTwo
+	.global	chair
+	.global	vanity
+	.global	wardrobe
+	.global	bedFrame
 	.global	wallsafe
 	.comm	bedroomSpritesArr,312,4
 	.comm	state,4,4
 	.data
 	.align	2
 	.set	.LANCHOR0,. + 0
+	.type	bedFrame, %object
+	.size	bedFrame, 86
+bedFrame:
+	.ascii	"God only knows how old this bedframe is, but you DI"
+	.ascii	"D just buy the mattress last year.\000"
+	.space	2
+	.type	wardrobe, %object
+	.size	wardrobe, 106
+wardrobe:
+	.ascii	"If you spend too long with your head stuck in the w"
+	.ascii	"ardrobe, it begins to feel like one of your attacks"
+	.ascii	"...\000"
+	.space	2
+	.type	vanity, %object
+	.size	vanity, 105
+vanity:
+	.ascii	"Your aunt's vanity. When you first inherited it, fa"
+	.ascii	"r more of the family jewelry remained in the drawer"
+	.ascii	"s.\000"
+	.space	3
 	.type	wallsafe, %object
 	.size	wallsafe, 19
 wallsafe:
 	.ascii	"The safe is empty.\000"
+	.space	1
+	.type	chair, %object
+	.size	chair, 73
+chair:
+	.ascii	"A beautiful chair that is also, unfortunately, not "
+	.ascii	"terribly comfortable.\000"
+	.space	3
+	.type	bookshelfTwo, %object
+	.size	bookshelfTwo, 110
+bookshelfTwo:
+	.ascii	"Your aunt couldn't fool you with all those Jane Aus"
+	.ascii	"ten novels. This shelf is packed with vampire bests"
+	.ascii	"ellers.\000"
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

@@ -182,8 +182,8 @@ loadComputer:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	ip, #0
-	mov	r3, #256
+	mov	r3, #0
+	mov	r0, #256
 	push	{r4, r5, r6, r7, r8, lr}
 	mov	r6, #240
 	mov	r5, #160
@@ -191,29 +191,33 @@ loadComputer:
 	mov	r4, #8
 	mov	lr, #11
 	mov	r2, #72
-	ldr	r0, .L11
+	ldr	ip, .L11
 	ldr	r7, .L11+4
-	ldrh	r8, [r0]
-	strh	ip, [r0]	@ movhi
-	ldr	r0, .L11+8
+	ldrh	r8, [ip]
 	strh	r8, [r7]	@ movhi
-	ldrh	r7, [r0]
-	strh	ip, [r0]	@ movhi
-	ldr	r0, .L11+12
-	strh	r7, [r0]	@ movhi
-	ldr	r0, .L11+16
-	str	r3, [r0]
-	ldr	r0, .L11+20
-	str	r3, [r0]
+	ldr	r7, .L11+8
+	strh	r3, [ip]	@ movhi
+	strb	r3, [r7]
+	ldr	ip, .L11+12
+	ldr	r7, .L11+16
+	strb	r3, [r7]
+	ldrh	r7, [ip]
+	strh	r3, [ip]	@ movhi
+	ldr	r3, .L11+20
+	strh	r7, [r3]	@ movhi
 	ldr	r3, .L11+24
-	str	r6, [r3]
+	str	r0, [r3]
 	ldr	r3, .L11+28
-	str	r5, [r3]
+	str	r0, [r3]
 	ldr	r3, .L11+32
-	ldr	r0, .L11+36
+	str	r6, [r3]
+	ldr	r3, .L11+36
+	str	r5, [r3]
+	ldr	r3, .L11+40
+	ldr	r0, .L11+44
 	str	r1, [r3, #4]
 	str	r1, [r3, #12]
-	ldr	r1, .L11+40
+	ldr	r1, .L11+48
 	str	r4, [r3, #16]
 	str	lr, [r3, #20]
 	pop	{r4, r5, r6, r7, r8, lr}
@@ -226,7 +230,9 @@ loadComputer:
 .L11:
 	.word	hOff
 	.word	priorHoff
+	.word	ruthEmailBool
 	.word	vOff
+	.word	marleyEmailBool
 	.word	priorVoff
 	.word	totalMapWidth
 	.word	totalMapHeight
@@ -397,58 +403,76 @@ loadSecondaryScreen:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r2, .L63
-	ldr	r3, .L63+4
+	ldr	r2, .L75
+	ldr	r3, .L75+4
 	ldr	r2, [r2]
 	cmp	r2, r3
-	beq	.L58
+	beq	.L69
 	push	{r4, r5, r6, lr}
 	sub	r4, r3, #156
 	cmp	r2, r4
-	beq	.L59
+	beq	.L70
 	add	r1, r3, #156
 	cmp	r2, r1
-	beq	.L60
+	beq	.L71
 	sub	r0, r3, #104
 	sub	r1, r3, #52
 	cmp	r2, r1
 	cmpne	r2, r0
 	bne	.L48
-	ldr	r3, .L63+8
+	ldr	r3, .L75+8
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	bne	.L61
+	bne	.L72
 	mov	r3, #768
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L63+12
-	ldr	r5, .L63+16
+	ldr	r1, .L75+12
+	ldr	r5, .L75+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L63+20
-	ldr	r1, .L63+24
+	ldr	r2, .L75+20
+	ldr	r1, .L75+24
 	mov	lr, pc
 	bx	r5
 .L50:
 	mov	r1, #10
 	mov	r0, #14
-	ldr	r3, .L63+28
-	ldr	r2, .L63+32
-	str	r1, [r4, #160]
-	str	r0, [r4, #156]
+	ldr	r3, .L75+28
+	ldr	r2, .L75+32
 	str	r2, [r3]
-	b	.L45
-.L60:
-	ldr	r3, .L63+36
+	ldr	r3, .L75+36
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	bne	.L47
+	str	r1, [r4, #160]
+	str	r0, [r4, #156]
+	beq	.L55
+.L52:
+	ldr	r3, .L75+40
+	ldrb	r3, [r3]	@ zero_extendqisi2
+	cmp	r3, #0
+	beq	.L55
 .L56:
+	mov	r2, #1
+	ldr	r3, .L75+44
+	strb	r2, [r3]
+	b	.L55
+.L71:
+	ldr	r3, .L75+48
+	ldrb	r3, [r3]	@ zero_extendqisi2
+	cmp	r3, #0
+	bne	.L73
+.L47:
 	add	r0, r4, #156
 	ldm	r0, {r0, r1}
 .L45:
+	ldr	r3, .L75+36
+	ldrb	r3, [r3]	@ zero_extendqisi2
+	cmp	r3, #0
+	bne	.L52
+.L55:
 	mov	r3, #67108864
 	mov	r2, #6144
 	strh	r2, [r3, #8]	@ movhi
@@ -460,112 +484,131 @@ loadSecondaryScreen:
 	pop	{r4, r5, r6, lr}
 	bx	lr
 .L48:
-	add	r3, r3, #52
+	add	r1, r3, #52
+	cmp	r2, r1
+	beq	.L74
+	add	r3, r3, #104
 	cmp	r2, r3
-	beq	.L62
-	add	r3, r4, #260
-	cmp	r2, r3
-	bne	.L56
+	bne	.L47
 	mov	r3, #4000
 	mov	r2, #100663296
-	ldr	r1, .L63+40
 	mov	r0, #3
-	ldr	r5, .L63+16
+	ldr	r1, .L75+52
+	ldr	r5, .L75+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #4096
-	ldr	r2, .L63+20
-	ldr	r1, .L63+44
-	b	.L57
-.L61:
+	mov	r0, #3
+	ldr	r2, .L75+20
+	ldr	r1, .L75+56
+	mov	lr, pc
+	bx	r5
+	mov	r0, #1
+	ldr	r3, .L75+36
+	ldr	r1, .L75+40
+	ldrb	ip, [r3]	@ zero_extendqisi2
+	ldr	r2, .L75+60
+	ldr	r3, .L75+28
+	strb	r0, [r1]
+	cmp	ip, #0
+	add	r0, r4, #156
+	str	r2, [r3]
+	ldm	r0, {r0, r1}
+	beq	.L55
+	b	.L56
+.L72:
 	mov	r3, #1632
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L63+48
-	ldr	r5, .L63+16
+	ldr	r1, .L75+64
+	ldr	r5, .L75+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L63+20
-	ldr	r1, .L63+52
+	ldr	r2, .L75+20
+	ldr	r1, .L75+68
 	mov	lr, pc
 	bx	r5
 	b	.L50
-.L47:
+.L73:
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r3, .L63+56
-	ldr	r1, .L63+60
-	ldr	r5, .L63+16
+	ldr	r3, .L75+72
+	ldr	r1, .L75+76
+	ldr	r5, .L75+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #4096
-	ldr	r2, .L63+20
-	ldr	r1, .L63+64
 	mov	r0, #3
+	ldr	r2, .L75+20
+	ldr	r1, .L75+80
 	mov	lr, pc
 	bx	r5
-	mov	r2, #1
 	mov	r1, #0
-	ldr	r3, .L63+8
+	mov	r2, #1
+	ldr	r3, .L75+8
+	add	r0, r4, #156
 	str	r1, [r4, #404]
 	strb	r2, [r3]
-	b	.L56
-.L58:
+	ldm	r0, {r0, r1}
+	b	.L45
+.L69:
 	mov	r1, #67108864
 	mov	r0, #4608
-	ldr	r3, .L63+28
-	ldr	r2, .L63+68
+	ldr	r3, .L75+28
+	ldr	r2, .L75+84
 	strh	r0, [r1]	@ movhi
 	str	r2, [r3]
 	bx	lr
-.L59:
+.L70:
 	mov	r3, #4032
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L63+72
-	ldr	r5, .L63+16
+	ldr	r1, .L75+88
+	ldr	r5, .L75+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L63+20
-	ldr	r1, .L63+76
+	ldr	r2, .L75+20
+	ldr	r1, .L75+92
 	mov	lr, pc
 	bx	r5
 	mov	r1, #38
 	mov	r0, #16
-	ldr	r3, .L63+28
-	ldr	r2, .L63+80
+	ldr	r3, .L75+28
+	ldr	r2, .L75+96
 	str	r1, [r4, #160]
 	str	r0, [r4, #156]
 	str	r2, [r3]
 	b	.L45
-.L62:
+.L74:
 	mov	r2, #100663296
-	ldr	r3, .L63+84
-	ldr	r1, .L63+88
 	mov	r0, #3
-	ldr	r5, .L63+16
+	ldr	r3, .L75+100
+	ldr	r1, .L75+104
+	ldr	r5, .L75+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #4096
-	ldr	r2, .L63+20
-	ldr	r1, .L63+92
-.L57:
 	mov	r0, #3
+	ldr	r2, .L75+20
+	ldr	r1, .L75+108
 	mov	lr, pc
 	bx	r5
-	ldr	r3, .L63+28
-	ldr	r2, .L63+96
-	ldr	r0, [r4, #156]
+	mov	r0, #1
+	ldr	r1, .L75+36
+	ldr	r3, .L75+28
+	ldr	r2, .L75+60
+	strb	r0, [r1]
+	add	r0, r4, #156
 	str	r2, [r3]
-	ldr	r1, [r4, #160]
-	b	.L45
-.L64:
+	ldm	r0, {r0, r1}
+	b	.L52
+.L76:
 	.align	2
-.L63:
+.L75:
 	.word	activeSprite
 	.word	computerSpritesArr+156
 	.word	documentsUploaded
@@ -575,9 +618,13 @@ loadSecondaryScreen:
 	.word	inboxemptyMap
 	.word	currCollisionMap
 	.word	inboxmaincollisionBitmap
+	.word	ruthEmailBool
+	.word	marleyEmailBool
+	.word	allEmailsBool
 	.word	openSafeBool
 	.word	inboxmarleyTiles
 	.word	inboxmarleyMap
+	.word	inboxmessagecollisionBitmap
 	.word	inboxfullTiles
 	.word	inboxfullMap
 	.word	4336
@@ -590,7 +637,6 @@ loadSecondaryScreen:
 	.word	5136
 	.word	inboxruthTiles
 	.word	inboxruthMap
-	.word	inboxmessagecollisionBitmap
 	.size	loadSecondaryScreen, .-loadSecondaryScreen
 	.align	2
 	.global	updateMouse
@@ -602,22 +648,22 @@ updateMouse:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L80
+	ldr	r3, .L92
 	ldrh	r3, [r3, #48]
 	tst	r3, #64
 	push	{r4, lr}
-	ldr	r4, .L80+4
-	bne	.L66
+	ldr	r4, .L92+4
+	bne	.L78
 	ldr	r3, [r4]
 	cmp	r3, #0
 	subgt	r3, r3, #1
 	strgt	r3, [r4]
-.L66:
-	ldr	r3, .L80
+.L78:
+	ldr	r3, .L92
 	ldrh	r3, [r3, #48]
 	tst	r3, #128
-	bne	.L67
-	ldr	r3, .L80+8
+	bne	.L79
+	ldr	r3, .L92+8
 	ldr	r1, [r4, #20]
 	ldr	r2, [r3]
 	ldr	r3, [r4]
@@ -625,21 +671,21 @@ updateMouse:
 	add	r3, r3, #1
 	cmp	r3, r2
 	strlt	r3, [r4]
-.L67:
-	ldr	r3, .L80
+.L79:
+	ldr	r3, .L92
 	ldrh	r3, [r3, #48]
 	tst	r3, #32
-	bne	.L68
+	bne	.L80
 	ldr	r3, [r4, #4]
 	cmp	r3, #0
 	subgt	r3, r3, #1
 	strgt	r3, [r4, #4]
-.L68:
-	ldr	r3, .L80
+.L80:
+	ldr	r3, .L92
 	ldrh	r3, [r3, #48]
 	tst	r3, #16
-	bne	.L69
-	ldr	r3, .L80+12
+	bne	.L81
+	ldr	r3, .L92+12
 	ldr	r1, [r4, #16]
 	ldr	r2, [r3]
 	ldr	r3, [r4, #4]
@@ -647,22 +693,22 @@ updateMouse:
 	add	r3, r3, #1
 	cmp	r3, r2
 	strlt	r3, [r4, #4]
-.L69:
-	ldr	r3, .L80+16
+.L81:
+	ldr	r3, .L92+16
 	ldrh	r3, [r3]
 	tst	r3, #1
-	beq	.L70
-	ldr	r3, .L80+20
+	beq	.L82
+	ldr	r3, .L92+20
 	ldrh	r3, [r3]
 	tst	r3, #1
-	bne	.L70
-	ldr	r3, .L80+24
+	bne	.L82
+	ldr	r3, .L92+24
 	ldr	r3, [r3]
 	cmp	r3, #0
 	blne	loadSecondaryScreen
-.L70:
-	ldr	r2, .L80+28
-	ldr	r3, .L80+32
+.L82:
+	ldr	r2, .L92+28
+	ldr	r3, .L92+32
 	ldrh	r0, [r2]
 	ldrh	r1, [r3]
 	ldr	r2, [r4, #4]
@@ -673,9 +719,9 @@ updateMouse:
 	str	r3, [r4, #8]
 	pop	{r4, lr}
 	bx	lr
-.L81:
+.L93:
 	.align	2
-.L80:
+.L92:
 	.word	67109120
 	.word	mouse
 	.word	visMapHeight
@@ -701,6 +747,8 @@ updateComputer:
 	pop	{r4, lr}
 	b	checkComputerSpriteCollision
 	.size	updateComputer, .-updateComputer
+	.comm	marleyEmailBool,1,1
+	.comm	ruthEmailBool,1,1
 	.comm	mouse,48,4
 	.comm	computerSpritesArr,416,4
 	.comm	state,4,4

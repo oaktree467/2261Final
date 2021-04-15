@@ -34,7 +34,7 @@ initKitchenSprites:
 	mov	r1, #67
 	ldr	r3, .L4
 	ldr	lr, .L4+4
-	add	r10, lr, #76
+	add	r10, lr, #68
 	str	lr, [r3, #48]
 	ldr	lr, .L4+8
 	str	r10, [r3, #100]
@@ -157,7 +157,34 @@ loadKitchen:
 	.word	kitchencollisionBitmap
 	.word	protag
 	.size	loadKitchen, .-loadKitchen
-	.global	refrigerator
+	.align	2
+	.global	reassignRefrigeratorMessage
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	reassignRefrigeratorMessage, %function
+reassignRefrigeratorMessage:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	ldr	r2, .L18
+	ldr	r3, .L18+4
+	ldr	r1, [r2, #100]
+	cmp	r1, r3
+	addne	r3, r3, #184
+	addeq	r3, r3, #60
+	str	r3, [r2, #100]
+	bx	lr
+.L19:
+	.align	2
+.L18:
+	.word	kitchenSpritesArr
+	.word	.LANCHOR0+68
+	.size	reassignRefrigeratorMessage, .-reassignRefrigeratorMessage
+	.global	refrigerator_2
+	.global	refrigerator_1
+	.global	refrigerator_0
 	.global	pictureFrame
 	.comm	kitchenSpritesArr,104,4
 	.comm	state,4,4
@@ -165,14 +192,25 @@ loadKitchen:
 	.align	2
 	.set	.LANCHOR0,. + 0
 	.type	pictureFrame, %object
-	.size	pictureFrame, 74
+	.size	pictureFrame, 68
 pictureFrame:
-	.ascii	"Your aunt, in her infinitewisdom, only ever        "
-	.ascii	" 'updated'the kitchen.\000"
-	.space	2
-	.type	refrigerator, %object
-	.size	refrigerator, 76
-refrigerator:
-	.ascii	"It's the key you were     looking for... but why wa"
-	.ascii	"sit in the refrigerator?\000"
+	.ascii	"Your aunt, in her infinite wisdom, only ever 'updat"
+	.ascii	"ed' the kitchen.\000"
+	.type	refrigerator_0, %object
+	.size	refrigerator_0, 57
+refrigerator_0:
+	.ascii	"Not much in here but... wait, is that the phone rin"
+	.ascii	"ging?\000"
+	.space	3
+	.type	refrigerator_1, %object
+	.size	refrigerator_1, 123
+refrigerator_1:
+	.ascii	"It's the key you were looking for. You must have be"
+	.ascii	"en distracted by the phone earlier. But why was it "
+	.ascii	"in the refrigerator?\000"
+	.space	1
+	.type	refrigerator_2, %object
+	.size	refrigerator_2, 32
+refrigerator_2:
+	.ascii	"Not much in here but ice cream.\000"
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

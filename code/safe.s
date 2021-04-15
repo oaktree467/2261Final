@@ -230,8 +230,8 @@ updateCursor:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r2, .L68
-	ldr	r3, .L68+4
+	ldr	r2, .L69
+	ldr	r3, .L69+4
 	ldrb	r1, [r2]	@ zero_extendqisi2
 	ldrh	r3, [r3]
 	cmp	r1, #0
@@ -239,7 +239,7 @@ updateCursor:
 	bne	.L23
 	cmp	r1, #0
 	bxeq	lr
-	ldr	r3, .L68+8
+	ldr	r3, .L69+8
 	ldrh	r3, [r3]
 	tst	r3, #1
 	moveq	r0, #1
@@ -249,50 +249,50 @@ updateCursor:
 	strheq	r1, [r3]	@ movhi
 	bx	lr
 .L23:
-	ldr	r0, .L68+12
+	ldr	r0, .L69+12
 	tst	r3, #16
 	push	{r4, r5, r6, r7, r8, lr}
 	ldr	r2, [r0]
 	beq	.L27
-	ldr	ip, .L68+8
+	ldr	ip, .L69+8
 	ldrh	ip, [ip]
 	ands	ip, ip, #16
 	beq	.L63
 .L27:
 	tst	r3, #32
 	beq	.L28
-	ldr	ip, .L68+8
+	ldr	ip, .L69+8
 	ldrh	ip, [ip]
 	tst	ip, #32
 	beq	.L64
 .L28:
 	tst	r3, #64
 	beq	.L30
-	ldr	ip, .L68+8
+	ldr	ip, .L69+8
 	ldrh	ip, [ip]
 	ands	ip, ip, #64
 	beq	.L65
 .L30:
 	mov	lr, #1
-	ldr	ip, .L68+16
+	ldr	ip, .L69+16
 	ldr	ip, [ip, r2, lsl #2]
 	str	lr, [ip, #40]
 .L31:
 	tst	r3, #128
 	beq	.L32
-	ldr	r3, .L68+8
+	ldr	r3, .L69+8
 	ldrh	r3, [r3]
 	ands	r3, r3, #128
 	beq	.L66
 .L32:
 	mov	ip, #1
-	ldr	r3, .L68+20
+	ldr	r3, .L69+20
 	ldr	r3, [r3, r2, lsl #2]
 	str	ip, [r3, #40]
 .L33:
 	cmp	r1, #0
 	beq	.L22
-	ldr	r3, .L68+8
+	ldr	r3, .L69+8
 	ldrh	r3, [r3]
 	tst	r3, #1
 	bne	.L22
@@ -304,9 +304,9 @@ updateCursor:
 .L66:
 	cmp	r2, #3
 	bgt	.L33
-	ldr	ip, .L68+24
+	ldr	ip, .L69+24
 	ldr	lr, [ip, r2, lsl #2]
-	ldr	r4, .L68+20
+	ldr	r4, .L69+20
 	ldr	ip, [lr, #28]
 	ldr	r4, [r4, r2, lsl #2]
 	cmp	ip, #0
@@ -315,7 +315,7 @@ updateCursor:
 	moveq	r3, #18
 	subne	r3, ip, #2
 	addne	ip, r3, r3, lsr #31
-	ldr	r4, .L68+28
+	ldr	r4, .L69+28
 	asrne	ip, ip, #1
 	str	r3, [lr, #28]
 	str	ip, [r4, r2, lsl #2]
@@ -323,20 +323,20 @@ updateCursor:
 .L65:
 	cmp	r2, #3
 	bgt	.L31
-	ldr	lr, .L68+24
+	ldr	lr, .L69+24
 	ldr	r6, [lr, r2, lsl #2]
 	ldr	r4, [r6, #28]
-	ldr	lr, .L68+32
+	ldr	lr, .L69+32
 	add	r4, r4, #2
 	smull	r7, r5, lr, r4
 	asr	lr, r4, #31
 	rsb	lr, lr, r5, asr #3
 	add	lr, lr, lr, lsl #2
-	ldr	r5, .L68+16
+	ldr	r5, .L69+16
 	sub	lr, r4, lr, lsl #2
 	ldr	r7, [r5, r2, lsl #2]
 	add	r4, lr, lr, lsr #31
-	ldr	r5, .L68+28
+	ldr	r5, .L69+28
 	asr	r4, r4, #1
 	str	ip, [r7, #40]
 	str	r4, [r5, r2, lsl #2]
@@ -344,7 +344,7 @@ updateCursor:
 	b	.L31
 .L64:
 	mov	r4, #1
-	ldr	ip, .L68+36
+	ldr	ip, .L69+36
 	cmp	r2, #0
 	ldr	lr, [ip, r2, lsl #2]
 	moveq	r2, #4
@@ -357,10 +357,10 @@ updateCursor:
 	b	.L28
 .L63:
 	mov	r7, #1
-	ldr	r4, .L68+32
+	ldr	r4, .L69+32
 	add	lr, r2, r7
 	smull	r5, r4, lr, r4
-	ldr	r5, .L68+36
+	ldr	r5, .L69+36
 	asr	r8, lr, #31
 	ldr	r6, [r5, r2, lsl #2]
 	rsb	r2, r8, r4, asr r7
@@ -372,9 +372,9 @@ updateCursor:
 	str	ip, [lr, #40]
 	b	.L27
 .L67:
-	ldr	r2, .L68+28
+	ldr	r2, .L69+28
 	mov	r3, r2
-	ldr	r1, .L68+40
+	ldr	r1, .L69+40
 	add	r4, r2, #16
 .L36:
 	ldr	lr, [r3], #4
@@ -383,16 +383,13 @@ updateCursor:
 	bne	.L35
 	cmp	r3, r4
 	bne	.L36
-	ldr	r3, .L68+44
+	ldr	r3, .L69+44
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	movne	r2, #1
-	ldrne	r3, .L68+48
-	strbne	r2, [r3]
-	bne	.L22
+	bne	.L68
 .L35:
 	mov	r1, #0
-	ldr	r3, .L68+24
+	ldr	r3, .L69+24
 	add	lr, r3, #16
 .L38:
 	ldr	ip, [r3], #4
@@ -401,16 +398,28 @@ updateCursor:
 	str	r1, [r2], #4
 	bne	.L38
 	mov	ip, #1
-	ldr	r3, .L68+36
+	ldr	r3, .L69+36
 	ldr	r2, [r3, #16]
 	ldr	r3, [r3]
 	str	ip, [r2, #40]
 	str	r1, [r0]
 	str	r1, [r3, #40]
 	b	.L22
-.L69:
-	.align	2
 .L68:
+	mov	lr, #1
+	ldr	r3, .L69+48
+	ldr	ip, .L69+52
+	ldr	r1, [r3]
+	mov	r2, #0
+	ldr	r0, .L69+56
+	ldr	r3, .L69+60
+	strb	lr, [ip]
+	mov	lr, pc
+	bx	r3
+	b	.L22
+.L70:
+	.align	2
+.L69:
 	.word	introMessageBool
 	.word	oldButtons
 	.word	buttons
@@ -423,7 +432,10 @@ updateCursor:
 	.word	middleHighlight
 	.word	.LANCHOR1
 	.word	keyFound
+	.word	safesfx_length
 	.word	openSafeBool
+	.word	safesfx_data
+	.word	playSoundB
 	.size	updateCursor, .-updateCursor
 	.align	2
 	.global	checkCode
@@ -436,24 +448,24 @@ checkCode:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r3, .L75
-	ldr	r2, .L75+4
+	ldr	r3, .L76
+	ldr	r2, .L76+4
 	add	ip, r3, #16
-.L72:
+.L73:
 	ldr	r0, [r3], #4
 	ldr	r1, [r2], #4
 	cmp	r0, r1
-	bne	.L73
+	bne	.L74
 	cmp	r3, ip
-	bne	.L72
+	bne	.L73
 	mov	r0, #1
 	bx	lr
-.L73:
+.L74:
 	mov	r0, #0
 	bx	lr
-.L76:
+.L77:
 	.align	2
-.L75:
+.L76:
 	.word	.LANCHOR0
 	.word	.LANCHOR1
 	.size	checkCode, .-checkCode
@@ -467,37 +479,37 @@ safeText:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	ip, .L92
+	ldr	ip, .L93
 	push	{r4, r5, r6, lr}
-	ldr	r3, .L92+4
+	ldr	r3, .L93+4
 	ldrh	lr, [ip, #8]
 	sub	ip, ip, #1488
-	b	.L78
-.L80:
+	b	.L79
+.L81:
 	tst	r2, #31
 	movne	r3, r1
 	addeq	r3, r3, #7
-.L78:
+.L79:
 	add	r1, r3, #1
 	sub	r2, r3, #440
 	lsl	r0, r3, #1
 	cmp	r1, #604
 	strh	lr, [ip, r0]	@ movhi
 	sub	r2, r2, #3
-	blt	.L80
-	ldr	lr, .L92+8
+	blt	.L81
+	ldr	lr, .L93+8
 	ldrb	r3, [lr, #16]	@ zero_extendqisi2
 	cmp	r3, #0
-	beq	.L81
-	ldr	r0, .L92+4
-	ldr	r5, .L92+12
+	beq	.L82
+	ldr	r0, .L93+4
+	ldr	r5, .L93+12
 	add	lr, lr, #17
-	b	.L82
-.L85:
+	b	.L83
+.L86:
 	tst	r1, #31
 	addne	r0, r0, #1
 	addeq	r0, r0, #7
-.L82:
+.L83:
 	sub	r3, r3, #32
 	ldr	r2, [r5, r3, lsl #2]
 	ldrb	r3, [lr], #1	@ zero_extendqisi2
@@ -508,20 +520,20 @@ safeText:
 	cmp	r3, #0
 	strh	r4, [ip, r2]	@ movhi
 	sub	r1, r1, #3
-	bne	.L85
-.L81:
-	ldr	r4, .L92+16
+	bne	.L86
+.L82:
+	ldr	r4, .L93+16
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L92+20
-	ldr	r1, .L92+24
+	ldr	r2, .L93+20
+	ldr	r1, .L93+24
 	mov	lr, pc
 	bx	r4
 	pop	{r4, r5, r6, lr}
 	bx	lr
-.L93:
+.L94:
 	.align	2
-.L92:
+.L93:
 	.word	messagescreenMap+1488
 	.word	418
 	.word	.LANCHOR1
@@ -542,36 +554,36 @@ loadSafe:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	mov	r3, #0
 	push	{r4, lr}
-	ldr	r2, .L99
+	ldr	r2, .L100
 	ldrb	r4, [r2]	@ zero_extendqisi2
-	ldr	ip, .L99+4
-	ldr	r0, .L99+8
-	ldr	r1, .L99+12
-	ldr	r2, .L99+16
+	ldr	ip, .L100+4
+	ldr	r0, .L100+8
+	ldr	r1, .L100+12
+	ldr	r2, .L100+16
 	cmp	r4, r3
 	strh	r3, [ip]	@ movhi
 	strh	r3, [r0]	@ movhi
 	str	r3, [r1]
 	strb	r3, [r2]
-	beq	.L98
+	beq	.L99
 	mov	r2, #1
-	ldr	r3, .L99+20
+	ldr	r3, .L100+20
 	strb	r2, [r3]
 	pop	{r4, lr}
 	b	initSafeSprites
-.L98:
+.L99:
 	bl	safeText
 	mov	r2, #67108864
-	ldr	r3, .L99+20
+	ldr	r3, .L100+20
 	strb	r4, [r3]
 	ldrh	r3, [r2]
 	orr	r3, r3, #256
 	strh	r3, [r2]	@ movhi
 	pop	{r4, lr}
 	b	initSafeSprites
-.L100:
+.L101:
 	.align	2
-.L99:
+.L100:
 	.word	keyFound
 	.word	hOff
 	.word	vOff
@@ -589,29 +601,29 @@ clearSafeMessage:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	ip, .L107
+	ldr	ip, .L108
 	str	lr, [sp, #-4]!
-	ldr	r3, .L107+4
+	ldr	r3, .L108+4
 	ldrh	lr, [ip, #8]
 	sub	ip, ip, #1488
-	b	.L102
-.L104:
+	b	.L103
+.L105:
 	tst	r2, #31
 	movne	r3, r1
 	addeq	r3, r3, #7
-.L102:
+.L103:
 	add	r1, r3, #1
 	sub	r2, r3, #440
 	lsl	r0, r3, #1
 	cmp	r1, #604
 	strh	lr, [ip, r0]	@ movhi
 	sub	r2, r2, #3
-	blt	.L104
+	blt	.L105
 	ldr	lr, [sp], #4
 	bx	lr
-.L108:
+.L109:
 	.align	2
-.L107:
+.L108:
 	.word	messagescreenMap+1488
 	.word	418
 	.size	clearSafeMessage, .-clearSafeMessage
@@ -626,6 +638,8 @@ clearSafeMessage:
 	.comm	downArrows,16,4
 	.comm	upArrows,16,4
 	.comm	safeSpritesArr,988,4
+	.comm	soundB,32,4
+	.comm	soundA,32,4
 	.comm	state,4,4
 	.data
 	.align	2
@@ -638,10 +652,10 @@ answerCode:
 	.word	0
 	.word	1
 	.type	sm_1, %object
-	.size	sm_1, 58
+	.size	sm_1, 59
 sm_1:
-	.ascii	"Your secret safe. It lookslike you need a key and a"
-	.ascii	" code.\000"
+	.ascii	"Your secret safe. It looks like you need a key and "
+	.ascii	"a code.\000"
 	.bss
 	.align	2
 	.set	.LANCHOR0,. + 0

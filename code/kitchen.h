@@ -7,3 +7,4 @@ extern STATIONARYSPRITE kitchenSpritesArr[];
 //functions
 void initKitchenSprites();
 void loadKitchen();
+void reassignRefrigeratorMessage();

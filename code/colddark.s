@@ -11,68 +11,8 @@
 	.file	"colddark.c"
 	.text
 	.align	2
-	.global	coldDarkInterruptHandler
-	.arch armv4t
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	coldDarkInterruptHandler, %function
-coldDarkInterruptHandler:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	mov	r2, #0
-	ldr	r3, .L13
-	ldrh	r1, [r3, #2]
-	tst	r1, #2048
-	strh	r2, [r3, #8]	@ movhi
-	beq	.L2
-	ldrh	r2, [r3, #-254]
-	sub	r3, r3, #256
-	mov	r1, r3
-	ldr	r0, .L13+4
-	strh	r2, [r3, #2]	@ movhi
-	strh	r0, [r3]	@ movhi
-	ldrh	r2, [r3, #2]
-	orr	r2, r2, #129
-	strh	r2, [r3, #2]	@ movhi
-	ldr	r2, .L13+8
-.L3:
-	ldrh	r3, [r1]
-	cmp	r3, r2
-	bls	.L3
-.L2:
-	ldr	r3, .L13
-	ldrh	r3, [r3, #2]
-	tst	r3, #16
-	beq	.L4
-	ldr	r0, .L13+12
-	ldr	r1, .L13+16
-	ldr	r2, [r0]
-	ldr	r3, [r1]
-	add	r2, r2, #1
-	add	r3, r3, #1
-	str	r2, [r0]
-	str	r3, [r1]
-.L4:
-	mov	r1, #1
-	ldr	r3, .L13
-	ldrh	r2, [r3, #2]
-	strh	r1, [r3, #8]	@ movhi
-	strh	r2, [r3, #2]	@ movhi
-	bx	lr
-.L14:
-	.align	2
-.L13:
-	.word	67109376
-	.word	30000
-	.word	65499
-	.word	timerI
-	.word	timerJ
-	.size	coldDarkInterruptHandler, .-coldDarkInterruptHandler
-	.align	2
 	.global	initColdDark
+	.arch armv4t
 	.syntax unified
 	.arm
 	.fpu softvfp
@@ -81,50 +21,44 @@ initColdDark:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, lr}
-	mov	lr, #1
 	mov	r2, #0
-	ldr	r1, .L19
-	ldrh	r3, [r1]
-	orr	r3, r3, #2064
-	strh	r3, [r1]	@ movhi
-	strh	lr, [r1, #8]	@ movhi
-	ldr	r0, .L19+4
-	ldr	ip, .L19+8
-	ldr	r1, .L19+12
-	str	ip, [r0, #4092]
-	ldr	r3, .L19+16
+	push	{r4, lr}
+	ldr	ip, .L6
+	ldr	lr, .L6+4
+	ldr	r1, .L6+8
+	str	r2, [lr]
+	str	r2, [ip]
 	str	r2, [r1]
-	ldr	r4, .L19+20
-	ldr	lr, .L19+24
-	ldr	ip, .L19+28
-	ldr	r1, .L19+32
+	ldr	r3, .L6+12
+	ldr	r4, .L6+16
+	ldr	lr, .L6+20
+	ldr	ip, .L6+24
+	ldr	r1, .L6+28
 	str	r2, [r4]
 	str	r2, [lr]
 	str	r2, [ip]
 	str	r2, [r1]
 	add	r0, r3, #508
-	ldr	r2, .L19+36
+	ldr	r2, .L6+32
 	add	r0, r0, #2
-.L16:
+.L2:
 	ldrh	r1, [r3, #2]!
 	cmp	r3, r0
 	strh	r1, [r2, #2]!	@ movhi
-	bne	.L16
+	bne	.L2
 	pop	{r4, lr}
 	bx	lr
-.L20:
+.L7:
 	.align	2
-.L19:
-	.word	67109376
-	.word	50360320
-	.word	coldDarkInterruptHandler
+.L6:
+	.word	blinkBool
 	.word	coldMessageBool
+	.word	moveForwardBool
 	.word	colddarkmessagebgMap+766
 	.word	cursor
-	.word	blinkBool
-	.word	moveForwardBool
 	.word	sniffBool
+	.word	stage
+	.word	nonInteractText
 	.word	messageUnedited-2
 	.size	initColdDark, .-initColdDark
 	.align	2
@@ -137,47 +71,47 @@ updateHighlight:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r2, .L30
-	ldr	r3, .L30+4
+	ldr	r2, .L17
+	ldr	r3, .L17+4
 	ldr	r2, [r2]
 	push	{r4, r5, r6, lr}
-	ldr	ip, .L30+8
+	ldr	ip, .L17+8
 	ldr	lr, [r3, r2, lsl #2]
-	ldr	r0, .L30+12
+	ldr	r0, .L17+12
 	ldrh	r4, [ip, #4]
 	ldrh	r5, [ip, #-124]
 	add	r6, lr, #45
 	sub	ip, ip, #1408
-.L22:
+.L9:
 	sub	r3, r0, #192
-.L24:
+.L11:
 	cmp	lr, r3
 	movgt	r1, r4
-	bgt	.L23
+	bgt	.L10
 	cmp	r6, r3
 	movlt	r1, r4
 	movge	r1, r5
-.L23:
+.L10:
 	lsl	r2, r3, #1
 	add	r3, r3, #32
 	cmp	r3, r0
 	strh	r1, [ip, r2]	@ movhi
-	bne	.L24
+	bne	.L11
 	add	r0, r3, #1
 	cmp	r0, #624
-	bne	.L22
-	ldr	r4, .L30+16
+	bne	.L9
+	ldr	r4, .L17+16
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L30+20
-	ldr	r1, .L30+24
+	ldr	r2, .L17+20
+	ldr	r1, .L17+24
 	mov	lr, pc
 	bx	r4
 	pop	{r4, r5, r6, lr}
 	bx	lr
-.L31:
+.L18:
 	.align	2
-.L30:
+.L17:
 	.word	cursor
 	.word	.LANCHOR0
 	.word	blackbgMap+1408
@@ -187,116 +121,37 @@ updateHighlight:
 	.word	blackbgMap
 	.size	updateHighlight, .-updateHighlight
 	.align	2
-	.global	chapterOneIntro
+	.global	clearBoard
 	.syntax unified
 	.arm
 	.fpu softvfp
-	.type	chapterOneIntro, %function
-chapterOneIntro:
+	.type	clearBoard, %function
+clearBoard:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
-	ldr	r5, .L44
-	add	r7, r5, #1280
-	mov	r4, #0
-	mov	r6, r5
-	ldr	r8, .L44+4
-	ldr	fp, .L44+8
-	ldr	r10, .L44+12
-	add	r7, r7, #2
-	add	r9, r5, #2
-	b	.L34
-.L33:
-	cmp	r4, #600
-	beq	.L42
-.L34:
-	ldrh	r0, [r7, #4]
-	tst	r4, #31
-	strh	r0, [r6, #2]!	@ movhi
-	add	r4, r4, #1
-	bne	.L33
-	mov	r3, fp
-	mov	r2, r10
-	mov	r1, r9
-	mov	r0, #3
-	mov	lr, pc
-	bx	r8
-	cmp	r4, #600
-	bne	.L34
-.L42:
-	mov	r0, #0
-	ldr	r3, .L44+16
-	mov	r2, r3
-	ldr	r1, .L44+20
-	strh	r0, [r3, #2]	@ movhi
-	strh	r1, [r3]	@ movhi
-	ldrh	r1, [r3, #2]
-	orr	r1, r1, #1
-	strh	r1, [r3, #2]	@ movhi
-	ldrh	r1, [r3, #2]
-	orr	r1, r1, #128
-	strh	r1, [r3, #2]	@ movhi
-	ldr	r1, .L44+24
-.L35:
-	ldrh	r3, [r2]
-	cmp	r3, r1
-	bls	.L35
+	@ link register save eliminated.
+	ldr	ip, .L24
+	ldrh	r0, [ip, #8]
+	sub	r1, ip, #652
+	sub	ip, ip, #600
+.L20:
 	mov	r3, #0
-	ldr	r6, .L44+28
-	mov	r4, r3
-	strh	r3, [r2, #2]	@ movhi
-	ldr	r10, .L44+8
-	ldr	r9, .L44+12
-	sub	r7, r6, #1408
-	b	.L37
-.L36:
-	cmp	r4, #600
-	beq	.L43
-.L37:
-	ldrh	r0, [r6, #4]
-	tst	r4, #31
-	strh	r0, [r5, #2]!	@ movhi
-	add	r4, r4, #1
-	bne	.L36
-	mov	r3, r10
-	mov	r2, r9
-	mov	r1, r7
-	mov	r0, #3
-	mov	lr, pc
-	bx	r8
-	cmp	r4, #600
-	bne	.L37
-.L43:
-	mov	r3, #2240
-	mov	r2, #100663296
-	mov	r0, #3
-	ldr	r1, .L44+32
-	mov	lr, pc
-	bx	r8
-	mov	r3, #4096
-	mov	r0, #3
-	ldr	r2, .L44+36
-	ldr	r1, .L44+40
-	mov	lr, pc
-	bx	r8
-	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
-	b	updateHighlight
-.L45:
+.L21:
+	lsl	r2, r3, #6
+	add	r3, r3, #1
+	cmp	r3, #6
+	strh	r0, [r1, r2]	@ movhi
+	bne	.L21
+	add	r1, r1, #2
+	cmp	r1, ip
+	bne	.L20
+	bx	lr
+.L25:
 	.align	2
-.L44:
-	.word	blackbgMap-2
-	.word	DMANow
-	.word	1073745920
-	.word	100704256
-	.word	67109120
-	.word	20000
-	.word	65499
-	.word	blackbgMap+1408
-	.word	colddarkmessagebgTiles
-	.word	100712448
-	.word	colddarkmessagebgMap
-	.size	chapterOneIntro, .-chapterOneIntro
+.L24:
+	.word	colddarkmessagebgMap+1488
+	.size	clearBoard, .-clearBoard
 	.align	2
 	.global	loadMessageUnedited
 	.syntax unified
@@ -308,30 +163,30 @@ loadMessageUnedited:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, lr}
-	ldr	r3, .L50
-	ldr	r2, .L50+4
+	ldr	r3, .L30
+	ldr	r2, .L30+4
 	add	r0, r3, #508
 	add	r0, r0, #2
-.L47:
+.L27:
 	ldrh	r1, [r3, #2]!
 	cmp	r3, r0
 	strh	r1, [r2, #2]!	@ movhi
-	bne	.L47
+	bne	.L27
 	mov	r3, #4096
-	ldr	r2, .L50+8
-	ldr	r4, .L50+12
+	ldr	r2, .L30+8
+	ldr	r4, .L30+12
 	mov	r0, #3
-	ldr	r1, .L50+16
+	ldr	r1, .L30+16
 	mov	lr, pc
 	bx	r4
 	mov	r2, #0
-	ldr	r3, .L50+20
+	ldr	r3, .L30+20
 	pop	{r4, lr}
 	str	r2, [r3]
 	bx	lr
-.L51:
+.L31:
 	.align	2
-.L50:
+.L30:
 	.word	messageUnedited-2
 	.word	colddarkmessagebgMap+766
 	.word	100712448
@@ -352,8 +207,8 @@ printColdText:
 	mov	ip, #1
 	mov	r1, #0
 	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
-	ldr	r3, .L60
-	ldr	r0, .L60+4
+	ldr	r3, .L40
+	ldr	r0, .L40+4
 	ldrh	r2, [r3, #6]
 	strh	r2, [r3, #6]	@ movhi
 	strh	ip, [r3, #6]	@ movhi
@@ -361,22 +216,22 @@ printColdText:
 	ldrh	r2, [r3, #6]
 	orr	r2, r2, #192
 	strh	r2, [r3, #6]	@ movhi
-	ldr	r7, .L60+8
-	ldr	r6, .L60+12
-	ldr	r5, .L60+16
-	ldr	r3, .L60+20
+	ldr	r7, .L40+8
+	ldr	r6, .L40+12
+	ldr	r5, .L40+16
+	ldr	r3, .L40+20
 	ldr	r2, [r7]
 	str	r1, [r6]
 	str	r3, [r5]
 	ldrb	r2, [r2]	@ zero_extendqisi2
 	cmp	r2, r1
-	beq	.L56
-	ldr	r4, .L60+24
+	beq	.L36
+	ldr	r4, .L40+24
 	mov	fp, r4
-	ldr	r10, .L60+28
-	ldr	r9, .L60+32
-	ldr	r8, .L60+36
-.L53:
+	ldr	r10, .L40+28
+	ldr	r9, .L40+32
+	ldr	r8, .L40+36
+.L33:
 	sub	r2, r2, #32
 	ldr	r2, [r10, r2, lsl #2]
 	lsl	r2, r2, #1
@@ -393,23 +248,23 @@ printColdText:
 	ldr	r1, [r6]
 	ldrb	r2, [r0, r1]	@ zero_extendqisi2
 	cmp	r2, #0
-	beq	.L56
+	beq	.L36
 	ldr	r3, [r5]
 	sub	ip, r3, #444
 	tst	ip, #31
 	addeq	r3, r3, #6
 	streq	r3, [r5]
 	ldrbeq	r2, [r0, r1]	@ zero_extendqisi2
-	b	.L53
-.L56:
-	ldr	r2, .L60
+	b	.L33
+.L36:
+	ldr	r2, .L40
 	ldrh	r3, [r2, #6]
 	strh	r3, [r2, #6]	@ movhi
 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
-.L61:
+.L41:
 	.align	2
-.L60:
+.L40:
 	.word	67109120
 	.word	-11000
 	.word	activeMessage
@@ -432,73 +287,72 @@ loadColdMessage:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	mov	r2, #1
-	ldr	r1, .L72
-	ldr	r3, .L72+4
-	sub	ip, r1, #600
+	ldr	r3, .L52
+	ldr	ip, .L52+4
 	push	{r4, lr}
 	str	r2, [r3]
-	ldrh	r0, [r1, #8]
-	sub	ip, ip, #2
-	sub	r1, r1, #652
-.L63:
+	ldrh	r0, [ip, #8]
+	sub	r1, ip, #652
+	sub	ip, ip, #600
+.L43:
 	mov	r3, #0
-.L64:
+.L44:
 	lsl	r2, r3, #6
 	add	r3, r3, #1
 	cmp	r3, #6
 	strh	r0, [r1, r2]	@ movhi
-	bne	.L64
+	bne	.L44
 	add	r1, r1, #2
 	cmp	r1, ip
-	bne	.L63
+	bne	.L43
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L72+8
-	ldr	r1, .L72+12
-	ldr	r4, .L72+16
+	ldr	r2, .L52+8
+	ldr	r1, .L52+12
+	ldr	r4, .L52+16
 	mov	lr, pc
 	bx	r4
-	ldr	r3, .L72+20
+	ldr	r3, .L52+20
 	ldr	r3, [r3]
 	cmp	r3, #1
-	beq	.L66
+	beq	.L46
 	cmp	r3, #2
-	beq	.L67
+	beq	.L47
 	cmp	r3, #0
-	beq	.L71
+	beq	.L51
 	pop	{r4, lr}
 	b	printColdText
-.L66:
-	ldr	r1, .L72+24
-	ldr	r0, .L72+28
-	ldr	r2, .L72+32
+.L46:
+	ldr	r1, .L52+24
+	ldr	r0, .L52+28
+	ldr	r2, .L52+32
 	pop	{r4, lr}
 	str	r0, [r1]
 	str	r3, [r2]
 	b	printColdText
-.L71:
+.L51:
 	mov	r0, #1
-	ldr	r1, .L72+36
-	ldr	r3, .L72+24
-	ldr	r2, .L72+40
+	ldr	r1, .L52+36
+	ldr	r3, .L52+24
+	ldr	r2, .L52+40
 	str	r0, [r1]
 	pop	{r4, lr}
 	str	r2, [r3]
 	b	printColdText
-.L67:
+.L47:
 	mov	r0, #1
-	ldr	r1, .L72+44
-	ldr	r3, .L72+24
-	ldr	r2, .L72+48
+	ldr	r1, .L52+44
+	ldr	r3, .L52+24
+	ldr	r2, .L52+48
 	str	r0, [r1]
 	pop	{r4, lr}
 	str	r2, [r3]
 	b	printColdText
-.L73:
+.L53:
 	.align	2
-.L72:
-	.word	colddarkmessagebgMap+1488
+.L52:
 	.word	coldMessageBool
+	.word	colddarkmessagebgMap+1488
 	.word	100712448
 	.word	colddarkmessagebgMap
 	.word	DMANow
@@ -512,6 +366,387 @@ loadColdMessage:
 	.word	.LANCHOR0+120
 	.size	loadColdMessage, .-loadColdMessage
 	.align	2
+	.global	chapterOneOutro
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	chapterOneOutro, %function
+chapterOneOutro:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r4, r5, r6, r7, r8, r9, r10, lr}
+	ldr	r5, .L64
+	add	r6, r5, #1408
+	mov	r4, #0
+	ldr	r9, .L64+4
+	ldr	r8, .L64+8
+	add	r6, r6, #2
+	add	r7, r5, #2
+	b	.L56
+.L55:
+	cmp	r4, #700
+	beq	.L62
+.L56:
+	ldrh	r3, [r6, #4]
+	tst	r4, #31
+	strh	r3, [r5, #2]!	@ movhi
+	add	r4, r4, #1
+	bne	.L55
+	mov	r3, #4096
+	mov	r2, r9
+	mov	r1, r7
+	mov	r0, #3
+	mov	lr, pc
+	bx	r8
+	cmp	r4, #700
+	bne	.L56
+.L62:
+	ldr	r5, .L64+12
+	add	r6, r5, #2
+	mov	r9, r6
+	mov	r4, #0
+	ldr	r8, .L64+16
+	ldr	r7, .L64+8
+	b	.L58
+.L57:
+	cmp	r4, #700
+	beq	.L63
+.L58:
+	ldrh	r2, [r6]
+	tst	r4, #31
+	strh	r2, [r5, #2]!	@ movhi
+	add	r4, r4, #1
+	bne	.L57
+	mov	r3, r8
+	mov	r1, r9
+	mov	r0, #3
+	ldr	r2, .L64+20
+	mov	lr, pc
+	bx	r7
+	cmp	r4, #700
+	bne	.L58
+.L63:
+	ldr	r3, .L64+24
+	mov	r1, #1024
+	ldr	r0, .L64+28
+	mov	lr, pc
+	bx	r3
+	mov	r2, #1
+	ldr	r3, .L64+32
+	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+	str	r2, [r3]
+	bx	lr
+.L65:
+	.align	2
+.L64:
+	.word	blackbgMap-2
+	.word	100704256
+	.word	DMANow
+	.word	colddarkmessagebgMap-2
+	.word	1073745920
+	.word	100712448
+	.word	timerWait
+	.word	20000
+	.word	nextRoomBool
+	.size	chapterOneOutro, .-chapterOneOutro
+	.section	.rodata.str1.4,"aMS",%progbits,1
+	.align	2
+.LC0:
+	.ascii	"Oh, Lord...\000"
+	.align	2
+.LC1:
+	.ascii	"It's cold. Dark. You can'tmove or see a thing.\000"
+	.align	2
+.LC2:
+	.ascii	"Usually during an attack, you can at least see...\000"
+	.align	2
+.LC3:
+	.ascii	"Are you...? No. No, you   can't be. Let's not think"
+	.ascii	" about that. There must be a way out.\000"
+	.align	2
+.LC4:
+	.ascii	"Okay, calm down. You've   been taking preventative "
+	.ascii	" measures against this     outcome for months.\000"
+	.align	2
+.LC5:
+	.ascii	"Maybe you should just try to remember how you got  "
+	.ascii	" here, and then you can getout...\000"
+	.text
+	.align	2
+	.global	messagesNonInteractive
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	messagesNonInteractive, %function
+messagesNonInteractive:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 392
+	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r4, r5, lr}
+	sub	sp, sp, #396
+	mov	r4, sp
+	ldr	r3, .L82
+	ldr	r5, .L82+4
+	ldm	r3, {r0, r1, r2}
+	stm	r4, {r0, r1, r2}
+	ldmia	r5!, {r0, r1, r2, r3}
+	add	ip, sp, #12
+	stmia	ip!, {r0, r1, r2, r3}
+	ldmia	r5!, {r0, r1, r2, r3}
+	stmia	ip!, {r0, r1, r2, r3}
+	ldm	r5, {r0, r1, r2, r3}
+	stmia	ip!, {r0, r1, r2}
+	ldr	r5, .L82+8
+	strh	r3, [ip], #2	@ movhi
+	lsr	r3, r3, #16
+	strb	r3, [ip]
+	ldmia	r5!, {r0, r1, r2, r3}
+	add	lr, sp, #60
+	stmia	lr!, {r0, r1, r2, r3}
+	ldmia	r5!, {r0, r1, r2, r3}
+	stmia	lr!, {r0, r1, r2, r3}
+	ldmia	r5!, {r0, r1, r2, r3}
+	stmia	lr!, {r0, r1, r2, r3}
+	ldr	r3, [r5]
+	mov	r2, #89
+	ldr	r5, .L82+12
+	ldr	r1, .L82+16
+	add	r0, sp, #200
+	strh	r3, [lr]	@ movhi
+	mov	lr, pc
+	bx	r5
+	mov	r2, #98
+	ldr	r1, .L82+20
+	add	r0, sp, #292
+	mov	lr, pc
+	bx	r5
+	ldr	r1, .L82+24
+	mov	r2, #85
+	add	r0, sp, #112
+	mov	lr, pc
+	bx	r5
+	ldr	ip, .L82+28
+	ldrh	r0, [ip, #8]
+	sub	r1, ip, #652
+	sub	ip, ip, #600
+.L67:
+	mov	r3, #0
+.L68:
+	lsl	r2, r3, #6
+	add	r3, r3, #1
+	cmp	r3, #6
+	strh	r0, [r1, r2]	@ movhi
+	bne	.L68
+	add	r1, r1, #2
+	cmp	r1, ip
+	bne	.L67
+	mov	r3, #4096
+	mov	r0, #3
+	ldr	r2, .L82+32
+	ldr	r1, .L82+36
+	ldr	r5, .L82+40
+	mov	lr, pc
+	bx	r5
+	ldr	r3, .L82+44
+	ldr	r3, [r3]
+	cmp	r3, #7
+	ldrls	pc, [pc, r3, asl #2]
+	b	.L66
+.L72:
+	.word	.L79
+	.word	.L78
+	.word	.L77
+	.word	.L76
+	.word	.L75
+	.word	.L74
+	.word	.L73
+	.word	.L71
+.L71:
+	bl	chapterOneOutro
+.L66:
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L79:
+	ldr	r3, .L82+48
+	str	r4, [r3]
+	bl	printColdText
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L78:
+	ldr	r3, .L82+48
+	add	r2, sp, #12
+	str	r2, [r3]
+	bl	printColdText
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L77:
+	ldr	r3, .L82+48
+	add	r2, sp, #60
+	str	r2, [r3]
+	bl	printColdText
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L76:
+	ldr	r3, .L82+48
+	add	r2, sp, #200
+	str	r2, [r3]
+	bl	printColdText
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L75:
+	bl	updateHighlight
+	bl	loadMessageUnedited
+	mov	r2, #1
+	ldr	r3, .L82+52
+	str	r2, [r3]
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L74:
+	ldr	r3, .L82+48
+	add	r2, sp, #292
+	str	r2, [r3]
+	bl	printColdText
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L73:
+	ldr	r3, .L82+48
+	add	r2, sp, #112
+	str	r2, [r3]
+	bl	printColdText
+	add	sp, sp, #396
+	@ sp needed
+	pop	{r4, r5, lr}
+	bx	lr
+.L83:
+	.align	2
+.L82:
+	.word	.LC0
+	.word	.LC1
+	.word	.LC2
+	.word	memcpy
+	.word	.LC3
+	.word	.LC4
+	.word	.LC5
+	.word	colddarkmessagebgMap+1488
+	.word	100712448
+	.word	colddarkmessagebgMap
+	.word	DMANow
+	.word	nonInteractText
+	.word	activeMessage
+	.word	stage
+	.size	messagesNonInteractive, .-messagesNonInteractive
+	.align	2
+	.global	chapterOneIntro
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	chapterOneIntro, %function
+chapterOneIntro:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	ldr	r5, .L94
+	add	r7, r5, #1280
+	mov	r4, #0
+	mov	r6, r5
+	ldr	r8, .L94+4
+	ldr	fp, .L94+8
+	ldr	r10, .L94+12
+	add	r7, r7, #2
+	add	r9, r5, #2
+	b	.L86
+.L85:
+	cmp	r4, #600
+	beq	.L92
+.L86:
+	ldrh	r0, [r7, #4]
+	tst	r4, #31
+	strh	r0, [r6, #2]!	@ movhi
+	add	r4, r4, #1
+	bne	.L85
+	mov	r3, fp
+	mov	r2, r10
+	mov	r1, r9
+	mov	r0, #3
+	mov	lr, pc
+	bx	r8
+	cmp	r4, #600
+	bne	.L86
+.L92:
+	ldr	r6, .L94+16
+	mov	r1, #64
+	ldr	r0, .L94+20
+	ldr	r3, .L94+24
+	mov	lr, pc
+	bx	r3
+	mov	r4, #0
+	ldr	r10, .L94+8
+	ldr	r9, .L94+12
+	sub	r7, r6, #1408
+	b	.L88
+.L87:
+	cmp	r4, #600
+	beq	.L93
+.L88:
+	ldrh	r0, [r6, #4]
+	tst	r4, #31
+	strh	r0, [r5, #2]!	@ movhi
+	add	r4, r4, #1
+	bne	.L87
+	mov	r3, r10
+	mov	r2, r9
+	mov	r1, r7
+	mov	r0, #3
+	mov	lr, pc
+	bx	r8
+	cmp	r4, #600
+	bne	.L88
+.L93:
+	mov	r3, #2240
+	mov	r2, #100663296
+	mov	r0, #3
+	ldr	r1, .L94+28
+	mov	lr, pc
+	bx	r8
+	mov	r3, #4096
+	mov	r0, #3
+	ldr	r2, .L94+32
+	ldr	r1, .L94+36
+	mov	lr, pc
+	bx	r8
+	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	b	messagesNonInteractive
+.L95:
+	.align	2
+.L94:
+	.word	blackbgMap-2
+	.word	DMANow
+	.word	1073745920
+	.word	100704256
+	.word	blackbgMap+1408
+	.word	20000
+	.word	timerWait
+	.word	colddarkmessagebgTiles
+	.word	100712448
+	.word	colddarkmessagebgMap
+	.size	chapterOneIntro, .-chapterOneIntro
+	.align	2
 	.global	updateColdDark
 	.syntax unified
 	.arm
@@ -521,68 +756,32 @@ updateColdDark:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, lr}
-	ldr	r4, .L104
+	push	{r4, r5, r6, lr}
+	ldr	r5, .L127
+	ldr	r3, [r5]
+	ldr	r4, .L127+4
+	cmp	r3, #1
 	ldrh	r3, [r4]
-	tst	r3, #128
-	beq	.L75
-	ldr	r2, .L104+4
-	ldrh	r2, [r2]
-	tst	r2, #128
-	beq	.L101
-.L75:
-	tst	r3, #64
-	beq	.L76
-	ldr	r2, .L104+4
-	ldrh	r2, [r2]
-	tst	r2, #64
-	beq	.L102
-.L76:
+	beq	.L97
 	tst	r3, #1
-	beq	.L78
-	ldr	r3, .L104+4
+	beq	.L96
+	ldr	r3, .L127+8
 	ldrh	r3, [r3]
 	tst	r3, #1
-	beq	.L103
-.L78:
-	ldr	r3, .L104+8
-	ldr	r3, [r3]
-	cmp	r3, #0
-	beq	.L74
-	ldr	r3, .L104+12
-	ldr	r3, [r3]
-	cmp	r3, #0
-	beq	.L74
-	ldr	r3, .L104+16
-	ldr	r3, [r3]
-	cmp	r3, #0
-	movne	r2, #1
-	ldrne	r3, .L104+20
-	strne	r2, [r3]
-.L74:
-	pop	{r4, lr}
+	beq	.L126
+.L96:
+	pop	{r4, r5, r6, lr}
 	bx	lr
-.L103:
-	ldr	r3, .L104+24
-	ldr	r3, [r3]
-	cmp	r3, #0
-	bne	.L79
-	bl	loadColdMessage
-	b	.L78
-.L102:
-	ldr	r2, .L104+28
-	ldr	r3, [r2]
-	cmp	r3, #0
-	moveq	r3, #2
-	subne	r3, r3, #1
-	str	r3, [r2]
-	bl	updateHighlight
-	ldrh	r3, [r4]
-	b	.L76
-.L101:
-	ldr	r1, .L104+28
+.L97:
+	tst	r3, #128
+	beq	.L101
+	ldr	r2, .L127+8
+	ldrh	r2, [r2]
+	tst	r2, #128
+	bne	.L101
+	ldr	r1, .L127+12
 	ldr	r2, [r1]
-	ldr	r3, .L104+32
+	ldr	r3, .L127+16
 	add	r2, r2, #1
 	smull	r0, r3, r2, r3
 	sub	r3, r3, r2, asr #31
@@ -591,112 +790,77 @@ updateColdDark:
 	str	r3, [r1]
 	bl	updateHighlight
 	ldrh	r3, [r4]
-	b	.L75
-.L79:
-	bl	loadMessageUnedited
-	b	.L78
-.L105:
-	.align	2
+.L101:
+	tst	r3, #64
+	beq	.L102
+	ldr	r2, .L127+8
+	ldrh	r2, [r2]
+	tst	r2, #64
+	bne	.L102
+	ldr	r2, .L127+12
+	ldr	r3, [r2]
+	cmp	r3, #0
+	moveq	r3, #2
+	subne	r3, r3, #1
+	str	r3, [r2]
+	bl	updateHighlight
+	ldrh	r3, [r4]
+.L102:
+	tst	r3, #1
+	beq	.L96
+	ldr	r3, .L127+8
+	ldrh	r3, [r3]
+	tst	r3, #1
+	bne	.L96
+	ldr	r3, .L127+20
+	ldr	r3, [r3]
+	cmp	r3, #0
+	beq	.L104
+	ldr	r3, .L127+24
+	ldr	r3, [r3]
+	cmp	r3, #0
+	beq	.L104
+	ldr	r3, .L127+28
+	ldr	r3, [r3]
+	cmp	r3, #0
+	beq	.L104
+	mov	r1, #2
+	mov	r2, #5
+	ldr	r3, .L127+32
+	str	r1, [r5]
+	pop	{r4, r5, r6, lr}
+	str	r2, [r3]
+	b	messagesNonInteractive
+.L126:
+	ldr	r2, .L127+32
+	ldr	r3, [r2]
+	pop	{r4, r5, r6, lr}
+	add	r3, r3, #1
+	str	r3, [r2]
+	b	messagesNonInteractive
 .L104:
+	ldr	r3, .L127+36
+	ldr	r3, [r3]
+	cmp	r3, #0
+	popeq	{r4, r5, r6, lr}
+	beq	loadColdMessage
+.L105:
+	pop	{r4, r5, r6, lr}
+	b	loadMessageUnedited
+.L128:
+	.align	2
+.L127:
+	.word	stage
 	.word	oldButtons
 	.word	buttons
+	.word	cursor
+	.word	1431655766
 	.word	blinkBool
 	.word	moveForwardBool
 	.word	sniffBool
-	.word	nextRoomBool
+	.word	nonInteractText
 	.word	coldMessageBool
-	.word	cursor
-	.word	1431655766
 	.size	updateColdDark, .-updateColdDark
-	.align	2
-	.global	setUpColdDarkInterrupts
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	setUpColdDarkInterrupts, %function
-setUpColdDarkInterrupts:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	mov	ip, #1
-	ldr	r3, .L107
-	ldrh	r2, [r3]
-	ldr	r1, .L107+4
-	ldr	r0, .L107+8
-	orr	r2, r2, #2064
-	strh	r2, [r3]	@ movhi
-	strh	ip, [r3, #8]	@ movhi
-	str	r0, [r1, #4092]
-	bx	lr
-.L108:
-	.align	2
-.L107:
-	.word	67109376
-	.word	50360320
-	.word	coldDarkInterruptHandler
-	.size	setUpColdDarkInterrupts, .-setUpColdDarkInterrupts
-	.align	2
-	.global	timerWait
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	timerWait, %function
-timerWait:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	mov	r2, #0
-	ldr	r3, .L118
-	lsl	r0, r0, #16
-	lsr	r0, r0, #16
-	cmp	r1, #256
-	strh	r2, [r3, #2]	@ movhi
-	strh	r0, [r3]	@ movhi
-	beq	.L110
-	bgt	.L111
-	cmp	r1, #1
-	beq	.L112
-	cmp	r1, #64
-	ldrheq	r2, [r3, #2]
-	orreq	r2, r2, #1
-	strheq	r2, [r3, #2]	@ movhi
-.L114:
-	ldr	r3, .L118
-	mov	r2, r3
-	ldrh	r1, [r3, #2]
-	orr	r1, r1, #128
-	strh	r1, [r3, #2]	@ movhi
-	ldr	r1, .L118+4
-.L116:
-	ldrh	r3, [r2]
-	cmp	r3, r1
-	bls	.L116
-	mov	r3, #0
-	strh	r3, [r2, #2]	@ movhi
-	bx	lr
-.L111:
-	cmp	r1, #1024
-	ldrheq	r2, [r3, #2]
-	orreq	r2, r2, #3
-	strheq	r2, [r3, #2]	@ movhi
-	b	.L114
-.L110:
-	ldrh	r2, [r3, #2]
-	orr	r2, r2, #2
-	strh	r2, [r3, #2]	@ movhi
-	b	.L114
-.L112:
-	ldrh	r2, [r3, #2]
-	strh	r2, [r3, #2]	@ movhi
-	b	.L114
-.L119:
-	.align	2
-.L118:
-	.word	67109120
-	.word	65499
-	.size	timerWait, .-timerWait
 	.comm	sniffBool,4,4
 	.comm	moveForwardBool,4,4
 	.comm	blinkBool,4,4
@@ -704,12 +868,15 @@ timerWait:
 	.global	moveForward
 	.global	sniff
 	.comm	activeMessage,4,4
+	.comm	nonInteractText,4,4
+	.comm	stage,4,4
 	.comm	timerJ,4,4
 	.comm	timerI,4,4
 	.comm	coldMessageBool,4,4
 	.comm	cursor,4,4
 	.comm	messageUnedited,510,4
 	.global	intervals
+	.comm	state,4,4
 	.data
 	.align	2
 	.set	.LANCHOR0,. + 0

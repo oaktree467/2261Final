@@ -4,6 +4,11 @@
 
 STATIONARYSPRITE bedroomSpritesArr[BEDROOM_SPRITECOUNT];
 char wallsafe[] = "The safe is empty.";
+char bedFrame[] = "God only knows how old this bedframe is, but you DID just buy the mattress last year.";
+char wardrobe[] = "If you spend too long with your head stuck in the wardrobe, it begins to feel like one of your attacks...";
+char vanity[] = "Your aunt's vanity. When you first inherited it, far more of the family jewelry remained in the drawers.";
+char chair[] = "A beautiful chair that is also, unfortunately, not terribly comfortable.";
+char bookshelfTwo[] = "Your aunt couldn't fool you with all those Jane Austen novels. This shelf is packed with vampire bestsellers.";
 
 //functions
 void initBedroomSprites() {
@@ -16,7 +21,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[0].worldRow = 76;
     bedroomSpritesArr[0].hide = 1;
     bedroomSpritesArr[0].collisionColor = YELLOW_HIT;
-    //bedroomSpritesArr[0].message 
+    bedroomSpritesArr[0].message = &bedFrame;
 
     //wardrobe
     bedroomSpritesArr[1].sheetCol = 0;
@@ -27,7 +32,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[1].worldRow = 45;
     bedroomSpritesArr[1].hide = 1;
     bedroomSpritesArr[1].collisionColor = AQUA_HIT;
-    //bedroomSpritesArr[1].message 
+    bedroomSpritesArr[1].message = &wardrobe;
 
     //vanity
     bedroomSpritesArr[2].sheetCol = 8;
@@ -38,7 +43,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[2].worldRow = 49;
     bedroomSpritesArr[2].hide = 1;
     bedroomSpritesArr[2].collisionColor = FOREST_HIT;
-    //bedroomSpritesArr[2].message 
+    bedroomSpritesArr[2].message  = &vanity;
 
     //safe
     bedroomSpritesArr[3].sheetCol = 12;
@@ -60,7 +65,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[4].worldRow = 60;
     bedroomSpritesArr[4].hide = 1;
     bedroomSpritesArr[4].collisionColor = LIME_HIT;
-    //bedroomSpritesArr[4].message 
+    bedroomSpritesArr[4].message  = &chair;
 
     //bookshelf
     bedroomSpritesArr[5].sheetCol = 12;
@@ -71,7 +76,7 @@ void initBedroomSprites() {
     bedroomSpritesArr[5].worldRow = 60;
     bedroomSpritesArr[5].hide = 1;
     bedroomSpritesArr[5].collisionColor = PURPLE_HIT;
-    //bedroomSpritesArr[5].message 
+    bedroomSpritesArr[5].message = &bookshelfTwo;
 
 }
 

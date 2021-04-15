@@ -6,5 +6,5 @@ extern STATIONARYSPRITE bedroomSpritesArr[];
 
 //functions
 void initBedroomSprites();
-void loadBedroom ();
+void loadBedroom();
 void safeOpenMessage();

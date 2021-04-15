@@ -1,6 +1,7 @@
 #include "colddark.h"
 #include "blackbg.h"
 #include "myLib.h"
+#include "game.h"
 #include "colddarkmessagebg.h"
 #include "text.h"
 
@@ -10,6 +11,8 @@ int cursor;
 int coldMessageBool;
 int timerI;
 int timerJ;
+int stage; //what stage the text is in (interactive or not)
+int nonInteractText; //if the text is non-interactive, which text is it?
 
 char (* activeMessage)[];
 char sniff[] = "It only smells...         well, cold.";
@@ -23,13 +26,14 @@ int sniffBool;
 
 //initialize state settings
 void initColdDark() {
-    setUpColdDarkInterrupts();
 
     cursor = 0;
     coldMessageBool = 0;
     blinkBool = 0;
     moveForwardBool = 0;
     sniffBool = 0;
+    stage = 0;
+    nonInteractText = 0;
 
     for (int i = 0; i < 255; i++) {
         messageUnedited[i] = colddarkmessagebgMap[384 + i];
@@ -58,36 +62,42 @@ void chapterOneIntro() {
     //switch BG0 to message box
     DMANow(3, colddarkmessagebgTiles, &CHARBLOCK[0], colddarkmessagebgTilesLen / 2);
     DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((0 << 30) | (1024 * 4)));
-    updateHighlight();
+    messagesNonInteractive();
 
 }
 
 void updateColdDark() {
-    if (BUTTON_PRESSED(BUTTON_DOWN)) {
-        cursor = (cursor + 1) % 3;
-        updateHighlight();
-    }
-
-    if (BUTTON_PRESSED(BUTTON_UP)) {
-        if (cursor == 0) {
-            cursor = 2;
-        } else {
-            cursor--;
+    if (stage != 1) {
+        if (BUTTON_PRESSED(BUTTON_A)) {
+            nonInteractText++;
+            messagesNonInteractive();
+        }
+    } else {
+        if (BUTTON_PRESSED(BUTTON_DOWN)) {
+            cursor = (cursor + 1) % 3;
+            updateHighlight();
         }
 
-        updateHighlight();
-    }
-
-    if (BUTTON_PRESSED(BUTTON_A)) {
-        if (!coldMessageBool) {
-            loadColdMessage();
-        } else {
-            loadMessageUnedited();
+        if (BUTTON_PRESSED(BUTTON_UP)) {
+            if (cursor == 0) {
+                cursor = 2;
+            } else {
+                cursor--;
+            }
+            updateHighlight();
         }
-    }
 
-    if (blinkBool && moveForwardBool && sniffBool) {
-        nextRoomBool = 1;
+        if (BUTTON_PRESSED(BUTTON_A)) {
+            if (blinkBool && moveForwardBool && sniffBool) {
+                nonInteractText = 5;
+                stage = 2;
+                messagesNonInteractive();
+            } else if (!coldMessageBool) {
+                loadColdMessage();
+            } else {
+                loadMessageUnedited();
+            }   
+        }
     }
 }
 
@@ -107,14 +117,58 @@ void updateHighlight() {
 
 }
 
+void messagesNonInteractive() {
+    char cd_m0[] = "Oh, Lord...";
+    char cd_m1[] = "It's cold. Dark. You can'tmove or see a thing.";
+    char cd_m2[] = "Usually during an attack, you can at least see...";
+    char cd_m3[] = "Are you...? No. No, you   can't be. Let's not think about that. There must be a way out.";
+    char cd_m4[] = "Okay, calm down. You've   been taking preventative  measures against this     outcome for months.";
+    char cd_m5[] = "Maybe you should just try to remember how you got   here, and then you can getout...";
+
+    clearBoard();
+    //DMA in the clear board
+    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+
+    switch (nonInteractText) {
+        case 0:
+            activeMessage = &cd_m0;
+            printColdText();
+            break;
+        case 1:
+            activeMessage = &cd_m1;
+            printColdText();
+            break;
+        case 2:
+            activeMessage = &cd_m2;
+            printColdText();
+            break;
+        case 3:
+            activeMessage = &cd_m3;
+            printColdText();
+            break;
+        case 4:
+            updateHighlight();
+            loadMessageUnedited();
+            stage = 1;
+            break;
+        case 5:
+            activeMessage = &cd_m4;
+            printColdText();
+            break;
+        case 6:
+            activeMessage = &cd_m5;
+            printColdText();
+            break;
+        case 7:
+            chapterOneOutro();
+            break;
+    }
+}
+
 void loadColdMessage() {
     coldMessageBool = 1;
-    //clear board
-    for (int i = 0; i < 25; i++) {
-        for (int j = 0; j < 6; j++) {
-            colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
-        }
-    }
+    
+    clearBoard();
     //DMA in the clear board
     DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
 
@@ -136,6 +190,16 @@ void loadColdMessage() {
     //now print the text
     printColdText();
 }
+
+void clearBoard() {
+    //clear board
+    for (int i = 0; i < 26; i++) {
+        for (int j = 0; j < 6; j++) {
+            colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
+        }
+    }
+}
+
 
 //reset the message bg
 void loadMessageUnedited() {
@@ -165,63 +229,30 @@ void printColdText() {
 
         DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
         
-        
     }
     REG_TM1CNT |= TIMER_OFF;
 
 }
 
+void chapterOneOutro() {
 
-void setUpColdDarkInterrupts() {
-    REG_IME = 0;
-
-    REG_INTERRUPT = coldDarkInterruptHandler;
-
-    REG_IE |= INT_DMA3 | INT_TM1;
-    REG_IME = 1;
-}
-
-void coldDarkInterruptHandler() {
-    REG_IME = 0;
-    
-    if (REG_IF & INT_DMA3) {
-        REG_TM0CNT |= TIMER_OFF;
-        REG_TM0D = 30000;
-        REG_TM0CNT |= TM_FREQ_64 | TIMER_ON;
-        while (REG_TM0D < 65500);
-    }
-    
-    if (REG_IF & INT_TM1) {
-        timerI++;
-        timerJ++;
-    }
-    
-    REG_IF = REG_IF;
-
-    REG_IME = 1;
-}
-
-void timerWait(int start, int frequency) {
-    REG_TM0CNT = TIMER_OFF;
-    REG_TM0D = start;
-    
-    switch (frequency) {
-        case 1:
-            REG_TM0CNT |= TM_FREQ_1;
-            break;
-        case 64:
-            REG_TM0CNT |= TM_FREQ_64;
-            break;
-        case 256:
-            REG_TM0CNT |= TM_FREQ_256;
-            break;
-        case 1024:
-            REG_TM0CNT |= TM_FREQ_1024;
-            break;
+    for (int i = 0; i < 700; i++) {
+        blackbgMap[i] = blackbgMap[706];
+        if (i % 32 == 0) {
+            DMANow(3, blackbgMap, &SCREENBLOCK[20], (1024 * 4));
+        }
     }
 
-    REG_TM0CNT |= TIMER_ON;
-    while (REG_TM0D < 65500);
-    REG_TM0CNT = TIMER_OFF;
+    for (int i = 0; i < 700; i++) {
+        colddarkmessagebgMap[i] = colddarkmessagebgMap[0];
+        if (i % 32 == 0) {
+            DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
+        }
+    }
 
+    timerWait(20000, 1024);
+
+    nextRoomBool = 1;
 }
+
+

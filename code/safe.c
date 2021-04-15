@@ -3,6 +3,8 @@
 #include "messagescreen.h"
 #include "safe.h"
 #include "text.h"
+#include "sound.h"
+#include "safesfx.h"
 
 STATIONARYSPRITE safeSpritesArr[SAFE_SPRITECOUNT];
 STATIONARYSPRITE * upArrows[4];
@@ -12,7 +14,7 @@ STATIONARYSPRITE * middleHighlight[5];
 int cursor;
 int answerCode[4] = {2, 0, 0, 1};
 int enteredCode[4] = {0, 0, 0, 0};
-char sm_1[] = "Your secret safe. It lookslike you need a key and a code." ;
+char sm_1[] = "Your secret safe. It looks like you need a key and a code." ;
 char openSafeBool;
 char introMessageBool;
 extern char keyFound;
@@ -190,6 +192,7 @@ void updateCursor() {
         if (BUTTON_PRESSED(BUTTON_A) && cursor == 4) {
             if (checkCode() && keyFound) {
                 openSafeBool = 1;
+                playSoundB(safesfx_data, safesfx_length, 0);
             } else {
                 for (int i = 0; i < 4; i++) {
                     codeNumbers[i]->sheetRow = 0;

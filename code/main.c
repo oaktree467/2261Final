@@ -1,3 +1,50 @@
+/*  
+--------------- WHAT'S GOING ON HERE? ---------------
+1) WHAT IS FINISHED SO FAR?
+    - The Intro is complete.
+    - All rooms inside the house are complete, and all objects that are meant to be interacted with,
+        can be interacted with.
+    - The game logic inside the house is complete.
+    - SFX of accessing the phone and the safe.
+    - Safe interface.
+    - Computer interface.
+2) WHAT NEEDS TO BE ADDED?
+    - Music.
+    - The outro state animation. There isn't any actual game logic for the outro, as the player has
+        effectively won after reading all the emails available on the computer (hence in this version,
+        reading the emails triggers the outro placeholder).
+    - Affine backgrounds (I'm bailing on that XL background I talked about in M1. Sorry.)
+    - The computer access puzzle. This logic is a relatively small part of, and distinct from,
+        the rest of the game, so I held off for M3.
+    - A message after the safe has been successfully accessed.
+    - The cheat (probably something to do with the safe).
+3) ANY BUGS?
+    - The email notification icon hovers on the screen after access, obscuring some text.
+    - I forgot to add ':' to the font, so it appears as a blank when used in text.
+    - The state machine freaks out when you restart the game from Pause, but only for the intro state.
+        I don't know why. The state machine and I will be Having a Talk.
+4) HOW TO PLAY (OR SPEEDRUN, I GUESS)
+    - Approaching an object and facing it will allow you to interact with it (Press A).
+        - Objects you can interact with will glow when faced.
+    - Interact with the refrigerator in the kitchen. This will cause the phone to ring.
+    - Answer the phone.
+    - Interact with the refrigerator again. You will find the key inside.
+    - Go to the bedroom. In the sitting room, on the back wall to the left, there is a secret safe.
+    - Access the safe.
+    - The code is 2001 (like the poster in the living room).
+    - Once opened, you will have found the documents.
+    - Go back to the living room and access the computer.
+    - Click 'Web' on the desktop and click 'Upload Documents.'
+    - X out of the web.
+    - Click 'Mail' on the desktop and read through both emails by clicking the green buttons.
+    - When you leave the desktop to return to the living room (Press B), the outro state is triggered. You win!
+
+    I'm also going to note here that while you can speedrun the game following the above instructions,
+    actually getting the full story of the game requires interacting with as many 'extraneous' objects
+    as possible.
+5) OH WOW, HOW LONG DID ALL THIS TAKE YOU?
+    I don't want to talk about it.
+*/
 #include <stdlib.h>
 #include <stdio.h>
 #include "myLib.h"
@@ -21,12 +68,14 @@
 #include "pausescreen.h"
 #include "winscreen.h"
 #include "chapter1bg.h"
+#include "chapter2bg.h"
 #include "colddarkmessagebg.h"
 #include "colddark.h"
 #include "blackbg.h"
 #include "computerscreenbg.h"
 #include "computersprites.h"
 #include "computer.h"
+#include "bedroom.h"
 //#include "spritetest.h"
 
 //extern int mode;
@@ -113,6 +162,8 @@ int main() {
             break;
         }
         
+
+        //collision map viewer
         /*
         if (mode == 4) {
             REG_DISPCTL = MODE4 | BG2_ENABLE | DISP_BACKBUFFER;
@@ -131,8 +182,8 @@ int main() {
             } 
             waitForVBlank();
             flipPage();
-        } else { 
-        */
+        } else {  */
+        
         waitForVBlank();
         REG_BG1HOFF = hOff;
         REG_BG1VOFF = vOff;
@@ -161,6 +212,8 @@ void goToStart() {
     DMANow(3, startscreenMap, &SCREENBLOCK[20], 1024 * 4);
 
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
 
     initGame();
 }
@@ -222,8 +275,6 @@ void intro() {
     
     updateColdDark();
     if (nextRoomBool == 1) {
-        DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
-        DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
         goToLivingRoom();
     }
     
@@ -238,29 +289,43 @@ void goToLivingRoom() {
     state = LIVING_ROOM;
     loadLivingRoom();
 
+    if (priorState == INTRO) {
+        DMANow(3, chapter2bgTiles, &CHARBLOCK[0], chapter2bgTilesLen / 2);
+        DMANow(3, chapter2bgMap, &SCREENBLOCK[24], chapter2bgMapLen / 2);
+    } else {
+        DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
+        DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
+    }
+
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
+
     DMANow(3, livingroombgPal, PALETTE, 256);
     DMANow(3, livingroombgTiles, &CHARBLOCK[1], livingroombgTilesLen / 2);
-    DMANow(3, livingroombgMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, livingroombgMap, &SCREENBLOCK[20], livingroombgMapLen / 2);
 
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
 
-    DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
-    DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
-
-    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
-
-    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
-
     hideSprites();
+
+    if (priorState == INTRO) {
+        REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+        chapterTwoIntro();
+    } else {
+        REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+    }
 }
 
 // Runs every frame of the game state
 void livingRoom() {
     updateGame();
     drawGame();
+
+    if (BUTTON_PRESSED(BUTTON_START)) {
+        mode = 4;
+    }
 
     if (nextRoomBool) {
         goToKitchen();
@@ -270,8 +335,7 @@ void livingRoom() {
         goToComputer();
     }
 
-    /* temporary */
-    if (BUTTON_PRESSED(BUTTON_R)) {
+    if (allEmailsBool) {
         goToOutro();
     }
 

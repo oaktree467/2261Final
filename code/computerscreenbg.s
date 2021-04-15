@@ -396,243 +396,243 @@ computerscreenbgMap:
 	.short	11
 	.short	12
 	.short	11
-	.short	12
-	.short	11
 	.short	25
+	.short	11
 	.short	26
 	.short	27
+	.short	28
 	.short	11
 	.short	12
 	.short	0
 	.short	0
-	.short	28
 	.short	29
 	.short	30
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
 	.short	31
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
 	.short	32
 	.short	33
 	.short	34
 	.short	35
-	.short	11
-	.short	0
-	.short	0
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
 	.short	36
+	.short	11
+	.short	0
+	.short	0
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
 	.short	37
 	.short	38
 	.short	39
 	.short	40
 	.short	41
-	.short	0
-	.short	0
 	.short	42
+	.short	0
+	.short	0
 	.short	43
 	.short	44
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
 	.short	45
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
 	.short	46
 	.short	47
+	.short	48
 	.short	12
 	.short	11
 	.short	0
 	.short	0
-	.short	48
 	.short	49
 	.short	50
 	.short	51
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
 	.short	52
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
 	.short	53
 	.short	54
+	.short	55
 	.short	11
 	.short	12
 	.short	0
 	.short	0
-	.short	55
 	.short	56
 	.short	57
 	.short	58
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
 	.short	59
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
 	.short	60
 	.short	61
 	.short	62
-	.short	11
-	.short	0
-	.short	0
-	.short	11
 	.short	63
+	.short	11
+	.short	0
+	.short	0
+	.short	11
 	.short	64
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	0
-	.short	0
 	.short	65
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	0
+	.short	0
 	.short	66
 	.short	67
 	.short	68
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	12
-	.short	11
-	.short	0
-	.short	0
 	.short	69
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	12
+	.short	11
+	.short	0
+	.short	0
 	.short	70
 	.short	71
 	.short	72
+	.short	73
 	.short	11
 	.short	12
 	.short	11
@@ -1302,7 +1302,7 @@ computerscreenbgMap:
 	.short	0
 	.short	0
 	.type	computerscreenbgTiles, %object
-	.size	computerscreenbgTiles, 2336
+	.size	computerscreenbgTiles, 2368
 computerscreenbgTiles:
 	.short	0
 	.short	0
@@ -1467,15 +1467,15 @@ computerscreenbgTiles:
 	.short	8738
 	.short	8738
 	.short	9830
-	.short	8806
-	.short	8742
-	.short	8802
-	.short	8742
-	.short	8802
 	.short	9830
-	.short	8802
+	.short	8742
+	.short	8742
+	.short	8742
+	.short	8742
+	.short	9830
+	.short	9830
 	.short	9762
-	.short	8802
+	.short	9762
 	.short	9830
 	.short	9830
 	.short	8738
@@ -1704,6 +1704,22 @@ computerscreenbgTiles:
 	.short	17479
 	.short	30307
 	.short	17527
+	.short	30583
+	.short	17527
+	.short	30583
+	.short	17527
+	.short	30583
+	.short	17527
+	.short	30583
+	.short	17527
+	.short	30583
+	.short	17476
+	.short	30583
+	.short	30583
+	.short	29764
+	.short	30583
+	.short	17476
+	.short	14199
 	.short	30583
 	.short	17527
 	.short	30583

@@ -18,7 +18,7 @@
 #define LIME_HIT 0x03E4
 #define PURPLE_HIT 0x6C15
 #define ORANGE_HIT 0x025F
-#define OCEAN_HIT 0x0C60
+#define OCEAN_HIT 0x7CC0
 #define MAROON_HIT 0x0C6F
 
 //Orientations
@@ -85,10 +85,14 @@ extern int mode;
 
 extern int priorState; //necessary for placement of protagonist if returning from pause
 
-extern char keyFound; //true if player has accessed refrigerator
+extern char keyFound; //true if player has accessed refrigerator when enableKeyFind is true
+extern char enableKeyFind; //CAN the key be found? (true if the player has accessed the ringing telephone)
+extern char phoneRinging; // boolean -- is the phone ringing?
 extern char openSafeBool; //true if player has obtained docs from safe
 extern char documentsUploaded; // true if player has uploaded docs
 extern char computerAccessBool; //true if player is accessing computer in living room
+extern char allEmailsBool; // true if both emails in the player's inbox have been read
+extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -107,8 +111,8 @@ unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
 void checkThreshold();
-void loadLivingRoom();
-void loadKitchen();
-void loadBedroom();
 void printText();
 void clearMessage();
+void setUpInterrupts();
+void interruptHandler();
+void timerWait();

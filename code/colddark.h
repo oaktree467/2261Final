@@ -16,3 +16,6 @@ void printColdText();
 void coldDarkInterruptHandler();
 void setUpColdDarkInterrupts();
 void timerWait(int start, int freq);
+void messagesNonInteractive();
+void clearBoard();
+void chapterOneOutro();

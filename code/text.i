@@ -68,8 +68,11 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
-extern char documentsFound;
+extern char phoneRinging;
+extern char openSafeBool;
 extern char documentsUploaded;
+extern char computerAccessBool;
+extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -88,11 +91,11 @@ unsigned short checkCollisionMapColor(int x, int y);
 void checkSpriteCollision();
 void checkMoreInfo();
 void checkThreshold();
-void loadLivingRoom();
-void loadKitchen();
-void loadBedroom();
 void printText();
 void clearMessage();
+void setUpInterrupts();
+void interruptHandler();
+void timerWait();
 # 2 "text.c" 2
 # 1 "text.h" 1
 extern int letterMap[95];

@@ -12,6 +12,8 @@
 #include "safebg.h"
 #include "text.h"
 #include "safe.h"
+#include "sound.h"
+#include "phonering.h"
 
 //global variables
 PROTAGSPRITE protag;
@@ -23,10 +25,14 @@ unsigned short (* currMessageMap)[];
 int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
+char enableKeyFind;
 char keyFound;
 char documentsFound;
+char phoneRinging;
 char documentsUploaded;
 char computerAccessBool;
+char phoneAnswerBool;
+char allEmailsBool;
 
 
 unsigned short priorHoff;
@@ -44,14 +50,19 @@ int mode;
 //initialize game
 void initGame(){
     keyFound = 0;
+    enableKeyFind = 0;
+    phoneRinging = 0;
     documentsFound = 0;
     documentsUploaded = 0;
     spriteCollisionBool = 0;
     messageActiveBool = 0;
     nextRoomBool = 0;
     computerAccessBool = 0;
+    allEmailsBool = 0;
     mode = 0;
     initProtagonist();
+    setUpInterrupts();
+    setupSounds();
 }
 
 //initialize protagonist
@@ -89,7 +100,10 @@ void updateProtagonist() {
         protag.currFrame = ((protag.currFrame + 1) % protag.totalFrames);
     }
 
-    if (messageActiveBool) {
+    if (phoneAnswerBool) {
+        stopSoundB();
+        answerPhone();
+    } else if (messageActiveBool) {
         if (BUTTON_PRESSED(BUTTON_A)) {
             REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE;
             messageActiveBool = 0;
@@ -180,6 +194,10 @@ void updateSprites() {
         (*currSpriteArr)[i].screenCol = (*currSpriteArr)[i].worldCol - hOff;
         (*currSpriteArr)[i].screenRow = (*currSpriteArr)[i].worldRow - vOff;
     }
+
+    if (phoneRinging) {
+        updateRing();
+    }
 }
 
 //draw sprites, if unhidden
@@ -192,6 +210,10 @@ void drawSprites() {
             shadowOAM[i + 1].attr1 = ((*currSpriteArr)[i].screenCol | ((*currSpriteArr)[i].attr1_size) << 14);
             shadowOAM[i + 1].attr2 = ATTR2_PALROW(0) | ATTR2_TILEID((*currSpriteArr)[i].sheetCol * 2, (*currSpriteArr)[i].sheetRow) | ATTR2_PRIORITY(2);
         }
+    }
+
+    if (phoneRinging) {
+        drawRing();
     }
 }
 
@@ -242,16 +264,31 @@ void checkSpriteCollision() {
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
-        //if protagonist is in the bedroom, and the safe as not yet been opened
+        //if protagonist is in the bedroom, and the safe has not yet been opened
         if (state == BEDROOM && activeSprite == &bedroomSpritesArr[3] && !openSafeBool) {
             nextRoomBool = 2;
         } else if (activeSprite == &livingRoomSpritesArr[6]) {
+            //if the protagonist is accessing the computer
             computerAccessBool = 1;
+        }  else if (activeSprite == &livingRoomSpritesArr[0] && phoneRinging) {
+            //if the protagonist accesses the telephone while it is ringing
+            phoneRinging = 0;
+            ringSettings();
+            phoneAnswerBool = 1;
+            REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
         } else {
             //if the protagonist finds the key
             if (activeSprite == &kitchenSpritesArr[1]) {
-                keyFound = 1;
-            }
+                if (!enableKeyFind) {
+                    phoneRinging = 1;
+                    playSoundB(phonering_data, phonering_length, 1);
+                } else {
+                    if (!keyFound){
+                        keyFound = 1;
+                    }
+                    reassignRefrigeratorMessage();
+                } 
+            } 
             messageActiveBool = 1;
             printText();
             REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
@@ -289,8 +326,25 @@ void printText() {
     int j = 418;
     while ((*(activeSprite->message))[i] != '\0') {
         
+        /*
         if ((j - 444) % 32 == 0) {
             j += 6;
+        }*/
+
+        if ((j - 444) % 32 == 0) {
+            if ((*(activeSprite->message))[i] != ' ') {
+                int k = 0;
+                while ((*(activeSprite->message))[i] != ' ') {
+                    messagescreenMap[j] = messagescreenMap[748];
+                    i--;
+                    j--;
+                    k++;
+                }
+                j += k + 5;
+            } else {
+                i++;
+                j += 6;
+            }
         }
         
         messagescreenMap[j] = messagescreenMap[(letterMap[((*(activeSprite->message))[i]) - 32])];
@@ -309,4 +363,105 @@ void clearMessage() {
         messagescreenMap[i] = messagescreenMap[748];
     }
     
+}
+
+void setUpInterrupts() {
+    REG_IME = 0;
+
+    REG_INTERRUPT = interruptHandler;
+    REG_DISPSTAT |= INT_VBLANK_ENABLE;
+    REG_IE |= INT_DMA3 | INT_TM0 | INT_TM1 | INT_TM2 | INT_TM3 | INT_VBLANK;
+    REG_IME = 1;
+
+}
+
+void interruptHandler() {
+    REG_IME = 0;
+    
+    if (REG_IF & INT_TM1) {
+        if (state == INTRO) {
+            timerI++;
+            timerJ++;
+        }
+    }
+
+    if (REG_IF & INT_TM2) {
+        if (state == LIVING_ROOM) {
+                phoneRingSpritesArr[currRing].hide = 1;
+            if (currRing < RING_SPRITECOUNT) {
+                currRing++;
+                phoneRingSpritesArr[currRing].hide = 0;
+            } else {
+                currRing = 0;
+                phoneRingSpritesArr[currRing].hide = 0;
+            }
+        } 
+    }
+
+    if (REG_IF & INT_DMA3) {
+        REG_TM0CNT |= TIMER_OFF;
+        REG_TM0D = 30000;
+        REG_TM0CNT |= TM_FREQ_64 | TIMER_ON;
+        while (REG_TM0D < 65500);
+    }
+
+    if(REG_IF & INT_VBLANK) {
+        if (soundA.isPlaying) {
+            soundA.vBlankCount++;
+            if (soundA.vBlankCount >= soundA.duration) {
+                if (soundA.loops) {
+                    playSoundA(soundA.data, soundA.length, soundA.loops);
+                } else {
+                    soundA.isPlaying = 0;
+                    dma[1].cnt = 0;
+                    REG_TM2CNT = TIMER_OFF;
+                }
+            }
+        }
+
+        if (soundB.isPlaying) {
+            soundB.vBlankCount++;
+            if (soundB.vBlankCount >= soundB.duration) {
+                if (soundB.loops) {
+                    playSoundB(soundB.data, soundB.length, soundB.loops);
+                } else {
+                    soundB.isPlaying = 0;
+                    dma[2].cnt = 0;
+                    REG_TM3CNT = TIMER_OFF;
+                }
+            }
+
+        }
+        REG_IF = INT_VBLANK;
+    }
+    
+    REG_IF = REG_IF;
+
+    REG_IME = 1;
+
+}
+
+void timerWait(int start, int frequency) {
+    REG_TM0CNT = TIMER_OFF;
+    REG_TM0D = start;
+    
+    switch (frequency) {
+        case 1:
+            REG_TM0CNT |= TM_FREQ_1;
+            break;
+        case 64:
+            REG_TM0CNT |= TM_FREQ_64;
+            break;
+        case 256:
+            REG_TM0CNT |= TM_FREQ_256;
+            break;
+        case 1024:
+            REG_TM0CNT |= TM_FREQ_1024;
+            break;
+    }
+
+    REG_TM0CNT |= TIMER_ON;
+    while (REG_TM0D < 65500);
+    REG_TM0CNT = TIMER_OFF;
+
 }

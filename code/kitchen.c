@@ -4,8 +4,10 @@
 
 STATIONARYSPRITE kitchenSpritesArr[KITCHEN_SPRITECOUNT];
 
-char pictureFrame[] = "Your aunt, in her infinitewisdom, only ever         'updated'the kitchen.";
-char refrigerator[] = "It's the key you were     looking for... but why wasit in the refrigerator?";
+char pictureFrame[] = "Your aunt, in her infinite wisdom, only ever 'updated' the kitchen.";
+char refrigerator_0[] = "Not much in here but... wait, is that the phone ringing?";
+char refrigerator_1[] = "It's the key you were looking for. You must have been distracted by the phone earlier. But why was it in the refrigerator?";
+char refrigerator_2[] = "Not much in here but ice cream.";
 
 //functions
 void initKitchenSprites() {
@@ -29,7 +31,7 @@ void initKitchenSprites() {
     kitchenSpritesArr[1].worldCol = 109;
     kitchenSpritesArr[1].hide = 1;
     kitchenSpritesArr[1].collisionColor = AQUA_HIT;
-    kitchenSpritesArr[1].message = &refrigerator;
+    kitchenSpritesArr[1].message = &refrigerator_0;
 
 }
 
@@ -62,4 +64,12 @@ void loadKitchen() {
     currSpriteArrCount = KITCHEN_SPRITECOUNT;
     currSpriteArr = &kitchenSpritesArr;
     currCollisionMap = &kitchencollisionBitmap;
+}
+
+void reassignRefrigeratorMessage() {
+    if (kitchenSpritesArr[1].message == &refrigerator_0) {
+        kitchenSpritesArr[1].message = &refrigerator_1;
+    } else {
+        kitchenSpritesArr[1].message = &refrigerator_2;
+    }
 }

@@ -17,6 +17,9 @@
 
 STATIONARYSPRITE computerSpritesArr[COMPUTER_SPRITECOUNT];
 PROTAGSPRITE mouse;
+char ruthEmailBool;
+char marleyEmailBool;
+extern char allEmailsBool;
 
 //load computer attributes
 void loadComputer() {
@@ -31,6 +34,9 @@ void loadComputer() {
 
     visMapWidth = 240;
     visMapHeight = 160;
+
+    ruthEmailBool = 0;
+    marleyEmailBool = 0;
 
     currCollisionMap = &desktopcollisionBitmap;
 
@@ -206,8 +212,7 @@ void updateMouse() {
     }
 
     mouse.screenCol = mouse.worldCol - hOff;
-    mouse.screenRow = mouse.worldRow - vOff;
-   
+    mouse.screenRow = mouse.worldRow - vOff;   
 }
 
 void checkComputerSpriteCollision() {
@@ -270,11 +275,17 @@ void loadSecondaryScreen() {
         DMANow(3, inboxruthTiles, &CHARBLOCK[0], inboxruthTilesLen / 2);
         DMANow(3, inboxruthMap, &SCREENBLOCK[24], 1024 * 4);
         currCollisionMap = &inboxmessagecollisionBitmap;
+        ruthEmailBool = 1;
     } else if (activeSprite == &computerSpritesArr[5]) {
         //marley email
         DMANow(3, inboxmarleyTiles, &CHARBLOCK[0], inboxmarleyTilesLen / 2);
         DMANow(3, inboxmarleyMap, &SCREENBLOCK[24], 1024 * 4);
         currCollisionMap = &inboxmessagecollisionBitmap;
+        marleyEmailBool = 1;
+    }
+
+    if (ruthEmailBool && marleyEmailBool) {
+        allEmailsBool = 1;
     }
 
     computerSpritesArr[3].screenRow = computerSpritesArr[3].worldRow;
