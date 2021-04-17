@@ -4,7 +4,9 @@
 #include "game.h"
 #include "colddarkmessagebg.h"
 #include "text.h"
+#include "sound.h"
 #include <string.h>
+#include "introdrone.h"
 
 int intervals[] = {418, 482, 546};
 unsigned short messageUnedited[255];
@@ -46,6 +48,8 @@ void initColdDark() {
 
 //CHAPTER 1: THE COLD DARK
 void chapterOneIntro() {
+    
+    playSoundA(introdrone_data, introdrone_length, 1);
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
@@ -216,10 +220,10 @@ void loadMessageUnedited() {
 
 //print the selected text
 void printColdText() {
-    REG_TM1CNT |= TIMER_OFF;
-    REG_TM1CNT = TM_FREQ_64;
-    REG_TM1D = 65536 - 11000;
-    REG_TM1CNT |= TM_IRQ | TIMER_ON;
+    REG_TM2CNT |= TIMER_OFF;
+    REG_TM2CNT = TM_FREQ_64;
+    REG_TM2D = 65536 - 11000;
+    REG_TM2CNT |= TM_IRQ | TIMER_ON;
     timerI = 0;
     timerJ = 418;
     while ((*activeMessage)[timerI] != '\0') {
@@ -233,7 +237,7 @@ void printColdText() {
         DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], 1024 * 4);
         
     }
-    REG_TM1CNT |= TIMER_OFF;
+    REG_TM2CNT |= TIMER_OFF;
 
 }
 
@@ -252,8 +256,9 @@ void chapterOneOutro() {
             DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
         }
     }
-
+    stopSoundA();
     timerWait(20000, 1024);
+    
 
     nextRoomBool = 1;
 }

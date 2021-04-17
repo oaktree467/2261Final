@@ -307,8 +307,8 @@ extern const unsigned short inboxmessagecollisionBitmap[65536];
 
 STATIONARYSPRITE computerSpritesArr[8];
 PROTAGSPRITE mouse;
-char ruthEmailBool;
-char marleyEmailBool;
+extern char ruthEmailBool;
+extern char marleyEmailBool;
 extern char allEmailsBool;
 
 
@@ -324,9 +324,6 @@ void loadComputer() {
 
     visMapWidth = 240;
     visMapHeight = 160;
-
-    ruthEmailBool = 0;
-    marleyEmailBool = 0;
 
     currCollisionMap = &desktopcollisionBitmap;
 
@@ -497,9 +494,9 @@ void updateMouse() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
         if (activeSprite != 
-# 209 "computer.c" 3 4
+# 206 "computer.c" 3 4
                            ((void *)0)
-# 209 "computer.c"
+# 206 "computer.c"
                                ) {
             loadSecondaryScreen();
         }
@@ -513,9 +510,9 @@ void checkComputerSpriteCollision() {
     u16 currColor = 0;
     currColor = checkCollisionMapColor(mouse.worldCol, mouse.worldRow);
     activeSprite = 
-# 221 "computer.c" 3 4
+# 218 "computer.c" 3 4
                   ((void *)0)
-# 221 "computer.c"
+# 218 "computer.c"
                       ;
 
     if (currColor != 0) {

@@ -182,8 +182,8 @@ loadComputer:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	r3, #0
-	mov	r0, #256
+	mov	ip, #0
+	mov	r3, #256
 	push	{r4, r5, r6, r7, r8, lr}
 	mov	r6, #240
 	mov	r5, #160
@@ -191,33 +191,29 @@ loadComputer:
 	mov	r4, #8
 	mov	lr, #11
 	mov	r2, #72
-	ldr	ip, .L11
+	ldr	r0, .L11
 	ldr	r7, .L11+4
-	ldrh	r8, [ip]
+	ldrh	r8, [r0]
+	strh	ip, [r0]	@ movhi
+	ldr	r0, .L11+8
 	strh	r8, [r7]	@ movhi
-	ldr	r7, .L11+8
-	strh	r3, [ip]	@ movhi
-	strb	r3, [r7]
-	ldr	ip, .L11+12
-	ldr	r7, .L11+16
-	strb	r3, [r7]
-	ldrh	r7, [ip]
-	strh	r3, [ip]	@ movhi
-	ldr	r3, .L11+20
-	strh	r7, [r3]	@ movhi
+	ldrh	r7, [r0]
+	strh	ip, [r0]	@ movhi
+	ldr	r0, .L11+12
+	strh	r7, [r0]	@ movhi
+	ldr	r0, .L11+16
+	str	r3, [r0]
+	ldr	r0, .L11+20
+	str	r3, [r0]
 	ldr	r3, .L11+24
-	str	r0, [r3]
-	ldr	r3, .L11+28
-	str	r0, [r3]
-	ldr	r3, .L11+32
 	str	r6, [r3]
-	ldr	r3, .L11+36
+	ldr	r3, .L11+28
 	str	r5, [r3]
-	ldr	r3, .L11+40
-	ldr	r0, .L11+44
+	ldr	r3, .L11+32
+	ldr	r0, .L11+36
 	str	r1, [r3, #4]
 	str	r1, [r3, #12]
-	ldr	r1, .L11+48
+	ldr	r1, .L11+40
 	str	r4, [r3, #16]
 	str	lr, [r3, #20]
 	pop	{r4, r5, r6, r7, r8, lr}
@@ -230,9 +226,7 @@ loadComputer:
 .L11:
 	.word	hOff
 	.word	priorHoff
-	.word	ruthEmailBool
 	.word	vOff
-	.word	marleyEmailBool
 	.word	priorVoff
 	.word	totalMapWidth
 	.word	totalMapHeight
@@ -747,8 +741,6 @@ updateComputer:
 	pop	{r4, lr}
 	b	checkComputerSpriteCollision
 	.size	updateComputer, .-updateComputer
-	.comm	marleyEmailBool,1,1
-	.comm	ruthEmailBool,1,1
 	.comm	mouse,48,4
 	.comm	computerSpritesArr,416,4
 	.comm	state,4,4

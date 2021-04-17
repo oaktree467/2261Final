@@ -221,7 +221,7 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
+void safeText(char msg[]);
 # 5 "safe.c" 2
 # 1 "text.h" 1
 extern int letterMap[95];
@@ -271,6 +271,7 @@ int cursor;
 int answerCode[4] = {2, 0, 0, 1};
 int enteredCode[4] = {0, 0, 0, 0};
 char sm_1[] = "Your secret safe. It looks like you need a key and a code." ;
+char sm_2[] = "The safe clicks open. You have your documents.";
 char openSafeBool;
 char introMessageBool;
 extern char keyFound;
@@ -282,7 +283,7 @@ void loadSafe() {
     cursor = 0;
     openSafeBool = 0;
     if (!keyFound) {
-        safeText();
+        safeText(sm_1);
         introMessageBool = 0;
         (*(volatile unsigned short *)0x4000000) |= (1<<8);
     } else {
@@ -449,6 +450,7 @@ void updateCursor() {
             if (checkCode() && keyFound) {
                 openSafeBool = 1;
                 playSoundB(safesfx_data, safesfx_length, 0);
+                safeText(sm_2);
             } else {
                 for (int i = 0; i < 4; i++) {
                     codeNumbers[i]->sheetRow = 0;
@@ -472,22 +474,23 @@ int checkCode() {
     return 1;
 }
 
-void safeText() {
+void safeText(char msg[]) {
     clearSafeMessage();
     int i = 0;
     int j = 418;
-    while (sm_1[i] != '\0') {
+    while (msg[i] != '\0') {
 
         if ((j - 444) % 32 == 0) {
             j += 6;
         }
 
-        messagescreenMap[j] = messagescreenMap[(letterMap[((sm_1[i]) - 32)])];
+        messagescreenMap[j] = messagescreenMap[(letterMap[((msg[i]) - 32)])];
         i++;
         j++;
     }
 
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    messageActiveBool = 1;
 }
 
 void clearSafeMessage() {

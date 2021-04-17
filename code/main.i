@@ -1609,7 +1609,7 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
+void safeText(char msg[]);
 # 66 "main.c" 2
 # 1 "instructionscreen.h" 1
 # 22 "instructionscreen.h"
@@ -1764,6 +1764,41 @@ void initBedroomSprites();
 void loadBedroom();
 void safeOpenMessage();
 # 79 "main.c" 2
+# 1 "sound.h" 1
+void setupSounds();
+void playSoundA(const signed char* sound, int length, int loops);
+void playSoundB(const signed char* sound, int length, int loops);
+
+void setupInterrupts();
+void interruptHandler();
+
+void pauseSound();
+void unpauseSound();
+void stopSound();
+void stopSoundA();
+void stopSoundB();
+# 51 "sound.h"
+typedef struct{
+    const signed char* data;
+    int length;
+    int frequency;
+    int isPlaying;
+    int loops;
+    int duration;
+    int priority;
+    int vBlankCount;
+} SOUND;
+
+SOUND soundA;
+SOUND soundB;
+# 80 "main.c" 2
+# 1 "introdrone.h" 1
+
+
+extern const unsigned int introdrone_sampleRate;
+extern const unsigned int introdrone_length;
+extern const signed char introdrone_data[];
+# 81 "main.c" 2
 
 
 int priorState;
@@ -1848,7 +1883,7 @@ int main() {
             win();
             break;
         }
-# 186 "main.c"
+# 188 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
@@ -1949,7 +1984,6 @@ void goToIntro() {
 
 
 void intro() {
-
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
@@ -2156,7 +2190,12 @@ void safe() {
     drawSafeSprites();
 
     if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1)))) || openSafeBool) {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+        if (openSafeBool) {
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        } else {
+            (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
+            messageActiveBool = 0;
+        }
         goToBedroom();
     }
 }

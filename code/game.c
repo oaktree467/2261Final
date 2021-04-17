@@ -31,7 +31,9 @@ char documentsFound;
 char phoneRinging;
 char documentsUploaded;
 char computerAccessBool;
-char phoneAnswerBool;
+char phoneAnswerBool; 
+char ruthEmailBool;
+char marleyEmailBool;
 char allEmailsBool;
 
 
@@ -49,8 +51,8 @@ int mode;
 //int mode;
 //initialize game
 void initGame(){
-    keyFound = 0;
     enableKeyFind = 0;
+    keyFound = 0;
     phoneRinging = 0;
     documentsFound = 0;
     documentsUploaded = 0;
@@ -58,6 +60,8 @@ void initGame(){
     messageActiveBool = 0;
     nextRoomBool = 0;
     computerAccessBool = 0;
+    ruthEmailBool = 0;
+    marleyEmailBool = 0;
     allEmailsBool = 0;
     mode = 0;
     initProtagonist();
@@ -77,6 +81,7 @@ void initProtagonist() {
     protag.sideOrientation = LEFTORIENTATION; //tells OAM to flip side sprite or not
 }
 
+//update all game aspects
 void updateGame() {
     checkThreshold();
     updateProtagonist();
@@ -84,11 +89,11 @@ void updateGame() {
     checkSpriteCollision();
 }
 
+//draw all game aspects
 void drawGame() {
     drawProtagonist();
     drawSprites();
 }
-
 
 //read in protagonist movements based on button presses
 void updateProtagonist() {
@@ -100,6 +105,7 @@ void updateProtagonist() {
         protag.currFrame = ((protag.currFrame + 1) % protag.totalFrames);
     }
 
+    
     if (phoneAnswerBool) {
         stopSoundB();
         answerPhone();
@@ -212,6 +218,7 @@ void drawSprites() {
         }
     }
 
+    //if phone ringing, activate ringing animation
     if (phoneRinging) {
         drawRing();
     }
@@ -262,6 +269,7 @@ void checkSpriteCollision() {
     }
 }
 
+
 void checkMoreInfo() {
     if (spriteCollisionBool) {
         //if protagonist is in the bedroom, and the safe has not yet been opened
@@ -277,12 +285,14 @@ void checkMoreInfo() {
             phoneAnswerBool = 1;
             REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
         } else {
-            //if the protagonist finds the key
+            //if the protagonist checks the refrigerator the first time, enableKeyFind
             if (activeSprite == &kitchenSpritesArr[1]) {
                 if (!enableKeyFind) {
                     phoneRinging = 1;
                     playSoundB(phonering_data, phonering_length, 1);
                 } else {
+                    //if the protagonist checks the refrigerator a second time after answering the phone,
+                    //the key is found
                     if (!keyFound){
                         keyFound = 1;
                     }
@@ -298,6 +308,7 @@ void checkMoreInfo() {
     }
 }
 
+//check if the player is entering into another part of the game
 void checkThreshold() {
     if (state == LIVING_ROOM) {
         if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
@@ -320,6 +331,8 @@ void checkThreshold() {
     }
 }
 
+
+//print message text to BG0
 void printText() {
     clearMessage();
     int i = 0;
@@ -355,6 +368,7 @@ void printText() {
     DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
 }
 
+//clear the prior message
 void clearMessage() {
     for (int i = 418; i < 604; i++) {
         if ((i - 444) % 32 == 0) {
@@ -365,6 +379,7 @@ void clearMessage() {
     
 }
 
+//enabling interrupts
 void setUpInterrupts() {
     REG_IME = 0;
 
@@ -375,9 +390,11 @@ void setUpInterrupts() {
 
 }
 
+//defining how interrupts should be handled
 void interruptHandler() {
     REG_IME = 0;
     
+    //text animation in intro
     if (REG_IF & INT_TM1) {
         if (state == INTRO) {
             timerI++;
@@ -385,7 +402,12 @@ void interruptHandler() {
         }
     }
 
+    //ring animation in living room
     if (REG_IF & INT_TM2) {
+        if (state == INTRO) {
+            timerI++;
+            timerJ++;
+        }
         if (state == LIVING_ROOM) {
                 phoneRingSpritesArr[currRing].hide = 1;
             if (currRing < RING_SPRITECOUNT) {
@@ -398,17 +420,16 @@ void interruptHandler() {
         } 
     }
 
+    //intro animation 
     if (REG_IF & INT_DMA3) {
-        REG_TM0CNT |= TIMER_OFF;
-        REG_TM0D = 30000;
-        REG_TM0CNT |= TM_FREQ_64 | TIMER_ON;
-        while (REG_TM0D < 65500);
+        timerWait(30000, 64);
     }
 
+    //handling sounds
     if(REG_IF & INT_VBLANK) {
         if (soundA.isPlaying) {
             soundA.vBlankCount++;
-            if (soundA.vBlankCount >= soundA.duration) {
+            if (soundA.vBlankCount > soundA.duration - 2) {
                 if (soundA.loops) {
                     playSoundA(soundA.data, soundA.length, soundA.loops);
                 } else {
@@ -421,7 +442,7 @@ void interruptHandler() {
 
         if (soundB.isPlaying) {
             soundB.vBlankCount++;
-            if (soundB.vBlankCount >= soundB.duration) {
+            if (soundB.vBlankCount > soundB.duration - 2) {
                 if (soundB.loops) {
                     playSoundB(soundB.data, soundB.length, soundB.loops);
                 } else {
@@ -441,27 +462,28 @@ void interruptHandler() {
 
 }
 
+//general purpose timer function for if the player needs to wait for something
 void timerWait(int start, int frequency) {
-    REG_TM0CNT = TIMER_OFF;
-    REG_TM0D = start;
+    REG_TM3CNT = TIMER_OFF;
+    REG_TM3D = start;
     
     switch (frequency) {
         case 1:
-            REG_TM0CNT |= TM_FREQ_1;
+            REG_TM3CNT |= TM_FREQ_1;
             break;
         case 64:
-            REG_TM0CNT |= TM_FREQ_64;
+            REG_TM3CNT |= TM_FREQ_64;
             break;
         case 256:
-            REG_TM0CNT |= TM_FREQ_256;
+            REG_TM3CNT |= TM_FREQ_256;
             break;
         case 1024:
-            REG_TM0CNT |= TM_FREQ_1024;
+            REG_TM3CNT |= TM_FREQ_1024;
             break;
     }
 
-    REG_TM0CNT |= TIMER_ON;
-    while (REG_TM0D < 65500);
-    REG_TM0CNT = TIMER_OFF;
+    REG_TM3CNT |= TIMER_ON;
+    while (REG_TM3D < 65500);
+    REG_TM3CNT = TIMER_OFF;
 
 }

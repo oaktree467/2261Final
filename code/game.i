@@ -366,6 +366,8 @@ char phoneRinging;
 char documentsUploaded;
 char computerAccessBool;
 char phoneAnswerBool;
+char ruthEmailBool;
+char marleyEmailBool;
 char allEmailsBool;
 
 
@@ -383,8 +385,8 @@ int mode;
 
 
 void initGame(){
-    keyFound = 0;
     enableKeyFind = 0;
+    keyFound = 0;
     phoneRinging = 0;
     documentsFound = 0;
     documentsUploaded = 0;
@@ -392,6 +394,8 @@ void initGame(){
     messageActiveBool = 0;
     nextRoomBool = 0;
     computerAccessBool = 0;
+    ruthEmailBool = 0;
+    marleyEmailBool = 0;
     allEmailsBool = 0;
     mode = 0;
     initProtagonist();
@@ -411,6 +415,7 @@ void initProtagonist() {
     protag.sideOrientation = 1;
 }
 
+
 void updateGame() {
     checkThreshold();
     updateProtagonist();
@@ -418,11 +423,11 @@ void updateGame() {
     checkSpriteCollision();
 }
 
+
 void drawGame() {
     drawProtagonist();
     drawSprites();
 }
-
 
 
 void updateProtagonist() {
@@ -433,6 +438,7 @@ void updateProtagonist() {
     if (protag.aniCounter % 10 == 0) {
         protag.currFrame = ((protag.currFrame + 1) % protag.totalFrames);
     }
+
 
     if (phoneAnswerBool) {
         stopSoundB();
@@ -546,6 +552,7 @@ void drawSprites() {
         }
     }
 
+
     if (phoneRinging) {
         drawRing();
     }
@@ -596,6 +603,7 @@ void checkSpriteCollision() {
     }
 }
 
+
 void checkMoreInfo() {
     if (spriteCollisionBool) {
 
@@ -617,6 +625,8 @@ void checkMoreInfo() {
                     phoneRinging = 1;
                     playSoundB(phonering_data, phonering_length, 1);
                 } else {
+
+
                     if (!keyFound){
                         keyFound = 1;
                     }
@@ -631,6 +641,7 @@ void checkMoreInfo() {
         (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
     }
 }
+
 
 void checkThreshold() {
     if (state == LIVING_ROOM) {
@@ -653,6 +664,8 @@ void checkThreshold() {
         }
     }
 }
+
+
 
 void printText() {
     clearMessage();
@@ -689,6 +702,7 @@ void printText() {
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
 }
 
+
 void clearMessage() {
     for (int i = 418; i < 604; i++) {
         if ((i - 444) % 32 == 0) {
@@ -698,6 +712,7 @@ void clearMessage() {
     }
 
 }
+
 
 void setUpInterrupts() {
     *(unsigned short*)0x4000208 = 0;
@@ -709,8 +724,10 @@ void setUpInterrupts() {
 
 }
 
+
 void interruptHandler() {
     *(unsigned short*)0x4000208 = 0;
+
 
     if (*(volatile unsigned short*)0x4000202 & 1<<4) {
         if (state == INTRO) {
@@ -719,7 +736,12 @@ void interruptHandler() {
         }
     }
 
+
     if (*(volatile unsigned short*)0x4000202 & 1<<5) {
+        if (state == INTRO) {
+            timerI++;
+            timerJ++;
+        }
         if (state == LIVING_ROOM) {
                 phoneRingSpritesArr[currRing].hide = 1;
             if (currRing < 4) {
@@ -732,17 +754,16 @@ void interruptHandler() {
         }
     }
 
+
     if (*(volatile unsigned short*)0x4000202 & 1<<11) {
-        *(volatile unsigned short*)0x4000102 |= (0<<7);
-        *(volatile unsigned short*)0x4000100 = 30000;
-        *(volatile unsigned short*)0x4000102 |= 1 | (1<<7);
-        while (*(volatile unsigned short*)0x4000100 < 65500);
+        timerWait(30000, 64);
     }
+
 
     if(*(volatile unsigned short*)0x4000202 & 1 << 0) {
         if (soundA.isPlaying) {
             soundA.vBlankCount++;
-            if (soundA.vBlankCount >= soundA.duration) {
+            if (soundA.vBlankCount > soundA.duration - 2) {
                 if (soundA.loops) {
                     playSoundA(soundA.data, soundA.length, soundA.loops);
                 } else {
@@ -755,7 +776,7 @@ void interruptHandler() {
 
         if (soundB.isPlaying) {
             soundB.vBlankCount++;
-            if (soundB.vBlankCount >= soundB.duration) {
+            if (soundB.vBlankCount > soundB.duration - 2) {
                 if (soundB.loops) {
                     playSoundB(soundB.data, soundB.length, soundB.loops);
                 } else {
@@ -775,27 +796,28 @@ void interruptHandler() {
 
 }
 
+
 void timerWait(int start, int frequency) {
-    *(volatile unsigned short*)0x4000102 = (0<<7);
-    *(volatile unsigned short*)0x4000100 = start;
+    *(volatile unsigned short*)0x400010E = (0<<7);
+    *(volatile unsigned short*)0x400010C = start;
 
     switch (frequency) {
         case 1:
-            *(volatile unsigned short*)0x4000102 |= 0;
+            *(volatile unsigned short*)0x400010E |= 0;
             break;
         case 64:
-            *(volatile unsigned short*)0x4000102 |= 1;
+            *(volatile unsigned short*)0x400010E |= 1;
             break;
         case 256:
-            *(volatile unsigned short*)0x4000102 |= 2;
+            *(volatile unsigned short*)0x400010E |= 2;
             break;
         case 1024:
-            *(volatile unsigned short*)0x4000102 |= 3;
+            *(volatile unsigned short*)0x400010E |= 3;
             break;
     }
 
-    *(volatile unsigned short*)0x4000102 |= (1<<7);
-    while (*(volatile unsigned short*)0x4000100 < 65500);
-    *(volatile unsigned short*)0x4000102 = (0<<7);
+    *(volatile unsigned short*)0x400010E |= (1<<7);
+    while (*(volatile unsigned short*)0x400010C < 65500);
+    *(volatile unsigned short*)0x400010E = (0<<7);
 
 }

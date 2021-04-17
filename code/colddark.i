@@ -239,6 +239,34 @@ extern const unsigned short colddarkmessagebgPal[256];
 # 1 "text.h" 1
 extern int letterMap[95];
 # 7 "colddark.c" 2
+# 1 "sound.h" 1
+void setupSounds();
+void playSoundA(const signed char* sound, int length, int loops);
+void playSoundB(const signed char* sound, int length, int loops);
+
+void setupInterrupts();
+void interruptHandler();
+
+void pauseSound();
+void unpauseSound();
+void stopSound();
+void stopSoundA();
+void stopSoundB();
+# 51 "sound.h"
+typedef struct{
+    const signed char* data;
+    int length;
+    int frequency;
+    int isPlaying;
+    int loops;
+    int duration;
+    int priority;
+    int vBlankCount;
+} SOUND;
+
+SOUND soundA;
+SOUND soundB;
+# 8 "colddark.c" 2
 # 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 1 3
 # 10 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
 # 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/_ansi.h" 1 3
@@ -916,10 +944,17 @@ char *strsignal (int __signo);
 # 176 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 2 3
 
 
-# 8 "colddark.c" 2
+# 9 "colddark.c" 2
+# 1 "introdrone.h" 1
 
 
-# 9 "colddark.c"
+
+# 3 "introdrone.h"
+extern const unsigned int introdrone_sampleRate;
+extern const unsigned int introdrone_length;
+extern const signed char introdrone_data[];
+# 10 "colddark.c" 2
+
 int intervals[] = {418, 482, 546};
 unsigned short messageUnedited[255];
 unsigned short cdmessageMapCopy[2048];
@@ -960,6 +995,8 @@ void initColdDark() {
 
 
 void chapterOneIntro() {
+
+    playSoundA(introdrone_data, introdrone_length, 1);
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
@@ -1130,10 +1167,10 @@ void loadMessageUnedited() {
 
 
 void printColdText() {
-    *(volatile unsigned short*)0x4000106 |= (0<<7);
-    *(volatile unsigned short*)0x4000106 = 1;
-    *(volatile unsigned short*)0x4000104 = 65536 - 11000;
-    *(volatile unsigned short*)0x4000106 |= (1<<6) | (1<<7);
+    *(volatile unsigned short*)0x400010A |= (0<<7);
+    *(volatile unsigned short*)0x400010A = 1;
+    *(volatile unsigned short*)0x4000108 = 65536 - 11000;
+    *(volatile unsigned short*)0x400010A |= (1<<6) | (1<<7);
     timerI = 0;
     timerJ = 418;
     while ((*activeMessage)[timerI] != '\0') {
@@ -1147,7 +1184,7 @@ void printColdText() {
         DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 1024 * 4);
 
     }
-    *(volatile unsigned short*)0x4000106 |= (0<<7);
+    *(volatile unsigned short*)0x400010A |= (0<<7);
 
 }
 
@@ -1166,8 +1203,9 @@ void chapterOneOutro() {
             DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], ((1 << 30) | (1024 * 4)));
         }
     }
-
+    stopSoundA();
     timerWait(20000, 1024);
+
 
     nextRoomBool = 1;
 }

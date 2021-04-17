@@ -17,8 +17,8 @@
 
 STATIONARYSPRITE computerSpritesArr[COMPUTER_SPRITECOUNT];
 PROTAGSPRITE mouse;
-char ruthEmailBool;
-char marleyEmailBool;
+extern char ruthEmailBool;
+extern char marleyEmailBool;
 extern char allEmailsBool;
 
 //load computer attributes
@@ -34,9 +34,6 @@ void loadComputer() {
 
     visMapWidth = 240;
     visMapHeight = 160;
-
-    ruthEmailBool = 0;
-    marleyEmailBool = 0;
 
     currCollisionMap = &desktopcollisionBitmap;
 

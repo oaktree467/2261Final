@@ -76,6 +76,8 @@
 #include "computersprites.h"
 #include "computer.h"
 #include "bedroom.h"
+#include "sound.h"
+#include "introdrone.h"
 
 //extern int mode;
 int priorState; 
@@ -283,7 +285,6 @@ void goToIntro() {
 
 //runs every frame of the intro state
 void intro() {
-    
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
@@ -490,7 +491,12 @@ void safe() {
     drawSafeSprites();
     
     if (BUTTON_PRESSED(BUTTON_B) || openSafeBool) {
-        REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+        if (openSafeBool) {
+            REG_DISPCTL |= BG0_ENABLE;
+        } else {
+            REG_DISPCTL &= ~(BG0_ENABLE);
+            messageActiveBool = 0;
+        }
         goToBedroom();
     }
 }

@@ -872,22 +872,38 @@ safe:
 	ldr	r3, .L88+8
 	ldrh	r3, [r3]
 	tst	r3, #2
-	beq	.L78
-	ldr	r3, .L88+12
-	ldrh	r3, [r3]
-	tst	r3, #2
 	bne	.L78
+	ldr	r3, .L88+12
+	ldrb	r3, [r3]	@ zero_extendqisi2
 .L79:
-	mov	r3, #67108864
-	mov	r2, #4608
+	cmp	r3, #0
+	beq	.L87
+.L81:
+	mov	r2, #67108864
+	ldrh	r3, [r2]
+	orr	r3, r3, #256
+	strh	r3, [r2]	@ movhi
 	pop	{r4, lr}
-	strh	r2, [r3]	@ movhi
 	b	goToBedroom
 .L78:
 	ldr	r3, .L88+16
+	ldrh	r2, [r3]
+	ldr	r3, .L88+12
+	tst	r2, #2
 	ldrb	r3, [r3]	@ zero_extendqisi2
-	cmp	r3, #0
 	bne	.L79
+	cmp	r3, #0
+	bne	.L81
+	mov	r1, #67108864
+	ldr	r2, .L88+20
+	ldrh	ip, [r1]
+	ldr	r0, .L88+24
+	and	r2, r2, ip
+	strh	r2, [r1]	@ movhi
+	pop	{r4, lr}
+	str	r3, [r0]
+	b	goToBedroom
+.L87:
 	pop	{r4, lr}
 	bx	lr
 .L89:
@@ -896,8 +912,10 @@ safe:
 	.word	updateCursor
 	.word	drawSafeSprites
 	.word	oldButtons
-	.word	buttons
 	.word	openSafeBool
+	.word	buttons
+	.word	65279
+	.word	messageActiveBool
 	.size	safe, .-safe
 	.align	2
 	.global	goToOutro
@@ -1608,5 +1626,7 @@ win:
 	.comm	oldButtons,2,2
 	.comm	buttons,2,2
 	.comm	priorState,4,4
+	.comm	soundB,32,4
+	.comm	soundA,32,4
 	.comm	state,4,4
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

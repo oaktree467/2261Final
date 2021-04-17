@@ -218,13 +218,13 @@ printColdText:
 	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	ldr	r3, .L40
 	ldr	r0, .L40+4
-	ldrh	r2, [r3, #6]
-	strh	r2, [r3, #6]	@ movhi
-	strh	ip, [r3, #6]	@ movhi
-	strh	r0, [r3, #4]	@ movhi
-	ldrh	r2, [r3, #6]
+	ldrh	r2, [r3, #10]
+	strh	r2, [r3, #10]	@ movhi
+	strh	ip, [r3, #10]	@ movhi
+	strh	r0, [r3, #8]	@ movhi
+	ldrh	r2, [r3, #10]
 	orr	r2, r2, #192
-	strh	r2, [r3, #6]	@ movhi
+	strh	r2, [r3, #10]	@ movhi
 	ldr	r7, .L40+8
 	ldr	r6, .L40+12
 	ldr	r5, .L40+16
@@ -267,8 +267,8 @@ printColdText:
 	b	.L33
 .L36:
 	ldr	r2, .L40
-	ldrh	r3, [r2, #6]
-	strh	r3, [r2, #6]	@ movhi
+	ldrh	r3, [r2, #10]
+	strh	r3, [r2, #10]	@ movhi
 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
 .L41:
@@ -437,12 +437,15 @@ chapterOneOutro:
 	bne	.L58
 .L63:
 	ldr	r3, .L64+24
+	mov	lr, pc
+	bx	r3
+	ldr	r3, .L64+28
 	mov	r1, #1024
-	ldr	r0, .L64+28
+	ldr	r0, .L64+32
 	mov	lr, pc
 	bx	r3
 	mov	r2, #1
-	ldr	r3, .L64+32
+	ldr	r3, .L64+36
 	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
 	str	r2, [r3]
 	bx	lr
@@ -455,6 +458,7 @@ chapterOneOutro:
 	.word	cdmessageMapCopy-2
 	.word	1073745920
 	.word	100712448
+	.word	stopSoundA
 	.word	timerWait
 	.word	20000
 	.word	nextRoomBool
@@ -671,12 +675,19 @@ chapterOneIntro:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	ldr	r5, .L94
+	ldr	r3, .L94+4
+	mov	r2, #1
+	ldr	r1, [r3]
+	ldr	r0, .L94+8
+	ldr	r3, .L94+12
 	add	r7, r5, #1280
-	mov	r4, #0
+	mov	lr, pc
+	bx	r3
 	mov	r6, r5
-	ldr	r8, .L94+4
-	ldr	fp, .L94+8
-	ldr	r10, .L94+12
+	mov	r4, #0
+	ldr	r8, .L94+16
+	ldr	fp, .L94+20
+	ldr	r10, .L94+24
 	add	r7, r7, #2
 	add	r9, r5, #2
 	b	.L86
@@ -698,15 +709,15 @@ chapterOneIntro:
 	cmp	r4, #600
 	bne	.L86
 .L92:
-	ldr	r6, .L94+16
+	ldr	r6, .L94+28
 	mov	r1, #64
-	ldr	r0, .L94+20
-	ldr	r3, .L94+24
+	ldr	r0, .L94+32
+	ldr	r3, .L94+36
 	mov	lr, pc
 	bx	r3
 	mov	r4, #0
-	ldr	r10, .L94+8
-	ldr	r9, .L94+12
+	ldr	r10, .L94+20
+	ldr	r9, .L94+24
 	sub	r7, r6, #1408
 	b	.L88
 .L87:
@@ -730,13 +741,13 @@ chapterOneIntro:
 	mov	r3, #2240
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L94+28
+	ldr	r1, .L94+40
 	mov	lr, pc
 	bx	r8
 	mov	r3, #4096
 	mov	r0, #3
-	ldr	r2, .L94+32
-	ldr	r1, .L94+36
+	ldr	r2, .L94+44
+	ldr	r1, .L94+48
 	mov	lr, pc
 	bx	r8
 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
@@ -745,6 +756,9 @@ chapterOneIntro:
 	.align	2
 .L94:
 	.word	blackbgMap-2
+	.word	introdrone_length
+	.word	introdrone_data
+	.word	playSoundA
 	.word	DMANow
 	.word	1073745920
 	.word	100704256
@@ -886,6 +900,8 @@ updateColdDark:
 	.comm	cdmessageMapCopy,4096,4
 	.comm	messageUnedited,510,4
 	.global	intervals
+	.comm	soundB,32,4
+	.comm	soundA,32,4
 	.comm	state,4,4
 	.data
 	.align	2
