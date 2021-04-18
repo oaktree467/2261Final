@@ -7,7 +7,6 @@
 
 
 extern int intervals[];
-extern char (* activeMessage)[];
 extern int nextRoomBool;
 
 void initColdDark();
@@ -130,11 +129,12 @@ typedef void (*ihp)(void);
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
 # 4 "colddark.c" 2
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -201,6 +201,7 @@ extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
 extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
@@ -964,7 +965,6 @@ int timerI;
 int timerJ;
 int stage;
 int nonInteractText;
-
 char (* activeMessage)[];
 char sniff[] = "It only smells...         well, cold.";
 char moveForward[] = "You can't move your arms, or your legs. Everything  feels rigid.";

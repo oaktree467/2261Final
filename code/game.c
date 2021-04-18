@@ -35,6 +35,7 @@ char phoneAnswerBool;
 char ruthEmailBool;
 char marleyEmailBool;
 char allEmailsBool;
+char livingRoomOutroBool;
 
 
 unsigned short priorHoff;
@@ -63,6 +64,7 @@ void initGame(){
     ruthEmailBool = 0;
     marleyEmailBool = 0;
     allEmailsBool = 0;
+    livingRoomOutroBool = 0;
     mode = 0;
     initProtagonist();
     setUpInterrupts();
@@ -314,7 +316,13 @@ void checkThreshold() {
         if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == MAROON_HIT) {
             nextRoomBool = 1;
-        }   
+        }
+        //triggering the living room outro
+        if (((checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == PEACH_HIT) || (checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height) 
+            == PEACH_HIT)) && (allEmailsBool)) {
+                livingRoomOutroBool = 1;
+            }
     } else if (state == KITCHEN) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == LIME_HIT) {
@@ -404,7 +412,7 @@ void interruptHandler() {
 
     //ring animation in living room
     if (REG_IF & INT_TM2) {
-        if (state == INTRO) {
+        if (state == INTRO || state == LR_OUTRO) {
             timerI++;
             timerJ++;
         }

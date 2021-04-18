@@ -78,6 +78,8 @@
 #include "bedroom.h"
 #include "sound.h"
 #include "introdrone.h"
+#include "outrosprites.h"
+#include "livingroomoutro.h"
 
 //extern int mode;
 int priorState; 
@@ -100,8 +102,8 @@ void goToBedroom();
 void bedroom();
 void goToSafe();
 void safe();
-void goToOutro();
-void outro();
+void goToLivingRoomOutro();
+void livingRoomOutro();
 void goToPause();
 void pause();
 void goToWin();
@@ -152,8 +154,8 @@ int main() {
         case SAFE:
             safe();
             break;
-        case OUTRO:
-            outro();
+        case LR_OUTRO:
+            livingRoomOutro();
             break;
         case PAUSE:
             pause();
@@ -347,8 +349,8 @@ void livingRoom() {
         goToComputer();
     }
 
-    if (allEmailsBool) {
-        goToOutro();
+    if (livingRoomOutroBool) {
+        goToLivingRoomOutro();
     }
 
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
@@ -423,7 +425,7 @@ void kitchen() {
 
     /* temporary */
     if (BUTTON_PRESSED(BUTTON_R)) {
-        goToOutro();
+        goToLivingRoomOutro();
     }
 }
 
@@ -502,27 +504,18 @@ void safe() {
 }
 
 //sets up the outro state
-void goToOutro() {
-    vOff = 0;
-    hOff = 0;
-    state = OUTRO;
+void goToLivingRoomOutro() {
+    state = LR_OUTRO;
     hideSprites();
-    
-    DMANow(3, outroscreenPal, PALETTE, 256);
-    DMANow(3, outroscreenTiles, &CHARBLOCK[1], outroscreenTilesLen / 2);
-    DMANow(3, outroscreenMap, &SCREENBLOCK[26], 1024 * 4);
-
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    initLivingRoomOutro();
+    DMANow(3, outrospritesPal, SPRITEPALETTE, outrospritesPalLen / 2);
+    DMANow(3, outrospritesTiles, &CHARBLOCK[4], outrospritesTilesLen / 2);
 }
 
-//runs every frame of the outro state
-void outro() {
-    if (BUTTON_PRESSED(BUTTON_A)) {
-        goToWin();
-    }
-    if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goToPause();
-    }
+//runs every frame of the living room outro state
+void livingRoomOutro() {
+    updateOutro();
+    drawOutroSprites();
 
 }
 
@@ -560,8 +553,8 @@ void pause() {
             case BEDROOM:
                 goToBedroom();
                 break;
-            case OUTRO:
-                goToOutro();
+            case LR_OUTRO:
+                goToLivingRoomOutro();
                 break;
         }
     }

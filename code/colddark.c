@@ -17,7 +17,6 @@ int timerI;
 int timerJ;
 int stage; //what stage the text is in (interactive or not)
 int nonInteractText; //if the text is non-interactive, which text is it?
-
 char (* activeMessage)[];
 char sniff[] = "It only smells...         well, cold.";
 char moveForward[] = "You can't move your arms, or your legs. Everything  feels rigid.";

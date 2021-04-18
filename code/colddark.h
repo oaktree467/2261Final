@@ -2,7 +2,6 @@
 #define B_HIGHLIGHT 706
 
 extern int intervals[];
-extern char (* activeMessage)[];
 extern int nextRoomBool;
 
 void initColdDark();

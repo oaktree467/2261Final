@@ -1388,11 +1388,12 @@ extern const unsigned short livingroombgPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 54 "main.c" 2
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -1459,6 +1460,7 @@ extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
 extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
@@ -1686,7 +1688,6 @@ extern const unsigned short colddarkmessagebgPal[256];
 
 
 extern int intervals[];
-extern char (* activeMessage)[];
 extern int nextRoomBool;
 
 void initColdDark();
@@ -1799,6 +1800,23 @@ extern const unsigned int introdrone_sampleRate;
 extern const unsigned int introdrone_length;
 extern const signed char introdrone_data[];
 # 81 "main.c" 2
+# 1 "outrosprites.h" 1
+# 21 "outrosprites.h"
+extern const unsigned short outrospritesTiles[16384];
+
+
+extern const unsigned short outrospritesPal[256];
+# 82 "main.c" 2
+# 1 "livingroomoutro.h" 1
+void drawOutroSprites();
+void updateOutroSprites();
+void updateOutro();
+void waitForKeyPress();
+void initLivingRoomOutro();
+void initMessageOutro();
+void initProtagonistOutro();
+void initMarsOutro();
+# 83 "main.c" 2
 
 
 int priorState;
@@ -1821,8 +1839,8 @@ void goToBedroom();
 void bedroom();
 void goToSafe();
 void safe();
-void goToOutro();
-void outro();
+void goToLivingRoomOutro();
+void livingRoomOutro();
 void goToPause();
 void pause();
 void goToWin();
@@ -1873,8 +1891,8 @@ int main() {
         case SAFE:
             safe();
             break;
-        case OUTRO:
-            outro();
+        case LR_OUTRO:
+            livingRoomOutro();
             break;
         case PAUSE:
             pause();
@@ -1883,7 +1901,7 @@ int main() {
             win();
             break;
         }
-# 188 "main.c"
+# 190 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
@@ -2046,8 +2064,8 @@ void livingRoom() {
         goToComputer();
     }
 
-    if (allEmailsBool) {
-        goToOutro();
+    if (livingRoomOutroBool) {
+        goToLivingRoomOutro();
     }
 
     if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
@@ -2122,7 +2140,7 @@ void kitchen() {
 
 
     if ((!(~(oldButtons)&((1<<8))) && (~buttons & ((1<<8))))) {
-        goToOutro();
+        goToLivingRoomOutro();
     }
 }
 
@@ -2201,27 +2219,18 @@ void safe() {
 }
 
 
-void goToOutro() {
-    vOff = 0;
-    hOff = 0;
-    state = OUTRO;
+void goToLivingRoomOutro() {
+    state = LR_OUTRO;
     hideSprites();
-
-    DMANow(3, outroscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, outroscreenTiles, &((charblock *)0x6000000)[1], 3008 / 2);
-    DMANow(3, outroscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
-
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    initLivingRoomOutro();
+    DMANow(3, outrospritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, outrospritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 }
 
 
-void outro() {
-    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        goToWin();
-    }
-    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
-        goToPause();
-    }
+void livingRoomOutro() {
+    updateOutro();
+    drawOutroSprites();
 
 }
 
@@ -2259,8 +2268,8 @@ void pause() {
             case BEDROOM:
                 goToBedroom();
                 break;
-            case OUTRO:
-                goToOutro();
+            case LR_OUTRO:
+                goToLivingRoomOutro();
                 break;
         }
     }

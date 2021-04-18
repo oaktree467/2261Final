@@ -108,11 +108,12 @@ extern const unsigned short livingroomspritesPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 4 "game.c" 2
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
 int state;
 
 
@@ -179,6 +180,7 @@ extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
 extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
 extern int totalMapWidth;
 extern int visMapWidth;
@@ -311,7 +313,7 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
+void safeText(char msg[]);
 # 15 "game.c" 2
 # 1 "sound.h" 1
 void setupSounds();
@@ -369,6 +371,7 @@ char phoneAnswerBool;
 char ruthEmailBool;
 char marleyEmailBool;
 char allEmailsBool;
+char livingRoomOutroBool;
 
 
 unsigned short priorHoff;
@@ -397,6 +400,7 @@ void initGame(){
     ruthEmailBool = 0;
     marleyEmailBool = 0;
     allEmailsBool = 0;
+    livingRoomOutroBool = 0;
     mode = 0;
     initProtagonist();
     setUpInterrupts();
@@ -649,6 +653,12 @@ void checkThreshold() {
             == 0x0C6F) {
             nextRoomBool = 1;
         }
+
+        if (((checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == 0x3E1F) || (checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height)
+            == 0x3E1F)) && (allEmailsBool)) {
+                livingRoomOutroBool = 1;
+            }
     } else if (state == KITCHEN) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == 0x03E4) {
@@ -738,7 +748,7 @@ void interruptHandler() {
 
 
     if (*(volatile unsigned short*)0x4000202 & 1<<5) {
-        if (state == INTRO) {
+        if (state == INTRO || state == LR_OUTRO) {
             timerI++;
             timerJ++;
         }
