@@ -264,7 +264,7 @@ void safeOpenMessage();
 # 10 "game.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
-extern const unsigned short kitchenbgTiles[3152];
+extern const unsigned short kitchenbgTiles[3280];
 
 
 extern const unsigned short kitchenbgMap[1024];
@@ -449,7 +449,7 @@ void updateProtagonist() {
         answerPhone();
     } else if (messageActiveBool) {
         if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
             messageActiveBool = 0;
         }
     } else {
@@ -621,7 +621,7 @@ void checkMoreInfo() {
             phoneRinging = 0;
             ringSettings();
             phoneAnswerBool = 1;
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
         } else {
 
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -639,10 +639,8 @@ void checkMoreInfo() {
             }
             messageActiveBool = 1;
             printText();
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
         }
-    } else {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
     }
 }
 
@@ -709,7 +707,7 @@ void printText() {
         j++;
     }
 
-    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
 }
 
 

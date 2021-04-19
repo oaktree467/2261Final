@@ -62,9 +62,9 @@ goToStart:
 	.word	startscreenPal
 	.word	100679680
 	.word	startscreenTiles
-	.word	100704256
+	.word	100720640
 	.word	startscreenMap
-	.word	5126
+	.word	7174
 	.word	initGame
 	.size	goToStart, .-goToStart
 	.align	2
@@ -146,9 +146,9 @@ goToInstructions:
 	.word	5200
 	.word	100679680
 	.word	instructionscreenTiles
-	.word	100704256
+	.word	100720640
 	.word	instructionscreenMap
-	.word	5126
+	.word	7174
 	.size	goToInstructions, .-goToInstructions
 	.align	2
 	.global	start
@@ -245,12 +245,12 @@ goToIntro:
 	.word	blackbgPal
 	.word	100679680
 	.word	blackbgTiles
-	.word	100704256
+	.word	100720640
 	.word	blackbgMap
 	.word	chapter1bgTiles
 	.word	100712448
 	.word	chapter1bgMap
-	.word	5126
+	.word	7174
 	.word	chapterOneIntro
 	.size	goToIntro, .-goToIntro
 	.align	2
@@ -376,9 +376,9 @@ goToLivingRoom:
 	.word	8848
 	.word	100679680
 	.word	livingroombgTiles
-	.word	100704256
+	.word	100720640
 	.word	livingroombgMap
-	.word	-11258
+	.word	-9210
 	.word	livingroomspritesPal
 	.word	83886592
 	.word	100728832
@@ -492,9 +492,9 @@ goToComputer:
 	.word	computerscreenbgPal
 	.word	100679680
 	.word	computerscreenbgTiles
-	.word	100704256
+	.word	100720640
 	.word	computerscreenbgMap
-	.word	5126
+	.word	7174
 	.word	83886592
 	.word	computerspritesPal
 	.word	100728832
@@ -553,9 +553,10 @@ goToKitchen:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, lr}
+	push	{r4, r5, r6, lr}
 	mov	lr, #5
 	mov	r1, #0
+	mov	r5, #67108864
 	ldr	r3, .L55
 	ldr	r0, .L55+4
 	ldr	ip, [r3]
@@ -573,7 +574,7 @@ goToKitchen:
 	ldr	r1, .L55+20
 	mov	lr, pc
 	bx	r4
-	mov	r3, #3152
+	mov	r3, #3280
 	mov	r0, #3
 	ldr	r2, .L55+24
 	ldr	r1, .L55+28
@@ -585,25 +586,41 @@ goToKitchen:
 	ldr	r1, .L55+36
 	mov	lr, pc
 	bx	r4
-	mov	r2, #67108864
-	ldr	r1, .L55+40
-	mov	r3, #256
-	strh	r1, [r2, #10]	@ movhi
+	ldr	r2, .L55+40
+	mov	r3, #2896
+	strh	r2, [r5, #10]	@ movhi
 	mov	r0, #3
 	ldr	r2, .L55+44
 	ldr	r1, .L55+48
 	mov	lr, pc
 	bx	r4
-	mov	r3, #16384
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L55+52
 	ldr	r1, .L55+56
 	mov	lr, pc
 	bx	r4
-	ldr	r3, .L55+60
+	ldr	r2, .L55+60
+	mov	r3, #256
+	strh	r2, [r5, #12]	@ movhi
+	mov	r0, #3
+	ldr	r2, .L55+64
+	ldr	r1, .L55+68
+	mov	lr, pc
+	bx	r4
+	mov	r3, #16384
+	mov	r0, #3
+	ldr	r2, .L55+72
+	ldr	r1, .L55+76
+	mov	lr, pc
+	bx	r4
+	ldrh	r3, [r5]
+	orr	r3, r3, #1024
+	strh	r3, [r5]	@ movhi
+	ldr	r3, .L55+80
 	mov	lr, pc
 	bx	r3
-	pop	{r4, lr}
+	pop	{r4, r5, r6, lr}
 	bx	lr
 .L56:
 	.align	2
@@ -616,9 +633,14 @@ goToKitchen:
 	.word	kitchenbgPal
 	.word	100679680
 	.word	kitchenbgTiles
-	.word	100704256
+	.word	100720640
 	.word	kitchenbgMap
-	.word	5126
+	.word	7174
+	.word	100696064
+	.word	kdoorwaybgTiles
+	.word	100716544
+	.word	kdoorwaybgMap
+	.word	6666
 	.word	83886592
 	.word	kitchenspritesPal
 	.word	100728832
@@ -635,9 +657,10 @@ goToBedroom:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, lr}
+	push	{r4, r5, r6, lr}
 	mov	lr, #6
 	mov	r1, #0
+	mov	r5, #67108864
 	ldr	r3, .L59
 	ldr	r0, .L59+4
 	ldr	ip, [r3]
@@ -661,31 +684,47 @@ goToBedroom:
 	ldr	r1, .L59+32
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #2048
 	mov	r0, #3
 	ldr	r2, .L59+36
 	ldr	r1, .L59+40
 	mov	lr, pc
 	bx	r4
-	mov	r2, #67108864
-	ldr	r1, .L59+44
-	mov	r3, #256
-	strh	r1, [r2, #10]	@ movhi
+	ldr	r2, .L59+44
+	mov	r3, #2480
+	strh	r2, [r5, #10]	@ movhi
 	mov	r0, #3
 	ldr	r2, .L59+48
 	ldr	r1, .L59+52
 	mov	lr, pc
 	bx	r4
-	mov	r3, #16384
+	mov	r3, #2048
 	mov	r0, #3
 	ldr	r2, .L59+56
 	ldr	r1, .L59+60
 	mov	lr, pc
 	bx	r4
-	ldr	r3, .L59+64
+	ldr	r2, .L59+64
+	mov	r3, #256
+	strh	r2, [r5, #12]	@ movhi
+	mov	r0, #3
+	ldr	r2, .L59+68
+	ldr	r1, .L59+72
+	mov	lr, pc
+	bx	r4
+	mov	r3, #16384
+	mov	r0, #3
+	ldr	r2, .L59+76
+	ldr	r1, .L59+80
+	mov	lr, pc
+	bx	r4
+	ldrh	r3, [r5]
+	orr	r3, r3, #1024
+	strh	r3, [r5]	@ movhi
+	ldr	r3, .L59+84
 	mov	lr, pc
 	bx	r3
-	pop	{r4, lr}
+	pop	{r4, r5, r6, lr}
 	bx	lr
 .L60:
 	.align	2
@@ -699,9 +738,14 @@ goToBedroom:
 	.word	5648
 	.word	100679680
 	.word	bedroombgTiles
-	.word	100704256
+	.word	100720640
 	.word	bedroombgMap
-	.word	21510
+	.word	23558
+	.word	100696064
+	.word	cloudsbgTiles
+	.word	100716544
+	.word	cloudsbgMap
+	.word	23050
 	.word	83886592
 	.word	bedroomspritesPal
 	.word	100728832
@@ -799,7 +843,7 @@ goToSafe:
 	ldr	r1, .L75+40
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L75+44
 	ldr	r1, .L75+48
@@ -843,9 +887,9 @@ goToSafe:
 	.word	safebgPal
 	.word	100679680
 	.word	safebgTiles
-	.word	100704256
+	.word	100720640
 	.word	safebgMap
-	.word	5126
+	.word	7174
 	.word	83886592
 	.word	safespritesPal
 	.word	100728832
@@ -1033,7 +1077,7 @@ goToPause:
 	ldr	r1, .L100+40
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	ldr	r2, .L100+44
 	mov	r0, #3
 	ldr	r1, .L100+48
@@ -1058,9 +1102,9 @@ goToPause:
 	.word	pausescreenPal
 	.word	100679680
 	.word	pausescreenTiles
-	.word	100716544
+	.word	100720640
 	.word	pausescreenMap
-	.word	6662
+	.word	7174
 	.size	goToPause, .-goToPause
 	.align	2
 	.global	livingRoom
@@ -1345,6 +1389,9 @@ pause:
 	.word	priorState
 	.word	state
 	.size	pause, .-pause
+	.global	__aeabi_i2d
+	.global	__aeabi_dmul
+	.global	__aeabi_d2uiz
 	.section	.text.startup,"ax",%progbits
 	.align	2
 	.global	main
@@ -1357,31 +1404,31 @@ main:
 	@ Volatile: function does not return.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	r3, #4608
-	mov	r5, #67108864
+	mov	r3, #67108864
+	mov	r1, #4608
 	mov	r2, #0
 	push	{r4, r7, fp, lr}
-	strh	r3, [r5]	@ movhi
-	ldr	r3, .L208
-	ldr	r4, .L208+4
+	strh	r1, [r3]	@ movhi
+	add	r3, r3, #256
 	ldrh	r1, [r3, #48]
-	ldr	r8, .L208+8
-	mov	r9, r3
-	ldr	r3, .L208+12
-	strh	r1, [r4]	@ movhi
-	strh	r2, [r8]	@ movhi
+	ldr	r5, .L208+8
+	ldr	r10, .L208+12
+	mov	fp, r3
+	ldr	r3, .L208+16
+	strh	r1, [r5]	@ movhi
+	strh	r2, [r10]	@ movhi
 	mov	lr, pc
 	bx	r3
-	ldr	r6, .L208+16
-	ldr	fp, .L208+20
-	ldr	r10, .L208+24
-	ldr	r7, .L208+28
+	ldr	r8, .L208+20
+	ldr	r7, .L208+24
+	ldr	r6, .L208+28
+	ldr	r9, .L208+32
 .L202:
-	ldrh	r1, [r4]
-	strh	r1, [r8]	@ movhi
-	ldr	r2, [r6]
-	ldrh	r3, [r9, #48]
-	strh	r3, [r4]	@ movhi
+	ldrh	r1, [r5]
+	strh	r1, [r10]	@ movhi
+	ldr	r2, [r8]
+	ldrh	r3, [fp, #48]
+	strh	r3, [r5]	@ movhi
 	cmp	r2, #10
 	ldrls	pc, [pc, r2, asl #2]
 	b	.L187
@@ -1403,68 +1450,86 @@ main:
 	tst	r3, #1
 	beq	.L207
 .L187:
+	mov	r4, #67108864
+	ldr	r3, .L208+36
 	mov	lr, pc
-	bx	fp
-	ldrh	r3, [r10]
-	strh	r3, [r5, #20]	@ movhi
-	ldr	r3, .L208+32
-	ldrh	r2, [r3]
-	mov	r1, r7
-	strh	r2, [r5, #22]	@ movhi
+	bx	r3
+	ldrh	r3, [r7]
+	strh	r3, [r4, #20]	@ movhi
+	ldrh	r3, [r6]
+	strh	r3, [r4, #22]	@ movhi
+	ldr	r3, .L208+40
+	ldrh	r0, [r7]
+	mov	lr, pc
+	bx	r3
+	adr	r3, .L208
+	ldmia	r3, {r2-r3}
+	ldr	ip, .L208+44
+	mov	lr, pc
+	bx	ip
+	ldr	r3, .L208+48
+	mov	lr, pc
+	bx	r3
+	lsl	r0, r0, #16
+	lsr	r0, r0, #16
+	strh	r0, [r4, #24]	@ movhi
+	ldrh	r2, [r6]
 	mov	r3, #512
+	strh	r2, [r4, #26]	@ movhi
+	mov	r1, r9
 	mov	r2, #117440512
 	mov	r0, #3
-	ldr	ip, .L208+36
+	ldr	ip, .L208+52
 	mov	lr, pc
 	bx	ip
 	b	.L202
 .L190:
-	ldr	r3, .L208+40
-	mov	lr, pc
-	bx	r3
-	b	.L187
-.L191:
-	ldr	r3, .L208+44
-	mov	lr, pc
-	bx	r3
-	ldr	r3, .L208+48
-	mov	lr, pc
-	bx	r3
-	b	.L187
-.L192:
-	ldr	r3, .L208+52
-	mov	lr, pc
-	bx	r3
-	b	.L187
-.L193:
 	ldr	r3, .L208+56
 	mov	lr, pc
 	bx	r3
 	b	.L187
-.L194:
+.L191:
 	ldr	r3, .L208+60
 	mov	lr, pc
 	bx	r3
-	b	.L187
-.L195:
 	ldr	r3, .L208+64
 	mov	lr, pc
 	bx	r3
 	b	.L187
-.L196:
+.L192:
 	ldr	r3, .L208+68
 	mov	lr, pc
 	bx	r3
 	b	.L187
-.L197:
+.L193:
 	ldr	r3, .L208+72
 	mov	lr, pc
 	bx	r3
+	b	.L187
+.L194:
 	ldr	r3, .L208+76
+	mov	lr, pc
+	bx	r3
+	b	.L187
+.L195:
+	ldr	r3, .L208+80
+	mov	lr, pc
+	bx	r3
+	b	.L187
+.L196:
+	ldr	r3, .L208+84
+	mov	lr, pc
+	bx	r3
+	b	.L187
+.L197:
+	ldr	r3, .L208+88
+	mov	lr, pc
+	bx	r3
+	ldr	r3, .L208+92
 	ldr	r3, [r3]
 	cmp	r3, #1
 	bne	.L187
-	ldr	r3, .L208+80
+	ldr	r3, .L208+96
 	mov	lr, pc
 	bx	r3
 	b	.L187
@@ -1473,32 +1538,36 @@ main:
 	beq	.L187
 	tst	r3, #1
 	bne	.L187
-	ldr	r3, .L208+84
+	ldr	r3, .L208+100
 	mov	lr, pc
 	bx	r3
 	b	.L187
 .L198:
-	ldr	r3, .L208+88
+	ldr	r3, .L208+104
 	mov	lr, pc
 	bx	r3
 	b	.L187
 .L207:
-	ldr	r3, .L208+12
+	ldr	r3, .L208+16
 	mov	lr, pc
 	bx	r3
 	b	.L187
 .L209:
-	.align	2
+	.align	3
 .L208:
-	.word	67109120
+	.word	858993459
+	.word	1072902963
 	.word	buttons
 	.word	oldButtons
 	.word	goToStart
 	.word	state
-	.word	waitForVBlank
 	.word	hOff
-	.word	shadowOAM
 	.word	vOff
+	.word	shadowOAM
+	.word	waitForVBlank
+	.word	__aeabi_i2d
+	.word	__aeabi_dmul
+	.word	__aeabi_d2uiz
 	.word	DMANow
 	.word	pause
 	.word	updateOutro
@@ -1545,7 +1614,7 @@ goToWin:
 	ldr	r1, .L212+20
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	ldr	r2, .L212+24
 	mov	r0, #3
 	ldr	r1, .L212+28
@@ -1565,9 +1634,9 @@ goToWin:
 	.word	winscreenPal
 	.word	100679680
 	.word	winscreenTiles
-	.word	100716544
+	.word	100720640
 	.word	winscreenMap
-	.word	6662
+	.word	7174
 	.size	goToWin, .-goToWin
 	.align	2
 	.global	win

@@ -21,40 +21,41 @@ initKitchenSprites:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, r5, r6, r7, r8, r9, r10, lr}
-	mov	r2, #1
-	mov	r9, #2
+	push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	mov	r2, #0
+	mov	r10, #2
+	mov	r9, #53
 	mov	r8, #84
 	mvn	r7, #64512
 	mov	r6, #4
 	mov	r5, #3
-	mov	r4, #109
-	mov	ip, #0
+	mov	r4, #67
+	mov	lr, #109
 	mov	r0, #12
-	mov	r1, #67
+	mov	r1, #1
 	ldr	r3, .L4
-	ldr	lr, .L4+4
-	add	r10, lr, #68
-	str	lr, [r3, #48]
-	ldr	lr, .L4+8
-	str	r10, [r3, #100]
-	str	r9, [r3, #36]
+	ldr	ip, .L4+4
+	add	fp, ip, #68
+	str	ip, [r3, #48]
+	ldr	ip, .L4+8
+	str	fp, [r3, #100]
+	str	r10, [r3, #36]
+	str	r9, [r3]
 	str	r8, [r3, #4]
 	strh	r7, [r3, #44]	@ movhi
 	str	r6, [r3, #76]
 	str	r5, [r3, #88]
-	str	r4, [r3, #56]
-	strh	lr, [r3, #96]	@ movhi
-	str	ip, [r3, #24]
-	str	ip, [r3, #84]
+	str	r4, [r3, #52]
+	str	lr, [r3, #56]
+	strh	ip, [r3, #96]	@ movhi
+	str	r2, [r3, #24]
+	str	r2, [r3, #32]
+	str	r2, [r3, #84]
 	str	r0, [r3, #28]
 	str	r0, [r3, #80]
-	str	r2, [r3, #32]
-	str	r2, [r3, #40]
-	str	r2, [r3, #92]
-	str	r1, [r3]
-	str	r1, [r3, #52]
-	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
+	str	r1, [r3, #40]
+	str	r1, [r3, #92]
+	pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
 .L5:
 	.align	2
@@ -127,7 +128,7 @@ loadKitchen:
 .L11:
 	mov	r1, #120
 	mov	r2, #0
-	mov	lr, #30
+	mov	lr, #200
 	mov	ip, #2
 	ldr	r3, .L13+56
 	ldr	r0, .L13+12

@@ -50,15 +50,15 @@ bedroombgPal:
 	.short	0
 	.short	0
 	.short	0
-	.short	30751
-	.short	7399
-	.short	16912
-	.short	6635
-	.short	21140
-	.short	1165
-	.short	11994
-	.short	8822
-	.short	5383
+	.short	31775
+	.short	3203
+	.short	20083
+	.short	15785
+	.short	25368
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	0
 	.short	0
 	.short	0

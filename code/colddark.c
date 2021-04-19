@@ -52,7 +52,7 @@ void chapterOneIntro() {
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &SCREENBLOCK[20], ((1 << 30) | (1024 * 4)));
+            DMANow(3, blackbgMap, &SCREENBLOCK[28], ((1 << 30) | (1024 * 4)));
         }
     }
 
@@ -61,7 +61,7 @@ void chapterOneIntro() {
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &SCREENBLOCK[20], ((1 << 30) | (1024 * 4)));
+            DMANow(3, blackbgMap, &SCREENBLOCK[28], ((1 << 30) | (1024 * 4)));
         }
     }
 
@@ -119,7 +119,7 @@ void updateHighlight() {
         }
     }
 
-    DMANow(3, blackbgMap, &SCREENBLOCK[20], ((0 << 30) | (1024 * 4)));
+    DMANow(3, blackbgMap, &SCREENBLOCK[28], ((0 << 30) | (1024 * 4)));
 
 }
 
@@ -245,7 +245,7 @@ void chapterOneOutro() {
     for (int i = 0; i < 640; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &SCREENBLOCK[20], (1024 * 4));
+            DMANow(3, blackbgMap, &SCREENBLOCK[28], (1024 * 4));
         }
     }
 

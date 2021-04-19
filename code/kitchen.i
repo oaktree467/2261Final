@@ -130,9 +130,9 @@ void initKitchenSprites() {
 
     kitchenSpritesArr[0].sheetCol = 0;
     kitchenSpritesArr[0].sheetRow = 12;
-    kitchenSpritesArr[0].attr0_shape = 1;
+    kitchenSpritesArr[0].attr0_shape = 0;
     kitchenSpritesArr[0].attr1_size = 2;
-    kitchenSpritesArr[0].worldRow = 67;
+    kitchenSpritesArr[0].worldRow = 53;
     kitchenSpritesArr[0].worldCol = 84;
     kitchenSpritesArr[0].hide = 1;
     kitchenSpritesArr[0].collisionColor = 0x03FF;
@@ -155,7 +155,7 @@ void initKitchenSprites() {
 void loadKitchen() {
     if (priorState == LIVING_ROOM) {
         protag.worldRow = 120;
-        protag.worldCol = 30;
+        protag.worldCol = 200;
         protag.aniState = PROTAGBACK;
         hOff = 0;
         vOff = 0;

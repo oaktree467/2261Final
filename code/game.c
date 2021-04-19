@@ -113,7 +113,7 @@ void updateProtagonist() {
         answerPhone();
     } else if (messageActiveBool) {
         if (BUTTON_PRESSED(BUTTON_A)) {
-            REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE;
+            REG_DISPCTL &= ~(BG0_ENABLE);
             messageActiveBool = 0;
         }
     } else {
@@ -285,7 +285,7 @@ void checkMoreInfo() {
             phoneRinging = 0;
             ringSettings();
             phoneAnswerBool = 1;
-            REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+            REG_DISPCTL |= BG0_ENABLE;
         } else {
             //if the protagonist checks the refrigerator the first time, enableKeyFind
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -303,11 +303,9 @@ void checkMoreInfo() {
             } 
             messageActiveBool = 1;
             printText();
-            REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+            REG_DISPCTL |= BG0_ENABLE;
         }
-    } else {
-        REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
-    }
+    } 
 }
 
 //check if the player is entering into another part of the game
@@ -373,7 +371,7 @@ void printText() {
         j++;
     }
 
-    DMANow(3, messagescreenMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
 }
 
 //clear the prior message
