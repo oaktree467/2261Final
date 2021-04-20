@@ -197,7 +197,7 @@ waitForKeyPress:
 	.word	DMANow
 	.word	100679680
 	.word	blackbgTiles
-	.word	100704256
+	.word	100720640
 	.word	blackbgMap
 	.word	outroSequenceStage
 	.word	vOff
@@ -541,7 +541,7 @@ ot_1:
 	.type	ot_2, %object
 	.size	ot_2, 92
 ot_2:
-	.ascii	"And that was it.          ...                      "
+	.ascii	"That's all you remember.  ...                      "
 	.ascii	" ...                       ... But wait.\000"
 	.type	ot_3, %object
 	.size	ot_3, 22

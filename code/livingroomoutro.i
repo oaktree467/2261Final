@@ -279,7 +279,7 @@ char outroSequenceStage;
 int timerI;
 int timerJ;
 char ot_1[] = "Something shifts in your  gut. A warning.An oncomingepisode.                  You don't...                feel so good...";
-char ot_2[] = "And that was it.          ...                       ...                       ... But wait.";
+char ot_2[] = "That's all you remember.  ...                       ...                       ... But wait.";
 char ot_3[] = "Didn't someone knock?";
 char liftProtagonistBool;
 int frame = 0;
@@ -329,7 +329,7 @@ void waitForKeyPress() {
         drawOutroSprites();
 
         DMANow(3, blackbgTiles, &((charblock *)0x6000000)[1], 96 / 2);
-        DMANow(3, blackbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+        DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], 1024 * 4);
 
         (*(volatile unsigned short*)0x400000A) |= (0<<14);
 

@@ -548,18 +548,20 @@ answerPhone:
 	pop	{r4, lr}
 	bx	lr
 .L35:
-	mov	r0, #0
-	mov	lr, #1
-	mov	r3, #67108864
-	mov	r2, #4608
-	ldr	r1, .L46+40
-	ldr	ip, .L46+44
-	strb	r0, [r1]
+	mov	ip, #0
+	mov	r1, #1
+	mov	r2, #67108864
+	ldr	r0, .L46+40
+	ldr	r3, .L46+44
+	strb	ip, [r0]
+	strb	r1, [r3]
+	ldr	r3, .L46+48
+	ldrh	ip, [r2]
 	ldr	r1, .L46+32
-	ldr	r0, .L46+48
-	strb	lr, [ip]
+	ldr	r0, .L46+52
+	and	r3, r3, ip
+	strh	r3, [r2]	@ movhi
 	str	r0, [r1, #48]
-	strh	r2, [r3]	@ movhi
 	b	.L33
 .L47:
 	.align	2
@@ -576,6 +578,7 @@ answerPhone:
 	.word	printText
 	.word	phoneAnswerBool
 	.word	enableKeyFind
+	.word	65279
 	.word	.LANCHOR0
 	.size	answerPhone, .-answerPhone
 	.align	2

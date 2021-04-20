@@ -1173,7 +1173,7 @@ void answerPhone() {
             livingRoomSpritesArr[0].message = &telephone;
             phoneAnswerBool = 0;
             enableKeyFind = 1;
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
     }
 }
 

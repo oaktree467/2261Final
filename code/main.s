@@ -44,14 +44,12 @@ goToStart:
 	ldr	r1, .L4+24
 	mov	lr, pc
 	bx	r4
-	mov	r3, #67108864
-	mov	r1, #4608
-	ldr	r0, .L4+28
-	ldr	r2, .L4+32
-	strh	r0, [r3, #10]	@ movhi
-	strh	r1, [r3]	@ movhi
+	mov	r2, #67108864
+	ldr	r1, .L4+28
+	ldr	r3, .L4+32
+	strh	r1, [r2, #10]	@ movhi
 	mov	lr, pc
-	bx	r2
+	bx	r3
 	pop	{r4, lr}
 	bx	lr
 .L5:
@@ -62,9 +60,9 @@ goToStart:
 	.word	startscreenPal
 	.word	100679680
 	.word	startscreenTiles
-	.word	100714496
+	.word	100720640
 	.word	startscreenMap
-	.word	6406
+	.word	7174
 	.word	initGame
 	.size	goToStart, .-goToStart
 	.align	2
@@ -126,15 +124,12 @@ goToInstructions:
 	mov	lr, pc
 	bx	r4
 	mov	r3, #1024
-	ldr	r2, .L11+28
 	mov	r0, #3
+	ldr	r2, .L11+28
 	ldr	r1, .L11+32
 	mov	lr, pc
 	bx	r4
-	mov	r3, #67108864
-	ldr	r2, .L11+36
 	pop	{r4, lr}
-	strh	r2, [r3, #10]	@ movhi
 	bx	lr
 .L12:
 	.align	2
@@ -146,9 +141,8 @@ goToInstructions:
 	.word	5200
 	.word	100679680
 	.word	instructionscreenTiles
-	.word	100714496
+	.word	100720640
 	.word	instructionscreenMap
-	.word	6406
 	.size	goToInstructions, .-goToInstructions
 	.align	2
 	.global	start
@@ -245,12 +239,12 @@ goToIntro:
 	.word	blackbgPal
 	.word	100679680
 	.word	blackbgTiles
-	.word	100714496
+	.word	100720640
 	.word	blackbgMap
 	.word	chapter1bgTiles
 	.word	100712448
 	.word	chapter1bgMap
-	.word	6406
+	.word	7174
 	.word	chapterOneIntro
 	.size	goToIntro, .-goToIntro
 	.align	2
@@ -315,7 +309,7 @@ goToLivingRoom:
 	mov	lr, pc
 	bx	r4
 	ldr	r2, .L32+56
-	mov	r3, #3264
+	mov	r3, #3200
 	mov	r0, #3
 	strh	r2, [r5, #10]	@ movhi
 	ldr	r1, .L32+60
@@ -368,9 +362,7 @@ goToLivingRoom:
 	bx	r4
 	b	.L26
 .L31:
-	mov	r2, #4864
 	ldr	r3, .L32+108
-	strh	r2, [r5]	@ movhi
 	mov	lr, pc
 	bx	r3
 	pop	{r4, r5, r6, lr}
@@ -390,14 +382,14 @@ goToLivingRoom:
 	.word	8080
 	.word	100679680
 	.word	livingroombgTiles
-	.word	100714496
+	.word	100720640
 	.word	livingroombgMap
-	.word	-9978
+	.word	-9210
 	.word	ldoorwaybgTiles
 	.word	100696064
-	.word	100724736
+	.word	100716544
 	.word	ldoorwaybgMap
-	.word	24074
+	.word	23050
 	.word	livingroomspritesPal
 	.word	83886592
 	.word	100728832

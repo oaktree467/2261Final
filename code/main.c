@@ -218,11 +218,9 @@ void goToStart() {
 
     DMANow(3, startscreenPal, PALETTE, 256);
     DMANow(3, startscreenTiles, &CHARBLOCK[1], startscreenTilesLen / 2);
-    DMANow(3, startscreenMap, &SCREENBLOCK[25], startscreenMapLen / 2);
+    DMANow(3, startscreenMap, &SCREENBLOCK[28], startscreenMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(25) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
-
-    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     initGame();
 }
@@ -243,9 +241,9 @@ void goToInstructions() {
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
-    DMANow(3, instructionscreenMap, &SCREENBLOCK[25], instructionscreenMapLen / 2);
+    DMANow(3, instructionscreenMap, &SCREENBLOCK[28], instructionscreenMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(25) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    //REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(25) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
     
 
 }
@@ -277,15 +275,15 @@ void goToIntro() {
 
     DMANow(3, blackbgPal, PALETTE, 256);
     DMANow(3, blackbgTiles, &CHARBLOCK[1], blackbgTilesLen / 2);
-    DMANow(3, blackbgMap, &SCREENBLOCK[25], blackbgMapLen / 2);
+    DMANow(3, blackbgMap, &SCREENBLOCK[28], blackbgMapLen / 2);
 
     DMANow(3, chapter1bgTiles, &CHARBLOCK[0], chapter1bgTilesLen / 2);
     DMANow(3, chapter1bgMap, &SCREENBLOCK[24], chapter1bgMapLen / 2);
 
     REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(25) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
-    REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+    REG_DISPCTL = MODE0 | BG0_ENABLE | BG1_ENABLE | SPRITE_ENABLE; 
 
     chapterOneIntro();
     
@@ -321,14 +319,14 @@ void goToLivingRoom() {
 
     DMANow(3, livingroombgPal, PALETTE, 256);
     DMANow(3, livingroombgTiles, &CHARBLOCK[1], livingroombgTilesLen / 2);
-    DMANow(3, livingroombgMap, &SCREENBLOCK[25], livingroombgMapLen / 2);
+    DMANow(3, livingroombgMap, &SCREENBLOCK[28], livingroombgMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(25) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
 
     DMANow(3, ldoorwaybgTiles, &CHARBLOCK[2], ldoorwaybgTilesLen / 2);
-    DMANow(3, ldoorwaybgMap, &SCREENBLOCK[30], ldoorwaybgMapLen / 2);
+    DMANow(3, ldoorwaybgMap, &SCREENBLOCK[26], ldoorwaybgMapLen / 2);
 
-    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(30) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
@@ -337,8 +335,6 @@ void goToLivingRoom() {
     hideSprites();
 
     if (priorState == INTRO) {
-        //REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
-        REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
         chapterTwoIntro();
     } else {
         REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 

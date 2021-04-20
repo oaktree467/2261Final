@@ -255,7 +255,7 @@ void answerPhone() {
             livingRoomSpritesArr[0].message = &telephone;
             phoneAnswerBool = 0;
             enableKeyFind = 1;
-            REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE;
+            REG_DISPCTL &= ~(BG0_ENABLE);
     }
 }
 

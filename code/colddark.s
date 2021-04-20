@@ -126,7 +126,7 @@ updateHighlight:
 	.word	blackbgMap+1408
 	.word	610
 	.word	DMANow
-	.word	100714496
+	.word	100720640
 	.word	blackbgMap
 	.size	updateHighlight, .-updateHighlight
 	.align	2
@@ -453,7 +453,7 @@ chapterOneOutro:
 	.align	2
 .L64:
 	.word	blackbgMap-2
-	.word	100714496
+	.word	100720640
 	.word	DMANow
 	.word	cdmessageMapCopy-2
 	.word	1073742848
@@ -761,7 +761,7 @@ chapterOneIntro:
 	.word	playSoundA
 	.word	DMANow
 	.word	1073742848
-	.word	100714496
+	.word	100720640
 	.word	blackbgMap+1408
 	.word	20000
 	.word	timerWait

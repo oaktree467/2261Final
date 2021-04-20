@@ -215,54 +215,54 @@ initGame:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	mov	r3, #0
-	mov	r0, #1
+	mov	r1, #1
 	mov	ip, #67108864
 	push	{r4, r5, r6, lr}
 	mov	lr, #3
 	mov	r5, #20
 	mov	r4, #31
-	ldr	r1, .L48
+	ldr	r0, .L48
 	ldr	r2, .L48+4
-	strb	r3, [r1]
-	ldr	r1, .L48+8
+	strb	r3, [r0]
 	strb	r3, [r2]
-	strb	r3, [r1]
+	ldr	r0, .L48+8
 	ldr	r2, .L48+12
-	ldr	r1, .L48+16
+	strb	r3, [r0]
 	strb	r3, [r2]
-	strb	r3, [r1]
+	ldr	r0, .L48+16
 	ldr	r2, .L48+20
-	ldr	r1, .L48+24
+	strb	r3, [r0]
 	str	r3, [r2]
-	str	r3, [r1]
+	ldr	r0, .L48+24
 	ldr	r2, .L48+28
-	ldr	r1, .L48+32
+	str	r3, [r0]
 	str	r3, [r2]
-	strb	r3, [r1]
+	ldr	r0, .L48+32
 	ldr	r2, .L48+36
-	ldr	r1, .L48+40
+	strb	r3, [r0]
 	strb	r3, [r2]
-	strb	r3, [r1]
+	ldr	r0, .L48+40
 	ldr	r2, .L48+44
-	ldr	r1, .L48+48
+	strb	r3, [r0]
 	strb	r3, [r2]
-	strb	r3, [r1]
+	ldr	r0, .L48+48
 	ldr	r2, .L48+52
-	ldr	r1, .L48+56
-	str	r3, [r2]
-	ldrh	r2, [r1]
+	str	r3, [r0]
+	strb	r1, [r2]
+	ldr	r0, .L48+56
+	ldrh	r2, [r0]
 	orr	r2, r2, #2160
 	orr	r2, r2, #9
-	strh	r2, [r1]	@ movhi
-	strh	r0, [r1, #8]	@ movhi
-	ldrh	r1, [ip, #4]
+	strh	r1, [r0, #8]	@ movhi
+	strh	r2, [r0]	@ movhi
+	ldrh	r0, [ip, #4]
 	ldr	r2, .L48+60
-	orr	r1, r1, #8
-	strh	r1, [ip, #4]	@ movhi
-	str	r0, [r2, #44]
-	ldr	r1, .L48+64
-	ldr	r0, .L48+68
-	str	r0, [r1, #4092]
+	orr	r0, r0, #8
+	strh	r0, [ip, #4]	@ movhi
+	str	r1, [r2, #44]
+	ldr	r0, .L48+64
+	ldr	r1, .L48+68
+	str	r1, [r0, #4092]
 	ldr	r1, .L48+72
 	str	r5, [r2, #16]
 	str	r4, [r2, #20]
@@ -289,9 +289,9 @@ initGame:
 	.word	computerAccessBool
 	.word	ruthEmailBool
 	.word	marleyEmailBool
-	.word	allEmailsBool
 	.word	livingRoomOutroBool
 	.word	mode
+	.word	allEmailsBool
 	.word	67109376
 	.word	protag
 	.word	50360320

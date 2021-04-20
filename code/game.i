@@ -399,7 +399,7 @@ void initGame(){
     computerAccessBool = 0;
     ruthEmailBool = 0;
     marleyEmailBool = 0;
-    allEmailsBool = 0;
+    allEmailsBool = 1;
     livingRoomOutroBool = 0;
     mode = 0;
     initProtagonist();
