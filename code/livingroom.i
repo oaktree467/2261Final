@@ -1186,11 +1186,11 @@ void chapterTwoIntro() {
     for (int i = 0; i < 700; i++) {
         chapter2bgMapCopy[i] = chapter2bgMap[701];
         if (i % 32 == 0) {
-            DMANow(3, chapter2bgMapCopy, &((screenblock *)0x6000000)[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, chapter2bgMapCopy, &((screenblock *)0x6000000)[24], ((1 << 30) | (2048 / 2)));
         }
     }
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
 
     DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);

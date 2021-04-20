@@ -38,7 +38,7 @@ goToStart:
 	ldr	r1, .L4+16
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L4+20
 	ldr	r1, .L4+24
@@ -62,9 +62,9 @@ goToStart:
 	.word	startscreenPal
 	.word	100679680
 	.word	startscreenTiles
-	.word	100720640
+	.word	100714496
 	.word	startscreenMap
-	.word	7174
+	.word	6406
 	.word	initGame
 	.size	goToStart, .-goToStart
 	.align	2
@@ -125,7 +125,7 @@ goToInstructions:
 	ldr	r1, .L11+24
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	ldr	r2, .L11+28
 	mov	r0, #3
 	ldr	r1, .L11+32
@@ -146,9 +146,9 @@ goToInstructions:
 	.word	5200
 	.word	100679680
 	.word	instructionscreenTiles
-	.word	100720640
+	.word	100714496
 	.word	instructionscreenMap
-	.word	7174
+	.word	6406
 	.size	goToInstructions, .-goToInstructions
 	.align	2
 	.global	start
@@ -206,7 +206,7 @@ goToIntro:
 	ldr	r1, .L22+20
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L22+24
 	ldr	r1, .L22+28
@@ -218,7 +218,7 @@ goToIntro:
 	ldr	r1, .L22+32
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L22+36
 	ldr	r1, .L22+40
@@ -245,12 +245,12 @@ goToIntro:
 	.word	blackbgPal
 	.word	100679680
 	.word	blackbgTiles
-	.word	100720640
+	.word	100714496
 	.word	blackbgMap
 	.word	chapter1bgTiles
 	.word	100712448
 	.word	chapter1bgMap
-	.word	7174
+	.word	6406
 	.word	chapterOneIntro
 	.size	goToIntro, .-goToIntro
 	.align	2
@@ -265,39 +265,39 @@ goToLivingRoom:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r5, r6, lr}
 	mov	r0, #0
-	mov	r6, #3
+	mov	r5, #3
 	ldr	r3, .L32
-	ldr	r5, .L32+4
+	ldr	r6, .L32+4
 	ldr	r2, [r3]
 	ldr	r1, .L32+8
-	str	r2, [r5]
+	str	r2, [r6]
 	ldr	r2, .L32+12
-	str	r6, [r3]
+	str	r5, [r3]
 	str	r0, [r1]
 	mov	lr, pc
 	bx	r2
-	ldr	r3, [r5]
+	ldr	r3, [r6]
 	cmp	r3, #2
 	beq	.L30
 	mov	r3, #1280
 	mov	r2, #100663296
-	mov	r0, r6
+	mov	r0, r5
 	ldr	r1, .L32+16
 	ldr	r4, .L32+20
 	mov	lr, pc
 	bx	r4
-	mov	r0, r6
+	mov	r0, r5
 	mov	r3, #1024
 	ldr	r2, .L32+24
 	ldr	r1, .L32+28
 	mov	lr, pc
 	bx	r4
 .L26:
-	mov	r6, #67108864
+	mov	r5, #67108864
 	mov	r2, #6144
 	mov	r3, #256
 	mov	r0, #3
-	strh	r2, [r6, #8]	@ movhi
+	strh	r2, [r5, #8]	@ movhi
 	ldr	r1, .L32+32
 	mov	r2, #83886080
 	mov	lr, pc
@@ -315,48 +315,62 @@ goToLivingRoom:
 	mov	lr, pc
 	bx	r4
 	ldr	r2, .L32+56
-	mov	r3, #256
+	mov	r3, #3264
 	mov	r0, #3
-	strh	r2, [r6, #10]	@ movhi
+	strh	r2, [r5, #10]	@ movhi
 	ldr	r1, .L32+60
 	ldr	r2, .L32+64
 	mov	lr, pc
 	bx	r4
-	mov	r3, #16384
+	mov	r3, #2048
 	mov	r0, #3
 	ldr	r2, .L32+68
 	ldr	r1, .L32+72
 	mov	lr, pc
 	bx	r4
-	ldr	r3, .L32+76
+	ldr	r2, .L32+76
+	mov	r3, #256
+	mov	r0, #3
+	strh	r2, [r5, #12]	@ movhi
+	ldr	r1, .L32+80
+	ldr	r2, .L32+84
+	mov	lr, pc
+	bx	r4
+	mov	r3, #16384
+	mov	r0, #3
+	ldr	r2, .L32+88
+	ldr	r1, .L32+92
+	mov	lr, pc
+	bx	r4
+	ldr	r3, .L32+96
 	mov	lr, pc
 	bx	r3
-	ldr	r3, [r5]
+	ldr	r3, [r6]
 	cmp	r3, #2
-	movne	r3, #4608
-	strhne	r3, [r6]	@ movhi
+	movne	r3, #5632
+	strhne	r3, [r5]	@ movhi
 	beq	.L31
 	pop	{r4, r5, r6, lr}
 	bx	lr
 .L30:
-	mov	r0, r6
+	mov	r0, r5
 	mov	r3, #2160
 	mov	r2, #100663296
-	ldr	r1, .L32+80
+	ldr	r1, .L32+100
 	ldr	r4, .L32+20
 	mov	lr, pc
 	bx	r4
-	mov	r0, r6
+	mov	r0, r5
 	mov	r3, #1024
 	ldr	r2, .L32+24
-	ldr	r1, .L32+84
+	ldr	r1, .L32+104
 	mov	lr, pc
 	bx	r4
 	b	.L26
 .L31:
 	mov	r2, #4864
-	ldr	r3, .L32+88
-	strh	r2, [r6]	@ movhi
+	ldr	r3, .L32+108
+	strh	r2, [r5]	@ movhi
 	mov	lr, pc
 	bx	r3
 	pop	{r4, r5, r6, lr}
@@ -373,12 +387,17 @@ goToLivingRoom:
 	.word	100712448
 	.word	messagescreenMap
 	.word	livingroombgPal
-	.word	8848
+	.word	8080
 	.word	100679680
 	.word	livingroombgTiles
-	.word	100720640
+	.word	100714496
 	.word	livingroombgMap
-	.word	-9210
+	.word	-9978
+	.word	ldoorwaybgTiles
+	.word	100696064
+	.word	100724736
+	.word	ldoorwaybgMap
+	.word	24074
 	.word	livingroomspritesPal
 	.word	83886592
 	.word	100728832
@@ -454,7 +473,7 @@ goToComputer:
 	ldr	r1, .L42+28
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L42+32
 	ldr	r1, .L42+36
@@ -580,7 +599,7 @@ goToKitchen:
 	ldr	r1, .L55+28
 	mov	lr, pc
 	bx	r4
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L55+32
 	ldr	r1, .L55+36
@@ -1555,8 +1574,8 @@ main:
 .L209:
 	.align	3
 .L208:
-	.word	858993459
-	.word	1072902963
+	.word	3435973837
+	.word	1072483532
 	.word	buttons
 	.word	oldButtons
 	.word	goToStart

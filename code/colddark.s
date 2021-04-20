@@ -110,7 +110,7 @@ updateHighlight:
 	cmp	r0, #624
 	bne	.L9
 	ldr	r4, .L17+16
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L17+20
 	ldr	r1, .L17+24
@@ -126,7 +126,7 @@ updateHighlight:
 	.word	blackbgMap+1408
 	.word	610
 	.word	DMANow
-	.word	100720640
+	.word	100714496
 	.word	blackbgMap
 	.size	updateHighlight, .-updateHighlight
 	.align	2
@@ -181,7 +181,7 @@ loadMessageUnedited:
 	cmp	r3, r0
 	strh	r1, [r2, #2]!	@ movhi
 	bne	.L27
-	mov	r3, #4096
+	mov	r3, #1024
 	ldr	r2, .L30+8
 	ldr	r4, .L30+12
 	mov	r0, #3
@@ -249,7 +249,7 @@ printColdText:
 	mov	r2, r8
 	mov	r1, fp
 	mov	r0, #3
-	mov	r3, #4096
+	mov	r3, #1024
 	strh	ip, [r4, lr]	@ movhi
 	mov	lr, pc
 	bx	r9
@@ -314,7 +314,7 @@ loadColdMessage:
 	add	r1, r1, #2
 	cmp	r1, ip
 	bne	.L43
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L52+8
 	ldr	r1, .L52+12
@@ -402,7 +402,7 @@ chapterOneOutro:
 	strh	r3, [r5, #2]!	@ movhi
 	add	r4, r4, #1
 	bne	.L55
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r2, r9
 	mov	r1, r7
 	mov	r0, #3
@@ -453,10 +453,10 @@ chapterOneOutro:
 	.align	2
 .L64:
 	.word	blackbgMap-2
-	.word	100720640
+	.word	100714496
 	.word	DMANow
 	.word	cdmessageMapCopy-2
-	.word	1073745920
+	.word	1073742848
 	.word	100712448
 	.word	stopSoundA
 	.word	timerWait
@@ -554,7 +554,7 @@ messagesNonInteractive:
 	add	r1, r1, #2
 	cmp	r1, ip
 	bne	.L67
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L82+32
 	ldr	r1, .L82+36
@@ -744,7 +744,7 @@ chapterOneIntro:
 	ldr	r1, .L94+40
 	mov	lr, pc
 	bx	r8
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L94+44
 	ldr	r1, .L94+48
@@ -760,8 +760,8 @@ chapterOneIntro:
 	.word	introdrone_data
 	.word	playSoundA
 	.word	DMANow
-	.word	1073745920
-	.word	100720640
+	.word	1073742848
+	.word	100714496
 	.word	blackbgMap+1408
 	.word	20000
 	.word	timerWait

@@ -628,7 +628,7 @@ chapterTwoIntro:
 	bne	.L50
 .L53:
 	mov	r2, #67108864
-	mov	r1, #4608
+	mov	r1, #5632
 	mov	r3, #1280
 	strh	r1, [r2]	@ movhi
 	mov	r0, #3
@@ -655,7 +655,7 @@ chapterTwoIntro:
 	.word	memcpy
 	.word	chapter2bgMap+1392
 	.word	DMANow
-	.word	1073745920
+	.word	1073742848
 	.word	100712448
 	.word	messagescreenTiles
 	.word	messagescreenMap

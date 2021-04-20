@@ -136,7 +136,7 @@ void initLivingRoomSprites() {
     phoneRingSpritesArr[2].worldRow = 350;
     phoneRingSpritesArr[2].hide = 1;
 
-        //ring 25%
+    //ring 25%
     phoneRingSpritesArr[3].sheetCol = 8;
     phoneRingSpritesArr[3].sheetRow = 24;
     phoneRingSpritesArr[3].worldCol = 323;
@@ -268,11 +268,11 @@ void chapterTwoIntro() {
     for (int i = 0; i < 700; i++) {
         chapter2bgMapCopy[i] = chapter2bgMap[701];
         if (i % 32 == 0) {
-            DMANow(3, chapter2bgMapCopy, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, chapter2bgMapCopy, &SCREENBLOCK[24], ((1 << 30) | (chapter2bgMapLen / 2)));
         }
     }
 
-    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+    REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
 
     DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
     DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);

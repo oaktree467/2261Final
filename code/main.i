@@ -1375,7 +1375,7 @@ extern const unsigned short livingroomspritesPal[256];
 # 52 "main.c" 2
 # 1 "livingroombg.h" 1
 # 22 "livingroombg.h"
-extern const unsigned short livingroombgTiles[8848];
+extern const unsigned short livingroombgTiles[8080];
 
 
 extern const unsigned short livingroombgMap[4096];
@@ -1837,6 +1837,16 @@ extern const unsigned short kdoorwaybgMap[1024];
 
 extern const unsigned short kdoorwaybgPal[256];
 # 85 "main.c" 2
+# 1 "ldoorwaybg.h" 1
+# 22 "ldoorwaybg.h"
+extern const unsigned short ldoorwaybgTiles[3264];
+
+
+extern const unsigned short ldoorwaybgMap[2048];
+
+
+extern const unsigned short ldoorwaybgPal[256];
+# 86 "main.c" 2
 
 
 int priorState;
@@ -1921,11 +1931,12 @@ int main() {
             win();
             break;
         }
-# 192 "main.c"
+# 193 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
-        (*(volatile unsigned short *)0x04000018) = hOff * 1.2;
+        (*(volatile unsigned short *)0x04000018) = hOff * 0.9;
+
         (*(volatile unsigned short *)0x0400001A) = vOff;
         DMANow(3, shadowOAM, ((OBJ_ATTR*)(0x7000000)), 512);
 
@@ -1949,9 +1960,9 @@ void goToStart() {
 
     DMANow(3, startscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, startscreenTiles, &((charblock *)0x6000000)[1], 7328 / 2);
-    DMANow(3, startscreenMap, &((screenblock *)0x6000000)[28], 1024 * 4);
+    DMANow(3, startscreenMap, &((screenblock *)0x6000000)[25], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((25)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
 
@@ -1974,9 +1985,9 @@ void goToInstructions() {
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
-    DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[28], 1024 * 4);
+    DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[25], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((25)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
 
 }
@@ -2008,13 +2019,13 @@ void goToIntro() {
 
     DMANow(3, blackbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, blackbgTiles, &((charblock *)0x6000000)[1], 96 / 2);
-    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], 1024 * 4);
+    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[25], 2048 / 2);
 
     DMANow(3, chapter1bgTiles, &((charblock *)0x6000000)[0], 5472 / 2);
-    DMANow(3, chapter1bgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, chapter1bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
 
     (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((25)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
 
@@ -2051,21 +2062,28 @@ void goToLivingRoom() {
     (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
 
     DMANow(3, livingroombgPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 17696 / 2);
-    DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[28], 8192 / 2);
+    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 16160 / 2);
+    DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[25], 8192 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (3<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((25)<<8) | (0<<7) | (3<<14) | ((1)<<1);
+
+    DMANow(3, ldoorwaybgTiles, &((charblock *)0x6000000)[2], 6528 / 2);
+    DMANow(3, ldoorwaybgMap, &((screenblock *)0x6000000)[30], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000C) = ((2)<<2) | ((30)<<8) | (0<<7) | (1<<14) | ((1)<<1);
 
     DMANow(3, livingroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, livingroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
+
     hideSprites();
 
     if (priorState == INTRO) {
+
         (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
         chapterTwoIntro();
     } else {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
     }
 }
 
@@ -2103,7 +2121,7 @@ void goToComputer() {
 
     DMANow(3, computerscreenbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, computerscreenbgTiles, &((charblock *)0x6000000)[1], 2368 / 2);
-    DMANow(3, computerscreenbgMap, &((screenblock *)0x6000000)[28], 1024 * 4);
+    DMANow(3, computerscreenbgMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
     (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
@@ -2135,7 +2153,7 @@ void goToKitchen() {
 
     DMANow(3, kitchenbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 6560 / 2);
-    DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[28], 1024 * 4);
+    DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
     (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 

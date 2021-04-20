@@ -1000,7 +1000,7 @@ void chapterOneIntro() {
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], ((1 << 30) | (1024 * 4)));
+            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[25], ((1 << 30) | 2048 / 2));
         }
     }
 
@@ -1009,13 +1009,13 @@ void chapterOneIntro() {
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], ((1 << 30) | (1024 * 4)));
+            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[25], ((1 << 30) | (2048 / 2)));
         }
     }
 
 
     DMANow(3, colddarkmessagebgTiles, &((charblock *)0x6000000)[0], 4480 / 2);
-    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], ((0 << 30) | (1024 * 4)));
+    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], ((0 << 30) | (2048 / 2)));
     messagesNonInteractive();
 
 }
@@ -1067,7 +1067,7 @@ void updateHighlight() {
         }
     }
 
-    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], ((0 << 30) | (1024 * 4)));
+    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[25], ((0 << 30) | (2048 / 2)));
 
 }
 
@@ -1081,7 +1081,7 @@ void messagesNonInteractive() {
 
     clearBoard();
 
-    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24],2048 / 2);
 
     switch (nonInteractText) {
         case 0:
@@ -1124,7 +1124,7 @@ void loadColdMessage() {
 
     clearBoard();
 
-    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 2048 / 2);
 
 
     switch (cursor) {
@@ -1160,7 +1160,7 @@ void loadMessageUnedited() {
     for (int i = 0; i < 255; i++) {
         cdmessageMapCopy[384 + i] = messageUnedited[i];
     }
-    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 2048 / 2);
     coldMessageBool = 0;
 }
 
@@ -1181,7 +1181,7 @@ void printColdText() {
 
         cdmessageMapCopy[timerJ] = cdmessageMapCopy[(letterMap[((*activeMessage)[timerI]) - 32])];
 
-        DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 1024 * 4);
+        DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], 2048 / 2);
 
     }
     *(volatile unsigned short*)0x400010A |= (0<<7);
@@ -1193,14 +1193,14 @@ void chapterOneOutro() {
     for (int i = 0; i < 640; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], (1024 * 4));
+            DMANow(3, blackbgMap, &((screenblock *)0x6000000)[25], (2048 / 2));
         }
     }
 
     for (int i = 0; i < 700; i++) {
         cdmessageMapCopy[i] = cdmessageMapCopy[0];
         if (i % 32 == 0) {
-            DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, cdmessageMapCopy, &((screenblock *)0x6000000)[24], ((1 << 30) | (2048 / 2)));
         }
     }
     stopSoundA();
