@@ -22,6 +22,10 @@ enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE,
 int state;
 
 
+enum {TLMOE, SPETTACOLO};
+int currSong;
+
+
 
 
 typedef struct {
@@ -273,6 +277,13 @@ extern unsigned short colddarkmessagebgMap[1024];
 
 extern const unsigned short colddarkmessagebgPal[256];
 # 10 "livingroomoutro.c" 2
+# 1 "introdrone.h" 1
+
+
+extern const unsigned int introdrone_sampleRate;
+extern const unsigned int introdrone_length;
+extern const signed char introdrone_data[];
+# 11 "livingroomoutro.c" 2
 
 PROTAGSPRITE mars;
 char outroSequenceStage;
@@ -322,6 +333,7 @@ void initMessageOutro() {
 void waitForKeyPress() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+        playSoundA(introdrone_data, introdrone_length, 1);
         (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
         protag.aniState = PROTAGSIDE;
         protag.currFrame = 3;

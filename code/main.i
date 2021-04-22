@@ -1397,6 +1397,10 @@ enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE,
 int state;
 
 
+enum {TLMOE, SPETTACOLO};
+int currSong;
+
+
 
 
 typedef struct {
@@ -1740,6 +1744,7 @@ extern STATIONARYSPRITE computerSpritesArr[];
 extern PROTAGSPRITE mouse;
 
 
+
 void updateComputer();
 void drawComputer();
 
@@ -1752,6 +1757,12 @@ void initMouse();
 void drawMouse();
 void updateMouse();
 void loadSecondaryScreen();
+void disableSprites();
+
+void playSpettacolo();
+void playTLMOE();
+void tlmoeHide(int i);
+void spettacoloHide(int i);
 # 78 "main.c" 2
 # 1 "bedroom.h" 1
 
@@ -1847,6 +1858,13 @@ extern const unsigned short ldoorwaybgMap[2048];
 
 extern const unsigned short ldoorwaybgPal[256];
 # 86 "main.c" 2
+# 1 "LastManOn8rth.h" 1
+
+
+extern const unsigned int LastManOn8rth_sampleRate;
+extern const unsigned int LastManOn8rth_length;
+extern const signed char LastManOn8rth_data[];
+# 87 "main.c" 2
 
 
 int priorState;
@@ -1931,7 +1949,7 @@ int main() {
             win();
             break;
         }
-# 193 "main.c"
+# 194 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
@@ -2050,6 +2068,7 @@ void goToLivingRoom() {
     loadLivingRoom();
 
     if (priorState == INTRO) {
+
         DMANow(3, chapter2bgTiles, &((charblock *)0x6000000)[0], 4320 / 2);
         DMANow(3, chapter2bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
     } else {

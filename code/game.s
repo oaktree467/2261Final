@@ -221,49 +221,51 @@ initGame:
 	mov	lr, #3
 	mov	r5, #20
 	mov	r4, #31
-	ldr	r0, .L48
-	ldr	r2, .L48+4
-	strb	r3, [r0]
+	ldr	r2, .L48
+	ldr	r0, .L48+4
 	strb	r3, [r2]
-	ldr	r0, .L48+8
-	ldr	r2, .L48+12
 	strb	r3, [r0]
+	ldr	r2, .L48+8
+	ldr	r0, .L48+12
 	strb	r3, [r2]
-	ldr	r0, .L48+16
-	ldr	r2, .L48+20
 	strb	r3, [r0]
-	str	r3, [r2]
-	ldr	r0, .L48+24
-	ldr	r2, .L48+28
+	ldr	r2, .L48+16
+	ldr	r0, .L48+20
+	strb	r3, [r2]
 	str	r3, [r0]
+	ldr	r2, .L48+24
+	ldr	r0, .L48+28
 	str	r3, [r2]
-	ldr	r0, .L48+32
-	ldr	r2, .L48+36
-	strb	r3, [r0]
-	strb	r3, [r2]
-	ldr	r0, .L48+40
-	ldr	r2, .L48+44
-	strb	r3, [r0]
-	strb	r3, [r2]
-	ldr	r0, .L48+48
-	ldr	r2, .L48+52
 	str	r3, [r0]
-	strb	r1, [r2]
-	ldr	r0, .L48+56
+	ldr	r2, .L48+32
+	ldr	r0, .L48+36
+	strb	r3, [r2]
+	strb	r3, [r0]
+	ldr	r2, .L48+40
+	ldr	r0, .L48+44
+	strb	r3, [r2]
+	strb	r3, [r0]
+	ldr	r2, .L48+48
+	ldr	r0, .L48+52
+	strb	r3, [r2]
+	str	r3, [r0]
+	ldr	r2, .L48+56
+	ldr	r0, .L48+60
+	str	r1, [r2]
 	ldrh	r2, [r0]
 	orr	r2, r2, #2160
 	orr	r2, r2, #9
 	strh	r1, [r0, #8]	@ movhi
 	strh	r2, [r0]	@ movhi
 	ldrh	r0, [ip, #4]
-	ldr	r2, .L48+60
+	ldr	r2, .L48+64
 	orr	r0, r0, #8
 	strh	r0, [ip, #4]	@ movhi
 	str	r1, [r2, #44]
-	ldr	r0, .L48+64
-	ldr	r1, .L48+68
-	str	r1, [r0, #4092]
+	ldr	r0, .L48+68
 	ldr	r1, .L48+72
+	str	r1, [r0, #4092]
+	ldr	r1, .L48+76
 	str	r5, [r2, #16]
 	str	r4, [r2, #20]
 	str	lr, [r2, #40]
@@ -289,9 +291,10 @@ initGame:
 	.word	computerAccessBool
 	.word	ruthEmailBool
 	.word	marleyEmailBool
+	.word	allEmailsBool
 	.word	livingRoomOutroBool
 	.word	mode
-	.word	allEmailsBool
+	.word	currSong
 	.word	67109376
 	.word	protag
 	.word	50360320
@@ -1506,5 +1509,6 @@ timerWait:
 	.comm	protag,48,4
 	.comm	soundB,32,4
 	.comm	soundA,32,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.ident	"GCC: (devkitARM release 53) 9.1.0"

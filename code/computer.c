@@ -13,10 +13,15 @@
 #include "inboxmarley.h"
 #include "inboxmaincollision.h"
 #include "inboxmessagecollision.h"
+#include "musiccollision.h"
+#include "musicbg.h"
+#include "sound.h"
+#include "LastManOn8rth.h"
 
 
 STATIONARYSPRITE computerSpritesArr[COMPUTER_SPRITECOUNT];
 PROTAGSPRITE mouse;
+extern int currSong;
 extern char ruthEmailBool;
 extern char marleyEmailBool;
 extern char allEmailsBool;
@@ -76,11 +81,11 @@ void initComputerSprites() {
 
     //mail highlight
     computerSpritesArr[1].sheetCol = 0;
-    computerSpritesArr[1].sheetRow = 6;
+    computerSpritesArr[1].sheetRow = 5;
     computerSpritesArr[1].attr0_shape = SQUARESPRITE;
     computerSpritesArr[1].attr1_size = MEDIUMSPRITE;
     computerSpritesArr[1].worldCol = 3;
-    computerSpritesArr[1].worldRow = 47;
+    computerSpritesArr[1].worldRow = 39;
     computerSpritesArr[1].hide = 0;
     computerSpritesArr[1].screenCol = computerSpritesArr[1].worldCol;
     computerSpritesArr[1].screenRow = computerSpritesArr[1].worldRow;
@@ -146,17 +151,104 @@ void initComputerSprites() {
     computerSpritesArr[6].screenRow = computerSpritesArr[6].worldRow;
     computerSpritesArr[6].collisionColor = LIME_HIT;
 
-    //Email Notification
-    computerSpritesArr[7].sheetCol = 6;
-    computerSpritesArr[7].sheetRow = 2;
+    //Music highlight
+    computerSpritesArr[7].sheetCol = 12;
+    computerSpritesArr[7].sheetRow = 0;
     computerSpritesArr[7].attr0_shape = SQUARESPRITE;
-    computerSpritesArr[7].attr1_size = TINYSPRITE;
-    computerSpritesArr[7].worldCol = 20;
-    computerSpritesArr[7].worldRow = 45;
+    computerSpritesArr[7].attr1_size = MEDIUMSPRITE;
+    computerSpritesArr[7].worldCol = 2;
+    computerSpritesArr[7].worldRow = 72;
     computerSpritesArr[7].hide = 1;
     computerSpritesArr[7].screenCol = computerSpritesArr[7].worldCol;
     computerSpritesArr[7].screenRow = computerSpritesArr[7].worldRow;
-    computerSpritesArr[7].collisionColor = 0;
+    computerSpritesArr[7].collisionColor = PEACH_HIT;
+
+    //Play Spettacolo highlight
+    computerSpritesArr[8].sheetCol = 8;
+    computerSpritesArr[8].sheetRow = 0;
+    computerSpritesArr[8].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[8].attr1_size = TINYSPRITE;
+    computerSpritesArr[8].worldCol = 131;
+    computerSpritesArr[8].worldRow = 44;
+    computerSpritesArr[8].hide = 1;
+    computerSpritesArr[8].screenCol = computerSpritesArr[8].worldCol;
+    computerSpritesArr[8].screenRow = computerSpritesArr[8].worldRow;
+    computerSpritesArr[8].collisionColor = ORANGE_HIT;
+
+    //Play Last Man on 8rth highlight
+    computerSpritesArr[9].sheetCol = 8;
+    computerSpritesArr[9].sheetRow = 0;
+    computerSpritesArr[9].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[9].attr1_size = TINYSPRITE;
+    computerSpritesArr[9].worldCol = 131;
+    computerSpritesArr[9].worldRow = 56;
+    computerSpritesArr[9].hide = 1;
+    computerSpritesArr[9].screenCol = computerSpritesArr[9].worldCol;
+    computerSpritesArr[9].screenRow = computerSpritesArr[9].worldRow;
+    computerSpritesArr[9].collisionColor = OCEAN_HIT;
+
+    // ~~~~ NON-INTERACTIVE SPRITES ~~~~
+
+    //Email Notification
+    computerSpritesArr[10].sheetCol = 6;
+    computerSpritesArr[10].sheetRow = 2;
+    computerSpritesArr[10].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[10].attr1_size = TINYSPRITE;
+    computerSpritesArr[10].worldCol = 20;
+    computerSpritesArr[10].worldRow = 45;
+    computerSpritesArr[10].hide = 1;
+    computerSpritesArr[10].screenCol = computerSpritesArr[10].worldCol;
+    computerSpritesArr[10].screenRow = computerSpritesArr[10].worldRow;
+    computerSpritesArr[10].collisionColor = 0;
+
+    //TLMOE Album
+    computerSpritesArr[11].sheetCol = 0;
+    computerSpritesArr[11].sheetRow = 9;
+    computerSpritesArr[11].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[11].attr1_size = LARGESPRITE;
+    computerSpritesArr[11].worldCol = 55;
+    computerSpritesArr[11].worldRow = 30;
+    computerSpritesArr[11].hide = 1;
+    computerSpritesArr[11].screenCol = computerSpritesArr[11].worldCol;
+    computerSpritesArr[11].screenRow = computerSpritesArr[11].worldRow;
+    computerSpritesArr[11].collisionColor = 0;
+
+    //TLMOE Info
+    computerSpritesArr[12].sheetCol = 0;
+    computerSpritesArr[12].sheetRow = 17;
+    computerSpritesArr[12].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[12].attr1_size = LARGESPRITE;
+    computerSpritesArr[12].worldCol = 55;
+    computerSpritesArr[12].worldRow = 86;
+    computerSpritesArr[12].hide = 1;
+    computerSpritesArr[12].screenCol = computerSpritesArr[12].worldCol;
+    computerSpritesArr[12].screenRow = computerSpritesArr[12].worldRow;
+    computerSpritesArr[12].collisionColor = 0;
+
+    //Spettacolo Album
+    computerSpritesArr[13].sheetCol = 8;
+    computerSpritesArr[13].sheetRow = 9;
+    computerSpritesArr[13].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[13].attr1_size = LARGESPRITE;
+    computerSpritesArr[13].worldCol = 55;
+    computerSpritesArr[13].worldRow = 30;
+    computerSpritesArr[13].hide = 1;
+    computerSpritesArr[13].screenCol = computerSpritesArr[13].worldCol;
+    computerSpritesArr[13].screenRow = computerSpritesArr[13].worldRow;
+    computerSpritesArr[13].collisionColor = 0;
+
+    //Spettacolo Info
+    computerSpritesArr[14].sheetCol = 8;
+    computerSpritesArr[14].sheetRow = 17;
+    computerSpritesArr[14].attr0_shape = SQUARESPRITE;
+    computerSpritesArr[14].attr1_size = LARGESPRITE;
+    computerSpritesArr[14].worldCol = 55;
+    computerSpritesArr[14].worldRow = 86;
+    computerSpritesArr[14].hide = 1;
+    computerSpritesArr[14].screenCol = computerSpritesArr[14].worldCol;
+    computerSpritesArr[14].screenRow = computerSpritesArr[14].worldRow;
+    computerSpritesArr[14].collisionColor = 0;
+
 }
 
 void drawMouse() {
@@ -218,7 +310,7 @@ void checkComputerSpriteCollision() {
     activeSprite = NULL;
 
     if (currColor != 0) {
-        for (int i = 0; i < COMPUTER_SPRITECOUNT - 1; i++) {
+        for (int i = 0; i < COMPUTER_SPRITECOUNT - 5; i++) {
             if (computerSpritesArr[i].collisionColor == currColor) {
                 computerSpritesArr[i].hide = 0;
                 activeSprite = &computerSpritesArr[i];
@@ -234,6 +326,7 @@ void loadSecondaryScreen() {
     if (activeSprite == &computerSpritesArr[3]) {
         REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE;
         currCollisionMap = &desktopcollisionBitmap;
+        disableSprites();
         return;
     }
 
@@ -241,15 +334,18 @@ void loadSecondaryScreen() {
     if (activeSprite == &computerSpritesArr[0]) {
         //web desktop icon
         DMANow(3, websitebgTiles, &CHARBLOCK[0], websitebgTilesLen / 2);
-        DMANow(3, websitebgMap, &SCREENBLOCK[24], 1024 * 4);
+        DMANow(3, websitebgMap, &SCREENBLOCK[24], websitebgMapLen / 2);
+
+        //set exit sprite to proper position
         computerSpritesArr[3].worldCol = 38;
         computerSpritesArr[3].worldRow = 16;
+
         currCollisionMap = &websitecollisionBitmap;
     } else if (activeSprite == &computerSpritesArr[6]) {
         //upload document
         if (openSafeBool) {
             DMANow(3, webpagedocTiles, &CHARBLOCK[0], webpagedocTilesLen / 2);
-            DMANow(3, webpagedocMap, &SCREENBLOCK[24], 1024 * 4);
+            DMANow(3, webpagedocMap, &SCREENBLOCK[24], webpagedocMapLen / 2);
             documentsUploaded = 1;
             //enable email notification
             computerSpritesArr[7].hide = 0;
@@ -258,25 +354,48 @@ void loadSecondaryScreen() {
         //email desktop icon
         if (documentsUploaded) {
             DMANow(3, inboxfullTiles, &CHARBLOCK[0], inboxfullTilesLen / 2);
-            DMANow(3, inboxfullMap, &SCREENBLOCK[24], 1024 * 4);
+            DMANow(3, inboxfullMap, &SCREENBLOCK[24], inboxfullMapLen / 2);
         } else {
             DMANow(3, inboxemptyTiles, &CHARBLOCK[0], inboxemptyTilesLen / 2);
-            DMANow(3, inboxemptyMap, &SCREENBLOCK[24], 1024 * 4);
+            DMANow(3, inboxemptyMap, &SCREENBLOCK[24], inboxemptyMapLen / 2);
         }
         currCollisionMap = &inboxmaincollisionBitmap;
 
+        //set exit sprite to proper position
         computerSpritesArr[3].worldCol = 10;
         computerSpritesArr[3].worldRow = 14;
+     } else if (activeSprite == &computerSpritesArr[7]) {
+        //music desktop icon
+        DMANow(3, musicbgTiles, &CHARBLOCK[0], musicbgTilesLen / 2);
+        DMANow(3, musicbgMap, &SCREENBLOCK[24], musicbgMapLen / 2);
+        //set exit sprite to proper position
+        computerSpritesArr[3].worldCol = 38;
+        computerSpritesArr[3].worldRow = 16;
+        //show curr music sprites
+        if (currSong == TLMOE) {
+            tlmoeHide(0);
+            spettacoloHide(1);
+        } else {
+            tlmoeHide(1);
+            spettacoloHide(0);
+        }
+        currCollisionMap = &musiccollisionBitmap;
+    } else if (activeSprite == &computerSpritesArr[8]) {
+        //if spettacolo selected
+        playSpettacolo();
+    } else if (activeSprite == &computerSpritesArr[9]) {
+        //if TLMOE selected
+        playTLMOE();
     } else if (activeSprite == &computerSpritesArr[4]) {
         //ruth email
         DMANow(3, inboxruthTiles, &CHARBLOCK[0], inboxruthTilesLen / 2);
-        DMANow(3, inboxruthMap, &SCREENBLOCK[24], 1024 * 4);
+        DMANow(3, inboxruthMap, &SCREENBLOCK[24], inboxruthMapLen / 2);
         currCollisionMap = &inboxmessagecollisionBitmap;
         ruthEmailBool = 1;
     } else if (activeSprite == &computerSpritesArr[5]) {
         //marley email
         DMANow(3, inboxmarleyTiles, &CHARBLOCK[0], inboxmarleyTilesLen / 2);
-        DMANow(3, inboxmarleyMap, &SCREENBLOCK[24], 1024 * 4);
+        DMANow(3, inboxmarleyMap, &SCREENBLOCK[24], inboxmarleyMapLen / 2);
         currCollisionMap = &inboxmessagecollisionBitmap;
         marleyEmailBool = 1;
     }
@@ -290,4 +409,35 @@ void loadSecondaryScreen() {
 
     REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
     REG_DISPCTL |= BG0_ENABLE;
+}
+
+void disableSprites() {
+    for (int i = COMPUTER_SPRITECOUNT - 1; i > COMPUTER_SPRITECOUNT - 6; i--) {
+        computerSpritesArr[i].hide = 1;
+    }
+}
+
+void playSpettacolo() {
+    spettacoloHide(0);
+    tlmoeHide(1);
+    currSong = SPETTACOLO;
+    stopSound();
+}
+
+void playTLMOE() {
+    spettacoloHide(1);
+    tlmoeHide(0);
+    currSong = TLMOE;
+    playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
+
+}
+
+void tlmoeHide(int i) {
+    computerSpritesArr[11].hide = i;
+    computerSpritesArr[12].hide = i;
+}
+
+void spettacoloHide(int i) {
+    computerSpritesArr[13].hide = i;
+    computerSpritesArr[14].hide = i;
 }

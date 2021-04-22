@@ -30,6 +30,10 @@ enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
 int state;
 
+//for which song is playing
+enum {TLMOE, SPETTACOLO};
+int currSong;
+
 
 /* ----- STRUCTS ----- */
 //struct for protagonist

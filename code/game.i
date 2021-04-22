@@ -117,6 +117,10 @@ enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE,
 int state;
 
 
+enum {TLMOE, SPETTACOLO};
+int currSong;
+
+
 
 
 typedef struct {
@@ -358,6 +362,7 @@ int currSpriteArrCount;
 STATIONARYSPRITE *activeSprite;
 const unsigned short (* currCollisionMap)[];
 unsigned short (* currMessageMap)[];
+int currSong;
 int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
@@ -399,9 +404,10 @@ void initGame(){
     computerAccessBool = 0;
     ruthEmailBool = 0;
     marleyEmailBool = 0;
-    allEmailsBool = 1;
+    allEmailsBool = 0;
     livingRoomOutroBool = 0;
     mode = 0;
+    currSong = SPETTACOLO;
     initProtagonist();
     setUpInterrupts();
     setupSounds();

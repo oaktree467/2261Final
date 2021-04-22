@@ -146,40 +146,47 @@ waitForKeyPress:
 	pop	{r4, r5, r6, r7, r8, lr}
 	bx	lr
 .L22:
+	mov	r7, #1
 	mov	r5, #67108864
 	mov	r6, #3
-	mov	r7, #1
-	ldrh	r1, [r5]
 	ldr	r3, .L23+8
-	ldr	r2, .L23+12
+	mov	r2, r7
+	ldr	r1, [r3]
+	ldr	r0, .L23+12
+	ldr	r3, .L23+16
+	mov	lr, pc
+	bx	r3
+	ldrh	r1, [r5]
+	ldr	r3, .L23+20
+	ldr	r2, .L23+24
 	and	r3, r3, r1
 	strh	r3, [r5]	@ movhi
 	mov	r1, #1024
-	ldr	r0, .L23+16
-	ldr	r3, .L23+20
+	ldr	r0, .L23+28
+	ldr	r3, .L23+32
 	str	r7, [r2, #28]
 	str	r6, [r2, #36]
-	ldr	r8, .L23+24
+	ldr	r8, .L23+36
 	mov	lr, pc
 	bx	r3
 	bl	drawOutroSprites
 	mov	r0, r6
 	mov	r3, #48
-	ldr	r2, .L23+28
-	ldr	r1, .L23+32
+	ldr	r2, .L23+40
+	ldr	r1, .L23+44
 	mov	lr, pc
 	bx	r8
 	mov	r0, r6
 	mov	r3, #4096
-	ldr	r2, .L23+36
-	ldr	r1, .L23+40
+	ldr	r2, .L23+48
+	ldr	r1, .L23+52
 	mov	lr, pc
 	bx	r8
 	ldrh	r3, [r5, #10]
-	ldr	r0, .L23+44
+	ldr	r0, .L23+56
 	strh	r3, [r5, #10]	@ movhi
-	ldr	r1, .L23+48
-	ldr	r2, .L23+52
+	ldr	r1, .L23+60
+	ldr	r2, .L23+64
 	strb	r7, [r0]
 	strh	r4, [r1]	@ movhi
 	strh	r4, [r2]	@ movhi
@@ -190,6 +197,9 @@ waitForKeyPress:
 .L23:
 	.word	oldButtons
 	.word	buttons
+	.word	introdrone_length
+	.word	introdrone_data
+	.word	playSoundA
 	.word	65279
 	.word	protag
 	.word	20000
@@ -527,6 +537,7 @@ updateOutro:
 	.comm	mars,48,4
 	.comm	soundB,32,4
 	.comm	soundA,32,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

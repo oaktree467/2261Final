@@ -83,6 +83,7 @@
 #include "cloudsbg.h"
 #include "kdoorwaybg.h"
 #include "ldoorwaybg.h"
+#include "LastManOn8rth.h"
 
 //extern int mode;
 int priorState; 
@@ -308,6 +309,7 @@ void goToLivingRoom() {
     loadLivingRoom();
 
     if (priorState == INTRO) {
+        //playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
         DMANow(3, chapter2bgTiles, &CHARBLOCK[0], chapter2bgTilesLen / 2);
         DMANow(3, chapter2bgMap, &SCREENBLOCK[24], chapter2bgMapLen / 2);
     } else {
