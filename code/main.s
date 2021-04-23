@@ -1742,7 +1742,7 @@ win:
 	@ args = 0, pretend = 0, frame = 336
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r5, r6, r7, lr}
-	ldr	lr, .L219
+	ldr	lr, .L221
 	sub	sp, sp, #340
 	ldmia	lr!, {r0, r1, r2, r3}
 	add	ip, sp, #64
@@ -1754,35 +1754,35 @@ win:
 	ldm	lr, {r0, r1}
 	add	r7, sp, #260
 	stm	ip, {r0, r1}
-	ldr	r4, .L219+4
+	ldr	r4, .L221+4
 	mov	r2, #74
-	ldr	r1, .L219+8
+	ldr	r1, .L221+8
 	add	r6, sp, #120
 	mov	r0, r7
 	mov	lr, pc
 	bx	r4
 	add	r5, sp, #188
 	mov	r2, #65
-	ldr	r1, .L219+12
+	ldr	r1, .L221+12
 	mov	r0, r6
 	mov	lr, pc
 	bx	r4
 	mov	r2, #71
-	ldr	r1, .L219+16
+	ldr	r1, .L221+16
 	mov	r0, r5
 	mov	lr, pc
 	bx	r4
-	ldr	lr, .L219+20
+	ldr	lr, .L221+20
 	ldmia	lr!, {r0, r1, r2, r3}
 	add	ip, sp, #20
 	stmia	ip!, {r0, r1, r2, r3}
 	ldmia	lr!, {r0, r1, r2, r3}
 	stmia	ip!, {r0, r1, r2, r3}
 	ldm	lr, {r0, r1, r2}
-	ldr	r3, .L219+24
+	ldr	r3, .L221+24
 	stmia	ip!, {r0, r1}
 	ldrh	r3, [r3]
-	ldr	r4, .L219+28
+	ldr	r4, .L221+28
 	tst	r3, #1
 	add	r0, sp, #64
 	add	r1, sp, #20
@@ -1794,30 +1794,32 @@ win:
 	str	r0, [sp]
 	str	r1, [sp, #16]
 	beq	.L211
-	ldr	r2, .L219+32
+	ldr	r2, .L221+32
 	ldrh	r2, [r2]
 	tst	r2, #1
-	beq	.L217
+	beq	.L218
 .L211:
 	cmp	r3, #5
-	beq	.L218
+	beq	.L219
+.L212:
+	cmp	r3, #6
+	beq	.L220
 	add	sp, sp, #340
 	@ sp needed
 	pop	{r4, r5, r6, r7, lr}
 	bx	lr
 .L218:
-	bl	goToStart
-	add	sp, sp, #340
-	@ sp needed
-	pop	{r4, r5, r6, r7, lr}
-	bx	lr
-.L217:
+	add	r3, r3, #1
+	and	r3, r3, #255
+	cmp	r3, #4
+	strb	r3, [r4]
+	bhi	.L211
 	add	r1, sp, #336
-	ldr	r2, .L219+36
+	ldr	r2, .L221+36
 	add	r3, r1, r3, lsl #2
 	ldr	r1, [r3, #-336]
 	ldr	r2, [r2]
-	ldr	r3, .L219+40
+	ldr	r3, .L221+40
 	str	r1, [r2, #48]
 	mov	lr, pc
 	bx	r3
@@ -1826,13 +1828,43 @@ win:
 	orr	r3, r3, #256
 	strh	r3, [r2]	@ movhi
 	ldrb	r3, [r4]	@ zero_extendqisi2
-	add	r3, r3, #1
-	and	r3, r3, #255
-	strb	r3, [r4]
 	b	.L211
 .L220:
-	.align	2
+	bl	goToStart
+	add	sp, sp, #340
+	@ sp needed
+	pop	{r4, r5, r6, r7, lr}
+	bx	lr
 .L219:
+	mov	r2, #67108864
+	ldr	r3, .L221+44
+	ldrh	r1, [r2]
+	and	r3, r3, r1
+	strh	r3, [r2]	@ movhi
+	ldr	r5, .L221+48
+	mov	r3, #256
+	mov	r2, #83886080
+	mov	r0, #3
+	ldr	r1, .L221+52
+	mov	lr, pc
+	bx	r5
+	mov	r3, #8704
+	mov	r0, #3
+	ldr	r2, .L221+56
+	ldr	r1, .L221+60
+	mov	lr, pc
+	bx	r5
+	mov	r3, #1024
+	mov	r0, #3
+	ldr	r2, .L221+64
+	ldr	r1, .L221+68
+	mov	lr, pc
+	bx	r5
+	ldrb	r3, [r4]	@ zero_extendqisi2
+	b	.L212
+.L222:
+	.align	2
+.L221:
 	.word	.LC0
 	.word	memcpy
 	.word	.LC1
@@ -1844,6 +1876,13 @@ win:
 	.word	buttons
 	.word	activeSprite
 	.word	printText
+	.word	65279
+	.word	DMANow
+	.word	finscreenPal
+	.word	100679680
+	.word	finscreenTiles
+	.word	100720640
+	.word	finscreenMap
 	.size	win, .-win
 	.global	__aeabi_i2d
 	.global	__aeabi_dmul
@@ -1867,19 +1906,19 @@ main:
 	strh	r2, [r3]	@ movhi
 	add	r3, r3, #256
 	ldrh	r0, [r3, #48]
-	ldr	r5, .L240+8
-	ldr	r10, .L240+12
-	ldr	r2, .L240+16
+	ldr	r5, .L242+8
+	ldr	r10, .L242+12
+	ldr	r2, .L242+16
 	mov	fp, r3
 	strh	r0, [r5]	@ movhi
 	strh	r1, [r10]	@ movhi
 	mov	lr, pc
 	bx	r2
-	ldr	r8, .L240+20
-	ldr	r7, .L240+24
-	ldr	r6, .L240+28
-	ldr	r9, .L240+32
-.L238:
+	ldr	r8, .L242+20
+	ldr	r7, .L242+24
+	ldr	r6, .L242+28
+	ldr	r9, .L242+32
+.L240:
 	ldrh	r1, [r5]
 	strh	r1, [r10]	@ movhi
 	ldr	r2, [r8]
@@ -1887,8 +1926,10 @@ main:
 	strh	r3, [r5]	@ movhi
 	cmp	r2, #11
 	ldrls	pc, [pc, r2, asl #2]
-	b	.L222
-.L224:
+	b	.L224
+.L226:
+	.word	.L237
+	.word	.L236
 	.word	.L235
 	.word	.L234
 	.word	.L233
@@ -1898,32 +1939,30 @@ main:
 	.word	.L229
 	.word	.L228
 	.word	.L227
-	.word	.L226
 	.word	.L225
-	.word	.L223
-.L223:
-	ldr	r3, .L240+36
+.L225:
+	ldr	r3, .L242+36
 	mov	lr, pc
 	bx	r3
-.L222:
+.L224:
 	mov	r4, #67108864
-	ldr	r3, .L240+40
+	ldr	r3, .L242+40
 	mov	lr, pc
 	bx	r3
 	ldrh	r3, [r7]
 	strh	r3, [r4, #20]	@ movhi
 	ldrh	r3, [r6]
 	strh	r3, [r4, #22]	@ movhi
-	ldr	r3, .L240+44
+	ldr	r3, .L242+44
 	ldrh	r0, [r7]
 	mov	lr, pc
 	bx	r3
-	adr	r3, .L240
+	adr	r3, .L242
 	ldmia	r3, {r2-r3}
-	ldr	ip, .L240+48
+	ldr	ip, .L242+48
 	mov	lr, pc
 	bx	ip
-	ldr	r3, .L240+52
+	ldr	r3, .L242+52
 	mov	lr, pc
 	bx	r3
 	lsl	r0, r0, #16
@@ -1935,79 +1974,79 @@ main:
 	mov	r1, r9
 	mov	r2, #117440512
 	mov	r0, #3
-	ldr	ip, .L240+56
+	ldr	ip, .L242+56
 	mov	lr, pc
 	bx	ip
-	b	.L238
-.L225:
-	ldr	r3, .L240+60
-	mov	lr, pc
-	bx	r3
-	b	.L222
-.L226:
-	ldr	r3, .L240+64
-	mov	lr, pc
-	bx	r3
-	b	.L222
+	b	.L240
 .L227:
-	ldr	r3, .L240+68
+	ldr	r3, .L242+60
 	mov	lr, pc
 	bx	r3
-	b	.L222
+	b	.L224
 .L228:
-	ldr	r3, .L240+72
+	ldr	r3, .L242+64
 	mov	lr, pc
 	bx	r3
-	b	.L222
+	b	.L224
 .L229:
-	ldr	r3, .L240+76
+	ldr	r3, .L242+68
 	mov	lr, pc
 	bx	r3
-	b	.L222
+	b	.L224
 .L230:
-	ldr	r3, .L240+80
+	ldr	r3, .L242+72
 	mov	lr, pc
 	bx	r3
-	b	.L222
+	b	.L224
 .L231:
-	ldr	r3, .L240+84
+	ldr	r3, .L242+76
 	mov	lr, pc
 	bx	r3
-	b	.L222
+	b	.L224
 .L232:
-	ldr	r3, .L240+88
+	ldr	r3, .L242+80
 	mov	lr, pc
 	bx	r3
-	b	.L222
+	b	.L224
 .L233:
-	ldr	r3, .L240+92
+	ldr	r3, .L242+84
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L240+96
+	b	.L224
+.L234:
+	ldr	r3, .L242+88
+	mov	lr, pc
+	bx	r3
+	b	.L224
+.L235:
+	ldr	r3, .L242+92
+	mov	lr, pc
+	bx	r3
+	ldr	r3, .L242+96
 	ldr	r3, [r3]
 	cmp	r3, #1
-	bne	.L222
-	ldr	r3, .L240+100
+	bne	.L224
+	ldr	r3, .L242+100
 	mov	lr, pc
 	bx	r3
-	b	.L222
-.L235:
+	b	.L224
+.L237:
 	tst	r1, #1
-	beq	.L222
+	beq	.L224
 	tst	r3, #1
-	bne	.L222
-	ldr	r3, .L240+104
+	bne	.L224
+	ldr	r3, .L242+104
 	mov	lr, pc
 	bx	r3
-	b	.L222
-.L234:
-	ldr	r3, .L240+108
+	b	.L224
+.L236:
+	ldr	r3, .L242+108
 	mov	lr, pc
 	bx	r3
-	b	.L222
-.L241:
+	b	.L224
+.L243:
 	.align	3
-.L240:
+.L242:
 	.word	3435973837
 	.word	1072483532
 	.word	buttons

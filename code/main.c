@@ -89,6 +89,7 @@
 #include "finale.h"
 #include "chapter3bg.h"
 #include "finalewindows.h"
+#include "finscreen.h"
 
 //extern int mode;
 int priorState; 
@@ -707,13 +708,22 @@ void win() {
     char * options[] = {m1, m2, m3, m4, m5};
 
     if (BUTTON_PRESSED(BUTTON_A)) {
-        activeSprite->message = options[messageInd];
-        printText();
-        REG_DISPCTL |= BG0_ENABLE;
         messageInd++;
+        if (messageInd < 5) {
+             activeSprite->message = options[messageInd];
+            printText();
+            REG_DISPCTL |= BG0_ENABLE;
+        }
     }
 
     if (messageInd == 5) {
+        REG_DISPCTL &= ~(BG0_ENABLE);
+        DMANow(3, finscreenPal, PALETTE, 256);
+        DMANow(3, finscreenTiles, &CHARBLOCK[1], winscreenTilesLen / 2);
+        DMANow(3, finscreenMap, &SCREENBLOCK[28], winscreenMapLen / 2);
+    }
+
+    if (messageInd == 6) {
         goToStart();
     }
 }

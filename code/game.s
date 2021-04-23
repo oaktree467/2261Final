@@ -219,11 +219,11 @@ initGame:
 	strb	r3, [r0]
 	ldr	r2, .L43+16
 	ldr	r0, .L43+20
-	strb	r3, [r2]
+	str	r3, [r2]
 	str	r3, [r0]
 	ldr	r2, .L43+24
 	ldr	r0, .L43+28
-	str	r3, [r2]
+	strb	r3, [r2]
 	str	r3, [r0]
 	ldr	r2, .L43+32
 	ldr	r0, .L43+36
@@ -271,10 +271,10 @@ initGame:
 	.word	enableKeyFind
 	.word	keyFound
 	.word	phoneRinging
-	.word	documentsFound
 	.word	documentsUploaded
 	.word	spriteCollisionBool
 	.word	messageActiveBool
+	.word	openSafeBool
 	.word	nextRoomBool
 	.word	computerAccessBool
 	.word	ruthEmailBool
@@ -1519,6 +1519,7 @@ timerWait:
 	.comm	computerAccessBool,1,1
 	.comm	documentsUploaded,1,1
 	.comm	phoneRinging,1,1
+	.comm	openSafeBool,1,1
 	.comm	documentsFound,1,1
 	.comm	keyFound,1,1
 	.comm	enableKeyFind,1,1

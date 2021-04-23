@@ -369,6 +369,7 @@ void drawPersistentSprites();
 void updateFinale();
 void marsSpeaks();
 void selectArrow();
+void chapterThreeIntro();
 # 18 "game.c" 2
 
 
@@ -385,6 +386,7 @@ int nextRoomBool;
 char enableKeyFind;
 char keyFound;
 char documentsFound;
+char openSafeBool;
 char phoneRinging;
 char documentsUploaded;
 char computerAccessBool;
@@ -413,10 +415,10 @@ void initGame(){
     enableKeyFind = 0;
     keyFound = 0;
     phoneRinging = 0;
-    documentsFound = 0;
     documentsUploaded = 0;
     spriteCollisionBool = 0;
     messageActiveBool = 0;
+    openSafeBool = 0;
     nextRoomBool = 0;
     computerAccessBool = 0;
     ruthEmailBool = 0;

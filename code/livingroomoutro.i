@@ -278,18 +278,12 @@ extern unsigned short colddarkmessagebgMap[1024];
 
 extern const unsigned short colddarkmessagebgPal[256];
 # 10 "livingroomoutro.c" 2
-# 1 "introdrone.h" 1
-
-
-extern const unsigned int introdrone_sampleRate;
-extern const unsigned int introdrone_length;
-extern const signed char introdrone_data[];
-# 11 "livingroomoutro.c" 2
 
 PROTAGSPRITE mars;
 char outroSequenceStage;
 int timerI;
 int timerJ;
+
 char ot_1[] = "Something shifts in your  gut. A warning.An oncomingepisode.                  You don't...                feel so good...";
 char ot_2[] = "That's all you remember.  ...                       ...                       ... But wait.";
 char ot_3[] = "Didn't someone knock?";
@@ -334,7 +328,6 @@ void initMessageOutro() {
 void waitForKeyPress() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        playSoundA(introdrone_data, introdrone_length, 1);
         (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
         protag.aniState = PROTAGSIDE;
         protag.currFrame = 3;

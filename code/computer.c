@@ -19,6 +19,7 @@
 #include "LastManOn8rth.h"
 
 
+
 STATIONARYSPRITE computerSpritesArr[COMPUTER_SPRITECOUNT];
 PROTAGSPRITE mouse;
 extern int currSong;
@@ -348,7 +349,7 @@ void loadSecondaryScreen() {
             DMANow(3, webpagedocMap, &SCREENBLOCK[24], webpagedocMapLen / 2);
             documentsUploaded = 1;
             //enable email notification
-            computerSpritesArr[7].hide = 0;
+            computerSpritesArr[10].hide = 0;
         }
     } else if (activeSprite == &computerSpritesArr[1] || activeSprite == &computerSpritesArr[2]) {
         //email desktop icon
@@ -412,7 +413,7 @@ void loadSecondaryScreen() {
 }
 
 void disableSprites() {
-    for (int i = COMPUTER_SPRITECOUNT - 1; i > COMPUTER_SPRITECOUNT - 6; i--) {
+    for (int i = COMPUTER_SPRITECOUNT - 1; i > COMPUTER_SPRITECOUNT - 4; i--) {
         computerSpritesArr[i].hide = 1;
     }
 }

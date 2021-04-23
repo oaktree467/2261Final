@@ -1919,6 +1919,16 @@ extern const unsigned short finalewindowsMap[2048];
 
 extern const unsigned short finalewindowsPal[256];
 # 92 "main.c" 2
+# 1 "finscreen.h" 1
+# 22 "finscreen.h"
+extern const unsigned short finscreenTiles[2032];
+
+
+extern const unsigned short finscreenMap[1024];
+
+
+extern const unsigned short finscreenPal[256];
+# 93 "main.c" 2
 
 
 int priorState;
@@ -2010,7 +2020,7 @@ int main() {
             win();
             break;
         }
-# 206 "main.c"
+# 207 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
@@ -2515,13 +2525,22 @@ void win() {
     char * options[] = {m1, m2, m3, m4, m5};
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        activeSprite->message = options[messageInd];
-        printText();
-        (*(volatile unsigned short *)0x4000000) |= (1<<8);
         messageInd++;
+        if (messageInd < 5) {
+             activeSprite->message = options[messageInd];
+            printText();
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        }
     }
 
     if (messageInd == 5) {
+        (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
+        DMANow(3, finscreenPal, ((unsigned short *)0x5000000), 256);
+        DMANow(3, finscreenTiles, &((charblock *)0x6000000)[1], 17408 / 2);
+        DMANow(3, finscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
+    }
+
+    if (messageInd == 6) {
         goToStart();
     }
 }

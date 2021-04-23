@@ -7,12 +7,12 @@
 #include "frontdoor.h"
 #include "blackbg.h"
 #include "colddarkmessagebg.h"
-#include "introdrone.h"
 
 PROTAGSPRITE mars;
 char outroSequenceStage;
 int timerI;
 int timerJ;
+
 char ot_1[] = "Something shifts in your  gut. A warning.An oncomingepisode.                  You don't...                feel so good...";
 char ot_2[] = "That's all you remember.  ...                       ...                       ... But wait.";
 char ot_3[] = "Didn't someone knock?";
@@ -57,7 +57,6 @@ void initMessageOutro() {
 void waitForKeyPress() {
     //trigger first step of outro animation
     if (BUTTON_PRESSED(BUTTON_A)) {
-        playSoundA(introdrone_data, introdrone_length, 1);
         REG_DISPCTL &= ~(BG0_ENABLE);
         protag.aniState = PROTAGSIDE;
         protag.currFrame = 3;

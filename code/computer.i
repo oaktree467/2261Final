@@ -368,6 +368,7 @@ extern const signed char LastManOn8rth_data[];
 # 20 "computer.c" 2
 
 
+
 STATIONARYSPRITE computerSpritesArr[15];
 PROTAGSPRITE mouse;
 extern int currSong;
@@ -645,9 +646,9 @@ void updateMouse() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
         if (activeSprite != 
-# 298 "computer.c" 3 4
+# 299 "computer.c" 3 4
                            ((void *)0)
-# 298 "computer.c"
+# 299 "computer.c"
                                ) {
             loadSecondaryScreen();
         }
@@ -661,9 +662,9 @@ void checkComputerSpriteCollision() {
     u16 currColor = 0;
     currColor = checkCollisionMapColor(mouse.worldCol, mouse.worldRow);
     activeSprite = 
-# 310 "computer.c" 3 4
+# 311 "computer.c" 3 4
                   ((void *)0)
-# 310 "computer.c"
+# 311 "computer.c"
                       ;
 
     if (currColor != 0) {
@@ -705,7 +706,7 @@ void loadSecondaryScreen() {
             DMANow(3, webpagedocMap, &((screenblock *)0x6000000)[24], 2048 / 2);
             documentsUploaded = 1;
 
-            computerSpritesArr[7].hide = 0;
+            computerSpritesArr[10].hide = 0;
         }
     } else if (activeSprite == &computerSpritesArr[1] || activeSprite == &computerSpritesArr[2]) {
 
@@ -769,7 +770,7 @@ void loadSecondaryScreen() {
 }
 
 void disableSprites() {
-    for (int i = 15 - 1; i > 15 - 6; i--) {
+    for (int i = 15 - 1; i > 15 - 4; i--) {
         computerSpritesArr[i].hide = 1;
     }
 }
