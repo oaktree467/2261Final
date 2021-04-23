@@ -93,10 +93,8 @@ playSoundA:
 	ldr	r3, .L7+44
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L7+48
-	str	r0, [r4, #20]
 	str	r7, [r4, #28]
-	str	r3, [r4, #8]
+	str	r0, [r4, #20]
 	pop	{r4, r5, r6, r7, r8, lr}
 	bx	lr
 .L8:
@@ -114,7 +112,6 @@ playSoundA:
 	.word	__aeabi_ddiv
 	.word	1086687360
 	.word	__aeabi_d2iz
-	.word	11025
 	.size	playSoundA, .-playSoundA
 	.align	2
 	.global	playSoundB
@@ -170,10 +167,8 @@ playSoundB:
 	ldr	r3, .L11+44
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L11+48
-	str	r0, [r4, #20]
 	str	r7, [r4, #28]
-	str	r3, [r4, #8]
+	str	r0, [r4, #20]
 	pop	{r4, r5, r6, r7, r8, lr}
 	bx	lr
 .L12:
@@ -191,7 +186,6 @@ playSoundB:
 	.word	__aeabi_ddiv
 	.word	1086687360
 	.word	__aeabi_d2iz
-	.word	11025
 	.size	playSoundB, .-playSoundB
 	.align	2
 	.global	pauseSound

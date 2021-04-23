@@ -103,7 +103,7 @@ enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
 
 
@@ -176,6 +176,7 @@ extern char computerAccessBool;
 extern char allEmailsBool;
 extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -280,7 +281,7 @@ extern const unsigned short inboxemptyPal[256];
 # 11 "computer.c" 2
 # 1 "inboxfull.h" 1
 # 22 "inboxfull.h"
-extern const unsigned short inboxfullTiles[1632];
+extern const unsigned short inboxfullTiles[1584];
 
 
 extern const unsigned short inboxfullMap[1024];
@@ -298,15 +299,15 @@ extern const unsigned short inboxruthMap[1024];
 
 extern const unsigned short inboxruthPal[256];
 # 13 "computer.c" 2
-# 1 "inboxmarley.h" 1
-# 22 "inboxmarley.h"
-extern const unsigned short inboxmarleyTiles[4000];
+# 1 "inboxmars.h" 1
+# 22 "inboxmars.h"
+extern const unsigned short inboxmarsTiles[3952];
 
 
-extern const unsigned short inboxmarleyMap[1024];
+extern const unsigned short inboxmarsMap[1024];
 
 
-extern const unsigned short inboxmarleyPal[256];
+extern const unsigned short inboxmarsPal[256];
 # 14 "computer.c" 2
 # 1 "inboxmaincollision.h" 1
 # 20 "inboxmaincollision.h"
@@ -371,7 +372,7 @@ STATIONARYSPRITE computerSpritesArr[15];
 PROTAGSPRITE mouse;
 extern int currSong;
 extern char ruthEmailBool;
-extern char marleyEmailBool;
+extern char marsEmailBool;
 extern char allEmailsBool;
 
 
@@ -709,7 +710,7 @@ void loadSecondaryScreen() {
     } else if (activeSprite == &computerSpritesArr[1] || activeSprite == &computerSpritesArr[2]) {
 
         if (documentsUploaded) {
-            DMANow(3, inboxfullTiles, &((charblock *)0x6000000)[0], 3264 / 2);
+            DMANow(3, inboxfullTiles, &((charblock *)0x6000000)[0], 3168 / 2);
             DMANow(3, inboxfullMap, &((screenblock *)0x6000000)[24], 2048 / 2);
         } else {
             DMANow(3, inboxemptyTiles, &((charblock *)0x6000000)[0], 1536 / 2);
@@ -750,13 +751,13 @@ void loadSecondaryScreen() {
         ruthEmailBool = 1;
     } else if (activeSprite == &computerSpritesArr[5]) {
 
-        DMANow(3, inboxmarleyTiles, &((charblock *)0x6000000)[0], 8000 / 2);
-        DMANow(3, inboxmarleyMap, &((screenblock *)0x6000000)[24], 2048 / 2);
+        DMANow(3, inboxmarsTiles, &((charblock *)0x6000000)[0], 7904 / 2);
+        DMANow(3, inboxmarsMap, &((screenblock *)0x6000000)[24], 2048 / 2);
         currCollisionMap = &inboxmessagecollisionBitmap;
-        marleyEmailBool = 1;
+        marsEmailBool = 1;
     }
 
-    if (ruthEmailBool && marleyEmailBool) {
+    if (ruthEmailBool && marsEmailBool) {
         allEmailsBool = 1;
     }
 

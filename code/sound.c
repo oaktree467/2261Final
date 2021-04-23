@@ -36,7 +36,7 @@ void playSoundA( const signed char* sound, int length, int loops) {
         soundA.isPlaying = 1;
         soundA.duration = ((VBLANK_FREQ*length) / SOUND_FREQ);
         soundA.vBlankCount = 0;
-        soundA.frequency = SOUND_FREQ;
+        //soundA.frequency = SOUND_FREQ;
 }
 
 
@@ -60,7 +60,7 @@ void playSoundB( const signed char* sound, int length, int loops) {
         soundB.isPlaying = 1;
         soundB.duration = ((VBLANK_FREQ*length) / SOUND_FREQ);
         soundB.vBlankCount = 0;
-        soundB.frequency = SOUND_FREQ;
+        //soundB.frequency = SOUND_FREQ;
 
 }
 

@@ -84,6 +84,11 @@
 #include "kdoorwaybg.h"
 #include "ldoorwaybg.h"
 #include "LastManOn8rth.h"
+#include "finalebg.h"
+#include "finalesprites.h"
+#include "finale.h"
+#include "chapter3bg.h"
+#include "finalewindows.h"
 
 //extern int mode;
 int priorState; 
@@ -108,10 +113,14 @@ void goToSafe();
 void safe();
 void goToLivingRoomOutro();
 void livingRoomOutro();
+void goToFinale();
+void finale();
 void goToPause();
 void pause();
 void goToWin();
 void win();
+
+char messageInd;
 
 
 
@@ -160,6 +169,9 @@ int main() {
             break;
         case LR_OUTRO:
             livingRoomOutro();
+            break;
+        case FINALE:
+            finale();
             break;
         case PAUSE:
             pause();
@@ -286,6 +298,7 @@ void goToIntro() {
 
     REG_DISPCTL = MODE0 | BG0_ENABLE | BG1_ENABLE | SPRITE_ENABLE; 
 
+    playSoundA(introdrone_data, introdrone_length, 1);
     chapterOneIntro();
     
 }
@@ -530,7 +543,9 @@ void safe() {
 
 //sets up the outro state
 void goToLivingRoomOutro() {
+    priorState = state;
     state = LR_OUTRO;
+    nextRoomBool = 0;
     hideSprites();
     initLivingRoomOutro();
     DMANow(3, outrospritesPal, SPRITEPALETTE, outrospritesPalLen / 2);
@@ -542,6 +557,71 @@ void livingRoomOutro() {
     updateOutro();
     drawOutroSprites();
 
+    if (nextRoomBool) {
+        goToFinale();
+    }
+
+}
+
+void goToFinale() {
+    priorState = state;
+    state = FINALE;
+    hideSprites();
+
+    if (priorState == LR_OUTRO) {
+        //playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
+        DMANow(3, chapter3bgTiles, &CHARBLOCK[0], chapter3bgTilesLen / 2);
+        DMANow(3, chapter3bgMap, &SCREENBLOCK[24], chapter3bgMapLen / 2);
+    } else {
+        DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
+        DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
+    }
+
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
+
+    DMANow(3, finalebgPal, PALETTE, 256);
+    DMANow(3, finalebgTiles, &CHARBLOCK[1], finalebgTilesLen / 2);
+    DMANow(3, finalebgMap, &SCREENBLOCK[28], finalebgMapLen / 2);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+
+    DMANow(3, finalewindowsTiles, &CHARBLOCK[2], finalewindowsTilesLen / 2);
+    DMANow(3, finalewindowsMap, &SCREENBLOCK[26], finalewindowsMapLen / 2);
+
+    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+
+    DMANow(3, finalespritesPal, SPRITEPALETTE, finalespritesPalLen / 2);
+    DMANow(3, finalespritesTiles, &CHARBLOCK[4], finalespritesTilesLen / 2);
+
+    loadFinale();
+
+    if (priorState == LR_OUTRO) {
+        REG_BG1HOFF = hOff;
+        REG_BG1VOFF = vOff;
+        REG_DISPCTL |= BG0_ENABLE | BG2_ENABLE;
+        chapterThreeIntro();
+    } else {
+        REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
+    }
+
+}
+
+void finale() {
+    if (!marsInteractBool) {
+        updateGame();
+        updatePersistentSprites();
+        drawGame();
+        drawPersistentSprites();
+    } else {
+        updatePersistentSprites();
+        drawPersistentSprites();
+        updateFinale();
+    }
+
+    if (nextRoomBool == 1) {
+        goToWin();
+    }
+    
 }
 
 // Sets up the pause state
@@ -608,11 +688,29 @@ void goToWin() {
     DMANow(3, winscreenMap, &SCREENBLOCK[28], winscreenMapLen / 2);
 
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    messageInd = 0;
+
 }
 
 // Runs every frame of the win state
 void win() {
+    char m1[] = "You had forgotten how beautiful the outside could be...";
+    char m2[] = "You consider how worried you had been, when you were safe the whole time.";
+    char m3[] = "In the coming weeks, your attacks become less and less frequent.";
+    char m4[] = "Eventually, without your fear feeding them, they disappear altogether.";
+    char m5[] = "You live. And at last, you are at peace.";
+
+    char * options[] = {m1, m2, m3, m4, m5};
+
     if (BUTTON_PRESSED(BUTTON_A)) {
+        activeSprite->message = options[messageInd];
+        printText();
+        REG_DISPCTL |= BG0_ENABLE;
+        messageInd++;
+    }
+
+    if (messageInd == 5) {
         goToStart();
     }
 }

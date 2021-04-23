@@ -188,6 +188,7 @@ reassignRefrigeratorMessage:
 	.global	refrigerator_0
 	.global	pictureFrame
 	.comm	kitchenSpritesArr,104,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

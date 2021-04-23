@@ -48,7 +48,8 @@ void initColdDark() {
 //CHAPTER 1: THE COLD DARK
 void chapterOneIntro() {
     
-    playSoundA(introdrone_data, introdrone_length, 1);
+    //playSoundA(introdrone_data, introdrone_length, 1);
+
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {

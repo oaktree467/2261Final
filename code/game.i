@@ -113,7 +113,7 @@ enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
 
 
@@ -186,6 +186,7 @@ extern char computerAccessBool;
 extern char allEmailsBool;
 extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -278,7 +279,7 @@ extern const unsigned short kitchenbgPal[256];
 # 11 "game.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
@@ -354,6 +355,21 @@ extern const unsigned int phonering_sampleRate;
 extern const unsigned int phonering_length;
 extern const signed char phonering_data[];
 # 17 "game.c" 2
+# 1 "finale.h" 1
+
+
+
+extern STATIONARYSPRITE finaleSpritesArr[];
+extern char marsInteractBool;
+
+void loadFinale();
+void initFinaleSprites();
+void updatePersistentSprites();
+void drawPersistentSprites();
+void updateFinale();
+void marsSpeaks();
+void selectArrow();
+# 18 "game.c" 2
 
 
 PROTAGSPRITE protag;
@@ -374,9 +390,10 @@ char documentsUploaded;
 char computerAccessBool;
 char phoneAnswerBool;
 char ruthEmailBool;
-char marleyEmailBool;
+char marsEmailBool;
 char allEmailsBool;
 char livingRoomOutroBool;
+char activateDoorBool;
 
 
 unsigned short priorHoff;
@@ -403,10 +420,10 @@ void initGame(){
     nextRoomBool = 0;
     computerAccessBool = 0;
     ruthEmailBool = 0;
-    marleyEmailBool = 0;
+    marsEmailBool = 0;
     allEmailsBool = 0;
     livingRoomOutroBool = 0;
-    mode = 0;
+    activateDoorBool = 0;
     currSong = SPETTACOLO;
     initProtagonist();
     setUpInterrupts();
@@ -628,6 +645,15 @@ void checkMoreInfo() {
             ringSettings();
             phoneAnswerBool = 1;
             (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        } else if (activeSprite == &finaleSpritesArr[1]) {
+
+            marsInteractBool = 1;
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+            marsSpeaks();
+            printText();
+        } else if (activateDoorBool && activeSprite == &finaleSpritesArr[0]) {
+
+            nextRoomBool = 1;
         } else {
 
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -743,12 +769,6 @@ void interruptHandler() {
     *(unsigned short*)0x4000208 = 0;
 
 
-    if (*(volatile unsigned short*)0x4000202 & 1<<4) {
-        if (state == INTRO) {
-            timerI++;
-            timerJ++;
-        }
-    }
 
 
     if (*(volatile unsigned short*)0x4000202 & 1<<5) {
@@ -766,6 +786,19 @@ void interruptHandler() {
                 phoneRingSpritesArr[currRing].hide = 0;
             }
         }
+
+        if (state == FINALE) {
+            if ((*currSpriteArr)[2].sheetRow == 0) {
+                (*currSpriteArr)[2].sheetRow = 2;
+            } else {
+                (*currSpriteArr)[2].sheetRow = 0;
+            }
+
+            (*currSpriteArr)[3].sheetRow += 4;
+            if ((*currSpriteArr)[3].sheetRow == 28) {
+                (*currSpriteArr)[3].sheetRow = 16;
+            }
+        }
     }
 
 
@@ -777,26 +810,26 @@ void interruptHandler() {
     if(*(volatile unsigned short*)0x4000202 & 1 << 0) {
         if (soundA.isPlaying) {
             soundA.vBlankCount++;
-            if (soundA.vBlankCount > soundA.duration - 2) {
+            if (soundA.vBlankCount > soundA.duration) {
                 if (soundA.loops) {
                     playSoundA(soundA.data, soundA.length, soundA.loops);
                 } else {
                     soundA.isPlaying = 0;
                     dma[1].cnt = 0;
-                    *(volatile unsigned short*)0x400010A = (0<<7);
+                    *(volatile unsigned short*)0x4000102 = (0<<7);
                 }
             }
         }
 
         if (soundB.isPlaying) {
             soundB.vBlankCount++;
-            if (soundB.vBlankCount > soundB.duration - 2) {
+            if (soundB.vBlankCount > soundB.duration) {
                 if (soundB.loops) {
                     playSoundB(soundB.data, soundB.length, soundB.loops);
                 } else {
                     soundB.isPlaying = 0;
                     dma[2].cnt = 0;
-                    *(volatile unsigned short*)0x400010E = (0<<7);
+                    *(volatile unsigned short*)0x4000106 = (0<<7);
                 }
             }
 

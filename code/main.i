@@ -1393,7 +1393,7 @@ enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
 
 
@@ -1466,6 +1466,7 @@ extern char computerAccessBool;
 extern char allEmailsBool;
 extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -1562,7 +1563,7 @@ extern const unsigned short bedroomspritesPal[256];
 # 61 "main.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
@@ -1649,7 +1650,7 @@ extern const unsigned short pausescreenPal[256];
 # 69 "main.c" 2
 # 1 "winscreen.h" 1
 # 22 "winscreen.h"
-extern const unsigned short winscreenTiles[2032];
+extern const unsigned short winscreenTiles[8704];
 
 
 extern const unsigned short winscreenMap[1024];
@@ -1865,6 +1866,59 @@ extern const unsigned int LastManOn8rth_sampleRate;
 extern const unsigned int LastManOn8rth_length;
 extern const signed char LastManOn8rth_data[];
 # 87 "main.c" 2
+# 1 "finalebg.h" 1
+# 22 "finalebg.h"
+extern const unsigned short finalebgTiles[3072];
+
+
+extern const unsigned short finalebgMap[2048];
+
+
+extern const unsigned short finalebgPal[256];
+# 88 "main.c" 2
+# 1 "finalesprites.h" 1
+# 21 "finalesprites.h"
+extern const unsigned short finalespritesTiles[16384];
+
+
+extern const unsigned short finalespritesPal[256];
+# 89 "main.c" 2
+# 1 "finale.h" 1
+
+
+
+extern STATIONARYSPRITE finaleSpritesArr[];
+extern char marsInteractBool;
+
+void loadFinale();
+void initFinaleSprites();
+void updatePersistentSprites();
+void drawPersistentSprites();
+void updateFinale();
+void marsSpeaks();
+void selectArrow();
+void chapterThreeIntro();
+# 90 "main.c" 2
+# 1 "chapter3bg.h" 1
+# 22 "chapter3bg.h"
+extern const unsigned short chapter3bgTiles[2288];
+
+
+extern const unsigned short chapter3bgMap[1024];
+
+
+extern const unsigned short chapter3bgPal[256];
+# 91 "main.c" 2
+# 1 "finalewindows.h" 1
+# 22 "finalewindows.h"
+extern const unsigned short finalewindowsTiles[1824];
+
+
+extern const unsigned short finalewindowsMap[2048];
+
+
+extern const unsigned short finalewindowsPal[256];
+# 92 "main.c" 2
 
 
 int priorState;
@@ -1889,10 +1943,14 @@ void goToSafe();
 void safe();
 void goToLivingRoomOutro();
 void livingRoomOutro();
+void goToFinale();
+void finale();
 void goToPause();
 void pause();
 void goToWin();
 void win();
+
+char messageInd;
 
 
 
@@ -1942,6 +2000,9 @@ int main() {
         case LR_OUTRO:
             livingRoomOutro();
             break;
+        case FINALE:
+            finale();
+            break;
         case PAUSE:
             pause();
             break;
@@ -1949,7 +2010,7 @@ int main() {
             win();
             break;
         }
-# 194 "main.c"
+# 206 "main.c"
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
@@ -2045,6 +2106,7 @@ void goToIntro() {
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1<<8) | (1<<9) | (1<<12);
 
+    playSoundA(introdrone_data, introdrone_length, 1);
     chapterOneIntro();
 
 }
@@ -2072,7 +2134,7 @@ void goToLivingRoom() {
         DMANow(3, chapter2bgTiles, &((charblock *)0x6000000)[0], 4320 / 2);
         DMANow(3, chapter2bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
     } else {
-        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
+        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2656 / 2);
         DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
     }
 
@@ -2289,7 +2351,9 @@ void safe() {
 
 
 void goToLivingRoomOutro() {
+    priorState = state;
     state = LR_OUTRO;
+    nextRoomBool = 0;
     hideSprites();
     initLivingRoomOutro();
     DMANow(3, outrospritesPal, ((unsigned short *)0x5000200), 512 / 2);
@@ -2300,6 +2364,71 @@ void goToLivingRoomOutro() {
 void livingRoomOutro() {
     updateOutro();
     drawOutroSprites();
+
+    if (nextRoomBool) {
+        goToFinale();
+    }
+
+}
+
+void goToFinale() {
+    priorState = state;
+    state = FINALE;
+    hideSprites();
+
+    if (priorState == LR_OUTRO) {
+
+        DMANow(3, chapter3bgTiles, &((charblock *)0x6000000)[0], 4576 / 2);
+        DMANow(3, chapter3bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
+    } else {
+        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2656 / 2);
+        DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
+    }
+
+    (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
+
+    DMANow(3, finalebgPal, ((unsigned short *)0x5000000), 256);
+    DMANow(3, finalebgTiles, &((charblock *)0x6000000)[1], 6144 / 2);
+    DMANow(3, finalebgMap, &((screenblock *)0x6000000)[28], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (1<<14) | ((1)<<1);
+
+    DMANow(3, finalewindowsTiles, &((charblock *)0x6000000)[2], 3648 / 2);
+    DMANow(3, finalewindowsMap, &((screenblock *)0x6000000)[26], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000C) = ((2)<<2) | ((26)<<8) | (0<<7) | (1<<14) | ((1)<<1);
+
+    DMANow(3, finalespritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, finalespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    loadFinale();
+
+    if (priorState == LR_OUTRO) {
+        (*(volatile unsigned short *)0x04000014) = hOff;
+        (*(volatile unsigned short *)0x04000016) = vOff;
+        (*(volatile unsigned short *)0x4000000) |= (1<<8) | (1<<10);
+        chapterThreeIntro();
+    } else {
+        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
+    }
+
+}
+
+void finale() {
+    if (!marsInteractBool) {
+        updateGame();
+        updatePersistentSprites();
+        drawGame();
+        drawPersistentSprites();
+    } else {
+        updatePersistentSprites();
+        drawPersistentSprites();
+        updateFinale();
+    }
+
+    if (nextRoomBool == 1) {
+        goToWin();
+    }
 
 }
 
@@ -2363,15 +2492,33 @@ void goToWin() {
     hideSprites();
 
     DMANow(3, winscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, winscreenTiles, &((charblock *)0x6000000)[1], 4064 / 2);
+    DMANow(3, winscreenTiles, &((charblock *)0x6000000)[1], 17408 / 2);
     DMANow(3, winscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
     (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
+    messageInd = 0;
+
 }
 
 
 void win() {
+    char m1[] = "You had forgotten how beautiful the outside could be...";
+    char m2[] = "You consider how worried you had been, when you were safe the whole time.";
+    char m3[] = "In the coming weeks, your attacks become less and less frequent.";
+    char m4[] = "Eventually, without your fear feeding them, they disappear altogether.";
+    char m5[] = "You live. And at last, you are at peace.";
+
+    char * options[] = {m1, m2, m3, m4, m5};
+
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+        activeSprite->message = options[messageInd];
+        printText();
+        (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        messageInd++;
+    }
+
+    if (messageInd == 5) {
         goToStart();
     }
 }

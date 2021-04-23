@@ -648,6 +648,7 @@ clearSafeMessage:
 	.comm	safeSpritesArr,988,4
 	.comm	soundB,32,4
 	.comm	soundA,32,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

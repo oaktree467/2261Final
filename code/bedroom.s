@@ -131,10 +131,15 @@ loadBedroom:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	ldr	r3, .L11
-	ldr	r3, [r3]
-	bic	r2, r3, #8
+	ldr	r2, [r3]
+	cmp	r2, #10
+	cmpne	r2, #7
+	movne	r3, #1
+	moveq	r3, #0
 	cmp	r2, #1
-	cmpne	r3, #7
+	moveq	r3, #0
+	andne	r3, r3, #1
+	cmp	r3, #0
 	push	{r4, lr}
 	bne	.L10
 	ldr	r2, .L11+4
@@ -224,6 +229,7 @@ safeOpenMessage:
 	.global	bedFrame
 	.global	wallsafe
 	.comm	bedroomSpritesArr,312,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

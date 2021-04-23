@@ -8,8 +8,12 @@ enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -77,6 +81,7 @@ extern char computerAccessBool;
 extern char allEmailsBool;
 extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -915,7 +920,7 @@ extern const unsigned short chapter2bgPal[256];
 # 7 "livingroom.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
@@ -1181,7 +1186,7 @@ void chapterTwoIntro() {
     timerWait(0, 256);
 
     unsigned short chapter2bgMapCopy[2048];
-    memcpy (chapter2bgMapCopy, chapter2bgMap, 2048);
+    memcpy(chapter2bgMapCopy, chapter2bgMap, 2048);
 
     for (int i = 0; i < 700; i++) {
         chapter2bgMapCopy[i] = chapter2bgMap[701];
@@ -1192,7 +1197,7 @@ void chapterTwoIntro() {
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
 
-    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
+    DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2656 / 2);
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
 
 }

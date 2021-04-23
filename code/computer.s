@@ -672,7 +672,7 @@ loadSecondaryScreen:
 	add	r2, r4, #260
 	cmp	r3, r2
 	bne	.L58
-	mov	r3, #4000
+	mov	r3, #3952
 	mov	r2, #100663296
 	mov	r0, #3
 	ldr	r1, .L92+48
@@ -703,7 +703,7 @@ loadSecondaryScreen:
 	strb	r2, [r3]
 	b	.L71
 .L86:
-	mov	r3, #1632
+	mov	r3, #1584
 	mov	r2, #100663296
 	mov	r0, #3
 	ldr	r1, .L92+64
@@ -869,9 +869,9 @@ loadSecondaryScreen:
 	.word	inboxmaincollisionBitmap
 	.word	openSafeBool
 	.word	ruthEmailBool
-	.word	marleyEmailBool
-	.word	inboxmarleyTiles
-	.word	inboxmarleyMap
+	.word	marsEmailBool
+	.word	inboxmarsTiles
+	.word	inboxmarsMap
 	.word	inboxmessagecollisionBitmap
 	.word	allEmailsBool
 	.word	inboxfullTiles

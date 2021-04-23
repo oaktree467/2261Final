@@ -129,7 +129,10 @@ void updateOutro() {
             }
         }
         frame = (frame + 1) % 101;
-
+    } else if (outroSequenceStage == 4) {
+        if (BUTTON_PRESSED(BUTTON_A)) {
+            nextRoomBool = 1;
+        }
     }
 
 }

@@ -10,7 +10,7 @@
 #include "inboxempty.h"
 #include "inboxfull.h"
 #include "inboxruth.h"
-#include "inboxmarley.h"
+#include "inboxmars.h"
 #include "inboxmaincollision.h"
 #include "inboxmessagecollision.h"
 #include "musiccollision.h"
@@ -23,7 +23,7 @@ STATIONARYSPRITE computerSpritesArr[COMPUTER_SPRITECOUNT];
 PROTAGSPRITE mouse;
 extern int currSong;
 extern char ruthEmailBool;
-extern char marleyEmailBool;
+extern char marsEmailBool;
 extern char allEmailsBool;
 
 //load computer attributes
@@ -393,14 +393,14 @@ void loadSecondaryScreen() {
         currCollisionMap = &inboxmessagecollisionBitmap;
         ruthEmailBool = 1;
     } else if (activeSprite == &computerSpritesArr[5]) {
-        //marley email
-        DMANow(3, inboxmarleyTiles, &CHARBLOCK[0], inboxmarleyTilesLen / 2);
-        DMANow(3, inboxmarleyMap, &SCREENBLOCK[24], inboxmarleyMapLen / 2);
+        //mars email
+        DMANow(3, inboxmarsTiles, &CHARBLOCK[0], inboxmarsTilesLen / 2);
+        DMANow(3, inboxmarsMap, &SCREENBLOCK[24], inboxmarsMapLen / 2);
         currCollisionMap = &inboxmessagecollisionBitmap;
-        marleyEmailBool = 1;
+        marsEmailBool = 1;
     }
 
-    if (ruthEmailBool && marleyEmailBool) {
+    if (ruthEmailBool && marsEmailBool) {
         allEmailsBool = 1;
     }
 

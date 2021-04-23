@@ -275,7 +275,7 @@ messagescreenPal:
 	.short	0
 	.short	0
 	.type	messagescreenTiles, %object
-	.size	messagescreenTiles, 2560
+	.size	messagescreenTiles, 2656
 messagescreenTiles:
 	.short	0
 	.short	0
@@ -1463,6 +1463,22 @@ messagescreenTiles:
 	.short	17442
 	.short	17476
 	.short	17476
+	.short	9284
+	.short	17476
+	.short	9284
+	.short	17474
+	.short	9284
+	.short	17442
+	.short	9284
+	.short	16930
+	.short	9284
+	.short	17442
+	.short	9284
+	.short	17474
+	.short	9284
+	.short	17476
+	.short	17476
+	.short	17476
 	.short	17476
 	.short	17476
 	.short	17476
@@ -1555,6 +1571,38 @@ messagescreenTiles:
 	.short	17476
 	.short	17476
 	.short	17476
+	.short	17476
+	.short	17476
+	.short	17476
+	.short	17476
+	.short	9284
+	.short	17476
+	.short	9284
+	.short	17476
+	.short	9284
+	.short	17476
+	.short	9284
+	.short	17476
+	.short	9284
+	.short	17476
+	.short	17476
+	.short	17476
+	.short	9284
+	.short	17476
+	.short	17476
+	.short	17476
+	.short	9284
+	.short	17474
+	.short	9284
+	.short	17474
+	.short	17476
+	.short	17476
+	.short	17476
+	.short	17476
+	.short	9284
+	.short	17474
+	.short	9284
+	.short	17474
 	.short	17476
 	.short	17476
 	.data
@@ -2311,34 +2359,35 @@ messagescreenMap:
 	.short	4168
 	.short	4169
 	.short	4102
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
-	.short	4097
 	.short	4170
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
+	.short	4097
 	.short	4171
 	.short	4172
 	.short	4173
 	.short	4174
-	.short	5198
 	.short	4175
+	.short	5199
+	.short	4176
+	.short	4177
 	.short	4097
 	.short	4097
 	.short	4097
@@ -2363,8 +2412,7 @@ messagescreenMap:
 	.short	4097
 	.short	4097
 	.short	4097
-	.short	4097
-	.short	4097
+	.short	4178
 	.short	4097
 	.short	4097
 	.short	4097

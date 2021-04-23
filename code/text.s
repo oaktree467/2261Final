@@ -11,6 +11,7 @@
 	.file	"text.c"
 	.text
 	.global	letterMap
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2
@@ -18,7 +19,7 @@
 	.size	letterMap, 380
 letterMap:
 	.word	748
-	.word	0
+	.word	777
 	.word	774
 	.word	0
 	.word	0
@@ -43,7 +44,7 @@ letterMap:
 	.word	745
 	.word	746
 	.word	747
-	.word	0
+	.word	802
 	.word	773
 	.word	0
 	.word	0

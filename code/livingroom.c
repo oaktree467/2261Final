@@ -263,7 +263,7 @@ void chapterTwoIntro() {
     timerWait(0, 256);
 
     unsigned short chapter2bgMapCopy[chapter2bgMapLen];
-    memcpy (chapter2bgMapCopy, chapter2bgMap, chapter2bgMapLen);
+    memcpy(chapter2bgMapCopy, chapter2bgMap, chapter2bgMapLen);
     
     for (int i = 0; i < 700; i++) {
         chapter2bgMapCopy[i] = chapter2bgMap[701];

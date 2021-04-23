@@ -675,19 +675,12 @@ chapterOneIntro:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	ldr	r5, .L94
-	ldr	r3, .L94+4
-	mov	r2, #1
-	ldr	r1, [r3]
-	ldr	r0, .L94+8
-	ldr	r3, .L94+12
 	add	r7, r5, #1280
-	mov	lr, pc
-	bx	r3
-	mov	r6, r5
 	mov	r4, #0
-	ldr	r8, .L94+16
-	ldr	fp, .L94+20
-	ldr	r10, .L94+24
+	mov	r6, r5
+	ldr	r8, .L94+4
+	ldr	fp, .L94+8
+	ldr	r10, .L94+12
 	add	r7, r7, #2
 	add	r9, r5, #2
 	b	.L86
@@ -709,15 +702,15 @@ chapterOneIntro:
 	cmp	r4, #600
 	bne	.L86
 .L92:
-	ldr	r6, .L94+28
+	ldr	r6, .L94+16
 	mov	r1, #64
-	ldr	r0, .L94+32
-	ldr	r3, .L94+36
+	ldr	r0, .L94+20
+	ldr	r3, .L94+24
 	mov	lr, pc
 	bx	r3
 	mov	r4, #0
-	ldr	r10, .L94+20
-	ldr	r9, .L94+24
+	ldr	r10, .L94+8
+	ldr	r9, .L94+12
 	sub	r7, r6, #1408
 	b	.L88
 .L87:
@@ -741,13 +734,13 @@ chapterOneIntro:
 	mov	r3, #2240
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L94+40
+	ldr	r1, .L94+28
 	mov	lr, pc
 	bx	r8
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L94+44
-	ldr	r1, .L94+48
+	ldr	r2, .L94+32
+	ldr	r1, .L94+36
 	mov	lr, pc
 	bx	r8
 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
@@ -756,9 +749,6 @@ chapterOneIntro:
 	.align	2
 .L94:
 	.word	blackbgMap-2
-	.word	introdrone_length
-	.word	introdrone_data
-	.word	playSoundA
 	.word	DMANow
 	.word	1073742848
 	.word	100720640
@@ -902,6 +892,7 @@ updateColdDark:
 	.global	intervals
 	.comm	soundB,32,4
 	.comm	soundA,32,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

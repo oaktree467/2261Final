@@ -27,7 +27,7 @@ enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 // States
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
 
 //for which song is playing
@@ -100,6 +100,7 @@ extern char computerAccessBool; //true if player is accessing computer in living
 extern char allEmailsBool; // true if both emails in the player's inbox have been read
 extern char livingRoomOutroBool; //true when allEmailsBool is true and player has crossed the outro threshold
 extern char phoneAnswerBool;
+extern char activateDoorBool; //true when all of Mars' messages in the finale have been accessed
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;

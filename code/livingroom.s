@@ -241,20 +241,25 @@ loadLivingRoom:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	ldr	r3, .L17
-	ldr	r2, [r3]
-	bic	r3, r2, #8
+	ldr	r3, [r3]
+	cmp	r3, #10
+	cmpne	r3, #4
+	movne	r1, #1
+	moveq	r1, #0
+	mov	r2, #512
 	cmp	r3, #1
-	cmpne	r2, #4
-	mov	r3, #512
+	moveq	r1, #0
+	andne	r1, r1, #1
 	ldr	r0, .L17+4
 	push	{r4, r5, r6, lr}
 	ldr	ip, .L17+8
 	ldr	lr, .L17+12
-	ldr	r1, .L17+16
-	str	r3, [r0]
-	ldr	r0, .L17+20
-	str	r3, [lr]
-	str	r3, [ip]
+	str	r2, [r0]
+	cmp	r1, #0
+	ldr	r0, .L17+16
+	ldr	r1, .L17+20
+	str	r2, [lr]
+	str	r2, [ip]
 	str	r0, [r1]
 	bne	.L16
 	ldr	r2, .L17+24
@@ -285,7 +290,7 @@ loadLivingRoom:
 	str	r2, [r3]
 	b	ringSettings
 .L16:
-	cmp	r2, #5
+	cmp	r3, #5
 	bne	.L13
 	mov	lr, #272
 	ldr	r1, .L17+32
@@ -328,8 +333,8 @@ loadLivingRoom:
 	.word	visMapWidth
 	.word	totalMapHeight
 	.word	totalMapWidth
-	.word	visMapHeight
 	.word	478
+	.word	visMapHeight
 	.word	priorHoff
 	.word	priorVoff
 	.word	hOff
@@ -632,7 +637,7 @@ chapterTwoIntro:
 .L53:
 	mov	r2, #67108864
 	mov	r1, #5632
-	mov	r3, #1280
+	mov	r3, #1328
 	strh	r1, [r2]	@ movhi
 	mov	r0, #3
 	mov	r2, #100663296
@@ -675,6 +680,7 @@ chapterTwoIntro:
 	.comm	currRing,4,4
 	.comm	phoneRingSpritesArr,208,4
 	.comm	livingRoomSpritesArr,416,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

@@ -160,7 +160,7 @@ void playSoundA( const signed char* sound, int length, int loops) {
         soundA.isPlaying = 1;
         soundA.duration = (((59.727)*length) / 11025);
         soundA.vBlankCount = 0;
-        soundA.frequency = 11025;
+
 }
 
 
@@ -184,7 +184,7 @@ void playSoundB( const signed char* sound, int length, int loops) {
         soundB.isPlaying = 1;
         soundB.duration = (((59.727)*length) / 11025);
         soundB.vBlankCount = 0;
-        soundB.frequency = 11025;
+
 
 }
 

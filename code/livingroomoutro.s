@@ -376,40 +376,50 @@ updateOutro:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r5, r6, lr}
-	ldr	r4, .L71
+	ldr	r4, .L75
 	ldrb	r3, [r4]	@ zero_extendqisi2
 	cmp	r3, #0
-	beq	.L67
+	beq	.L71
 	cmp	r3, #1
-	beq	.L68
+	beq	.L72
 	cmp	r3, #2
-	beq	.L69
+	beq	.L73
 	cmp	r3, #3
-	beq	.L70
-.L43:
-	pop	{r4, r5, r6, lr}
-	bx	lr
-.L68:
-	ldr	r5, .L71+4
+	beq	.L74
+	cmp	r3, #4
+	bne	.L43
+	ldr	r3, .L75+4
+	ldrh	r3, [r3]
+	tst	r3, #1
+	beq	.L43
+	ldr	r3, .L75+8
+	ldrh	r3, [r3]
+	tst	r3, #1
+	moveq	r2, #1
+	ldreq	r3, .L75+12
+	streq	r2, [r3]
+	b	.L43
+.L72:
+	ldr	r5, .L75+16
 	ldr	r3, [r5]
 	tst	r3, #1
-	bne	.L51
-	ldr	r2, .L71+8
+	bne	.L52
+	ldr	r2, .L75+20
 	ldr	r1, [r2, #8]
 	cmp	r1, #40
 	subgt	r1, r1, #1
 	strgt	r1, [r2, #8]
-	bgt	.L51
+	bgt	.L52
 	ldr	r0, [r2, #20]
 	ldr	r1, [r2, #12]
 	rsb	r0, r0, #120
 	cmp	r1, r0
 	ble	.L48
-.L58:
+.L59:
 	sub	r1, r1, #1
 	str	r1, [r2, #12]
-.L51:
-	ldr	r2, .L71+12
+.L52:
+	ldr	r2, .L75+24
 	add	r3, r3, #1
 	smull	r0, r1, r2, r3
 	asr	r2, r3, #31
@@ -419,104 +429,106 @@ updateOutro:
 	add	r2, r2, r1, lsl #2
 	sub	r3, r3, r2
 	str	r3, [r5]
+.L43:
 	pop	{r4, r5, r6, lr}
 	bx	lr
-.L67:
+.L71:
 	pop	{r4, r5, r6, lr}
 	b	waitForKeyPress
-.L70:
-	ldr	r5, .L71+4
+.L74:
+	ldr	r5, .L75+16
 	ldr	r3, [r5]
 	tst	r3, #1
-	bne	.L51
+	bne	.L52
 	tst	r3, #15
-	ldr	r2, .L71+16
-	bne	.L53
+	ldr	r2, .L75+28
+	bne	.L54
 	ldr	r1, [r2, #36]
 	cmp	r1, #6
 	add	r1, r1, #1
 	moveq	r1, #4
 	str	r1, [r2, #36]
-.L53:
+.L54:
 	ldr	r1, [r2, #8]
 	cmp	r1, #39
 	addle	r1, r1, #1
 	strle	r1, [r2, #8]
-	ble	.L51
+	ble	.L52
 	ldr	r1, [r2, #12]
 	cmp	r1, #120
-	ble	.L57
+	ble	.L58
 	ldr	r0, [r2, #28]
 	cmp	r0, #1
 	movne	r0, #1
 	strne	r0, [r2, #28]
 	strne	r0, [r2, #44]
-	b	.L58
-.L69:
-	ldr	r3, .L71+20
+	b	.L59
+.L73:
+	ldr	r3, .L75+4
 	ldrh	r3, [r3]
 	tst	r3, #1
 	beq	.L43
-	ldr	r3, .L71+24
+	ldr	r3, .L75+8
 	ldrh	r2, [r3]
 	ands	r5, r2, #1
 	bne	.L43
-	ldr	r3, .L71+28
+	ldr	r3, .L75+32
 	mov	lr, pc
 	bx	r3
-	ldr	r0, .L71+32
+	ldr	r0, .L75+36
 	bl	printOutroText
-	ldr	r3, .L71+36
+	ldr	r3, .L75+40
 	mov	r2, r5
 	ldr	r1, [r3]
-	ldr	r0, .L71+40
-	ldr	r3, .L71+44
+	ldr	r0, .L75+44
+	ldr	r3, .L75+48
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L71+48
+	ldr	r3, .L75+52
 	mov	r1, #1024
 	mov	r0, r5
 	mov	lr, pc
 	bx	r3
 	mov	r2, #3
-	ldr	r3, .L71+4
+	ldr	r3, .L75+16
 	strb	r2, [r4]
 	str	r5, [r3]
 	b	.L43
 .L48:
 	mov	r2, #2
 	mov	r1, #1024
-	ldr	r0, .L71+52
-	ldr	r3, .L71+48
+	ldr	r0, .L75+56
+	ldr	r3, .L75+52
 	strb	r2, [r4]
 	mov	lr, pc
 	bx	r3
-	ldr	r3, .L71+28
+	ldr	r3, .L75+32
 	mov	lr, pc
 	bx	r3
 	mov	r2, #67108864
 	ldrh	r3, [r2]
 	orr	r3, r3, #256
 	strh	r3, [r2]	@ movhi
-	ldr	r0, .L71+56
+	ldr	r0, .L75+60
 	bl	printOutroText
 	ldr	r3, [r5]
-	b	.L51
-.L57:
+	b	.L52
+.L58:
 	mov	r1, #4
 	strb	r1, [r4]
 	str	r1, [r2, #36]
-	b	.L51
-.L72:
+	b	.L52
+.L76:
 	.align	2
-.L71:
+.L75:
 	.word	outroSequenceStage
+	.word	oldButtons
+	.word	buttons
+	.word	nextRoomBool
 	.word	.LANCHOR1
 	.word	protag
 	.word	680390859
 	.word	mars
-	.word	oldButtons
-	.word	buttons
 	.word	clearMessage
 	.word	.LANCHOR0+216
 	.word	frontdoor_length

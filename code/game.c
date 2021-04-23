@@ -14,6 +14,7 @@
 #include "safe.h"
 #include "sound.h"
 #include "phonering.h"
+#include "finale.h"
 
 //global variables
 PROTAGSPRITE protag;
@@ -34,9 +35,10 @@ char documentsUploaded;
 char computerAccessBool;
 char phoneAnswerBool; 
 char ruthEmailBool;
-char marleyEmailBool;
+char marsEmailBool;
 char allEmailsBool;
 char livingRoomOutroBool;
+char activateDoorBool;
 
 
 unsigned short priorHoff;
@@ -63,10 +65,10 @@ void initGame(){
     nextRoomBool = 0;
     computerAccessBool = 0;
     ruthEmailBool = 0;
-    marleyEmailBool = 0;
+    marsEmailBool = 0;
     allEmailsBool = 0;
     livingRoomOutroBool = 0;
-    mode = 0;
+    activateDoorBool = 0;
     currSong = SPETTACOLO;
     initProtagonist();
     setUpInterrupts();
@@ -288,6 +290,15 @@ void checkMoreInfo() {
             ringSettings();
             phoneAnswerBool = 1;
             REG_DISPCTL |= BG0_ENABLE;
+        } else if (activeSprite == &finaleSpritesArr[1]) {
+            //if the protagonist interacts with Mars
+            marsInteractBool = 1;
+            REG_DISPCTL |= BG0_ENABLE;
+            marsSpeaks();
+            printText();
+        } else if (activateDoorBool && activeSprite == &finaleSpritesArr[0]) {
+            //if the protagonist interacts with the door and has spoken to Mars
+            nextRoomBool = 1;
         } else {
             //if the protagonist checks the refrigerator the first time, enableKeyFind
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -402,13 +413,7 @@ void setUpInterrupts() {
 void interruptHandler() {
     REG_IME = 0;
     
-    //text animation in intro
-    if (REG_IF & INT_TM1) {
-        if (state == INTRO) {
-            timerI++;
-            timerJ++;
-        }
-    }
+    
 
     //ring animation in living room
     if (REG_IF & INT_TM2) {
@@ -425,7 +430,20 @@ void interruptHandler() {
                 currRing = 0;
                 phoneRingSpritesArr[currRing].hide = 0;
             }
-        } 
+        }
+
+        if (state == FINALE) {
+            if ((*currSpriteArr)[2].sheetRow == 0) {
+                (*currSpriteArr)[2].sheetRow = 2;
+            } else {
+                (*currSpriteArr)[2].sheetRow = 0;
+            }
+
+            (*currSpriteArr)[3].sheetRow += 4;
+            if ((*currSpriteArr)[3].sheetRow == 28) {
+                (*currSpriteArr)[3].sheetRow = 16;
+            }
+        }
     }
 
     //intro animation 
@@ -437,26 +455,26 @@ void interruptHandler() {
     if(REG_IF & INT_VBLANK) {
         if (soundA.isPlaying) {
             soundA.vBlankCount++;
-            if (soundA.vBlankCount > soundA.duration - 2) {
+            if (soundA.vBlankCount > soundA.duration) {
                 if (soundA.loops) {
                     playSoundA(soundA.data, soundA.length, soundA.loops);
                 } else {
                     soundA.isPlaying = 0;
                     dma[1].cnt = 0;
-                    REG_TM2CNT = TIMER_OFF;
+                    REG_TM0CNT = TIMER_OFF;
                 }
             }
         }
 
         if (soundB.isPlaying) {
             soundB.vBlankCount++;
-            if (soundB.vBlankCount > soundB.duration - 2) {
+            if (soundB.vBlankCount > soundB.duration) {
                 if (soundB.loops) {
                     playSoundB(soundB.data, soundB.length, soundB.loops);
                 } else {
                     soundB.isPlaying = 0;
                     dma[2].cnt = 0;
-                    REG_TM3CNT = TIMER_OFF;
+                    REG_TM1CNT = TIMER_OFF;
                 }
             }
 

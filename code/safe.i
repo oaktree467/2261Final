@@ -8,8 +8,12 @@ enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
 enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -77,6 +81,7 @@ extern char computerAccessBool;
 extern char allEmailsBool;
 extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -197,7 +202,7 @@ int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, i
 # 3 "safe.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
