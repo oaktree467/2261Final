@@ -2374,6 +2374,7 @@ void livingRoomOutro() {
 void goToFinale() {
     priorState = state;
     state = FINALE;
+    nextRoomBool = 0;
     hideSprites();
 
     if (priorState == LR_OUTRO) {
@@ -2488,6 +2489,8 @@ void pause() {
 
 void goToWin() {
     state = WIN;
+    (*(volatile unsigned short *)0x04000014) = 0;
+    (*(volatile unsigned short *)0x04000016) = 0;
 
     hideSprites();
 

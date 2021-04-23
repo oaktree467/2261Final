@@ -566,6 +566,7 @@ void livingRoomOutro() {
 void goToFinale() {
     priorState = state;
     state = FINALE;
+    nextRoomBool = 0; 
     hideSprites();
 
     if (priorState == LR_OUTRO) {
@@ -680,6 +681,8 @@ void pause() {
 // Sets up the win state
 void goToWin() {
     state = WIN;
+    REG_BG1HOFF = 0;
+    REG_BG1VOFF = 0;
 
     hideSprites();
 

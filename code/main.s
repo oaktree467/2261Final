@@ -1047,30 +1047,33 @@ goToFinale:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	r0, #9
+	mov	ip, #9
+	mov	r1, #0
 	ldr	r3, .L102
 	push	{r4, r5, r6, lr}
-	ldr	r1, [r3]
+	ldr	r0, [r3]
 	ldr	r6, .L102+4
 	ldr	r2, .L102+8
-	str	r0, [r3]
-	str	r1, [r6]
+	str	ip, [r3]
+	ldr	r3, .L102+12
+	str	r0, [r6]
+	str	r1, [r2]
 	mov	lr, pc
-	bx	r2
+	bx	r3
 	ldr	r3, [r6]
 	cmp	r3, #8
 	beq	.L100
 	mov	r3, #1328
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L102+12
-	ldr	r4, .L102+16
+	ldr	r1, .L102+16
+	ldr	r4, .L102+20
 	mov	lr, pc
 	bx	r4
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L102+20
-	ldr	r1, .L102+24
+	ldr	r2, .L102+24
+	ldr	r1, .L102+28
 	mov	lr, pc
 	bx	r4
 .L96:
@@ -1079,51 +1082,51 @@ goToFinale:
 	mov	r3, #256
 	mov	r0, #3
 	strh	r2, [r5, #8]	@ movhi
-	ldr	r1, .L102+28
+	ldr	r1, .L102+32
 	mov	r2, #83886080
 	mov	lr, pc
 	bx	r4
 	mov	r3, #3072
 	mov	r0, #3
-	ldr	r2, .L102+32
-	ldr	r1, .L102+36
+	ldr	r2, .L102+36
+	ldr	r1, .L102+40
 	mov	lr, pc
 	bx	r4
 	mov	r3, #2048
 	mov	r0, #3
-	ldr	r2, .L102+40
-	ldr	r1, .L102+44
+	ldr	r2, .L102+44
+	ldr	r1, .L102+48
 	mov	lr, pc
 	bx	r4
-	ldr	r2, .L102+48
+	ldr	r2, .L102+52
 	mov	r3, #1824
 	mov	r0, #3
 	strh	r2, [r5, #10]	@ movhi
-	ldr	r1, .L102+52
-	ldr	r2, .L102+56
+	ldr	r1, .L102+56
+	ldr	r2, .L102+60
 	mov	lr, pc
 	bx	r4
 	mov	r3, #2048
 	mov	r0, #3
-	ldr	r2, .L102+60
-	ldr	r1, .L102+64
+	ldr	r2, .L102+64
+	ldr	r1, .L102+68
 	mov	lr, pc
 	bx	r4
-	ldr	r2, .L102+68
+	ldr	r2, .L102+72
 	mov	r3, #256
 	mov	r0, #3
 	strh	r2, [r5, #12]	@ movhi
-	ldr	r1, .L102+72
-	ldr	r2, .L102+76
+	ldr	r1, .L102+76
+	ldr	r2, .L102+80
 	mov	lr, pc
 	bx	r4
 	mov	r3, #16384
 	mov	r0, #3
-	ldr	r2, .L102+80
-	ldr	r1, .L102+84
+	ldr	r2, .L102+84
+	ldr	r1, .L102+88
 	mov	lr, pc
 	bx	r4
-	ldr	r3, .L102+88
+	ldr	r3, .L102+92
 	mov	lr, pc
 	bx	r3
 	ldr	r3, [r6]
@@ -1137,28 +1140,28 @@ goToFinale:
 	mov	r3, #2288
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L102+92
-	ldr	r4, .L102+16
+	ldr	r1, .L102+96
+	ldr	r4, .L102+20
 	mov	lr, pc
 	bx	r4
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L102+20
-	ldr	r1, .L102+96
+	ldr	r2, .L102+24
+	ldr	r1, .L102+100
 	mov	lr, pc
 	bx	r4
 	b	.L96
 .L101:
-	ldr	r3, .L102+100
-	ldrh	r2, [r3]
 	ldr	r3, .L102+104
+	ldrh	r2, [r3]
+	ldr	r3, .L102+108
 	strh	r2, [r5, #20]	@ movhi
 	ldrh	r3, [r3]
 	strh	r3, [r5, #22]	@ movhi
 	ldrh	r3, [r5]
 	orr	r3, r3, #1280
 	strh	r3, [r5]	@ movhi
-	ldr	r3, .L102+108
+	ldr	r3, .L102+112
 	mov	lr, pc
 	bx	r3
 	pop	{r4, r5, r6, lr}
@@ -1168,6 +1171,7 @@ goToFinale:
 .L102:
 	.word	state
 	.word	priorState
+	.word	nextRoomBool
 	.word	hideSprites
 	.word	messagescreenTiles
 	.word	DMANow
@@ -1594,39 +1598,41 @@ goToWin:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r4, r5, r6, lr}
 	mov	r1, #11
+	mov	r5, #67108864
+	mov	r4, #0
 	ldr	r2, .L200
-	push	{r4, lr}
 	ldr	r3, .L200+4
-	ldr	r4, .L200+8
 	str	r1, [r2]
+	strh	r4, [r5, #20]	@ movhi
+	strh	r4, [r5, #22]	@ movhi
 	mov	lr, pc
 	bx	r3
+	ldr	r6, .L200+8
 	mov	r3, #256
 	mov	r2, #83886080
 	mov	r0, #3
 	ldr	r1, .L200+12
 	mov	lr, pc
-	bx	r4
+	bx	r6
 	mov	r3, #8704
 	mov	r0, #3
 	ldr	r2, .L200+16
 	ldr	r1, .L200+20
 	mov	lr, pc
-	bx	r4
+	bx	r6
 	mov	r3, #1024
-	mov	r0, #3
 	ldr	r2, .L200+24
+	mov	r0, #3
 	ldr	r1, .L200+28
 	mov	lr, pc
-	bx	r4
-	mov	r1, #67108864
-	mov	r2, #0
-	ldr	r0, .L200+32
+	bx	r6
+	ldr	r2, .L200+32
 	ldr	r3, .L200+36
-	strh	r0, [r1, #10]	@ movhi
-	strb	r2, [r3]
-	pop	{r4, lr}
+	strh	r2, [r5, #10]	@ movhi
+	strb	r4, [r3]
+	pop	{r4, r5, r6, lr}
 	bx	lr
 .L201:
 	.align	2
