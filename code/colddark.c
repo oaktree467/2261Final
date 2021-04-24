@@ -13,8 +13,8 @@ unsigned short messageUnedited[255];
 unsigned short cdmessageMapCopy[colddarkmessagebgMapLen];
 int cursor;
 int coldMessageBool;
-int timerI;
-int timerJ;
+int timerI; //for the 'writing text' effect
+int timerJ; // for the 'writing text' effect
 int stage; //what stage the text is in (interactive or not)
 int nonInteractText; //if the text is non-interactive, which text is it?
 char (* activeMessage)[];
@@ -73,6 +73,7 @@ void chapterOneIntro() {
 
 }
 
+//update messages
 void updateColdDark() {
     if (stage != 1) {
         if (BUTTON_PRESSED(BUTTON_A)) {
@@ -108,6 +109,8 @@ void updateColdDark() {
     }
 }
 
+
+//if the player selects a response, the highlight updates
 void updateHighlight() {
     for (int i = 0; i < 14; i++) {
         for (int j = 0; j < 6; j++){
@@ -124,6 +127,7 @@ void updateHighlight() {
 
 }
 
+//messages automatically displayed by the game
 void messagesNonInteractive() {
     char cd_m0[] = "Oh, Lord...";
     char cd_m1[] = "It's cold. Dark. You can'tmove or see a thing.";
@@ -172,6 +176,8 @@ void messagesNonInteractive() {
     }
 }
 
+
+//load message responses based on player questions
 void loadColdMessage() {
     coldMessageBool = 1;
     
@@ -198,6 +204,7 @@ void loadColdMessage() {
     printColdText();
 }
 
+//clear the message board
 void clearBoard() {
     //clear board
     for (int i = 0; i < 26; i++) {
@@ -241,6 +248,7 @@ void printColdText() {
 
 }
 
+//heading over to the living room
 void chapterOneOutro() {
 
     for (int i = 0; i < 640; i++) {

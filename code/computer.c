@@ -47,16 +47,19 @@ void loadComputer() {
     initComputerSprites();
 }
 
+//update all computer attributes
 void updateComputer() {
     updateMouse();
     checkComputerSpriteCollision();
 }
 
+//draw computer attributes
 void drawComputer() {
     drawMouse();
     drawComputerSprites();
 }
 
+//initialize mouse sprite attributes
 void initMouse() {
     mouse.worldCol = 120;
     mouse.worldRow = 72;
@@ -66,6 +69,7 @@ void initMouse() {
     mouse.height = 11;
 }
 
+//init all other computer sprites
 void initComputerSprites() {
 
     //web highlight
@@ -252,12 +256,14 @@ void initComputerSprites() {
 
 }
 
+//draw the current location of the mouse on screen
 void drawMouse() {
     shadowOAM[0].attr0 = (mouse.screenRow | ATTR0_8BPP | ATTR0_TALL);
     shadowOAM[0].attr1 = (mouse.screenCol | ATTR1_TINY);
     shadowOAM[0].attr2 = ATTR2_PALROW(0) | ATTR2_TILEID(0, 0) | ATTR2_PRIORITY(0);
 }
 
+//draw the computer sprites on screen
 void drawComputerSprites() {
     for (int i = 0; i < COMPUTER_SPRITECOUNT; i++) {
         if (computerSpritesArr[i].hide == 1) {
@@ -270,6 +276,7 @@ void drawComputerSprites() {
     }
 }
 
+//update the mouse's location based on input
 void updateMouse() {
     if (BUTTON_HELD(BUTTON_UP)) {
         if (mouse.worldRow > 0) {
@@ -305,6 +312,8 @@ void updateMouse() {
     mouse.screenRow = mouse.worldRow - vOff;   
 }
 
+
+//check if the player is hovering over a valid icon
 void checkComputerSpriteCollision() {
     u16 currColor = 0;
     currColor = checkCollisionMapColor(mouse.worldCol, mouse.worldRow);
@@ -322,12 +331,18 @@ void checkComputerSpriteCollision() {
     }
 }
 
+
+//for loading BG2 respective to the selected desktop icon
 void loadSecondaryScreen() {
+
     //exit to desktop
     if (activeSprite == &computerSpritesArr[3]) {
         REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE;
         currCollisionMap = &desktopcollisionBitmap;
         disableSprites();
+        if (documentsUploaded) {
+            computerSpritesArr[10].hide = 0;
+        }
         return;
     }
 
@@ -354,6 +369,7 @@ void loadSecondaryScreen() {
     } else if (activeSprite == &computerSpritesArr[1] || activeSprite == &computerSpritesArr[2]) {
         //email desktop icon
         if (documentsUploaded) {
+            computerSpritesArr[10].hide = 1;
             DMANow(3, inboxfullTiles, &CHARBLOCK[0], inboxfullTilesLen / 2);
             DMANow(3, inboxfullMap, &SCREENBLOCK[24], inboxfullMapLen / 2);
         } else {
@@ -412,12 +428,15 @@ void loadSecondaryScreen() {
     REG_DISPCTL |= BG0_ENABLE;
 }
 
+
+//disable music sprites when music window is exited
 void disableSprites() {
-    for (int i = COMPUTER_SPRITECOUNT - 1; i > COMPUTER_SPRITECOUNT - 4; i--) {
+    for (int i = 11; i < COMPUTER_SPRITECOUNT; i++) {
         computerSpritesArr[i].hide = 1;
     }
 }
 
+//play Spettacolo.wav
 void playSpettacolo() {
     spettacoloHide(0);
     tlmoeHide(1);
@@ -425,6 +444,7 @@ void playSpettacolo() {
     stopSound();
 }
 
+//play LastManOn8rth.wav
 void playTLMOE() {
     spettacoloHide(1);
     tlmoeHide(0);

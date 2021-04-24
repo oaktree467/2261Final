@@ -66,6 +66,8 @@ void loadKitchen() {
     currCollisionMap = &kitchencollisionBitmap;
 }
 
+//the refrigerator has three possible messages; this method determines
+//which is displayed, based on the player's progress in the game
 void reassignRefrigeratorMessage() {
     if (kitchenSpritesArr[1].message == &refrigerator_0) {
         kitchenSpritesArr[1].message = &refrigerator_1;

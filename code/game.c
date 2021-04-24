@@ -112,20 +112,24 @@ void updateProtagonist() {
         protag.currFrame = ((protag.currFrame + 1) % protag.totalFrames);
     }
 
-    
     if (phoneAnswerBool) {
+        //if the phone is ringing, and the player answers it
         stopSoundB();
         answerPhone();
     } else if (messageActiveBool) {
+    //if a message is currently active, disable it
         if (BUTTON_PRESSED(BUTTON_A)) {
             REG_DISPCTL &= ~(BG0_ENABLE);
             messageActiveBool = 0;
         }
     } else {
         if (BUTTON_PRESSED(BUTTON_A)) {
+            //if a message is not currently active, see if the game has more
+            //info on an object based on the player's current location
             checkMoreInfo();
         }
         if (BUTTON_HELD(BUTTON_UP)) {
+            //if the player moves up, check collision
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow - 1) != 0))) {
                     protag.worldRow--;
@@ -136,6 +140,7 @@ void updateProtagonist() {
             protag.aniState = PROTAGBACK;
         }
         if (BUTTON_HELD(BUTTON_DOWN)) {
+            //if the player moves down, check collision
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height + 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height + 1) != 0))) {
             
@@ -151,6 +156,7 @@ void updateProtagonist() {
         }
 
         if (BUTTON_HELD(BUTTON_RIGHT)) {
+            //if the player moves right, check collision
             if ((protag.worldCol + protag.width < visMapWidth) && (checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
@@ -169,6 +175,7 @@ void updateProtagonist() {
         }
 
         if (BUTTON_HELD(BUTTON_LEFT)) {
+            //if the player moves left, check collision
             if ((protag.worldCol > 1) && (checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
@@ -196,9 +203,6 @@ void updateProtagonist() {
         protag.screenRow = protag.worldRow - vOff;
 
     
-    if (BUTTON_PRESSED(BUTTON_START)) {
-        mode = 4;
-    }
 }
 
 //update sprite columns
@@ -249,12 +253,15 @@ void checkSpriteCollision() {
     spriteCollisionBool = 0;
     switch (protag.aniState) {
         case PROTAGBACK:
+            //if the player is facing upwards, check what is in front of them
             currColor = checkCollisionMapColor((protag.worldCol + (protag.width / 2)), protag.worldRow);
             break;
         case PROTAGFRONT:
+            //if the player is facing downwards, check what is below them
             currColor = checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height);
             break;
         case PROTAGSIDE:
+            //if the player is facing sideways, check what is before them
             if (protag.sideOrientation == LEFTORIENTATION) {
                 currColor = checkCollisionMapColor(protag.worldCol, protag.worldRow + (protag.height / 2));
             } else {
@@ -264,11 +271,13 @@ void checkSpriteCollision() {
     }
 
     if (currColor != 0) {
+        //if the collision map is not white
         for (int i = 0; i < currSpriteArrCount; i++) {
             if ((*currSpriteArr)[i].collisionColor == currColor) {
                 (*currSpriteArr)[i].hide = 0;
                 spriteCollisionBool = 1;
                 activeSprite = &(*currSpriteArr)[i];
+                //highlight the relevant sprite
             } else {
                 (*currSpriteArr)[i].hide = 1;
             }
@@ -315,6 +324,7 @@ void checkMoreInfo() {
                     reassignRefrigeratorMessage();
                 } 
             } 
+            //write da message
             messageActiveBool = 1;
             printText();
             REG_DISPCTL |= BG0_ENABLE;
@@ -327,6 +337,7 @@ void checkThreshold() {
     if (state == LIVING_ROOM) {
         if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == MAROON_HIT) {
+                //if player is entering the kitchen from the living room
             nextRoomBool = 1;
         }
         //triggering the living room outro
@@ -338,14 +349,17 @@ void checkThreshold() {
     } else if (state == KITCHEN) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == LIME_HIT) {
+                //if the player is entering the living room from the kitchen
             nextRoomBool = 1;
         } else if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == RED_HIT){
+                //if the player is entering the bedroom from the kitchen
             nextRoomBool = 2;
         }
     } else if (state == BEDROOM) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == ORANGE_HIT) {
+                //if the player is entering the kitchen from the bedroom
             nextRoomBool = 1;
         }
     }
@@ -359,12 +373,8 @@ void printText() {
     int j = 418;
     while ((*(activeSprite->message))[i] != '\0') {
         
-        /*
         if ((j - 444) % 32 == 0) {
-            j += 6;
-        }*/
-
-        if ((j - 444) % 32 == 0) {
+            //check to make sure word is not cut in half on wrap around
             if ((*(activeSprite->message))[i] != ' ') {
                 int k = 0;
                 while ((*(activeSprite->message))[i] != ' ') {
@@ -416,13 +426,14 @@ void interruptHandler() {
     
     
 
-    //ring animation in living room
     if (REG_IF & INT_TM2) {
+        //text animation in intro and living room outro
         if (state == INTRO || state == LR_OUTRO) {
             timerI++;
             timerJ++;
         }
         if (state == LIVING_ROOM) {
+            //ring animation in living room
                 phoneRingSpritesArr[currRing].hide = 1;
             if (currRing < RING_SPRITECOUNT) {
                 currRing++;
@@ -434,6 +445,8 @@ void interruptHandler() {
         }
 
         if (state == FINALE) {
+            //animating the stationary sprites
+            //persistent in the finale
             if ((*currSpriteArr)[2].sheetRow == 0) {
                 (*currSpriteArr)[2].sheetRow = 2;
             } else {

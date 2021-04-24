@@ -1,26 +1,10 @@
 /*  
 --------------- WHAT'S GOING ON HERE? ---------------
 1) WHAT IS FINISHED SO FAR?
-    - The Intro is complete.
-    - All rooms inside the house are complete, and all objects that are meant to be interacted with,
-        can be interacted with.
-    - The game logic inside the house is complete.
-    - SFX of accessing the phone and the safe.
-    - Safe interface.
-    - Computer interface.
+    - Everything : )
 2) WHAT NEEDS TO BE ADDED?
-    - Music.
-    - The outro state animation. There isn't any actual game logic for the outro, as the player has
-        effectively won after reading all the emails available on the computer (hence in this version,
-        reading the emails triggers the outro placeholder).
-    - Affine backgrounds (I'm bailing on that XL background I talked about in M1. Sorry.)
-    - The computer access puzzle. This logic is a relatively small part of, and distinct from,
-        the rest of the game, so I held off for M3.
-    - A message after the safe has been successfully accessed.
-    - The cheat (probably something to do with the safe).
+    - Nothing.
 3) ANY BUGS?
-    - The email notification icon hovers on the screen after access, obscuring some text.
-    - I forgot to add ':' to the font, so it appears as a blank when used in text.
     - If the game is paused while the phone is ringing, the phone doesn't stop ringing.
 4) HOW TO PLAY (OR SPEEDRUN, I GUESS)
     - Approaching an object and facing it will allow you to interact with it (Press A).
@@ -36,11 +20,18 @@
     - Click 'Web' on the desktop and click 'Upload Documents.'
     - X out of the web.
     - Click 'Mail' on the desktop and read through both emails by clicking the green buttons.
-    - When you leave the desktop to return to the living room (Press B), the outro state is triggered. You win!
+    - When you leave the desktop to return to the living room (Press B), the outro state is triggered.
+    - When you wake up in the cabin, speak to Mars. Exhaust all dialog options.
+    - Approach the doorway and press A when it activates. You win!
 
     I'm also going to note here that while you can speedrun the game following the above instructions,
     actually getting the full story of the game requires interacting with as many 'extraneous' objects
     as possible.
+
+    The cheat: enter 2003 in the safe after finding the key to skip the documents upload step
+    and head straight to the finale. Why 2003? It's a nod to the release year of 'Toxic'
+    by Britney Spears, a copy of which hangs in the protagonist's living room.
+
 5) OH WOW, HOW LONG DID ALL THIS TAKE YOU?
     I don't want to talk about it.
 */
@@ -48,48 +39,48 @@
 #include <stdio.h>
 #include <string.h>
 #include "myLib.h"
-#include "livingroomsprites.h"
-#include "livingroombg.h"
-#include "livingroomcollisionmap.h"
 #include "game.h"
-#include "livingroom.h"
-#include "kitchensprites.h"
-#include "kitchen.h"
-#include "kitchenbg.h"
+#include "bedroom.h"
 #include "bedroombg.h"
 #include "bedroomsprites.h"
-#include "messagescreen.h"
-#include "startscreen.h"
-#include "safesprites.h"
-#include "safebg.h"
-#include "safe.h"
-#include "instructionscreen.h"
-#include "outroscreen.h"
-#include "pausescreen.h"
-#include "winscreen.h"
+#include "blackbg.h"
 #include "chapter1bg.h"
 #include "chapter2bg.h"
-#include "colddarkmessagebg.h"
+#include "chapter3bg.h"
+#include "cloudsbg.h"
 #include "colddark.h"
-#include "blackbg.h"
+#include "colddarkmessagebg.h"
+#include "computer.h"
 #include "computerscreenbg.h"
 #include "computersprites.h"
-#include "computer.h"
-#include "bedroom.h"
-#include "sound.h"
-#include "introdrone.h"
-#include "outrosprites.h"
-#include "livingroomoutro.h"
-#include "cloudsbg.h"
-#include "kdoorwaybg.h"
-#include "ldoorwaybg.h"
-#include "LastManOn8rth.h"
+#include "finale.h"
 #include "finalebg.h"
 #include "finalesprites.h"
-#include "finale.h"
-#include "chapter3bg.h"
 #include "finalewindows.h"
 #include "finscreen.h"
+#include "instructionscreen.h"
+#include "introdrone.h"
+#include "kdoorwaybg.h"
+#include "kitchen.h"
+#include "kitchenbg.h"
+#include "kitchensprites.h"
+#include "LastManOn8rth.h"
+#include "ldoorwaybg.h"
+#include "livingroom.h"
+#include "livingroombg.h"
+#include "livingroomcollisionmap.h"
+#include "livingroomoutro.h"
+#include "livingroomsprites.h"
+#include "messagescreen.h"
+#include "outroscreen.h"
+#include "outrosprites.h"
+#include "pausescreen.h"
+#include "safe.h"
+#include "safebg.h"
+#include "safesprites.h"
+#include "sound.h"
+#include "startscreen.h"
+#include "winscreen.h"
 
 //extern int mode;
 int priorState; 
@@ -182,33 +173,11 @@ int main() {
             break;
         }
         
-
-        //collision map viewer
-        /*
-        if (mode == 4) {
-            REG_DISPCTL = MODE4 | BG2_ENABLE | DISP_BACKBUFFER;
-            for (int i = 0; i < 240; i++) {
-                for (int j = 0; j < 160; j++) {
-                    if (checkCollisionMapColor(i + hOff, j + vOff) == 0) {
-                        setPixel4(i, j, 0);
-                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x07FFF) {
-                        setPixel4(i, j, 1);
-                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x7F60) {
-                        setPixel4(i, j, 2);
-                    } else {
-                        setPixel4(i, j, 3);
-                    }
-                }
-            } 
-            waitForVBlank();
-            flipPage();
-        } else {  */
-        
         waitForVBlank();
         REG_BG1HOFF = hOff;
         REG_BG1VOFF = vOff;
+        //affine bg
         REG_BG2HOFF = hOff * 0.9;
-        //REG_BG2HOFF = hOff;
         REG_BG2VOFF = vOff;
         DMANow(3, shadowOAM, OAM, 512);
         
@@ -256,10 +225,6 @@ void goToInstructions() {
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
     DMANow(3, instructionscreenMap, &SCREENBLOCK[28], instructionscreenMapLen / 2);
-
-    //REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(25) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
-    
-
 }
 
 //runs every frame of the instruction state
@@ -323,7 +288,6 @@ void goToLivingRoom() {
     loadLivingRoom();
 
     if (priorState == INTRO) {
-        //playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
         DMANow(3, chapter2bgTiles, &CHARBLOCK[0], chapter2bgTilesLen / 2);
         DMANow(3, chapter2bgMap, &SCREENBLOCK[24], chapter2bgMapLen / 2);
     } else {
@@ -383,6 +347,7 @@ void livingRoom() {
     }
 }
 
+//set up the computer state
 void goToComputer() {
     nextRoomBool = 0;
     priorState = state;
@@ -404,6 +369,7 @@ void goToComputer() {
 
 }
 
+//load every frame of the computer state
 void computer() {
     updateComputer();
     drawComputer();
@@ -461,6 +427,7 @@ void kitchen() {
     }
 }
 
+//sets up the bedroom state
 void goToBedroom() {
     nextRoomBool = 0;
     priorState = state;
@@ -487,6 +454,7 @@ void goToBedroom() {
 
 }
 
+//runs every frame of the bedroom state
 void bedroom() {
     updateGame();
     drawGame();
@@ -503,6 +471,7 @@ void bedroom() {
 
 }
 
+//sets up the safe state
 void goToSafe() {
     priorState = state;
     state = SAFE;
@@ -527,10 +496,12 @@ void goToSafe() {
 
 }
 
+//runs every frame of the safe state
 void safe() {
     updateCursor();
     drawSafeSprites();
     
+    //if the safe is exited or opened
     if (BUTTON_PRESSED(BUTTON_B) || openSafeBool) {
         if (openSafeBool) {
             REG_DISPCTL |= BG0_ENABLE;
@@ -564,6 +535,7 @@ void livingRoomOutro() {
 
 }
 
+//set up the finale state
 void goToFinale() {
     priorState = state;
     state = FINALE;
@@ -571,7 +543,6 @@ void goToFinale() {
     hideSprites();
 
     if (priorState == LR_OUTRO) {
-        //playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
         DMANow(3, chapter3bgTiles, &CHARBLOCK[0], chapter3bgTilesLen / 2);
         DMANow(3, chapter3bgMap, &SCREENBLOCK[24], chapter3bgMapLen / 2);
     } else {
@@ -608,6 +579,7 @@ void goToFinale() {
 
 }
 
+//run every frame of the finale state
 void finale() {
     if (!marsInteractBool) {
         updateGame();

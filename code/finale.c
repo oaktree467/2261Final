@@ -28,6 +28,7 @@ STATIONARYSPRITE finaleSpritesArr[5];
 
 
 
+//load all attributes of the FINALE state
 void loadFinale() {
     visMapWidth = 336;
     totalMapWidth = 512;
@@ -125,6 +126,7 @@ void initFinaleSprites() {
     finaleSpritesArr[4].hide = 0;
 }
 
+// update sprites that remain on screen regardless of player interaction
 void updatePersistentSprites() {
     //update screencol and row
     for (int i = 2; i < 5; i++) {
@@ -133,6 +135,7 @@ void updatePersistentSprites() {
     }
 }
 
+// draw sprites that remain on screen regardless of player interaction
 void drawPersistentSprites() {
     for (int i = 2; i < 5; i++) {
         shadowOAM[i + 3].attr0 = ((finaleSpritesArr[i].screenRow & ROWMASK) | ATTR0_8BPP | ((finaleSpritesArr[i].attr0_shape) << 14));
@@ -141,12 +144,15 @@ void drawPersistentSprites() {
     }
 }
 
-
+// update basde on user input, IF the player is speaking to Mars 
+// (otherwise control reverts to updateGame in game.c)
 void updateFinale() {
+    //speak to Mars
     if (BUTTON_PRESSED(BUTTON_A)) {
         marsSpeaks();
     }
 
+    //exit Mars dialog
     if (BUTTON_PRESSED(BUTTON_B)) {
         marsInteractBool = 0;
         messageNum = 0;
@@ -155,6 +161,7 @@ void updateFinale() {
         return;
     }
 
+    //if the player has the option to reply
     if (replyBool) {
         if (BUTTON_PRESSED(BUTTON_UP)) {
             if (replyNum == 1) {
@@ -162,7 +169,7 @@ void updateFinale() {
             } else {
                 replyNum--;
             }
-
+            //update the select arrow
             selectArrow();
 
         }
@@ -180,6 +187,7 @@ void updateFinale() {
 
 }
 
+//how Mars responds to the player's questions
 void marsSpeaks() {
     char selection = messageNum + replyNum;
     switch (selection) {
@@ -226,6 +234,7 @@ void marsSpeaks() {
     }
 }
 
+//move the select arrow for responses
 void selectArrow() {
     int intervalOne = 418;
     int intervalTwo = 450;
@@ -251,6 +260,7 @@ void selectArrow() {
     DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
 }
 
+//load the chapter 3 intro
 void chapterThreeIntro() {
     timerWait(0, 256);
 

@@ -131,6 +131,7 @@ void initSafeSprites() {
     safeSpritesArr[18].screenRow = safeSpritesArr[18].worldRow;
 }
 
+//draw all safe sprites
 void drawSafeSprites() {
     for (int i = 0; i < SAFE_SPRITECOUNT; i++) {
         if (safeSpritesArr[i].hide == 1) {
@@ -143,20 +144,24 @@ void drawSafeSprites() {
     }
 }
 
+//update the selected position on the safe
 void updateCursor() {
     if (!introMessageBool) {
         if (BUTTON_PRESSED(BUTTON_A)) {
             introMessageBool = 1;
             REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+            //make the intro message go awaayyyyyy
         }
     } else {
         if (BUTTON_PRESSED(BUTTON_RIGHT)) {
+            //shift the passcode to the right
             middleHighlight[cursor]->hide = 1;
             cursor = (cursor + 1) % 5;
             middleHighlight[cursor]->hide = 0;
         }
 
         if (BUTTON_PRESSED(BUTTON_LEFT)) {
+            //shift the passcode to the left
             middleHighlight[cursor]->hide = 1;
             if (cursor == 0) {
                 cursor = 4;
@@ -167,6 +172,7 @@ void updateCursor() {
         }
 
         if (BUTTON_PRESSED(BUTTON_UP)) {
+            //increment the number on the selected slot
             if (cursor < 4) {
                 upArrows[cursor]->hide = 0;
                 codeNumbers[cursor]->sheetRow = (codeNumbers[cursor]->sheetRow + 2) % 20;
@@ -177,6 +183,7 @@ void updateCursor() {
         }
 
         if (BUTTON_PRESSED(BUTTON_DOWN)) {
+            //decremnt the number on the selected slot
             if (cursor < 4) {
                 downArrows[cursor]->hide = 0;
                 if (codeNumbers[cursor]->sheetRow == 0) {
@@ -191,11 +198,16 @@ void updateCursor() {
         }
 
         if (BUTTON_PRESSED(BUTTON_A) && cursor == 4) {
+            //if the player is trying to check the validity
+            //of the entered code
             if (checkCode() && keyFound) {
+                //if the code is right, AND the player has found the key
                 openSafeBool = 1;
                 playSoundB(safesfx_data, safesfx_length, 0);
                 safeText(sm_2);
             } else {
+                //if the player isn't right or the key hasn't been found,
+                //reset the entered code
                 for (int i = 0; i < 4; i++) {
                     codeNumbers[i]->sheetRow = 0;
                     enteredCode[i] = 0;
@@ -209,15 +221,21 @@ void updateCursor() {
 
 }
 
+//check if the entered code is correct (or equals the cheat)
 int checkCode() {
     for (int i = 0; i < 4; i++) {
         if (enteredCode[i] != answerCode[i]) {
-            return 0;
+            if (i == 3 && enteredCode[i] == 3) {
+                allEmailsBool = 1;
+            } else {
+                return 0;
+            }
         }
     }
     return 1;
 }
 
+//print the safe's message
 void safeText(char msg[]) {
     clearSafeMessage();
     int i = 0;
@@ -237,6 +255,8 @@ void safeText(char msg[]) {
     messageActiveBool = 1;
 }
 
+
+//clear the message
 void clearSafeMessage() {
     for (int i = 418; i < 604; i++) {
         if ((i - 444) % 32 == 0) {

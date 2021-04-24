@@ -190,6 +190,10 @@ void loadLivingRoom() {
     ringSettings();
 }
 
+
+// _____ THE FOLLOWING METHODS HANDLE THE PHONE RINGING ANIMATION ______
+
+//determines if the phone should... you know. ring.
 void ringSettings() {
     if (phoneRinging) {
         REG_TM2CNT |= TIMER_OFF;
@@ -204,6 +208,7 @@ void ringSettings() {
     }
 }
 
+//update ring animation based on vOff and hOff;
 void updateRing() {
     for (int i = 0; i < RING_SPRITECOUNT; i++) {
         phoneRingSpritesArr[i].screenCol = phoneRingSpritesArr[i].worldCol - hOff;
@@ -211,6 +216,7 @@ void updateRing() {
     }
 }
 
+//draw the ring animation
 void drawRing() {
     for (int i = 0; i < RING_SPRITECOUNT; i++) {
         if (phoneRingSpritesArr[i].hide == 1) {
@@ -224,7 +230,7 @@ void drawRing() {
 
 }
 
-
+//show the proper message when the phone is answered
 void answerPhone() {
     char phone1[] = "\"This is an automated message from POE CRYONICS.\"";
     char phone2[] = "\"Our records indicate you have not yet uploaded your life insurance documents.\"";
@@ -259,6 +265,8 @@ void answerPhone() {
     }
 }
 
+
+//CHAPTER TWO TITLE CARD
 void chapterTwoIntro() {
     timerWait(0, 256);
 

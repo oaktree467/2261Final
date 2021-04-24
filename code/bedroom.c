@@ -104,6 +104,3 @@ void loadBedroom() {
     currCollisionMap = &bedroomcollisionBitmap;
 }
 
-void safeOpenMessage() {
-
-}
