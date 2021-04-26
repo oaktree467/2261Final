@@ -17,7 +17,7 @@
 	.type	kitchenspritesPal, %object
 	.size	kitchenspritesPal, 512
 kitchenspritesPal:
-	.short	30751
+	.short	31775
 	.short	6470
 	.short	17407
 	.short	8538
@@ -35,10 +35,10 @@ kitchenspritesPal:
 	.short	10729
 	.short	8615
 	.short	12616
-	.short	12791
+	.short	11767
 	.short	21277
 	.short	10504
-	.short	0
+	.short	12791
 	.short	0
 	.short	0
 	.short	0
@@ -1517,7 +1517,7 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	5129
-	.short	18
+	.short	21
 	.short	0
 	.short	0
 	.short	2056
@@ -2005,7 +2005,7 @@ kitchenspritesTiles:
 	.short	3072
 	.short	3084
 	.short	5140
-	.short	18
+	.short	21
 	.short	0
 	.short	0
 	.short	2056
@@ -2013,7 +2013,7 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	1299
-	.short	18
+	.short	21
 	.short	0
 	.short	0
 	.short	1542
@@ -3437,7 +3437,7 @@ kitchenspritesTiles:
 	.short	0
 	.short	3
 	.short	5129
-	.short	4628
+	.short	5396
 	.short	9
 	.short	0
 	.short	2312
@@ -3565,7 +3565,7 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	5129
-	.short	18
+	.short	21
 	.short	0
 	.short	0
 	.short	2056
@@ -3693,7 +3693,7 @@ kitchenspritesTiles:
 	.short	0
 	.short	3
 	.short	5129
-	.short	4628
+	.short	5396
 	.short	9
 	.short	0
 	.short	2312
@@ -3925,8 +3925,8 @@ kitchenspritesTiles:
 	.short	1280
 	.short	5
 	.short	5140
-	.short	4625
-	.short	18
+	.short	5393
+	.short	21
 	.short	0
 	.short	2057
 	.short	5128
@@ -4053,16 +4053,16 @@ kitchenspritesTiles:
 	.short	1285
 	.short	5
 	.short	5140
-	.short	4626
-	.short	18
+	.short	5397
+	.short	21
 	.short	0
 	.short	2056
 	.short	5140
 	.short	3604
 	.short	0
 	.short	1299
-	.short	4608
-	.short	3602
+	.short	5376
+	.short	3605
 	.short	0
 	.short	1549
 	.short	0
@@ -4181,8 +4181,8 @@ kitchenspritesTiles:
 	.short	1280
 	.short	5
 	.short	5140
-	.short	4625
-	.short	18
+	.short	5393
+	.short	21
 	.short	0
 	.short	2057
 	.short	5128
@@ -5454,7 +5454,7 @@ kitchenspritesTiles:
 	.short	2057
 	.short	0
 	.short	2304
-	.short	5138
+	.short	5141
 	.short	2324
 	.short	0
 	.short	5120
@@ -5613,7 +5613,7 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	5129
-	.short	18
+	.short	21
 	.short	0
 	.short	0
 	.short	2068
@@ -5710,7 +5710,7 @@ kitchenspritesTiles:
 	.short	2057
 	.short	0
 	.short	2304
-	.short	5138
+	.short	5141
 	.short	2324
 	.short	0
 	.short	5120
@@ -5941,8 +5941,8 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
-	.short	4608
-	.short	2322
+	.short	5376
+	.short	2325
 	.short	5140
 	.short	0
 	.short	5120
@@ -6074,7 +6074,7 @@ kitchenspritesTiles:
 	.short	5128
 	.short	0
 	.short	0
-	.short	5138
+	.short	5141
 	.short	2056
 	.short	0
 	.short	3584
@@ -6197,8 +6197,8 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
-	.short	4608
-	.short	2322
+	.short	5376
+	.short	2325
 	.short	5140
 	.short	0
 	.short	5120
@@ -6421,6 +6421,9 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	512
+	.short	2
+	.short	0
+	.short	0
 	.short	514
 	.short	514
 	.short	514
@@ -6429,92 +6432,89 @@ kitchenspritesTiles:
 	.short	514
 	.short	514
 	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
 	.short	2
 	.short	0
 	.short	0
 	.short	0
-	.short	514
 	.short	0
 	.short	0
 	.short	0
 	.short	514
-	.short	0
-	.short	0
-	.short	0
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
 	.short	514
 	.short	0
 	.short	0
 	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	514
+	.short	514
+	.short	514
+	.short	0
+	.short	514
+	.short	514
 	.short	514
 	.short	0
 	.short	0
-	.short	0
-	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	514
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
-	.short	514
+	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
 	.short	0
@@ -6932,90 +6932,35 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
 	.short	512
-	.short	514
-	.short	514
-	.short	514
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
-	.short	514
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
-	.short	0
-	.short	0
-	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	514
-	.short	0
-	.short	0
-	.short	0
+	.short	512
 	.short	2
 	.short	0
 	.short	0
@@ -7052,14 +6997,69 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	512
+	.short	2
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	514
 	.short	514
 	.short	514
@@ -7185,28 +7185,6 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	0
 	.short	0
 	.short	0
@@ -7466,20 +7444,36 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
 	.short	0
@@ -7515,20 +7509,36 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
 	.short	0
@@ -7562,16 +7572,6 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	514
 	.short	514
 	.short	514
@@ -7697,27 +7697,6 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	514
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	0
 	.short	0
 	.short	0
@@ -7977,17 +7956,20 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	512
+	.short	2
 	.short	0
 	.short	0
 	.short	0
@@ -8010,6 +7992,14 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
+	.short	514
 	.short	0
 	.short	0
 	.short	0
@@ -8031,10 +8021,20 @@ kitchenspritesTiles:
 	.short	0
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
+	.short	514
+	.short	514
+	.short	514
 	.short	0
+	.short	514
+	.short	514
+	.short	514
 	.short	0
 	.short	0
+	.short	512
+	.short	2
 	.short	0
 	.short	0
 	.short	0

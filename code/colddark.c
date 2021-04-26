@@ -4,16 +4,19 @@
 #include "game.h"
 #include "colddarkmessagebg.h"
 #include "text.h"
+#include "sound.h"
+#include <string.h>
+#include "introdrone.h"
 
 int intervals[] = {418, 482, 546};
 unsigned short messageUnedited[255];
+unsigned short cdmessageMapCopy[colddarkmessagebgMapLen];
 int cursor;
 int coldMessageBool;
-int timerI;
-int timerJ;
+int timerI; //for the 'writing text' effect
+int timerJ; // for the 'writing text' effect
 int stage; //what stage the text is in (interactive or not)
 int nonInteractText; //if the text is non-interactive, which text is it?
-
 char (* activeMessage)[];
 char sniff[] = "It only smells...         well, cold.";
 char moveForward[] = "You can't move your arms, or your legs. Everything  feels rigid.";
@@ -26,6 +29,7 @@ int sniffBool;
 
 //initialize state settings
 void initColdDark() {
+    memcpy(cdmessageMapCopy, colddarkmessagebgMap, colddarkmessagebgMapLen);
 
     cursor = 0;
     coldMessageBool = 0;
@@ -36,17 +40,20 @@ void initColdDark() {
     nonInteractText = 0;
 
     for (int i = 0; i < 255; i++) {
-        messageUnedited[i] = colddarkmessagebgMap[384 + i];
+        messageUnedited[i] = cdmessageMapCopy[384 + i];
     }
     
 }
 
 //CHAPTER 1: THE COLD DARK
 void chapterOneIntro() {
+    
+    //playSoundA(introdrone_data, introdrone_length, 1);
+
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[642];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &SCREENBLOCK[20], ((1 << 30) | (1024 * 4)));
+            DMANow(3, blackbgMap, &SCREENBLOCK[28], ((1 << 30) | blackbgMapLen / 2));
         }
     }
 
@@ -55,17 +62,18 @@ void chapterOneIntro() {
     for (int i = 0; i < 600; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &SCREENBLOCK[20], ((1 << 30) | (1024 * 4)));
+            DMANow(3, blackbgMap, &SCREENBLOCK[28], ((1 << 30) | (blackbgMapLen / 2)));
         }
     }
 
     //switch BG0 to message box
     DMANow(3, colddarkmessagebgTiles, &CHARBLOCK[0], colddarkmessagebgTilesLen / 2);
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((0 << 30) | (1024 * 4)));
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], ((0 << 30) | (colddarkmessagebgMapLen / 2)));
     messagesNonInteractive();
 
 }
 
+//update messages
 void updateColdDark() {
     if (stage != 1) {
         if (BUTTON_PRESSED(BUTTON_A)) {
@@ -101,6 +109,8 @@ void updateColdDark() {
     }
 }
 
+
+//if the player selects a response, the highlight updates
 void updateHighlight() {
     for (int i = 0; i < 14; i++) {
         for (int j = 0; j < 6; j++){
@@ -113,10 +123,11 @@ void updateHighlight() {
         }
     }
 
-    DMANow(3, blackbgMap, &SCREENBLOCK[20], ((0 << 30) | (1024 * 4)));
+    DMANow(3, blackbgMap, &SCREENBLOCK[28], ((0 << 30) | (blackbgMapLen / 2)));
 
 }
 
+//messages automatically displayed by the game
 void messagesNonInteractive() {
     char cd_m0[] = "Oh, Lord...";
     char cd_m1[] = "It's cold. Dark. You can'tmove or see a thing.";
@@ -127,7 +138,7 @@ void messagesNonInteractive() {
 
     clearBoard();
     //DMA in the clear board
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24],colddarkmessagebgMapLen / 2);
 
     switch (nonInteractText) {
         case 0:
@@ -165,12 +176,14 @@ void messagesNonInteractive() {
     }
 }
 
+
+//load message responses based on player questions
 void loadColdMessage() {
     coldMessageBool = 1;
     
     clearBoard();
     //DMA in the clear board
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], colddarkmessagebgMapLen / 2);
 
     //determine cursor position
     switch (cursor) {
@@ -191,11 +204,12 @@ void loadColdMessage() {
     printColdText();
 }
 
+//clear the message board
 void clearBoard() {
     //clear board
     for (int i = 0; i < 26; i++) {
         for (int j = 0; j < 6; j++) {
-            colddarkmessagebgMap[418 + i + (j * 32)] = colddarkmessagebgMap[748];
+            cdmessageMapCopy[418 + i + (j * 32)] = cdmessageMapCopy[748];
         }
     }
 }
@@ -204,19 +218,19 @@ void clearBoard() {
 //reset the message bg
 void loadMessageUnedited() {
     for (int i = 0; i < 255; i++) {
-        colddarkmessagebgMap[384 + i] = messageUnedited[i];
+        cdmessageMapCopy[384 + i] = messageUnedited[i];
     }
-    DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], colddarkmessagebgMapLen / 2);
     coldMessageBool = 0;
 }
 
 
 //print the selected text
 void printColdText() {
-    REG_TM1CNT |= TIMER_OFF;
-    REG_TM1CNT = TM_FREQ_64;
-    REG_TM1D = 65536 - 11000;
-    REG_TM1CNT |= TM_IRQ | TIMER_ON;
+    REG_TM2CNT |= TIMER_OFF;
+    REG_TM2CNT = TM_FREQ_64;
+    REG_TM2D = 65536 - 11000;
+    REG_TM2CNT |= TM_IRQ | TIMER_ON;
     timerI = 0;
     timerJ = 418;
     while ((*activeMessage)[timerI] != '\0') {
@@ -225,32 +239,34 @@ void printColdText() {
             timerJ += 6;
         }
         
-        colddarkmessagebgMap[timerJ] = colddarkmessagebgMap[(letterMap[((*activeMessage)[timerI]) - 32])];
+        cdmessageMapCopy[timerJ] = cdmessageMapCopy[(letterMap[((*activeMessage)[timerI]) - 32])];
 
-        DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], 1024 * 4);
+        DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], colddarkmessagebgMapLen / 2);
         
     }
-    REG_TM1CNT |= TIMER_OFF;
+    REG_TM2CNT |= TIMER_OFF;
 
 }
 
+//heading over to the living room
 void chapterOneOutro() {
 
-    for (int i = 0; i < 700; i++) {
+    for (int i = 0; i < 640; i++) {
         blackbgMap[i] = blackbgMap[706];
         if (i % 32 == 0) {
-            DMANow(3, blackbgMap, &SCREENBLOCK[20], (1024 * 4));
+            DMANow(3, blackbgMap, &SCREENBLOCK[28], (blackbgMapLen / 2));
         }
     }
 
     for (int i = 0; i < 700; i++) {
-        colddarkmessagebgMap[i] = colddarkmessagebgMap[0];
+        cdmessageMapCopy[i] = cdmessageMapCopy[0];
         if (i % 32 == 0) {
-            DMANow(3, colddarkmessagebgMap, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, cdmessageMapCopy, &SCREENBLOCK[24], ((1 << 30) | (colddarkmessagebgMapLen / 2)));
         }
     }
-
+    stopSoundA();
     timerWait(20000, 1024);
+    
 
     nextRoomBool = 1;
 }

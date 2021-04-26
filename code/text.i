@@ -3,12 +3,17 @@
 # 1 "<command-line>"
 # 1 "text.c"
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -68,11 +73,15 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char enableKeyFind;
 extern char phoneRinging;
 extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
+extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -102,7 +111,7 @@ extern int letterMap[95];
 # 3 "text.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
@@ -115,7 +124,7 @@ extern const unsigned short messagescreenPal[256];
 int letterMap[95] =
 {
 
-748, 0, 774,
+748, 777, 774,
 
 
 0, 0, 0,
@@ -139,7 +148,7 @@ int letterMap[95] =
 743, 744, 745,
 
 
-746, 747, 0,
+746, 747, 802,
 
 
 773, 0, 0,

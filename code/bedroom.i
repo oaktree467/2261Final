@@ -3,12 +3,17 @@
 # 1 "<command-line>"
 # 1 "bedroom.c"
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -68,11 +73,15 @@ extern int mode;
 extern int priorState;
 
 extern char keyFound;
+extern char enableKeyFind;
 extern char phoneRinging;
 extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
+extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -194,7 +203,7 @@ void initBedroomSprites() {
 
 
 void loadBedroom() {
-    if (priorState != PAUSE && priorState != SAFE) {
+    if (priorState != PAUSE && priorState != SAFE && priorState != INSTRUCTIONS) {
         protag.worldRow = 120;
         protag.worldCol = 30;
         protag.aniState = PROTAGBACK;
@@ -214,8 +223,4 @@ void loadBedroom() {
     currSpriteArrCount = 6;
     currSpriteArr = &bedroomSpritesArr;
     currCollisionMap = &bedroomcollisionBitmap;
-}
-
-void safeOpenMessage() {
-
 }

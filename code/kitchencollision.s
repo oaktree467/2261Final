@@ -19811,6 +19811,7 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	1023
 	.short	1023
 	.short	1023
@@ -19831,9 +19832,8 @@ kitchencollisionBitmap:
 	.short	1023
 	.short	1023
 	.short	1023
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	1023
+	.short	1023
 	.short	32767
 	.short	32767
 	.short	32767
@@ -20067,6 +20067,7 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	1023
 	.short	1023
 	.short	1023
@@ -20087,9 +20088,8 @@ kitchencollisionBitmap:
 	.short	1023
 	.short	1023
 	.short	1023
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	1023
+	.short	1023
 	.short	32767
 	.short	32767
 	.short	32767
@@ -20323,6 +20323,7 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	1023
 	.short	1023
 	.short	1023
@@ -20343,9 +20344,8 @@ kitchencollisionBitmap:
 	.short	1023
 	.short	1023
 	.short	1023
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	1023
+	.short	1023
 	.short	32767
 	.short	32767
 	.short	32767
@@ -20579,6 +20579,7 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	1023
 	.short	1023
 	.short	1023
@@ -20599,9 +20600,8 @@ kitchencollisionBitmap:
 	.short	1023
 	.short	1023
 	.short	1023
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	1023
+	.short	1023
 	.short	32767
 	.short	32767
 	.short	32767
@@ -20835,6 +20835,7 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	1023
 	.short	1023
 	.short	1023
@@ -20855,9 +20856,8 @@ kitchencollisionBitmap:
 	.short	1023
 	.short	1023
 	.short	1023
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	1023
+	.short	1023
 	.short	32767
 	.short	32767
 	.short	32767
@@ -21091,6 +21091,7 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	32767
 	.short	1023
 	.short	1023
 	.short	1023
@@ -21111,9 +21112,8 @@ kitchencollisionBitmap:
 	.short	1023
 	.short	1023
 	.short	1023
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	1023
+	.short	1023
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35345,18 +35345,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35374,7 +35362,72 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35546,6 +35599,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35563,6 +35618,72 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35599,8 +35720,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35736,6 +35855,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35753,6 +35874,72 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35855,8 +36042,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35926,6 +36111,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -35943,113 +36130,72 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36111,8 +36257,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36223,6 +36367,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36304,8 +36450,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36367,8 +36513,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36479,6 +36623,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36560,8 +36706,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36623,8 +36769,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36735,6 +36879,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36816,8 +36962,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36879,8 +37025,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -36991,6 +37135,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37072,8 +37218,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37135,8 +37281,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37247,6 +37391,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37328,8 +37474,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37391,8 +37537,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37503,6 +37647,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37584,8 +37730,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37647,8 +37793,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37759,6 +37903,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37840,8 +37986,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -37903,8 +38049,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38015,6 +38159,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38096,8 +38242,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38159,8 +38305,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38271,6 +38415,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38352,8 +38498,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38415,8 +38561,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38527,6 +38671,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38608,8 +38754,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38671,8 +38817,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38783,6 +38927,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38864,8 +39010,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -38927,8 +39073,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39039,6 +39183,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39120,8 +39266,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39183,8 +39329,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39295,6 +39439,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39376,8 +39522,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39439,8 +39585,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39551,6 +39695,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39632,8 +39778,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39695,8 +39841,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39807,6 +39951,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39888,8 +40034,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -39951,8 +40097,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40063,6 +40207,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40144,8 +40290,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40207,8 +40353,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40319,6 +40463,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40400,8 +40546,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40463,8 +40609,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40575,6 +40719,8 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40656,25 +40802,8 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40719,8 +40848,6 @@ kitchencollisionBitmap:
 	.short	32767
 	.short	32767
 	.short	32767
-	.short	0
-	.short	0
 	.short	32767
 	.short	32767
 	.short	32767
@@ -40912,69 +41039,40 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
-	.short	32767
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	0
 	.short	0
 	.short	0
@@ -40990,6 +41088,45 @@ kitchencollisionBitmap:
 	.short	0
 	.short	0
 	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
+	.short	0
 	.short	996
 	.short	996
 	.short	996
@@ -42055,143 +42192,6 @@ kitchencollisionBitmap:
 	.short	996
 	.short	996
 	.short	996
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
-	.short	0
 	.short	0
 	.short	0
 	.short	0

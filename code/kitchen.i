@@ -3,12 +3,17 @@
 # 1 "<command-line>"
 # 1 "kitchen.c"
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -73,7 +78,10 @@ extern char phoneRinging;
 extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
+extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -127,9 +135,9 @@ void initKitchenSprites() {
 
     kitchenSpritesArr[0].sheetCol = 0;
     kitchenSpritesArr[0].sheetRow = 12;
-    kitchenSpritesArr[0].attr0_shape = 1;
+    kitchenSpritesArr[0].attr0_shape = 0;
     kitchenSpritesArr[0].attr1_size = 2;
-    kitchenSpritesArr[0].worldRow = 67;
+    kitchenSpritesArr[0].worldRow = 53;
     kitchenSpritesArr[0].worldCol = 84;
     kitchenSpritesArr[0].hide = 1;
     kitchenSpritesArr[0].collisionColor = 0x03FF;
@@ -152,7 +160,7 @@ void initKitchenSprites() {
 void loadKitchen() {
     if (priorState == LIVING_ROOM) {
         protag.worldRow = 120;
-        protag.worldCol = 30;
+        protag.worldCol = 200;
         protag.aniState = PROTAGBACK;
         hOff = 0;
         vOff = 0;
@@ -178,6 +186,8 @@ void loadKitchen() {
     currSpriteArr = &kitchenSpritesArr;
     currCollisionMap = &kitchencollisionBitmap;
 }
+
+
 
 void reassignRefrigeratorMessage() {
     if (kitchenSpritesArr[1].message == &refrigerator_0) {

@@ -3,12 +3,17 @@
 # 1 "<command-line>"
 # 1 "safe.c"
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -73,7 +78,10 @@ extern char phoneRinging;
 extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
+extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -194,7 +202,7 @@ int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, i
 # 3 "safe.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
@@ -220,7 +228,7 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
+void safeText(char msg[]);
 # 5 "safe.c" 2
 # 1 "text.h" 1
 extern int letterMap[95];
@@ -270,6 +278,7 @@ int cursor;
 int answerCode[4] = {2, 0, 0, 1};
 int enteredCode[4] = {0, 0, 0, 0};
 char sm_1[] = "Your secret safe. It looks like you need a key and a code." ;
+char sm_2[] = "The safe clicks open. You have your documents.";
 char openSafeBool;
 char introMessageBool;
 extern char keyFound;
@@ -281,7 +290,7 @@ void loadSafe() {
     cursor = 0;
     openSafeBool = 0;
     if (!keyFound) {
-        safeText();
+        safeText(sm_1);
         introMessageBool = 0;
         (*(volatile unsigned short *)0x4000000) |= (1<<8);
     } else {
@@ -385,6 +394,7 @@ void initSafeSprites() {
     safeSpritesArr[18].screenRow = safeSpritesArr[18].worldRow;
 }
 
+
 void drawSafeSprites() {
     for (int i = 0; i < 19; i++) {
         if (safeSpritesArr[i].hide == 1) {
@@ -397,20 +407,24 @@ void drawSafeSprites() {
     }
 }
 
+
 void updateCursor() {
     if (!introMessageBool) {
         if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
             introMessageBool = 1;
             (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+
         }
     } else {
         if ((!(~(oldButtons)&((1<<4))) && (~buttons & ((1<<4))))) {
+
             middleHighlight[cursor]->hide = 1;
             cursor = (cursor + 1) % 5;
             middleHighlight[cursor]->hide = 0;
         }
 
         if ((!(~(oldButtons)&((1<<5))) && (~buttons & ((1<<5))))) {
+
             middleHighlight[cursor]->hide = 1;
             if (cursor == 0) {
                 cursor = 4;
@@ -421,6 +435,7 @@ void updateCursor() {
         }
 
         if ((!(~(oldButtons)&((1<<6))) && (~buttons & ((1<<6))))) {
+
             if (cursor < 4) {
                 upArrows[cursor]->hide = 0;
                 codeNumbers[cursor]->sheetRow = (codeNumbers[cursor]->sheetRow + 2) % 20;
@@ -431,6 +446,7 @@ void updateCursor() {
         }
 
         if ((!(~(oldButtons)&((1<<7))) && (~buttons & ((1<<7))))) {
+
             if (cursor < 4) {
                 downArrows[cursor]->hide = 0;
                 if (codeNumbers[cursor]->sheetRow == 0) {
@@ -445,10 +461,16 @@ void updateCursor() {
         }
 
         if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0)))) && cursor == 4) {
+
+
             if (checkCode() && keyFound) {
+
                 openSafeBool = 1;
                 playSoundB(safesfx_data, safesfx_length, 0);
+                safeText(sm_2);
             } else {
+
+
                 for (int i = 0; i < 4; i++) {
                     codeNumbers[i]->sheetRow = 0;
                     enteredCode[i] = 0;
@@ -462,32 +484,41 @@ void updateCursor() {
 
 }
 
+
 int checkCode() {
     for (int i = 0; i < 4; i++) {
         if (enteredCode[i] != answerCode[i]) {
-            return 0;
+            if (i == 3 && enteredCode[i] == 3) {
+                allEmailsBool = 1;
+            } else {
+                return 0;
+            }
         }
     }
     return 1;
 }
 
-void safeText() {
+
+void safeText(char msg[]) {
     clearSafeMessage();
     int i = 0;
     int j = 418;
-    while (sm_1[i] != '\0') {
+    while (msg[i] != '\0') {
 
         if ((j - 444) % 32 == 0) {
             j += 6;
         }
 
-        messagescreenMap[j] = messagescreenMap[(letterMap[((sm_1[i]) - 32)])];
+        messagescreenMap[j] = messagescreenMap[(letterMap[((msg[i]) - 32)])];
         i++;
         j++;
     }
 
     DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    messageActiveBool = 1;
 }
+
+
 
 void clearSafeMessage() {
     for (int i = 418; i < 604; i++) {

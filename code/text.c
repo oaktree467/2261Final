@@ -5,8 +5,8 @@
 //char - 32
 int letterMap[95] =
 {
-// SPACE     NULL      "
-748,         0,        774,
+// SPACE     !      "
+748,         777,        774,
 
 //NULL       NULL       NULL        
 0,           0,         0,
@@ -29,8 +29,8 @@ int letterMap[95] =
 //5          6          7
 743,         744,       745,
 
-//8          9          null
-746,         747,       0,
+//8          9          :
+746,         747,       802,
 
 //;          null       null
 773,         0,         0,

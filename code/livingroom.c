@@ -2,6 +2,7 @@
 #include "livingroom.h"
 #include "livingroomcollisionmap.h"
 #include "mylib.h"
+#include <string.h>
 #include "chapter2bg.h"
 #include "messagescreen.h"
 
@@ -135,7 +136,7 @@ void initLivingRoomSprites() {
     phoneRingSpritesArr[2].worldRow = 350;
     phoneRingSpritesArr[2].hide = 1;
 
-        //ring 25%
+    //ring 25%
     phoneRingSpritesArr[3].sheetCol = 8;
     phoneRingSpritesArr[3].sheetRow = 24;
     phoneRingSpritesArr[3].worldCol = 323;
@@ -152,7 +153,7 @@ void loadLivingRoom() {
     visMapHeight = 478;
     totalMapHeight = 512;
     
-    if (priorState != PAUSE && priorState != COMPUTER) {
+    if (priorState != PAUSE && priorState != COMPUTER && priorState != INSTRUCTIONS) {
         //entering living room from kitchen
         if (priorState == KITCHEN) {
             protag.worldRow = 370;
@@ -189,6 +190,10 @@ void loadLivingRoom() {
     ringSettings();
 }
 
+
+// _____ THE FOLLOWING METHODS HANDLE THE PHONE RINGING ANIMATION ______
+
+//determines if the phone should... you know. ring.
 void ringSettings() {
     if (phoneRinging) {
         REG_TM2CNT |= TIMER_OFF;
@@ -203,6 +208,7 @@ void ringSettings() {
     }
 }
 
+//update ring animation based on vOff and hOff;
 void updateRing() {
     for (int i = 0; i < RING_SPRITECOUNT; i++) {
         phoneRingSpritesArr[i].screenCol = phoneRingSpritesArr[i].worldCol - hOff;
@@ -210,6 +216,7 @@ void updateRing() {
     }
 }
 
+//draw the ring animation
 void drawRing() {
     for (int i = 0; i < RING_SPRITECOUNT; i++) {
         if (phoneRingSpritesArr[i].hide == 1) {
@@ -223,7 +230,7 @@ void drawRing() {
 
 }
 
-
+//show the proper message when the phone is answered
 void answerPhone() {
     char phone1[] = "\"This is an automated message from POE CRYONICS.\"";
     char phone2[] = "\"Our records indicate you have not yet uploaded your life insurance documents.\"";
@@ -254,25 +261,29 @@ void answerPhone() {
             livingRoomSpritesArr[0].message = &telephone;
             phoneAnswerBool = 0;
             enableKeyFind = 1;
-            REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE;
+            REG_DISPCTL &= ~(BG0_ENABLE);
     }
 }
 
+
+//CHAPTER TWO TITLE CARD
 void chapterTwoIntro() {
     timerWait(0, 256);
+
+    unsigned short chapter2bgMapCopy[chapter2bgMapLen];
+    memcpy(chapter2bgMapCopy, chapter2bgMap, chapter2bgMapLen);
     
     for (int i = 0; i < 700; i++) {
-        chapter2bgMap[i] = chapter2bgMap[701];
+        chapter2bgMapCopy[i] = chapter2bgMap[701];
         if (i % 32 == 0) {
-            DMANow(3, chapter2bgMap, &SCREENBLOCK[24], ((1 << 30) | (1024 * 4)));
+            DMANow(3, chapter2bgMapCopy, &SCREENBLOCK[24], ((1 << 30) | (chapter2bgMapLen / 2)));
         }
     }
 
-    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+    REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
 
     DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
     DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
-
 
 }
 

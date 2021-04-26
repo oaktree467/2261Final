@@ -21,25 +21,31 @@ initColdDark:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	r2, #0
 	push	{r4, lr}
-	ldr	ip, .L6
-	ldr	lr, .L6+4
-	ldr	r1, .L6+8
+	mov	r2, #2048
+	ldr	r1, .L6
+	ldr	r3, .L6+4
+	ldr	r0, .L6+8
+	mov	lr, pc
+	bx	r3
+	mov	r2, #0
+	ldr	lr, .L6+12
+	ldr	ip, .L6+16
+	ldr	r1, .L6+20
 	str	r2, [lr]
 	str	r2, [ip]
 	str	r2, [r1]
-	ldr	r3, .L6+12
-	ldr	r4, .L6+16
-	ldr	lr, .L6+20
-	ldr	ip, .L6+24
-	ldr	r1, .L6+28
+	ldr	r3, .L6+24
+	ldr	r4, .L6+28
+	ldr	lr, .L6+32
+	ldr	ip, .L6+36
+	ldr	r1, .L6+40
 	str	r2, [r4]
 	str	r2, [lr]
 	str	r2, [ip]
 	str	r2, [r1]
 	add	r0, r3, #508
-	ldr	r2, .L6+32
+	ldr	r2, .L6+44
 	add	r0, r0, #2
 .L2:
 	ldrh	r1, [r3, #2]!
@@ -51,10 +57,13 @@ initColdDark:
 .L7:
 	.align	2
 .L6:
-	.word	blinkBool
+	.word	colddarkmessagebgMap
+	.word	memcpy
+	.word	cdmessageMapCopy
 	.word	coldMessageBool
+	.word	blinkBool
 	.word	moveForwardBool
-	.word	colddarkmessagebgMap+766
+	.word	cdmessageMapCopy+766
 	.word	cursor
 	.word	sniffBool
 	.word	stage
@@ -101,7 +110,7 @@ updateHighlight:
 	cmp	r0, #624
 	bne	.L9
 	ldr	r4, .L17+16
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L17+20
 	ldr	r1, .L17+24
@@ -117,7 +126,7 @@ updateHighlight:
 	.word	blackbgMap+1408
 	.word	610
 	.word	DMANow
-	.word	100704256
+	.word	100720640
 	.word	blackbgMap
 	.size	updateHighlight, .-updateHighlight
 	.align	2
@@ -150,7 +159,7 @@ clearBoard:
 .L25:
 	.align	2
 .L24:
-	.word	colddarkmessagebgMap+1488
+	.word	cdmessageMapCopy+1488
 	.size	clearBoard, .-clearBoard
 	.align	2
 	.global	loadMessageUnedited
@@ -172,7 +181,7 @@ loadMessageUnedited:
 	cmp	r3, r0
 	strh	r1, [r2, #2]!	@ movhi
 	bne	.L27
-	mov	r3, #4096
+	mov	r3, #1024
 	ldr	r2, .L30+8
 	ldr	r4, .L30+12
 	mov	r0, #3
@@ -188,10 +197,10 @@ loadMessageUnedited:
 	.align	2
 .L30:
 	.word	messageUnedited-2
-	.word	colddarkmessagebgMap+766
+	.word	cdmessageMapCopy+766
 	.word	100712448
 	.word	DMANow
-	.word	colddarkmessagebgMap
+	.word	cdmessageMapCopy
 	.word	coldMessageBool
 	.size	loadMessageUnedited, .-loadMessageUnedited
 	.align	2
@@ -209,13 +218,13 @@ printColdText:
 	push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	ldr	r3, .L40
 	ldr	r0, .L40+4
-	ldrh	r2, [r3, #6]
-	strh	r2, [r3, #6]	@ movhi
-	strh	ip, [r3, #6]	@ movhi
-	strh	r0, [r3, #4]	@ movhi
-	ldrh	r2, [r3, #6]
+	ldrh	r2, [r3, #10]
+	strh	r2, [r3, #10]	@ movhi
+	strh	ip, [r3, #10]	@ movhi
+	strh	r0, [r3, #8]	@ movhi
+	ldrh	r2, [r3, #10]
 	orr	r2, r2, #192
-	strh	r2, [r3, #6]	@ movhi
+	strh	r2, [r3, #10]	@ movhi
 	ldr	r7, .L40+8
 	ldr	r6, .L40+12
 	ldr	r5, .L40+16
@@ -240,7 +249,7 @@ printColdText:
 	mov	r2, r8
 	mov	r1, fp
 	mov	r0, #3
-	mov	r3, #4096
+	mov	r3, #1024
 	strh	ip, [r4, lr]	@ movhi
 	mov	lr, pc
 	bx	r9
@@ -258,8 +267,8 @@ printColdText:
 	b	.L33
 .L36:
 	ldr	r2, .L40
-	ldrh	r3, [r2, #6]
-	strh	r3, [r2, #6]	@ movhi
+	ldrh	r3, [r2, #10]
+	strh	r3, [r2, #10]	@ movhi
 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
 	bx	lr
 .L41:
@@ -271,7 +280,7 @@ printColdText:
 	.word	timerI
 	.word	timerJ
 	.word	418
-	.word	colddarkmessagebgMap
+	.word	cdmessageMapCopy
 	.word	letterMap
 	.word	DMANow
 	.word	100712448
@@ -305,7 +314,7 @@ loadColdMessage:
 	add	r1, r1, #2
 	cmp	r1, ip
 	bne	.L43
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L52+8
 	ldr	r1, .L52+12
@@ -352,9 +361,9 @@ loadColdMessage:
 	.align	2
 .L52:
 	.word	coldMessageBool
-	.word	colddarkmessagebgMap+1488
+	.word	cdmessageMapCopy+1488
 	.word	100712448
-	.word	colddarkmessagebgMap
+	.word	cdmessageMapCopy
 	.word	DMANow
 	.word	cursor
 	.word	activeMessage
@@ -385,7 +394,7 @@ chapterOneOutro:
 	add	r7, r5, #2
 	b	.L56
 .L55:
-	cmp	r4, #700
+	cmp	r4, #640
 	beq	.L62
 .L56:
 	ldrh	r3, [r6, #4]
@@ -393,13 +402,13 @@ chapterOneOutro:
 	strh	r3, [r5, #2]!	@ movhi
 	add	r4, r4, #1
 	bne	.L55
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r2, r9
 	mov	r1, r7
 	mov	r0, #3
 	mov	lr, pc
 	bx	r8
-	cmp	r4, #700
+	cmp	r4, #640
 	bne	.L56
 .L62:
 	ldr	r5, .L64+12
@@ -428,12 +437,15 @@ chapterOneOutro:
 	bne	.L58
 .L63:
 	ldr	r3, .L64+24
+	mov	lr, pc
+	bx	r3
+	ldr	r3, .L64+28
 	mov	r1, #1024
-	ldr	r0, .L64+28
+	ldr	r0, .L64+32
 	mov	lr, pc
 	bx	r3
 	mov	r2, #1
-	ldr	r3, .L64+32
+	ldr	r3, .L64+36
 	pop	{r4, r5, r6, r7, r8, r9, r10, lr}
 	str	r2, [r3]
 	bx	lr
@@ -441,11 +453,12 @@ chapterOneOutro:
 	.align	2
 .L64:
 	.word	blackbgMap-2
-	.word	100704256
+	.word	100720640
 	.word	DMANow
-	.word	colddarkmessagebgMap-2
-	.word	1073745920
+	.word	cdmessageMapCopy-2
+	.word	1073742848
 	.word	100712448
+	.word	stopSoundA
 	.word	timerWait
 	.word	20000
 	.word	nextRoomBool
@@ -541,7 +554,7 @@ messagesNonInteractive:
 	add	r1, r1, #2
 	cmp	r1, ip
 	bne	.L67
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L82+32
 	ldr	r1, .L82+36
@@ -642,9 +655,9 @@ messagesNonInteractive:
 	.word	.LC3
 	.word	.LC4
 	.word	.LC5
-	.word	colddarkmessagebgMap+1488
+	.word	cdmessageMapCopy+1488
 	.word	100712448
-	.word	colddarkmessagebgMap
+	.word	cdmessageMapCopy
 	.word	DMANow
 	.word	nonInteractText
 	.word	activeMessage
@@ -724,7 +737,7 @@ chapterOneIntro:
 	ldr	r1, .L94+28
 	mov	lr, pc
 	bx	r8
-	mov	r3, #4096
+	mov	r3, #1024
 	mov	r0, #3
 	ldr	r2, .L94+32
 	ldr	r1, .L94+36
@@ -737,14 +750,14 @@ chapterOneIntro:
 .L94:
 	.word	blackbgMap-2
 	.word	DMANow
-	.word	1073745920
-	.word	100704256
+	.word	1073742848
+	.word	100720640
 	.word	blackbgMap+1408
 	.word	20000
 	.word	timerWait
 	.word	colddarkmessagebgTiles
 	.word	100712448
-	.word	colddarkmessagebgMap
+	.word	cdmessageMapCopy
 	.size	chapterOneIntro, .-chapterOneIntro
 	.align	2
 	.global	updateColdDark
@@ -874,8 +887,12 @@ updateColdDark:
 	.comm	timerI,4,4
 	.comm	coldMessageBool,4,4
 	.comm	cursor,4,4
+	.comm	cdmessageMapCopy,4096,4
 	.comm	messageUnedited,510,4
 	.global	intervals
+	.comm	soundB,32,4
+	.comm	soundA,32,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2

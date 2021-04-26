@@ -15,4 +15,4 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
+void safeText(char msg[]);

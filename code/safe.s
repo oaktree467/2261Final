@@ -221,223 +221,6 @@ drawSafeSprites:
 	.word	shadowOAM
 	.size	drawSafeSprites, .-drawSafeSprites
 	.align	2
-	.global	updateCursor
-	.syntax unified
-	.arm
-	.fpu softvfp
-	.type	updateCursor, %function
-updateCursor:
-	@ Function supports interworking.
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r2, .L69
-	ldr	r3, .L69+4
-	ldrb	r1, [r2]	@ zero_extendqisi2
-	ldrh	r3, [r3]
-	cmp	r1, #0
-	and	r1, r3, #1
-	bne	.L23
-	cmp	r1, #0
-	bxeq	lr
-	ldr	r3, .L69+8
-	ldrh	r3, [r3]
-	tst	r3, #1
-	moveq	r0, #1
-	moveq	r3, #67108864
-	moveq	r1, #4608
-	strbeq	r0, [r2]
-	strheq	r1, [r3]	@ movhi
-	bx	lr
-.L23:
-	ldr	r0, .L69+12
-	tst	r3, #16
-	push	{r4, r5, r6, r7, r8, lr}
-	ldr	r2, [r0]
-	beq	.L27
-	ldr	ip, .L69+8
-	ldrh	ip, [ip]
-	ands	ip, ip, #16
-	beq	.L63
-.L27:
-	tst	r3, #32
-	beq	.L28
-	ldr	ip, .L69+8
-	ldrh	ip, [ip]
-	tst	ip, #32
-	beq	.L64
-.L28:
-	tst	r3, #64
-	beq	.L30
-	ldr	ip, .L69+8
-	ldrh	ip, [ip]
-	ands	ip, ip, #64
-	beq	.L65
-.L30:
-	mov	lr, #1
-	ldr	ip, .L69+16
-	ldr	ip, [ip, r2, lsl #2]
-	str	lr, [ip, #40]
-.L31:
-	tst	r3, #128
-	beq	.L32
-	ldr	r3, .L69+8
-	ldrh	r3, [r3]
-	ands	r3, r3, #128
-	beq	.L66
-.L32:
-	mov	ip, #1
-	ldr	r3, .L69+20
-	ldr	r3, [r3, r2, lsl #2]
-	str	ip, [r3, #40]
-.L33:
-	cmp	r1, #0
-	beq	.L22
-	ldr	r3, .L69+8
-	ldrh	r3, [r3]
-	tst	r3, #1
-	bne	.L22
-	cmp	r2, #4
-	beq	.L67
-.L22:
-	pop	{r4, r5, r6, r7, r8, lr}
-	bx	lr
-.L66:
-	cmp	r2, #3
-	bgt	.L33
-	ldr	ip, .L69+24
-	ldr	lr, [ip, r2, lsl #2]
-	ldr	r4, .L69+20
-	ldr	ip, [lr, #28]
-	ldr	r4, [r4, r2, lsl #2]
-	cmp	ip, #0
-	str	r3, [r4, #40]
-	moveq	ip, #9
-	moveq	r3, #18
-	subne	r3, ip, #2
-	addne	ip, r3, r3, lsr #31
-	ldr	r4, .L69+28
-	asrne	ip, ip, #1
-	str	r3, [lr, #28]
-	str	ip, [r4, r2, lsl #2]
-	b	.L33
-.L65:
-	cmp	r2, #3
-	bgt	.L31
-	ldr	lr, .L69+24
-	ldr	r6, [lr, r2, lsl #2]
-	ldr	r4, [r6, #28]
-	ldr	lr, .L69+32
-	add	r4, r4, #2
-	smull	r7, r5, lr, r4
-	asr	lr, r4, #31
-	rsb	lr, lr, r5, asr #3
-	add	lr, lr, lr, lsl #2
-	ldr	r5, .L69+16
-	sub	lr, r4, lr, lsl #2
-	ldr	r7, [r5, r2, lsl #2]
-	add	r4, lr, lr, lsr #31
-	ldr	r5, .L69+28
-	asr	r4, r4, #1
-	str	ip, [r7, #40]
-	str	r4, [r5, r2, lsl #2]
-	str	lr, [r6, #28]
-	b	.L31
-.L64:
-	mov	r4, #1
-	ldr	ip, .L69+36
-	cmp	r2, #0
-	ldr	lr, [ip, r2, lsl #2]
-	moveq	r2, #4
-	str	r4, [lr, #40]
-	mov	lr, #0
-	subne	r2, r2, #1
-	ldr	ip, [ip, r2, lsl #2]
-	str	r2, [r0]
-	str	lr, [ip, #40]
-	b	.L28
-.L63:
-	mov	r7, #1
-	ldr	r4, .L69+32
-	add	lr, r2, r7
-	smull	r5, r4, lr, r4
-	ldr	r5, .L69+36
-	asr	r8, lr, #31
-	ldr	r6, [r5, r2, lsl #2]
-	rsb	r2, r8, r4, asr r7
-	add	r2, r2, r2, lsl #2
-	sub	r2, lr, r2
-	ldr	lr, [r5, r2, lsl #2]
-	str	r7, [r6, #40]
-	str	r2, [r0]
-	str	ip, [lr, #40]
-	b	.L27
-.L67:
-	ldr	r2, .L69+28
-	mov	r3, r2
-	ldr	r1, .L69+40
-	add	r4, r2, #16
-.L36:
-	ldr	lr, [r3], #4
-	ldr	ip, [r1], #4
-	cmp	lr, ip
-	bne	.L35
-	cmp	r3, r4
-	bne	.L36
-	ldr	r3, .L69+44
-	ldrb	r3, [r3]	@ zero_extendqisi2
-	cmp	r3, #0
-	bne	.L68
-.L35:
-	mov	r1, #0
-	ldr	r3, .L69+24
-	add	lr, r3, #16
-.L38:
-	ldr	ip, [r3], #4
-	cmp	r3, lr
-	str	r1, [ip, #28]
-	str	r1, [r2], #4
-	bne	.L38
-	mov	ip, #1
-	ldr	r3, .L69+36
-	ldr	r2, [r3, #16]
-	ldr	r3, [r3]
-	str	ip, [r2, #40]
-	str	r1, [r0]
-	str	r1, [r3, #40]
-	b	.L22
-.L68:
-	mov	lr, #1
-	ldr	r3, .L69+48
-	ldr	ip, .L69+52
-	ldr	r1, [r3]
-	mov	r2, #0
-	ldr	r0, .L69+56
-	ldr	r3, .L69+60
-	strb	lr, [ip]
-	mov	lr, pc
-	bx	r3
-	b	.L22
-.L70:
-	.align	2
-.L69:
-	.word	introMessageBool
-	.word	oldButtons
-	.word	buttons
-	.word	cursor
-	.word	upArrows
-	.word	downArrows
-	.word	codeNumbers
-	.word	.LANCHOR0
-	.word	1717986919
-	.word	middleHighlight
-	.word	.LANCHOR1
-	.word	keyFound
-	.word	safesfx_length
-	.word	openSafeBool
-	.word	safesfx_data
-	.word	playSoundB
-	.size	updateCursor, .-updateCursor
-	.align	2
 	.global	checkCode
 	.syntax unified
 	.arm
@@ -448,26 +231,35 @@ checkCode:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r3, .L76
-	ldr	r2, .L76+4
-	add	ip, r3, #16
-.L73:
-	ldr	r0, [r3], #4
-	ldr	r1, [r2], #4
-	cmp	r0, r1
-	bne	.L74
+	mov	r0, #0
+	ldr	r1, .L28
+	ldr	r2, .L28+4
+.L25:
+	ldr	r3, [r1], #4
+	ldr	ip, [r2], #4
 	cmp	r3, ip
-	bne	.L73
+	beq	.L23
+	cmp	r0, #3
+	cmpeq	r3, #3
+	moveq	r3, #1
+	ldreq	r2, .L28+8
+	moveq	r0, #1
+	movne	r0, #0
+	strbeq	r3, [r2]
+	moveq	r0, r3
+	bx	lr
+.L23:
+	add	r0, r0, #1
+	cmp	r0, #4
+	bne	.L25
 	mov	r0, #1
 	bx	lr
-.L74:
-	mov	r0, #0
-	bx	lr
-.L77:
+.L29:
 	.align	2
-.L76:
+.L28:
 	.word	.LANCHOR0
 	.word	.LANCHOR1
+	.word	allEmailsBool
 	.size	checkCode, .-checkCode
 	.align	2
 	.global	safeText
@@ -479,68 +271,69 @@ safeText:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	ip, .L93
-	push	{r4, r5, r6, lr}
-	ldr	r3, .L93+4
-	ldrh	lr, [ip, #8]
+	ldr	ip, .L45
+	push	{r4, lr}
+	ldr	r3, .L45+4
+	ldrh	r4, [ip, #8]
 	sub	ip, ip, #1488
-	b	.L79
-.L81:
+	b	.L31
+.L33:
 	tst	r2, #31
 	movne	r3, r1
 	addeq	r3, r3, #7
-.L79:
+.L31:
 	add	r1, r3, #1
 	sub	r2, r3, #440
-	lsl	r0, r3, #1
+	lsl	lr, r3, #1
 	cmp	r1, #604
-	strh	lr, [ip, r0]	@ movhi
+	strh	r4, [ip, lr]	@ movhi
 	sub	r2, r2, #3
-	blt	.L81
-	ldr	lr, .L93+8
-	ldrb	r3, [lr, #16]	@ zero_extendqisi2
+	blt	.L33
+	ldrb	r3, [r0]	@ zero_extendqisi2
 	cmp	r3, #0
-	beq	.L82
-	ldr	r0, .L93+4
-	ldr	r5, .L93+12
-	add	lr, lr, #17
-	b	.L83
-.L86:
-	tst	r1, #31
-	addne	r0, r0, #1
-	addeq	r0, r0, #7
-.L83:
+	beq	.L34
+	ldr	r1, .L45+4
+	ldr	lr, .L45+8
+	b	.L35
+.L38:
+	tst	r2, #31
+	addne	r1, r1, #1
+	addeq	r1, r1, #7
+.L35:
 	sub	r3, r3, #32
-	ldr	r2, [r5, r3, lsl #2]
-	ldrb	r3, [lr], #1	@ zero_extendqisi2
-	lsl	r2, r2, #1
-	ldrh	r4, [ip, r2]
-	sub	r1, r0, #440
-	lsl	r2, r0, #1
+	ldr	r3, [lr, r3, lsl #2]
+	lsl	r3, r3, #1
+	ldrh	r2, [ip, r3]
+	lsl	r3, r1, #1
+	strh	r2, [ip, r3]	@ movhi
+	ldrb	r3, [r0, #1]!	@ zero_extendqisi2
+	sub	r2, r1, #440
 	cmp	r3, #0
-	strh	r4, [ip, r2]	@ movhi
-	sub	r1, r1, #3
-	bne	.L86
-.L82:
-	ldr	r4, .L93+16
+	sub	r2, r2, #3
+	bne	.L38
+.L34:
 	mov	r3, #4096
+	ldr	r2, .L45+12
+	ldr	r4, .L45+16
 	mov	r0, #3
-	ldr	r2, .L93+20
-	ldr	r1, .L93+24
+	ldr	r1, .L45+20
 	mov	lr, pc
 	bx	r4
-	pop	{r4, r5, r6, lr}
+	mov	r2, #1
+	ldr	r3, .L45+24
+	pop	{r4, lr}
+	str	r2, [r3]
 	bx	lr
-.L94:
+.L46:
 	.align	2
-.L93:
+.L45:
 	.word	messagescreenMap+1488
 	.word	418
-	.word	.LANCHOR1
 	.word	letterMap
-	.word	DMANow
 	.word	100712448
+	.word	DMANow
 	.word	messagescreenMap
+	.word	messageActiveBool
 	.size	safeText, .-safeText
 	.align	2
 	.global	loadSafe
@@ -554,43 +347,274 @@ loadSafe:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	mov	r3, #0
 	push	{r4, lr}
-	ldr	r2, .L100
+	ldr	r2, .L52
 	ldrb	r4, [r2]	@ zero_extendqisi2
-	ldr	ip, .L100+4
-	ldr	r0, .L100+8
-	ldr	r1, .L100+12
-	ldr	r2, .L100+16
+	ldr	ip, .L52+4
+	ldr	r0, .L52+8
+	ldr	r1, .L52+12
+	ldr	r2, .L52+16
 	cmp	r4, r3
 	strh	r3, [ip]	@ movhi
 	strh	r3, [r0]	@ movhi
 	str	r3, [r1]
 	strb	r3, [r2]
-	beq	.L99
+	beq	.L51
 	mov	r2, #1
-	ldr	r3, .L100+20
+	ldr	r3, .L52+20
 	strb	r2, [r3]
 	pop	{r4, lr}
 	b	initSafeSprites
-.L99:
+.L51:
+	ldr	r0, .L52+24
 	bl	safeText
 	mov	r2, #67108864
-	ldr	r3, .L100+20
+	ldr	r3, .L52+20
 	strb	r4, [r3]
 	ldrh	r3, [r2]
 	orr	r3, r3, #256
 	strh	r3, [r2]	@ movhi
 	pop	{r4, lr}
 	b	initSafeSprites
-.L101:
+.L53:
 	.align	2
-.L100:
+.L52:
 	.word	keyFound
 	.word	hOff
 	.word	vOff
 	.word	cursor
 	.word	openSafeBool
 	.word	introMessageBool
+	.word	.LANCHOR1+16
 	.size	loadSafe, .-loadSafe
+	.align	2
+	.global	updateCursor
+	.syntax unified
+	.arm
+	.fpu softvfp
+	.type	updateCursor, %function
+updateCursor:
+	@ Function supports interworking.
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	ldr	r2, .L103
+	ldr	r3, .L103+4
+	ldrb	r1, [r2]	@ zero_extendqisi2
+	ldrh	r3, [r3]
+	cmp	r1, #0
+	and	r1, r3, #1
+	bne	.L55
+	cmp	r1, #0
+	bxeq	lr
+	ldr	r3, .L103+8
+	ldrh	r3, [r3]
+	tst	r3, #1
+	bxne	lr
+	mov	r0, #1
+	mov	r3, #67108864
+	mov	r1, #4608
+	strb	r0, [r2]
+	strh	r1, [r3]	@ movhi
+	bx	lr
+.L55:
+	ldr	r0, .L103+12
+	tst	r3, #16
+	push	{r4, r5, r6, r7, r8, lr}
+	ldr	r2, [r0]
+	beq	.L59
+	ldr	ip, .L103+8
+	ldrh	ip, [ip]
+	ands	ip, ip, #16
+	beq	.L98
+.L59:
+	tst	r3, #32
+	beq	.L60
+	ldr	ip, .L103+8
+	ldrh	ip, [ip]
+	tst	ip, #32
+	beq	.L99
+.L60:
+	tst	r3, #64
+	beq	.L62
+	ldr	ip, .L103+8
+	ldrh	ip, [ip]
+	ands	ip, ip, #64
+	beq	.L100
+.L62:
+	mov	lr, #1
+	ldr	ip, .L103+16
+	ldr	ip, [ip, r2, lsl #2]
+	str	lr, [ip, #40]
+.L63:
+	tst	r3, #128
+	beq	.L64
+	ldr	r3, .L103+8
+	ldrh	r3, [r3]
+	ands	r3, r3, #128
+	beq	.L101
+.L64:
+	mov	ip, #1
+	ldr	r3, .L103+20
+	ldr	r3, [r3, r2, lsl #2]
+	str	ip, [r3, #40]
+.L65:
+	cmp	r1, #0
+	beq	.L54
+	ldr	r3, .L103+8
+	ldrh	r3, [r3]
+	ands	r3, r3, #1
+	bne	.L54
+	cmp	r2, #4
+	beq	.L102
+.L54:
+	pop	{r4, r5, r6, r7, r8, lr}
+	bx	lr
+.L101:
+	cmp	r2, #3
+	bgt	.L65
+	ldr	ip, .L103+24
+	ldr	lr, [ip, r2, lsl #2]
+	ldr	r4, .L103+20
+	ldr	ip, [lr, #28]
+	ldr	r4, [r4, r2, lsl #2]
+	cmp	ip, #0
+	str	r3, [r4, #40]
+	moveq	ip, #9
+	moveq	r3, #18
+	subne	r3, ip, #2
+	addne	ip, r3, r3, lsr #31
+	ldr	r4, .L103+28
+	asrne	ip, ip, #1
+	str	r3, [lr, #28]
+	str	ip, [r4, r2, lsl #2]
+	b	.L65
+.L100:
+	cmp	r2, #3
+	bgt	.L63
+	ldr	lr, .L103+24
+	ldr	r6, [lr, r2, lsl #2]
+	ldr	r4, [r6, #28]
+	ldr	lr, .L103+32
+	add	r4, r4, #2
+	smull	r7, r5, lr, r4
+	asr	lr, r4, #31
+	rsb	lr, lr, r5, asr #3
+	add	lr, lr, lr, lsl #2
+	ldr	r5, .L103+16
+	sub	lr, r4, lr, lsl #2
+	ldr	r7, [r5, r2, lsl #2]
+	add	r4, lr, lr, lsr #31
+	ldr	r5, .L103+28
+	asr	r4, r4, #1
+	str	ip, [r7, #40]
+	str	r4, [r5, r2, lsl #2]
+	str	lr, [r6, #28]
+	b	.L63
+.L99:
+	mov	r4, #1
+	ldr	ip, .L103+36
+	cmp	r2, #0
+	ldr	lr, [ip, r2, lsl #2]
+	moveq	r2, #4
+	str	r4, [lr, #40]
+	mov	lr, #0
+	subne	r2, r2, #1
+	ldr	ip, [ip, r2, lsl #2]
+	str	r2, [r0]
+	str	lr, [ip, #40]
+	b	.L60
+.L98:
+	mov	r7, #1
+	ldr	r4, .L103+32
+	add	lr, r2, r7
+	smull	r5, r4, lr, r4
+	ldr	r5, .L103+36
+	asr	r8, lr, #31
+	ldr	r6, [r5, r2, lsl #2]
+	rsb	r2, r8, r4, asr r7
+	add	r2, r2, r2, lsl #2
+	sub	r2, lr, r2
+	ldr	lr, [r5, r2, lsl #2]
+	str	r7, [r6, #40]
+	str	r2, [r0]
+	str	ip, [lr, #40]
+	b	.L59
+.L102:
+	ldr	r1, .L103+28
+	mov	ip, r1
+	ldr	r2, .L103+40
+.L70:
+	ldr	lr, [ip], #4
+	ldr	r4, [r2], #4
+	cmp	lr, r4
+	beq	.L67
+	cmp	r3, #3
+	cmpeq	lr, #3
+	moveq	r2, #1
+	ldreq	r3, .L103+44
+	strbeq	r2, [r3]
+	beq	.L69
+.L68:
+	mov	r2, #0
+	ldr	r3, .L103+24
+	add	lr, r3, #16
+.L71:
+	ldr	ip, [r3], #4
+	cmp	r3, lr
+	str	r2, [ip, #28]
+	str	r2, [r1], #4
+	bne	.L71
+	mov	ip, #1
+	ldr	r3, .L103+36
+	ldr	r1, [r3, #16]
+	ldr	r3, [r3]
+	str	ip, [r1, #40]
+	str	r2, [r0]
+	str	r2, [r3, #40]
+	b	.L54
+.L67:
+	add	r3, r3, #1
+	cmp	r3, #4
+	bne	.L70
+.L69:
+	ldr	r3, .L103+48
+	ldrb	r3, [r3]	@ zero_extendqisi2
+	cmp	r3, #0
+	beq	.L68
+	mov	lr, #1
+	ldr	r3, .L103+52
+	ldr	ip, .L103+56
+	ldr	r1, [r3]
+	ldr	r0, .L103+60
+	mov	r2, #0
+	ldr	r3, .L103+64
+	strb	lr, [ip]
+	mov	lr, pc
+	bx	r3
+	ldr	r0, .L103+68
+	pop	{r4, r5, r6, r7, r8, lr}
+	b	safeText
+.L104:
+	.align	2
+.L103:
+	.word	introMessageBool
+	.word	oldButtons
+	.word	buttons
+	.word	cursor
+	.word	upArrows
+	.word	downArrows
+	.word	codeNumbers
+	.word	.LANCHOR0
+	.word	1717986919
+	.word	middleHighlight
+	.word	.LANCHOR1
+	.word	allEmailsBool
+	.word	keyFound
+	.word	safesfx_length
+	.word	openSafeBool
+	.word	safesfx_data
+	.word	playSoundB
+	.word	.LANCHOR1+76
+	.size	updateCursor, .-updateCursor
 	.align	2
 	.global	clearSafeMessage
 	.syntax unified
@@ -601,34 +625,35 @@ clearSafeMessage:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	ip, .L108
+	ldr	ip, .L111
 	str	lr, [sp, #-4]!
-	ldr	r3, .L108+4
+	ldr	r3, .L111+4
 	ldrh	lr, [ip, #8]
 	sub	ip, ip, #1488
-	b	.L103
-.L105:
+	b	.L106
+.L108:
 	tst	r2, #31
 	movne	r3, r1
 	addeq	r3, r3, #7
-.L103:
+.L106:
 	add	r1, r3, #1
 	sub	r2, r3, #440
 	lsl	r0, r3, #1
 	cmp	r1, #604
 	strh	lr, [ip, r0]	@ movhi
 	sub	r2, r2, #3
-	blt	.L105
+	blt	.L108
 	ldr	lr, [sp], #4
 	bx	lr
-.L109:
+.L112:
 	.align	2
-.L108:
+.L111:
 	.word	messagescreenMap+1488
 	.word	418
 	.size	clearSafeMessage, .-clearSafeMessage
 	.comm	introMessageBool,1,1
 	.comm	openSafeBool,1,1
+	.global	sm_2
 	.global	sm_1
 	.global	enteredCode
 	.global	answerCode
@@ -640,6 +665,7 @@ clearSafeMessage:
 	.comm	safeSpritesArr,988,4
 	.comm	soundB,32,4
 	.comm	soundA,32,4
+	.comm	currSong,4,4
 	.comm	state,4,4
 	.data
 	.align	2
@@ -656,6 +682,11 @@ answerCode:
 sm_1:
 	.ascii	"Your secret safe. It looks like you need a key and "
 	.ascii	"a code.\000"
+	.space	1
+	.type	sm_2, %object
+	.size	sm_2, 47
+sm_2:
+	.ascii	"The safe clicks open. You have your documents.\000"
 	.bss
 	.align	2
 	.set	.LANCHOR0,. + 0

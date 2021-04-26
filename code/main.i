@@ -2,7 +2,7 @@
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "main.c"
-# 48 "main.c"
+# 38 "main.c"
 # 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdlib.h" 1 3
 # 10 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdlib.h" 3
 # 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/machine/ieeefp.h" 1 3
@@ -811,7 +811,7 @@ extern long double _strtold_r (struct _reent *, const char *restrict, char **res
 extern long double strtold (const char *restrict, char **restrict);
 # 336 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdlib.h" 3
 
-# 49 "main.c" 2
+# 39 "main.c" 2
 # 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdio.h" 1 3
 # 36 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdio.h" 3
 # 1 "/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h" 1 3 4
@@ -1222,7 +1222,54 @@ _putchar_unlocked(int _c)
 }
 # 797 "/opt/devkitpro/devkitARM/arm-none-eabi/include/stdio.h" 3
 
-# 50 "main.c" 2
+# 40 "main.c" 2
+# 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 1 3
+# 17 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+# 1 "/opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h" 1 3 4
+# 18 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 2 3
+# 27 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+
+
+void * memchr (const void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void * memcpy (void *restrict, const void *restrict, size_t);
+void * memmove (void *, const void *, size_t);
+void * memset (void *, int, size_t);
+char *strcat (char *restrict, const char *restrict);
+char *strchr (const char *, int);
+int strcmp (const char *, const char *);
+int strcoll (const char *, const char *);
+char *strcpy (char *restrict, const char *restrict);
+size_t strcspn (const char *, const char *);
+char *strerror (int);
+size_t strlen (const char *);
+char *strncat (char *restrict, const char *restrict, size_t);
+int strncmp (const char *, const char *, size_t);
+char *strncpy (char *restrict, const char *restrict, size_t);
+char *strpbrk (const char *, const char *);
+char *strrchr (const char *, int);
+size_t strspn (const char *, const char *);
+char *strstr (const char *, const char *);
+
+char *strtok (char *restrict, const char *restrict);
+
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+# 86 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+char *_strdup_r (struct _reent *, const char *);
+
+
+
+char *_strndup_r (struct _reent *, const char *, size_t);
+# 112 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+char * _strerror_r (struct _reent *, int, int, int *);
+# 134 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+char *strsignal (int __signo);
+# 175 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 3
+# 1 "/opt/devkitpro/devkitARM/arm-none-eabi/include/sys/string.h" 1 3
+# 176 "/opt/devkitpro/devkitARM/arm-none-eabi/include/string.h" 2 3
+
+
+# 41 "main.c" 2
 # 1 "myLib.h" 1
 
 
@@ -1318,35 +1365,19 @@ void DMANow(int channel, volatile const void *src, volatile void *dst, unsigned 
 typedef void (*ihp)(void);
 # 307 "myLib.h"
 int collision(int colA, int rowA, int widthA, int heightA, int colB, int rowB, int widthB, int heightB);
-# 51 "main.c" 2
-# 1 "livingroomsprites.h" 1
-# 21 "livingroomsprites.h"
-extern const unsigned short livingroomspritesTiles[16384];
-
-
-extern const unsigned short livingroomspritesPal[256];
-# 52 "main.c" 2
-# 1 "livingroombg.h" 1
-# 22 "livingroombg.h"
-extern const unsigned short livingroombgTiles[8848];
-
-
-extern const unsigned short livingroombgMap[4096];
-
-
-extern const unsigned short livingroombgPal[256];
-# 53 "main.c" 2
-# 1 "livingroomcollisionmap.h" 1
-# 20 "livingroomcollisionmap.h"
-extern const unsigned short livingroomcollisionmapBitmap[262144];
-# 54 "main.c" 2
+# 42 "main.c" 2
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -1412,7 +1443,9 @@ extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
 extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -1436,7 +1469,289 @@ void clearMessage();
 void setUpInterrupts();
 void interruptHandler();
 void timerWait();
+# 43 "main.c" 2
+# 1 "bedroom.h" 1
+
+
+
+
+extern STATIONARYSPRITE bedroomSpritesArr[];
+
+
+void initBedroomSprites();
+void loadBedroom();
+void safeOpenMessage();
+# 44 "main.c" 2
+# 1 "bedroombg.h" 1
+# 22 "bedroombg.h"
+extern const unsigned short bedroombgTiles[5648];
+
+
+extern const unsigned short bedroombgMap[2048];
+
+
+extern const unsigned short bedroombgPal[256];
+# 45 "main.c" 2
+# 1 "bedroomsprites.h" 1
+# 21 "bedroomsprites.h"
+extern const unsigned short bedroomspritesTiles[16384];
+
+
+extern const unsigned short bedroomspritesPal[256];
+# 46 "main.c" 2
+# 1 "blackbg.h" 1
+# 22 "blackbg.h"
+extern const unsigned short blackbgTiles[48];
+
+
+extern unsigned short blackbgMap[1024];
+
+
+extern const unsigned short blackbgPal[256];
+# 47 "main.c" 2
+# 1 "chapter1bg.h" 1
+# 22 "chapter1bg.h"
+extern const unsigned short chapter1bgTiles[2736];
+
+
+extern const unsigned short chapter1bgMap[1024];
+
+
+extern const unsigned short chapter1bgPal[256];
+# 48 "main.c" 2
+# 1 "chapter2bg.h" 1
+# 22 "chapter2bg.h"
+extern const unsigned short chapter2bgTiles[2160];
+
+
+extern unsigned short chapter2bgMap[1024];
+
+
+extern const unsigned short chapter2bgPal[256];
+# 49 "main.c" 2
+# 1 "chapter3bg.h" 1
+# 22 "chapter3bg.h"
+extern const unsigned short chapter3bgTiles[2288];
+
+
+extern const unsigned short chapter3bgMap[1024];
+
+
+extern const unsigned short chapter3bgPal[256];
+# 50 "main.c" 2
+# 1 "cloudsbg.h" 1
+# 22 "cloudsbg.h"
+extern const unsigned short cloudsbgTiles[2480];
+
+
+extern const unsigned short cloudsbgMap[2048];
+
+
+extern const unsigned short cloudsbgPal[256];
+# 51 "main.c" 2
+# 1 "colddark.h" 1
+
+
+
+extern int intervals[];
+extern int nextRoomBool;
+
+void initColdDark();
+void introMessage();
+void chapterOneIntro();
+void updateHighlight();
+void updateColdDark();
+void loadColdMessage();
+void loadMessageUnedited();
+void printColdText();
+void coldDarkInterruptHandler();
+void setUpColdDarkInterrupts();
+void timerWait(int start, int freq);
+void messagesNonInteractive();
+void clearBoard();
+void chapterOneOutro();
+# 52 "main.c" 2
+# 1 "colddarkmessagebg.h" 1
+# 22 "colddarkmessagebg.h"
+extern const unsigned short colddarkmessagebgTiles[2240];
+
+
+extern unsigned short colddarkmessagebgMap[1024];
+
+
+extern const unsigned short colddarkmessagebgPal[256];
+# 53 "main.c" 2
+# 1 "computer.h" 1
+
+
+
+extern STATIONARYSPRITE computerSpritesArr[];
+extern PROTAGSPRITE mouse;
+
+
+
+void updateComputer();
+void drawComputer();
+
+void loadComputer();
+
+void initComputerSprites();
+void drawComputerSprites();
+void checkComputerSpriteCollision();
+void initMouse();
+void drawMouse();
+void updateMouse();
+void loadSecondaryScreen();
+void disableSprites();
+
+void playSpettacolo();
+void playTLMOE();
+void tlmoeHide(int i);
+void spettacoloHide(int i);
+# 54 "main.c" 2
+# 1 "computerscreenbg.h" 1
+# 22 "computerscreenbg.h"
+extern const unsigned short computerscreenbgTiles[1184];
+
+
+extern const unsigned short computerscreenbgMap[1024];
+
+
+extern const unsigned short computerscreenbgPal[256];
 # 55 "main.c" 2
+# 1 "computersprites.h" 1
+# 21 "computersprites.h"
+extern const unsigned short computerspritesTiles[16384];
+
+
+extern const unsigned short computerspritesPal[256];
+# 56 "main.c" 2
+# 1 "finale.h" 1
+
+
+
+extern STATIONARYSPRITE finaleSpritesArr[];
+extern char marsInteractBool;
+
+void loadFinale();
+void initFinaleSprites();
+void updatePersistentSprites();
+void drawPersistentSprites();
+void updateFinale();
+void marsSpeaks();
+void selectArrow();
+void chapterThreeIntro();
+# 57 "main.c" 2
+# 1 "finalebg.h" 1
+# 22 "finalebg.h"
+extern const unsigned short finalebgTiles[3072];
+
+
+extern const unsigned short finalebgMap[2048];
+
+
+extern const unsigned short finalebgPal[256];
+# 58 "main.c" 2
+# 1 "finalesprites.h" 1
+# 21 "finalesprites.h"
+extern const unsigned short finalespritesTiles[16384];
+
+
+extern const unsigned short finalespritesPal[256];
+# 59 "main.c" 2
+# 1 "finalewindows.h" 1
+# 22 "finalewindows.h"
+extern const unsigned short finalewindowsTiles[1824];
+
+
+extern const unsigned short finalewindowsMap[2048];
+
+
+extern const unsigned short finalewindowsPal[256];
+# 60 "main.c" 2
+# 1 "finscreen.h" 1
+# 22 "finscreen.h"
+extern const unsigned short finscreenTiles[2032];
+
+
+extern const unsigned short finscreenMap[1024];
+
+
+extern const unsigned short finscreenPal[256];
+# 61 "main.c" 2
+# 1 "instructionscreen.h" 1
+# 22 "instructionscreen.h"
+extern const unsigned short instructionscreenTiles[5200];
+
+
+extern const unsigned short instructionscreenMap[1024];
+
+
+extern const unsigned short instructionscreenPal[256];
+# 62 "main.c" 2
+# 1 "introdrone.h" 1
+
+
+extern const unsigned int introdrone_sampleRate;
+extern const unsigned int introdrone_length;
+extern const signed char introdrone_data[];
+# 63 "main.c" 2
+# 1 "kdoorwaybg.h" 1
+# 22 "kdoorwaybg.h"
+extern const unsigned short kdoorwaybgTiles[2896];
+
+
+extern const unsigned short kdoorwaybgMap[1024];
+
+
+extern const unsigned short kdoorwaybgPal[256];
+# 64 "main.c" 2
+# 1 "kitchen.h" 1
+
+
+
+
+extern STATIONARYSPRITE kitchenSpritesArr[];
+
+
+void initKitchenSprites();
+void loadKitchen();
+void reassignRefrigeratorMessage();
+# 65 "main.c" 2
+# 1 "kitchenbg.h" 1
+# 22 "kitchenbg.h"
+extern const unsigned short kitchenbgTiles[3280];
+
+
+extern const unsigned short kitchenbgMap[1024];
+
+
+extern const unsigned short kitchenbgPal[256];
+# 66 "main.c" 2
+# 1 "kitchensprites.h" 1
+# 21 "kitchensprites.h"
+extern const unsigned short kitchenspritesTiles[16384];
+
+
+extern const unsigned short kitchenspritesPal[256];
+# 67 "main.c" 2
+# 1 "LastManOn8rth.h" 1
+
+
+extern const unsigned int LastManOn8rth_sampleRate;
+extern const unsigned int LastManOn8rth_length;
+extern const signed char LastManOn8rth_data[];
+# 68 "main.c" 2
+# 1 "ldoorwaybg.h" 1
+# 22 "ldoorwaybg.h"
+extern const unsigned short ldoorwaybgTiles[3200];
+
+
+extern const unsigned short ldoorwaybgMap[2048];
+
+
+extern const unsigned short ldoorwaybgPal[256];
+# 69 "main.c" 2
 # 1 "livingroom.h" 1
 
 
@@ -1460,90 +1775,75 @@ void drawRing();
 void updateRing();
 void answerPhone();
 void chapterTwoIntro();
-# 56 "main.c" 2
-# 1 "kitchensprites.h" 1
-# 21 "kitchensprites.h"
-extern const unsigned short kitchenspritesTiles[16384];
+# 70 "main.c" 2
+# 1 "livingroombg.h" 1
+# 22 "livingroombg.h"
+extern const unsigned short livingroombgTiles[8080];
 
 
-extern const unsigned short kitchenspritesPal[256];
-# 57 "main.c" 2
-# 1 "kitchen.h" 1
+extern const unsigned short livingroombgMap[4096];
 
 
+extern const unsigned short livingroombgPal[256];
+# 71 "main.c" 2
+# 1 "livingroomcollisionmap.h" 1
+# 20 "livingroomcollisionmap.h"
+extern const unsigned short livingroomcollisionmapBitmap[262144];
+# 72 "main.c" 2
+# 1 "livingroomoutro.h" 1
+void drawOutroSprites();
+void updateOutroSprites();
+void updateOutro();
+void waitForKeyPress();
+void initLivingRoomOutro();
+void initMessageOutro();
+void initProtagonistOutro();
+void initMarsOutro();
+# 73 "main.c" 2
+# 1 "livingroomsprites.h" 1
+# 21 "livingroomsprites.h"
+extern const unsigned short livingroomspritesTiles[16384];
 
 
-extern STATIONARYSPRITE kitchenSpritesArr[];
-
-
-void initKitchenSprites();
-void loadKitchen();
-void reassignRefrigeratorMessage();
-# 58 "main.c" 2
-# 1 "kitchenbg.h" 1
-# 22 "kitchenbg.h"
-extern const unsigned short kitchenbgTiles[3152];
-
-
-extern const unsigned short kitchenbgMap[1024];
-
-
-extern const unsigned short kitchenbgPal[256];
-# 59 "main.c" 2
-# 1 "bedroombg.h" 1
-# 22 "bedroombg.h"
-extern const unsigned short bedroombgTiles[5648];
-
-
-extern const unsigned short bedroombgMap[2048];
-
-
-extern const unsigned short bedroombgPal[256];
-# 60 "main.c" 2
-# 1 "bedroomsprites.h" 1
-# 21 "bedroomsprites.h"
-extern const unsigned short bedroomspritesTiles[16384];
-
-
-extern const unsigned short bedroomspritesPal[256];
-# 61 "main.c" 2
+extern const unsigned short livingroomspritesPal[256];
+# 74 "main.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
 
 
 extern const unsigned short messagescreenPal[256];
-# 62 "main.c" 2
-# 1 "startscreen.h" 1
-# 22 "startscreen.h"
-extern const unsigned short startscreenTiles[3664];
+# 75 "main.c" 2
+# 1 "outroscreen.h" 1
+# 22 "outroscreen.h"
+extern const unsigned short outroscreenTiles[1504];
 
 
-extern const unsigned short startscreenMap[1024];
+extern const unsigned short outroscreenMap[1024];
 
 
-extern const unsigned short startscreenPal[256];
-# 63 "main.c" 2
-# 1 "safesprites.h" 1
-# 21 "safesprites.h"
-extern const unsigned short safespritesTiles[16384];
+extern const unsigned short outroscreenPal[256];
+# 76 "main.c" 2
+# 1 "outrosprites.h" 1
+# 21 "outrosprites.h"
+extern const unsigned short outrospritesTiles[16384];
 
 
-extern const unsigned short safespritesPal[256];
-# 64 "main.c" 2
-# 1 "safebg.h" 1
-# 22 "safebg.h"
-extern const unsigned short safebgTiles[480];
+extern const unsigned short outrospritesPal[256];
+# 77 "main.c" 2
+# 1 "pausescreen.h" 1
+# 22 "pausescreen.h"
+extern const unsigned short pausescreenTiles[2800];
 
 
-extern const unsigned short safebgMap[1024];
+extern const unsigned short pausescreenMap[1024];
 
 
-extern const unsigned short safebgPal[256];
-# 65 "main.c" 2
+extern const unsigned short pausescreenPal[256];
+# 78 "main.c" 2
 # 1 "safe.h" 1
 
 
@@ -1562,162 +1862,80 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
-# 66 "main.c" 2
-# 1 "instructionscreen.h" 1
-# 22 "instructionscreen.h"
-extern const unsigned short instructionscreenTiles[5200];
+void safeText(char msg[]);
+# 79 "main.c" 2
+# 1 "safebg.h" 1
+# 22 "safebg.h"
+extern const unsigned short safebgTiles[480];
 
 
-extern const unsigned short instructionscreenMap[1024];
+extern const unsigned short safebgMap[1024];
 
 
-extern const unsigned short instructionscreenPal[256];
-# 67 "main.c" 2
-# 1 "outroscreen.h" 1
-# 22 "outroscreen.h"
-extern const unsigned short outroscreenTiles[1504];
+extern const unsigned short safebgPal[256];
+# 80 "main.c" 2
+# 1 "safesprites.h" 1
+# 21 "safesprites.h"
+extern const unsigned short safespritesTiles[16384];
 
 
-extern const unsigned short outroscreenMap[1024];
+extern const unsigned short safespritesPal[256];
+# 81 "main.c" 2
+# 1 "sound.h" 1
+void setupSounds();
+void playSoundA(const signed char* sound, int length, int loops);
+void playSoundB(const signed char* sound, int length, int loops);
+
+void setupInterrupts();
+void interruptHandler();
+
+void pauseSound();
+void unpauseSound();
+void stopSound();
+void stopSoundA();
+void stopSoundB();
+# 51 "sound.h"
+typedef struct{
+    const signed char* data;
+    int length;
+    int frequency;
+    int isPlaying;
+    int loops;
+    int duration;
+    int priority;
+    int vBlankCount;
+} SOUND;
+
+SOUND soundA;
+SOUND soundB;
+# 82 "main.c" 2
+# 1 "startscreen.h" 1
+# 22 "startscreen.h"
+extern const unsigned short startscreenTiles[3664];
 
 
-extern const unsigned short outroscreenPal[256];
-# 68 "main.c" 2
-# 1 "pausescreen.h" 1
-# 22 "pausescreen.h"
-extern const unsigned short pausescreenTiles[2800];
+extern const unsigned short startscreenMap[1024];
 
 
-extern const unsigned short pausescreenMap[1024];
-
-
-extern const unsigned short pausescreenPal[256];
-# 69 "main.c" 2
+extern const unsigned short startscreenPal[256];
+# 83 "main.c" 2
 # 1 "winscreen.h" 1
 # 22 "winscreen.h"
-extern const unsigned short winscreenTiles[2032];
+extern const unsigned short winscreenTiles[8704];
 
 
 extern const unsigned short winscreenMap[1024];
 
 
 extern const unsigned short winscreenPal[256];
-# 70 "main.c" 2
-# 1 "chapter1bg.h" 1
-# 22 "chapter1bg.h"
-extern const unsigned short chapter1bgTiles[2736];
+# 84 "main.c" 2
+# 1 "spettacolo.h" 1
 
 
-extern const unsigned short chapter1bgMap[1024];
-
-
-extern const unsigned short chapter1bgPal[256];
-# 71 "main.c" 2
-# 1 "chapter2bg.h" 1
-# 22 "chapter2bg.h"
-extern const unsigned short chapter2bgTiles[2160];
-
-
-extern unsigned short chapter2bgMap[1024];
-
-
-extern const unsigned short chapter2bgPal[256];
-# 72 "main.c" 2
-# 1 "colddarkmessagebg.h" 1
-# 22 "colddarkmessagebg.h"
-extern const unsigned short colddarkmessagebgTiles[2240];
-
-
-extern unsigned short colddarkmessagebgMap[1024];
-
-
-extern const unsigned short colddarkmessagebgPal[256];
-# 73 "main.c" 2
-# 1 "colddark.h" 1
-
-
-
-extern int intervals[];
-extern char (* activeMessage)[];
-extern int nextRoomBool;
-
-void initColdDark();
-void introMessage();
-void chapterOneIntro();
-void updateHighlight();
-void updateColdDark();
-void loadColdMessage();
-void loadMessageUnedited();
-void printColdText();
-void coldDarkInterruptHandler();
-void setUpColdDarkInterrupts();
-void timerWait(int start, int freq);
-void messagesNonInteractive();
-void clearBoard();
-void chapterOneOutro();
-# 74 "main.c" 2
-# 1 "blackbg.h" 1
-# 22 "blackbg.h"
-extern const unsigned short blackbgTiles[48];
-
-
-extern unsigned short blackbgMap[1024];
-
-
-extern const unsigned short blackbgPal[256];
-# 75 "main.c" 2
-# 1 "computerscreenbg.h" 1
-# 22 "computerscreenbg.h"
-extern const unsigned short computerscreenbgTiles[1184];
-
-
-extern const unsigned short computerscreenbgMap[1024];
-
-
-extern const unsigned short computerscreenbgPal[256];
-# 76 "main.c" 2
-# 1 "computersprites.h" 1
-# 21 "computersprites.h"
-extern const unsigned short computerspritesTiles[16384];
-
-
-extern const unsigned short computerspritesPal[256];
-# 77 "main.c" 2
-# 1 "computer.h" 1
-
-
-
-extern STATIONARYSPRITE computerSpritesArr[];
-extern PROTAGSPRITE mouse;
-
-
-void updateComputer();
-void drawComputer();
-
-void loadComputer();
-
-void initComputerSprites();
-void drawComputerSprites();
-void checkComputerSpriteCollision();
-void initMouse();
-void drawMouse();
-void updateMouse();
-void loadSecondaryScreen();
-# 78 "main.c" 2
-# 1 "bedroom.h" 1
-
-
-
-
-extern STATIONARYSPRITE bedroomSpritesArr[];
-
-
-void initBedroomSprites();
-void loadBedroom();
-void safeOpenMessage();
-# 79 "main.c" 2
-
+extern const unsigned int spettacolo_sampleRate;
+extern const unsigned int spettacolo_length;
+extern const signed char spettacolo_data[];
+# 85 "main.c" 2
 
 
 int priorState;
@@ -1740,12 +1958,16 @@ void goToBedroom();
 void bedroom();
 void goToSafe();
 void safe();
-void goToOutro();
-void outro();
+void goToLivingRoomOutro();
+void livingRoomOutro();
+void goToFinale();
+void finale();
 void goToPause();
 void pause();
 void goToWin();
 void win();
+
+char messageInd;
 
 
 
@@ -1792,8 +2014,11 @@ int main() {
         case SAFE:
             safe();
             break;
-        case OUTRO:
-            outro();
+        case LR_OUTRO:
+            livingRoomOutro();
+            break;
+        case FINALE:
+            finale();
             break;
         case PAUSE:
             pause();
@@ -1802,10 +2027,13 @@ int main() {
             win();
             break;
         }
-# 187 "main.c"
+
         waitForVBlank();
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
+
+        (*(volatile unsigned short *)0x04000018) = hOff * 0.9;
+        (*(volatile unsigned short *)0x0400001A) = vOff;
         DMANow(3, shadowOAM, ((OBJ_ATTR*)(0x7000000)), 512);
 
     }
@@ -1824,15 +2052,14 @@ void initialize()
 
 
 void goToStart() {
+    stopSound();
     state = START;
 
     DMANow(3, startscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, startscreenTiles, &((charblock *)0x6000000)[1], 7328 / 2);
-    DMANow(3, startscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, startscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
-
-    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     initGame();
 }
@@ -1853,48 +2080,57 @@ void goToInstructions() {
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
-    DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[20], 1024 * 4);
-
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
-
-
+    DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 }
 
 
 void instructions() {
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        goToIntro();
+        switch(priorState) {
+            case START:
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                goToKitchen();
+                break;
+            case BEDROOM:
+                goToBedroom();
+                break;
+        }
     }
 }
 
 
 void goToIntro() {
     state = INTRO;
-
     initColdDark();
 
     DMANow(3, blackbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, blackbgTiles, &((charblock *)0x6000000)[1], 96 / 2);
-    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, blackbgMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
     DMANow(3, chapter1bgTiles, &((charblock *)0x6000000)[0], 5472 / 2);
-    DMANow(3, chapter1bgMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, chapter1bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
 
     (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
-    (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
+    (*(volatile unsigned short *)0x4000000) = 0 | (1<<8) | (1<<9) | (1<<12);
 
+    playSoundA(introdrone_data, introdrone_length, 1);
     chapterOneIntro();
 
 }
 
 
 void intro() {
-
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
+        playTLMOE();
     }
 
 
@@ -1912,28 +2148,33 @@ void goToLivingRoom() {
         DMANow(3, chapter2bgTiles, &((charblock *)0x6000000)[0], 4320 / 2);
         DMANow(3, chapter2bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
     } else {
-        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2560 / 2);
+        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2656 / 2);
         DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
     }
 
     (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
 
     DMANow(3, livingroombgPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 17696 / 2);
-    DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[20], 8192 / 2);
+    DMANow(3, livingroombgTiles, &((charblock *)0x6000000)[1], 16160 / 2);
+    DMANow(3, livingroombgMap, &((screenblock *)0x6000000)[28], 8192 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (3<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (3<<14) | ((1)<<1);
+
+    DMANow(3, ldoorwaybgTiles, &((charblock *)0x6000000)[2], 6400 / 2);
+    DMANow(3, ldoorwaybgMap, &((screenblock *)0x6000000)[26], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000C) = ((2)<<2) | ((26)<<8) | (0<<7) | (1<<14) | ((1)<<1);
 
     DMANow(3, livingroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, livingroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
 
+
     hideSprites();
 
     if (priorState == INTRO) {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
         chapterTwoIntro();
     } else {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
     }
 }
 
@@ -1954,14 +2195,15 @@ void livingRoom() {
         goToComputer();
     }
 
-    if (allEmailsBool) {
-        goToOutro();
+    if (livingRoomOutroBool) {
+        goToLivingRoomOutro();
     }
 
     if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
         goToPause();
     }
 }
+
 
 void goToComputer() {
     nextRoomBool = 0;
@@ -1971,9 +2213,9 @@ void goToComputer() {
 
     DMANow(3, computerscreenbgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, computerscreenbgTiles, &((charblock *)0x6000000)[1], 2368 / 2);
-    DMANow(3, computerscreenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, computerscreenbgMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     DMANow(3, computerspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, computerspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
@@ -1983,6 +2225,7 @@ void goToComputer() {
     hideSprites();
 
 }
+
 
 void computer() {
     updateComputer();
@@ -2002,13 +2245,20 @@ void goToKitchen() {
     loadKitchen();
 
     DMANow(3, kitchenbgPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 6304 / 2);
-    DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, kitchenbgTiles, &((charblock *)0x6000000)[1], 6560 / 2);
+    DMANow(3, kitchenbgMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
+    DMANow(3, kdoorwaybgTiles, &((charblock *)0x6000000)[2], 5792 / 2);
+    DMANow(3, kdoorwaybgMap, &((screenblock *)0x6000000)[26], 2048 / 2);
+
+    (*(volatile unsigned short*)0x400000C) = ((2)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     DMANow(3, kitchenspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, kitchenspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    (*(volatile unsigned short *)0x4000000) |= (1<<10);
 
     hideSprites();
 }
@@ -2030,9 +2280,10 @@ void kitchen() {
 
 
     if ((!(~(oldButtons)&((1<<8))) && (~buttons & ((1<<8))))) {
-        goToOutro();
+        goToLivingRoomOutro();
     }
 }
+
 
 void goToBedroom() {
     nextRoomBool = 0;
@@ -2042,20 +2293,32 @@ void goToBedroom() {
 
     DMANow(3, bedroombgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, bedroombgTiles, &((charblock *)0x6000000)[1], 11296 / 2);
-    DMANow(3, bedroombgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, bedroombgMap, &((screenblock *)0x6000000)[28], 4096 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (1<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (1<<14) | ((1)<<1);
+
+    DMANow(3, cloudsbgTiles, &((charblock *)0x6000000)[2], 4960 / 2);
+    DMANow(3, cloudsbgMap, &((screenblock *)0x6000000)[26], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000C) = ((2)<<2) | ((26)<<8) | (0<<7) | (1<<14) | ((1)<<1);
 
     DMANow(3, bedroomspritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, bedroomspritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    (*(volatile unsigned short *)0x4000000) |= (1<<10);
 
     hideSprites();
 
 }
 
+
 void bedroom() {
     updateGame();
     drawGame();
+
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        goToPause();
+    }
 
     if (nextRoomBool == 1) {
         goToKitchen();
@@ -2064,6 +2327,7 @@ void bedroom() {
     }
 
 }
+
 
 void goToSafe() {
     priorState = state;
@@ -2074,9 +2338,9 @@ void goToSafe() {
 
     DMANow(3, safebgPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, safebgTiles, &((charblock *)0x6000000)[1], 960 / 2);
-    DMANow(3, safebgMap, &((screenblock *)0x6000000)[20], 1024 * 4);
+    DMANow(3, safebgMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((20)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 
     DMANow(3, safespritesPal, ((unsigned short *)0x5000200), 512 / 2);
     DMANow(3, safespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
@@ -2089,37 +2353,107 @@ void goToSafe() {
 
 }
 
+
 void safe() {
     updateCursor();
     drawSafeSprites();
 
+
     if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1)))) || openSafeBool) {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+        if (openSafeBool) {
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        } else {
+            (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
+            messageActiveBool = 0;
+        }
         goToBedroom();
     }
 }
 
 
-void goToOutro() {
-    vOff = 0;
-    hOff = 0;
-    state = OUTRO;
+void goToLivingRoomOutro() {
+    priorState = state;
+    state = LR_OUTRO;
+    nextRoomBool = 0;
     hideSprites();
-
-    DMANow(3, outroscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, outroscreenTiles, &((charblock *)0x6000000)[1], 3008 / 2);
-    DMANow(3, outroscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
-
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    initLivingRoomOutro();
+    DMANow(3, outrospritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, outrospritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+    stopSound();
 }
 
 
-void outro() {
-    if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-        goToWin();
+void livingRoomOutro() {
+    updateOutro();
+    drawOutroSprites();
+
+    if (nextRoomBool) {
+        goToFinale();
     }
-    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
-        goToPause();
+
+}
+
+
+void goToFinale() {
+    priorState = state;
+    state = FINALE;
+    nextRoomBool = 0;
+    hideSprites();
+
+    if (priorState == LR_OUTRO) {
+        DMANow(3, chapter3bgTiles, &((charblock *)0x6000000)[0], 4576 / 2);
+        DMANow(3, chapter3bgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
+    } else {
+        DMANow(3, messagescreenTiles, &((charblock *)0x6000000)[0], 2656 / 2);
+        DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
+    }
+
+    (*(volatile unsigned short*)0x4000008) = ((0)<<2) | ((24)<<8) | (0<<7) | (0<<14) | ((0)<<1);
+
+    DMANow(3, finalebgPal, ((unsigned short *)0x5000000), 256);
+    DMANow(3, finalebgTiles, &((charblock *)0x6000000)[1], 6144 / 2);
+    DMANow(3, finalebgMap, &((screenblock *)0x6000000)[28], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (1<<14) | ((1)<<1);
+
+    DMANow(3, finalewindowsTiles, &((charblock *)0x6000000)[2], 3648 / 2);
+    DMANow(3, finalewindowsMap, &((screenblock *)0x6000000)[26], 4096 / 2);
+
+    (*(volatile unsigned short*)0x400000C) = ((2)<<2) | ((26)<<8) | (0<<7) | (1<<14) | ((1)<<1);
+
+    DMANow(3, finalespritesPal, ((unsigned short *)0x5000200), 512 / 2);
+    DMANow(3, finalespritesTiles, &((charblock *)0x6000000)[4], 32768 / 2);
+
+    loadFinale();
+
+    if (priorState == LR_OUTRO) {
+        (*(volatile unsigned short *)0x04000014) = hOff;
+        (*(volatile unsigned short *)0x04000016) = vOff;
+        (*(volatile unsigned short *)0x4000000) |= (1<<8) | (1<<10);
+        chapterThreeIntro();
+    } else {
+        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
+    }
+
+    playSpettacolo();
+
+}
+
+
+void finale() {
+    if (!marsInteractBool) {
+        updateGame();
+        updatePersistentSprites();
+        drawGame();
+        drawPersistentSprites();
+    } else {
+        updatePersistentSprites();
+        drawPersistentSprites();
+        updateFinale();
+    }
+
+    if (nextRoomBool == 1) {
+        goToWin();
     }
 
 }
@@ -2133,18 +2467,21 @@ void goToPause() {
     vOff = 0;
     hOff = 0;
     hideSprites();
+    pauseSound();
 
     DMANow(3, pausescreenPal, ((unsigned short *)0x5000000), 256);
     DMANow(3, pausescreenTiles, &((charblock *)0x6000000)[1], 5600 / 2);
-    DMANow(3, pausescreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, pausescreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
 }
 
 
 void pause() {
 
     if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        unpauseSound();
+
         switch(priorState) {
             case INTRO:
                 goToIntro();
@@ -2155,8 +2492,11 @@ void pause() {
             case KITCHEN:
                 goToKitchen();
                 break;
-            case OUTRO:
-                goToOutro();
+            case BEDROOM:
+                goToBedroom();
+                break;
+            case LR_OUTRO:
+                goToLivingRoomOutro();
                 break;
         }
     }
@@ -2167,7 +2507,7 @@ void pause() {
     }
 
     if ((!(~(oldButtons)&((1<<1))) && (~buttons & ((1<<1))))) {
-        priorState = PAUSE;
+        state = priorState;
         goToInstructions();
     }
 
@@ -2177,19 +2517,48 @@ void pause() {
 
 void goToWin() {
     state = WIN;
+    (*(volatile unsigned short *)0x04000014) = 0;
+    (*(volatile unsigned short *)0x04000016) = 0;
 
     hideSprites();
 
     DMANow(3, winscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, winscreenTiles, &((charblock *)0x6000000)[1], 4064 / 2);
-    DMANow(3, winscreenMap, &((screenblock *)0x6000000)[26], 1024 * 4);
+    DMANow(3, winscreenTiles, &((charblock *)0x6000000)[1], 17408 / 2);
+    DMANow(3, winscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
-    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((26)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+    (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
+    messageInd = 0;
+
 }
 
 
 void win() {
+    char m1[] = "You had forgotten how beautiful the outside could be...";
+    char m2[] = "You consider how worried you had been, when you were safe the whole time.";
+    char m3[] = "In the coming weeks, your attacks become less and less frequent.";
+    char m4[] = "Eventually, without your fear feeding them, they disappear altogether.";
+    char m5[] = "You live. And at last, you are at peace.";
+
+    char * options[] = {m1, m2, m3, m4, m5};
+
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+        messageInd++;
+        if (messageInd < 5) {
+             activeSprite->message = options[messageInd];
+            printText();
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        }
+    }
+
+    if (messageInd == 5) {
+        (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
+        DMANow(3, finscreenPal, ((unsigned short *)0x5000000), 256);
+        DMANow(3, finscreenTiles, &((charblock *)0x6000000)[1], 17408 / 2);
+        DMANow(3, finscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
+    }
+
+    if (messageInd == 6) {
         goToStart();
     }
 }

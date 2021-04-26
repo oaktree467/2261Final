@@ -1,0 +1,24 @@
+
+//{{BLOCK(finalecollision)
+
+//======================================================================
+//
+//	finalecollision, 512x256@16, 
+//	+ bitmap not compressed
+//	Total size: 262144 = 262144
+//
+//	Time-stamp: 2021-04-22, 18:11:08
+//	Exported by Cearn's GBA Image Transmogrifier, v0.8.3
+//	( http://www.coranac.com/projects/#grit )
+//
+//======================================================================
+
+#ifndef GRIT_FINALECOLLISION_H
+#define GRIT_FINALECOLLISION_H
+
+#define finalecollisionBitmapLen 262144
+extern const unsigned short finalecollisionBitmap[131072];
+
+#endif // GRIT_FINALECOLLISION_H
+
+//}}BLOCK(finalecollision)

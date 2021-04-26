@@ -108,12 +108,17 @@ extern const unsigned short livingroomspritesPal[256];
 extern const unsigned short livingroomcollisionmapBitmap[262144];
 # 4 "game.c" 2
 # 1 "game.h" 1
-# 25 "game.h"
+# 26 "game.h"
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 
@@ -179,7 +184,9 @@ extern char openSafeBool;
 extern char documentsUploaded;
 extern char computerAccessBool;
 extern char allEmailsBool;
+extern char livingRoomOutroBool;
 extern char phoneAnswerBool;
+extern char activateDoorBool;
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
@@ -262,7 +269,7 @@ void safeOpenMessage();
 # 10 "game.c" 2
 # 1 "kitchenbg.h" 1
 # 22 "kitchenbg.h"
-extern const unsigned short kitchenbgTiles[3152];
+extern const unsigned short kitchenbgTiles[3280];
 
 
 extern const unsigned short kitchenbgMap[1024];
@@ -272,7 +279,7 @@ extern const unsigned short kitchenbgPal[256];
 # 11 "game.c" 2
 # 1 "messagescreen.h" 1
 # 22 "messagescreen.h"
-extern const unsigned short messagescreenTiles[1280];
+extern const unsigned short messagescreenTiles[1328];
 
 
 extern unsigned short messagescreenMap[1024];
@@ -311,7 +318,7 @@ void drawSafeSprites();
 void updateCursor();
 int checkCode();
 void clearSafeMessage();
-void safeText();
+void safeText(char msg[]);
 # 15 "game.c" 2
 # 1 "sound.h" 1
 void setupSounds();
@@ -348,6 +355,22 @@ extern const unsigned int phonering_sampleRate;
 extern const unsigned int phonering_length;
 extern const signed char phonering_data[];
 # 17 "game.c" 2
+# 1 "finale.h" 1
+
+
+
+extern STATIONARYSPRITE finaleSpritesArr[];
+extern char marsInteractBool;
+
+void loadFinale();
+void initFinaleSprites();
+void updatePersistentSprites();
+void drawPersistentSprites();
+void updateFinale();
+void marsSpeaks();
+void selectArrow();
+void chapterThreeIntro();
+# 18 "game.c" 2
 
 
 PROTAGSPRITE protag;
@@ -356,17 +379,23 @@ int currSpriteArrCount;
 STATIONARYSPRITE *activeSprite;
 const unsigned short (* currCollisionMap)[];
 unsigned short (* currMessageMap)[];
+int currSong;
 int spriteCollisionBool;
 int messageActiveBool;
 int nextRoomBool;
 char enableKeyFind;
 char keyFound;
 char documentsFound;
+char openSafeBool;
 char phoneRinging;
 char documentsUploaded;
 char computerAccessBool;
 char phoneAnswerBool;
+char ruthEmailBool;
+char marsEmailBool;
 char allEmailsBool;
+char livingRoomOutroBool;
+char activateDoorBool;
 
 
 unsigned short priorHoff;
@@ -383,17 +412,21 @@ int mode;
 
 
 void initGame(){
-    keyFound = 0;
     enableKeyFind = 0;
+    keyFound = 0;
     phoneRinging = 0;
-    documentsFound = 0;
     documentsUploaded = 0;
     spriteCollisionBool = 0;
     messageActiveBool = 0;
+    openSafeBool = 0;
     nextRoomBool = 0;
     computerAccessBool = 0;
+    ruthEmailBool = 0;
+    marsEmailBool = 0;
     allEmailsBool = 0;
-    mode = 0;
+    livingRoomOutroBool = 0;
+    activateDoorBool = 0;
+    currSong = SPETTACOLO;
     initProtagonist();
     setUpInterrupts();
     setupSounds();
@@ -411,6 +444,7 @@ void initProtagonist() {
     protag.sideOrientation = 1;
 }
 
+
 void updateGame() {
     checkThreshold();
     updateProtagonist();
@@ -418,11 +452,11 @@ void updateGame() {
     checkSpriteCollision();
 }
 
+
 void drawGame() {
     drawProtagonist();
     drawSprites();
 }
-
 
 
 void updateProtagonist() {
@@ -435,18 +469,23 @@ void updateProtagonist() {
     }
 
     if (phoneAnswerBool) {
+
         stopSoundB();
         answerPhone();
     } else if (messageActiveBool) {
+
         if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
             messageActiveBool = 0;
         }
     } else {
         if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+
+
             checkMoreInfo();
         }
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<6)))) {
+
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow - 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow - 1) != 0))) {
                     protag.worldRow--;
@@ -457,6 +496,7 @@ void updateProtagonist() {
             protag.aniState = PROTAGBACK;
         }
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<7)))) {
+
             if ((checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height + 1) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width, protag.worldRow + protag.height + 1) != 0))) {
 
@@ -472,6 +512,7 @@ void updateProtagonist() {
         }
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<4)))) {
+
             if ((protag.worldCol + protag.width < visMapWidth) && (checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + protag.width + 1, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol++;
@@ -490,6 +531,7 @@ void updateProtagonist() {
         }
 
         if ((~((*(volatile unsigned short *)0x04000130)) & ((1<<5)))) {
+
             if ((protag.worldCol > 1) && (checkCollisionMapColor(protag.worldCol + 8, protag.worldRow) != 0)
                 && ((checkCollisionMapColor(protag.worldCol + 8, protag.worldRow + protag.height - 1) != 0))) {
                 protag.worldCol--;
@@ -517,9 +559,6 @@ void updateProtagonist() {
         protag.screenRow = protag.worldRow - vOff;
 
 
-    if ((!(~(oldButtons)&((1<<3))) && (~buttons & ((1<<3))))) {
-        mode = 4;
-    }
 }
 
 
@@ -546,6 +585,7 @@ void drawSprites() {
         }
     }
 
+
     if (phoneRinging) {
         drawRing();
     }
@@ -569,12 +609,15 @@ void checkSpriteCollision() {
     spriteCollisionBool = 0;
     switch (protag.aniState) {
         case PROTAGBACK:
+
             currColor = checkCollisionMapColor((protag.worldCol + (protag.width / 2)), protag.worldRow);
             break;
         case PROTAGFRONT:
+
             currColor = checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height);
             break;
         case PROTAGSIDE:
+
             if (protag.sideOrientation == 1) {
                 currColor = checkCollisionMapColor(protag.worldCol, protag.worldRow + (protag.height / 2));
             } else {
@@ -584,17 +627,20 @@ void checkSpriteCollision() {
     }
 
     if (currColor != 0) {
+
         for (int i = 0; i < currSpriteArrCount; i++) {
             if ((*currSpriteArr)[i].collisionColor == currColor) {
                 (*currSpriteArr)[i].hide = 0;
                 spriteCollisionBool = 1;
                 activeSprite = &(*currSpriteArr)[i];
+
             } else {
                 (*currSpriteArr)[i].hide = 1;
             }
         }
     }
 }
+
 
 void checkMoreInfo() {
     if (spriteCollisionBool) {
@@ -609,7 +655,16 @@ void checkMoreInfo() {
             phoneRinging = 0;
             ringSettings();
             phoneAnswerBool = 1;
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+        } else if (activeSprite == &finaleSpritesArr[1]) {
+
+            marsInteractBool = 1;
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
+            marsSpeaks();
+            printText();
+        } else if (activateDoorBool && activeSprite == &finaleSpritesArr[0]) {
+
+            nextRoomBool = 1;
         } else {
 
             if (activeSprite == &kitchenSpritesArr[1]) {
@@ -617,42 +672,56 @@ void checkMoreInfo() {
                     phoneRinging = 1;
                     playSoundB(phonering_data, phonering_length, 1);
                 } else {
+
+
                     if (!keyFound){
                         keyFound = 1;
                     }
                     reassignRefrigeratorMessage();
                 }
             }
+
             messageActiveBool = 1;
             printText();
-            (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<8) | (1<<12);
+            (*(volatile unsigned short *)0x4000000) |= (1<<8);
         }
-    } else {
-        (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<12);
     }
 }
+
 
 void checkThreshold() {
     if (state == LIVING_ROOM) {
         if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == 0x0C6F) {
+
             nextRoomBool = 1;
         }
+
+        if (((checkCollisionMapColor(protag.worldCol, protag.worldRow)
+            == 0x3E1F) || (checkCollisionMapColor(protag.worldCol, protag.worldRow + protag.height)
+            == 0x3E1F)) && (allEmailsBool)) {
+                livingRoomOutroBool = 1;
+            }
     } else if (state == KITCHEN) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == 0x03E4) {
+
             nextRoomBool = 1;
         } else if (checkCollisionMapColor(protag.worldCol, protag.worldRow)
             == 0x001F){
+
             nextRoomBool = 2;
         }
     } else if (state == BEDROOM) {
         if (checkCollisionMapColor(protag.worldCol + (protag.width / 2), protag.worldRow + protag.height)
             == 0x025F) {
+
             nextRoomBool = 1;
         }
     }
 }
+
+
 
 void printText() {
     clearMessage();
@@ -660,12 +729,8 @@ void printText() {
     int j = 418;
     while ((*(activeSprite->message))[i] != '\0') {
 
-
-
-
-
-
         if ((j - 444) % 32 == 0) {
+
             if ((*(activeSprite->message))[i] != ' ') {
                 int k = 0;
                 while ((*(activeSprite->message))[i] != ' ') {
@@ -686,8 +751,9 @@ void printText() {
         j++;
     }
 
-    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 1024 * 4);
+    DMANow(3, messagescreenMap, &((screenblock *)0x6000000)[24], 2048 / 2);
 }
+
 
 void clearMessage() {
     for (int i = 418; i < 604; i++) {
@@ -699,6 +765,7 @@ void clearMessage() {
 
 }
 
+
 void setUpInterrupts() {
     *(unsigned short*)0x4000208 = 0;
 
@@ -709,18 +776,20 @@ void setUpInterrupts() {
 
 }
 
+
 void interruptHandler() {
     *(unsigned short*)0x4000208 = 0;
 
-    if (*(volatile unsigned short*)0x4000202 & 1<<4) {
-        if (state == INTRO) {
+
+
+    if (*(volatile unsigned short*)0x4000202 & 1<<5) {
+
+        if (state == INTRO || state == LR_OUTRO) {
             timerI++;
             timerJ++;
         }
-    }
-
-    if (*(volatile unsigned short*)0x4000202 & 1<<5) {
         if (state == LIVING_ROOM) {
+
                 phoneRingSpritesArr[currRing].hide = 1;
             if (currRing < 4) {
                 currRing++;
@@ -730,38 +799,52 @@ void interruptHandler() {
                 phoneRingSpritesArr[currRing].hide = 0;
             }
         }
+
+        if (state == FINALE) {
+
+
+            if ((*currSpriteArr)[2].sheetRow == 0) {
+                (*currSpriteArr)[2].sheetRow = 2;
+            } else {
+                (*currSpriteArr)[2].sheetRow = 0;
+            }
+
+            (*currSpriteArr)[3].sheetRow += 4;
+            if ((*currSpriteArr)[3].sheetRow == 28) {
+                (*currSpriteArr)[3].sheetRow = 16;
+            }
+        }
     }
 
+
     if (*(volatile unsigned short*)0x4000202 & 1<<11) {
-        *(volatile unsigned short*)0x4000102 |= (0<<7);
-        *(volatile unsigned short*)0x4000100 = 30000;
-        *(volatile unsigned short*)0x4000102 |= 1 | (1<<7);
-        while (*(volatile unsigned short*)0x4000100 < 65500);
+        timerWait(30000, 64);
     }
+
 
     if(*(volatile unsigned short*)0x4000202 & 1 << 0) {
         if (soundA.isPlaying) {
             soundA.vBlankCount++;
-            if (soundA.vBlankCount >= soundA.duration) {
+            if (soundA.vBlankCount > soundA.duration) {
                 if (soundA.loops) {
                     playSoundA(soundA.data, soundA.length, soundA.loops);
                 } else {
                     soundA.isPlaying = 0;
                     dma[1].cnt = 0;
-                    *(volatile unsigned short*)0x400010A = (0<<7);
+                    *(volatile unsigned short*)0x4000102 = (0<<7);
                 }
             }
         }
 
         if (soundB.isPlaying) {
             soundB.vBlankCount++;
-            if (soundB.vBlankCount >= soundB.duration) {
+            if (soundB.vBlankCount > soundB.duration) {
                 if (soundB.loops) {
                     playSoundB(soundB.data, soundB.length, soundB.loops);
                 } else {
                     soundB.isPlaying = 0;
                     dma[2].cnt = 0;
-                    *(volatile unsigned short*)0x400010E = (0<<7);
+                    *(volatile unsigned short*)0x4000106 = (0<<7);
                 }
             }
 
@@ -775,27 +858,28 @@ void interruptHandler() {
 
 }
 
+
 void timerWait(int start, int frequency) {
-    *(volatile unsigned short*)0x4000102 = (0<<7);
-    *(volatile unsigned short*)0x4000100 = start;
+    *(volatile unsigned short*)0x400010E = (0<<7);
+    *(volatile unsigned short*)0x400010C = start;
 
     switch (frequency) {
         case 1:
-            *(volatile unsigned short*)0x4000102 |= 0;
+            *(volatile unsigned short*)0x400010E |= 0;
             break;
         case 64:
-            *(volatile unsigned short*)0x4000102 |= 1;
+            *(volatile unsigned short*)0x400010E |= 1;
             break;
         case 256:
-            *(volatile unsigned short*)0x4000102 |= 2;
+            *(volatile unsigned short*)0x400010E |= 2;
             break;
         case 1024:
-            *(volatile unsigned short*)0x4000102 |= 3;
+            *(volatile unsigned short*)0x400010E |= 3;
             break;
     }
 
-    *(volatile unsigned short*)0x4000102 |= (1<<7);
-    while (*(volatile unsigned short*)0x4000100 < 65500);
-    *(volatile unsigned short*)0x4000102 = (0<<7);
+    *(volatile unsigned short*)0x400010E |= (1<<7);
+    while (*(volatile unsigned short*)0x400010C < 65500);
+    *(volatile unsigned short*)0x400010E = (0<<7);
 
 }

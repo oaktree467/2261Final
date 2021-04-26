@@ -1,28 +1,11 @@
 /*  
 --------------- WHAT'S GOING ON HERE? ---------------
 1) WHAT IS FINISHED SO FAR?
-    - The Intro is complete.
-    - All rooms inside the house are complete, and all objects that are meant to be interacted with,
-        can be interacted with.
-    - The game logic inside the house is complete.
-    - SFX of accessing the phone and the safe.
-    - Safe interface.
-    - Computer interface.
+    - Everything : )
 2) WHAT NEEDS TO BE ADDED?
-    - Music.
-    - The outro state animation. There isn't any actual game logic for the outro, as the player has
-        effectively won after reading all the emails available on the computer (hence in this version,
-        reading the emails triggers the outro placeholder).
-    - Affine backgrounds (I'm bailing on that XL background I talked about in M1. Sorry.)
-    - The computer access puzzle. This logic is a relatively small part of, and distinct from,
-        the rest of the game, so I held off for M3.
-    - A message after the safe has been successfully accessed.
-    - The cheat (probably something to do with the safe).
+    - Nothing.
 3) ANY BUGS?
-    - The email notification icon hovers on the screen after access, obscuring some text.
-    - I forgot to add ':' to the font, so it appears as a blank when used in text.
-    - The state machine freaks out when you restart the game from Pause, but only for the intro state.
-        I don't know why. The state machine and I will be Having a Talk.
+    - None that I know of.
 4) HOW TO PLAY (OR SPEEDRUN, I GUESS)
     - Approaching an object and facing it will allow you to interact with it (Press A).
         - Objects you can interact with will glow when faced.
@@ -37,46 +20,68 @@
     - Click 'Web' on the desktop and click 'Upload Documents.'
     - X out of the web.
     - Click 'Mail' on the desktop and read through both emails by clicking the green buttons.
-    - When you leave the desktop to return to the living room (Press B), the outro state is triggered. You win!
+    - When you leave the desktop to return to the living room (Press B), the outro state is triggered.
+    - When you wake up in the cabin, speak to Mars. Exhaust all dialog options.
+    - Approach the doorway and press A when it activates. You win!
 
     I'm also going to note here that while you can speedrun the game following the above instructions,
     actually getting the full story of the game requires interacting with as many 'extraneous' objects
     as possible.
+
+    THE CHEAT: enter 2003 in the safe after finding the key to skip the documents upload step
+    and head straight to the finale. Why 2003? It's a nod to the release year of 'Toxic'
+    by Britney Spears, a copy of which hangs in the protagonist's living room.
+
 5) OH WOW, HOW LONG DID ALL THIS TAKE YOU?
     I don't want to talk about it.
 */
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "myLib.h"
-#include "livingroomsprites.h"
-#include "livingroombg.h"
-#include "livingroomcollisionmap.h"
 #include "game.h"
-#include "livingroom.h"
-#include "kitchensprites.h"
-#include "kitchen.h"
-#include "kitchenbg.h"
+#include "bedroom.h"
 #include "bedroombg.h"
 #include "bedroomsprites.h"
-#include "messagescreen.h"
-#include "startscreen.h"
-#include "safesprites.h"
-#include "safebg.h"
-#include "safe.h"
-#include "instructionscreen.h"
-#include "outroscreen.h"
-#include "pausescreen.h"
-#include "winscreen.h"
+#include "blackbg.h"
 #include "chapter1bg.h"
 #include "chapter2bg.h"
-#include "colddarkmessagebg.h"
+#include "chapter3bg.h"
+#include "cloudsbg.h"
 #include "colddark.h"
-#include "blackbg.h"
+#include "colddarkmessagebg.h"
+#include "computer.h"
 #include "computerscreenbg.h"
 #include "computersprites.h"
-#include "computer.h"
-#include "bedroom.h"
-//#include "spritetest.h"
+#include "finale.h"
+#include "finalebg.h"
+#include "finalesprites.h"
+#include "finalewindows.h"
+#include "finscreen.h"
+#include "instructionscreen.h"
+#include "introdrone.h"
+#include "kdoorwaybg.h"
+#include "kitchen.h"
+#include "kitchenbg.h"
+#include "kitchensprites.h"
+#include "LastManOn8rth.h"
+#include "ldoorwaybg.h"
+#include "livingroom.h"
+#include "livingroombg.h"
+#include "livingroomcollisionmap.h"
+#include "livingroomoutro.h"
+#include "livingroomsprites.h"
+#include "messagescreen.h"
+#include "outroscreen.h"
+#include "outrosprites.h"
+#include "pausescreen.h"
+#include "safe.h"
+#include "safebg.h"
+#include "safesprites.h"
+#include "sound.h"
+#include "startscreen.h"
+#include "winscreen.h"
+#include "spettacolo.h"
 
 //extern int mode;
 int priorState; 
@@ -99,12 +104,16 @@ void goToBedroom();
 void bedroom();
 void goToSafe();
 void safe();
-void goToOutro();
-void outro();
+void goToLivingRoomOutro();
+void livingRoomOutro();
+void goToFinale();
+void finale();
 void goToPause();
 void pause();
 void goToWin();
 void win();
+
+char messageInd;
 
 
 
@@ -151,8 +160,11 @@ int main() {
         case SAFE:
             safe();
             break;
-        case OUTRO:
-            outro();
+        case LR_OUTRO:
+            livingRoomOutro();
+            break;
+        case FINALE:
+            finale();
             break;
         case PAUSE:
             pause();
@@ -162,31 +174,12 @@ int main() {
             break;
         }
         
-
-        //collision map viewer
-        /*
-        if (mode == 4) {
-            REG_DISPCTL = MODE4 | BG2_ENABLE | DISP_BACKBUFFER;
-            for (int i = 0; i < 240; i++) {
-                for (int j = 0; j < 160; j++) {
-                    if (checkCollisionMapColor(i + hOff, j + vOff) == 0) {
-                        setPixel4(i, j, 0);
-                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x07FFF) {
-                        setPixel4(i, j, 1);
-                    } else if (checkCollisionMapColor(i + hOff, j + vOff) == 0x7F60) {
-                        setPixel4(i, j, 2);
-                    } else {
-                        setPixel4(i, j, 3);
-                    }
-                }
-            } 
-            waitForVBlank();
-            flipPage();
-        } else {  */
-        
         waitForVBlank();
         REG_BG1HOFF = hOff;
         REG_BG1VOFF = vOff;
+        //affine bg
+        REG_BG2HOFF = hOff * 0.9;
+        REG_BG2VOFF = vOff;
         DMANow(3, shadowOAM, OAM, 512);
         
     }
@@ -205,15 +198,14 @@ void initialize()
 
 // Sets up the start state
 void goToStart() {
+    stopSound();
     state = START;
 
     DMANow(3, startscreenPal, PALETTE, 256);
     DMANow(3, startscreenTiles, &CHARBLOCK[1], startscreenTilesLen / 2);
-    DMANow(3, startscreenMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, startscreenMap, &SCREENBLOCK[28], startscreenMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
-
-    REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     initGame();
 }
@@ -234,48 +226,57 @@ void goToInstructions() {
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, PALETTE, 256);
     DMANow(3, instructionscreenTiles, &CHARBLOCK[1], instructionscreenTilesLen / 2);
-    DMANow(3, instructionscreenMap, &SCREENBLOCK[20], 1024 * 4);
-
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
-    
-
+    DMANow(3, instructionscreenMap, &SCREENBLOCK[28], instructionscreenMapLen / 2);
 }
 
 //runs every frame of the instruction state
 void instructions() {
     if (BUTTON_PRESSED(BUTTON_A)) {
-        goToIntro();
+        switch(priorState) {
+            case START:
+                goToIntro();
+                break;
+            case LIVING_ROOM:
+                goToLivingRoom();
+                break;
+            case KITCHEN:
+                goToKitchen();
+                break;
+            case BEDROOM:
+                goToBedroom();
+                break;
+        }
     }
 }
 
 //sets up the intro state
 void goToIntro() {
     state = INTRO;
-
     initColdDark();
 
     DMANow(3, blackbgPal, PALETTE, 256);
     DMANow(3, blackbgTiles, &CHARBLOCK[1], blackbgTilesLen / 2);
-    DMANow(3, blackbgMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, blackbgMap, &SCREENBLOCK[28], blackbgMapLen / 2);
 
     DMANow(3, chapter1bgTiles, &CHARBLOCK[0], chapter1bgTilesLen / 2);
-    DMANow(3, chapter1bgMap, &SCREENBLOCK[24], 1024 * 4);
+    DMANow(3, chapter1bgMap, &SCREENBLOCK[24], chapter1bgMapLen / 2);
 
     REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
-    REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
+    REG_DISPCTL = MODE0 | BG0_ENABLE | BG1_ENABLE | SPRITE_ENABLE; 
 
+    playSoundA(introdrone_data, introdrone_length, 1);
     chapterOneIntro();
     
 }
 
 //runs every frame of the intro state
 void intro() {
-    
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
+        playTLMOE();
     }
     
     
@@ -301,20 +302,25 @@ void goToLivingRoom() {
 
     DMANow(3, livingroombgPal, PALETTE, 256);
     DMANow(3, livingroombgTiles, &CHARBLOCK[1], livingroombgTilesLen / 2);
-    DMANow(3, livingroombgMap, &SCREENBLOCK[20], livingroombgMapLen / 2);
+    DMANow(3, livingroombgMap, &SCREENBLOCK[28], livingroombgMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_LARGE | BG_PRIORITY(1);
+
+    DMANow(3, ldoorwaybgTiles, &CHARBLOCK[2], ldoorwaybgTilesLen / 2);
+    DMANow(3, ldoorwaybgMap, &SCREENBLOCK[26], ldoorwaybgMapLen / 2);
+
+    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
 
     DMANow(3, livingroomspritesPal, SPRITEPALETTE, livingroomspritesPalLen / 2);
     DMANow(3, livingroomspritesTiles, &CHARBLOCK[4], livingroomspritesTilesLen / 2);
 
+
     hideSprites();
 
     if (priorState == INTRO) {
-        REG_DISPCTL = MODE0 | BG1_ENABLE | BG0_ENABLE | SPRITE_ENABLE; 
         chapterTwoIntro();
     } else {
-        REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+        REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
     }
 }
 
@@ -335,8 +341,8 @@ void livingRoom() {
         goToComputer();
     }
 
-    if (allEmailsBool) {
-        goToOutro();
+    if (livingRoomOutroBool) {
+        goToLivingRoomOutro();
     }
 
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
@@ -344,6 +350,7 @@ void livingRoom() {
     }
 }
 
+//set up the computer state
 void goToComputer() {
     nextRoomBool = 0;
     priorState = state;
@@ -352,9 +359,9 @@ void goToComputer() {
 
     DMANow(3, computerscreenbgPal, PALETTE, 256);
     DMANow(3, computerscreenbgTiles, &CHARBLOCK[1], computerscreenbgTilesLen / 2);
-    DMANow(3, computerscreenbgMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, computerscreenbgMap, &SCREENBLOCK[28], computerscreenbgMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     DMANow(3, computerspritesPal, SPRITEPALETTE, computerspritesPalLen / 2);
     DMANow(3, computerspritesTiles, &CHARBLOCK[4], computerspritesTilesLen / 2);
@@ -365,6 +372,7 @@ void goToComputer() {
 
 }
 
+//load every frame of the computer state
 void computer() {
     updateComputer();
     drawComputer();
@@ -384,12 +392,19 @@ void goToKitchen() {
     
     DMANow(3, kitchenbgPal, PALETTE, 256);
     DMANow(3, kitchenbgTiles, &CHARBLOCK[1], kitchenbgTilesLen / 2);
-    DMANow(3, kitchenbgMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, kitchenbgMap, &SCREENBLOCK[28], kitchenbgMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    DMANow(3, kdoorwaybgTiles, &CHARBLOCK[2], kdoorwaybgTilesLen / 2);
+    DMANow(3, kdoorwaybgMap, &SCREENBLOCK[26], kdoorwaybgMapLen / 2);
+
+    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     DMANow(3, kitchenspritesPal, SPRITEPALETTE, kitchenspritesPalLen / 2);
     DMANow(3, kitchenspritesTiles, &CHARBLOCK[4], kitchenspritesTilesLen / 2);
+
+    REG_DISPCTL |= BG2_ENABLE;
 
     hideSprites();
 }
@@ -411,10 +426,11 @@ void kitchen() {
 
     /* temporary */
     if (BUTTON_PRESSED(BUTTON_R)) {
-        goToOutro();
+        goToLivingRoomOutro();
     }
 }
 
+//sets up the bedroom state
 void goToBedroom() {
     nextRoomBool = 0;
     priorState = state;
@@ -423,20 +439,32 @@ void goToBedroom() {
     
     DMANow(3, bedroombgPal, PALETTE, 256);
     DMANow(3, bedroombgTiles, &CHARBLOCK[1], bedroombgTilesLen / 2);
-    DMANow(3, bedroombgMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, bedroombgMap, &SCREENBLOCK[28], bedroombgMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+
+    DMANow(3, cloudsbgTiles, &CHARBLOCK[2], cloudsbgTilesLen / 2);
+    DMANow(3, cloudsbgMap, &SCREENBLOCK[26], cloudsbgMapLen / 2);
+
+    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
 
     DMANow(3, bedroomspritesPal, SPRITEPALETTE, bedroomspritesPalLen / 2);
     DMANow(3, bedroomspritesTiles, &CHARBLOCK[4], bedroomspritesTilesLen / 2);
+
+    REG_DISPCTL |= BG2_ENABLE;
 
     hideSprites();
 
 }
 
+//runs every frame of the bedroom state
 void bedroom() {
     updateGame();
     drawGame();
+
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
 
     if (nextRoomBool == 1) {
         goToKitchen();
@@ -446,6 +474,7 @@ void bedroom() {
 
 }
 
+//sets up the safe state
 void goToSafe() {
     priorState = state;
     state = SAFE;
@@ -455,9 +484,9 @@ void goToSafe() {
 
     DMANow(3, safebgPal, PALETTE, 256);
     DMANow(3, safebgTiles, &CHARBLOCK[1], safebgTilesLen / 2);
-    DMANow(3, safebgMap, &SCREENBLOCK[20], 1024 * 4);
+    DMANow(3, safebgMap, &SCREENBLOCK[28], safebgMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(20) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 
     DMANow(3, safespritesPal, SPRITEPALETTE, safespritesPalLen / 2);
     DMANow(3, safespritesTiles, &CHARBLOCK[4], safespritesTilesLen / 2);
@@ -470,39 +499,109 @@ void goToSafe() {
 
 }
 
+//runs every frame of the safe state
 void safe() {
     updateCursor();
     drawSafeSprites();
     
+    //if the safe is exited or opened
     if (BUTTON_PRESSED(BUTTON_B) || openSafeBool) {
-        REG_DISPCTL = MODE0 | BG1_ENABLE | SPRITE_ENABLE; 
+        if (openSafeBool) {
+            REG_DISPCTL |= BG0_ENABLE;
+        } else {
+            REG_DISPCTL &= ~(BG0_ENABLE);
+            messageActiveBool = 0;
+        }
         goToBedroom();
     }
 }
 
 //sets up the outro state
-void goToOutro() {
-    vOff = 0;
-    hOff = 0;
-    state = OUTRO;
+void goToLivingRoomOutro() {
+    priorState = state;
+    state = LR_OUTRO;
+    nextRoomBool = 0;
     hideSprites();
-    
-    DMANow(3, outroscreenPal, PALETTE, 256);
-    DMANow(3, outroscreenTiles, &CHARBLOCK[1], outroscreenTilesLen / 2);
-    DMANow(3, outroscreenMap, &SCREENBLOCK[26], 1024 * 4);
-
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    initLivingRoomOutro();
+    DMANow(3, outrospritesPal, SPRITEPALETTE, outrospritesPalLen / 2);
+    DMANow(3, outrospritesTiles, &CHARBLOCK[4], outrospritesTilesLen / 2);
+    stopSound();
 }
 
-//runs every frame of the outro state
-void outro() {
-    if (BUTTON_PRESSED(BUTTON_A)) {
-        goToWin();
-    }
-    if (BUTTON_PRESSED(BUTTON_SELECT)) {
-        goToPause();
+//runs every frame of the living room outro state
+void livingRoomOutro() {
+    updateOutro();
+    drawOutroSprites();
+
+    if (nextRoomBool) {
+        goToFinale();
     }
 
+}
+
+//set up the finale state
+void goToFinale() {
+    priorState = state;
+    state = FINALE;
+    nextRoomBool = 0; 
+    hideSprites();
+
+    if (priorState == LR_OUTRO) {
+        DMANow(3, chapter3bgTiles, &CHARBLOCK[0], chapter3bgTilesLen / 2);
+        DMANow(3, chapter3bgMap, &SCREENBLOCK[24], chapter3bgMapLen / 2);
+    } else {
+        DMANow(3, messagescreenTiles, &CHARBLOCK[0], messagescreenTilesLen / 2);
+        DMANow(3, messagescreenMap, &SCREENBLOCK[24], messagescreenMapLen / 2);
+    }
+
+    REG_BG0CNT = BG_CHARBLOCK(0) | BG_SCREENBLOCK(24) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(0);
+
+    DMANow(3, finalebgPal, PALETTE, 256);
+    DMANow(3, finalebgTiles, &CHARBLOCK[1], finalebgTilesLen / 2);
+    DMANow(3, finalebgMap, &SCREENBLOCK[28], finalebgMapLen / 2);
+
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+
+    DMANow(3, finalewindowsTiles, &CHARBLOCK[2], finalewindowsTilesLen / 2);
+    DMANow(3, finalewindowsMap, &SCREENBLOCK[26], finalewindowsMapLen / 2);
+
+    REG_BG2CNT = BG_CHARBLOCK(2) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_WIDE | BG_PRIORITY(1);
+
+    DMANow(3, finalespritesPal, SPRITEPALETTE, finalespritesPalLen / 2);
+    DMANow(3, finalespritesTiles, &CHARBLOCK[4], finalespritesTilesLen / 2);
+
+    loadFinale();
+
+    if (priorState == LR_OUTRO) {
+        REG_BG1HOFF = hOff;
+        REG_BG1VOFF = vOff;
+        REG_DISPCTL |= BG0_ENABLE | BG2_ENABLE;
+        chapterThreeIntro();
+    } else {
+        REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
+    }
+
+    playSpettacolo();
+
+}
+
+//run every frame of the finale state
+void finale() {
+    if (!marsInteractBool) {
+        updateGame();
+        updatePersistentSprites();
+        drawGame();
+        drawPersistentSprites();
+    } else {
+        updatePersistentSprites();
+        drawPersistentSprites();
+        updateFinale();
+    }
+
+    if (nextRoomBool == 1) {
+        goToWin();
+    }
+    
 }
 
 // Sets up the pause state
@@ -514,18 +613,21 @@ void goToPause() {
     vOff = 0;
     hOff = 0;
     hideSprites();
+    pauseSound();
 
     DMANow(3, pausescreenPal, PALETTE, 256);
     DMANow(3, pausescreenTiles, &CHARBLOCK[1], pausescreenTilesLen / 2);
-    DMANow(3, pausescreenMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, pausescreenMap, &SCREENBLOCK[28], pausescreenMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
 }
 
 // Runs every frame of the pause state
 void pause() {
     
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        unpauseSound();
+
         switch(priorState) {
             case INTRO:
                 goToIntro();
@@ -536,8 +638,11 @@ void pause() {
             case KITCHEN:
                 goToKitchen();
                 break;
-            case OUTRO:
-                goToOutro();
+            case BEDROOM:
+                goToBedroom();
+                break;
+            case LR_OUTRO:
+                goToLivingRoomOutro();
                 break;
         }
     }
@@ -548,7 +653,7 @@ void pause() {
     }
 
     if (BUTTON_PRESSED(BUTTON_B)) {
-        priorState = PAUSE;
+        state = priorState;
         goToInstructions();
     }
     
@@ -558,19 +663,48 @@ void pause() {
 // Sets up the win state
 void goToWin() {
     state = WIN;
+    REG_BG1HOFF = 0;
+    REG_BG1VOFF = 0;
 
     hideSprites();
 
     DMANow(3, winscreenPal, PALETTE, 256);
     DMANow(3, winscreenTiles, &CHARBLOCK[1], winscreenTilesLen / 2);
-    DMANow(3, winscreenMap, &SCREENBLOCK[26], 1024 * 4);
+    DMANow(3, winscreenMap, &SCREENBLOCK[28], winscreenMapLen / 2);
 
-    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(26) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+    REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    messageInd = 0;
+
 }
 
 // Runs every frame of the win state
 void win() {
+    char m1[] = "You had forgotten how beautiful the outside could be...";
+    char m2[] = "You consider how worried you had been, when you were safe the whole time.";
+    char m3[] = "In the coming weeks, your attacks become less and less frequent.";
+    char m4[] = "Eventually, without your fear feeding them, they disappear altogether.";
+    char m5[] = "You live. And at last, you are at peace.";
+
+    char * options[] = {m1, m2, m3, m4, m5};
+
     if (BUTTON_PRESSED(BUTTON_A)) {
+        messageInd++;
+        if (messageInd < 5) {
+             activeSprite->message = options[messageInd];
+            printText();
+            REG_DISPCTL |= BG0_ENABLE;
+        }
+    }
+
+    if (messageInd == 5) {
+        REG_DISPCTL &= ~(BG0_ENABLE);
+        DMANow(3, finscreenPal, PALETTE, 256);
+        DMANow(3, finscreenTiles, &CHARBLOCK[1], winscreenTilesLen / 2);
+        DMANow(3, finscreenMap, &SCREENBLOCK[28], winscreenMapLen / 2);
+    }
+
+    if (messageInd == 6) {
         goToStart();
     }
 }

@@ -82,7 +82,7 @@ void initBedroomSprites() {
 
 //load bedroom attributes
 void loadBedroom() {
-    if (priorState != PAUSE && priorState != SAFE) {
+    if (priorState != PAUSE && priorState != SAFE && priorState != INSTRUCTIONS) {
         protag.worldRow = 120;
         protag.worldCol = 30;
         protag.aniState = PROTAGBACK;
@@ -104,6 +104,3 @@ void loadBedroom() {
     currCollisionMap = &bedroomcollisionBitmap;
 }
 
-void safeOpenMessage() {
-
-}

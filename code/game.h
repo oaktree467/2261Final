@@ -20,13 +20,19 @@
 #define ORANGE_HIT 0x025F
 #define OCEAN_HIT 0x7CC0
 #define MAROON_HIT 0x0C6F
+#define PEACH_HIT 0x3E1F
 
 //Orientations
 enum {PROTAGFRONT, PROTAGSIDE, PROTAGBACK, PROTAGIDLE};
+enum {MARSFRONT, MARSSIDE, MARSBACK, MARSIDLE};
 
 // States
-enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, OUTRO, PAUSE, WIN, LOSE};
+enum {START, INSTRUCTIONS, INTRO, LIVING_ROOM, COMPUTER, KITCHEN, BEDROOM, SAFE, LR_OUTRO, FINALE, PAUSE, WIN};
 int state;
+
+//for which song is playing
+enum {TLMOE, SPETTACOLO};
+int currSong;
 
 
 /* ----- STRUCTS ----- */
@@ -92,7 +98,9 @@ extern char openSafeBool; //true if player has obtained docs from safe
 extern char documentsUploaded; // true if player has uploaded docs
 extern char computerAccessBool; //true if player is accessing computer in living room
 extern char allEmailsBool; // true if both emails in the player's inbox have been read
+extern char livingRoomOutroBool; //true when allEmailsBool is true and player has crossed the outro threshold
 extern char phoneAnswerBool;
+extern char activateDoorBool; //true when all of Mars' messages in the finale have been accessed
 extern int totalMapWidth;
 extern int visMapWidth;
 extern int totalMapHeight;
