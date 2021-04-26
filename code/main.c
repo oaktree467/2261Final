@@ -5,7 +5,7 @@
 2) WHAT NEEDS TO BE ADDED?
     - Nothing.
 3) ANY BUGS?
-    - If the game is paused while the phone is ringing, the phone doesn't stop ringing.
+    - None that I know of.
 4) HOW TO PLAY (OR SPEEDRUN, I GUESS)
     - Approaching an object and facing it will allow you to interact with it (Press A).
         - Objects you can interact with will glow when faced.
@@ -28,7 +28,7 @@
     actually getting the full story of the game requires interacting with as many 'extraneous' objects
     as possible.
 
-    The cheat: enter 2003 in the safe after finding the key to skip the documents upload step
+    THE CHEAT: enter 2003 in the safe after finding the key to skip the documents upload step
     and head straight to the finale. Why 2003? It's a nod to the release year of 'Toxic'
     by Britney Spears, a copy of which hangs in the protagonist's living room.
 
@@ -81,6 +81,7 @@
 #include "sound.h"
 #include "startscreen.h"
 #include "winscreen.h"
+#include "spettacolo.h"
 
 //extern int mode;
 int priorState; 
@@ -197,6 +198,7 @@ void initialize()
 
 // Sets up the start state
 void goToStart() {
+    stopSound();
     state = START;
 
     DMANow(3, startscreenPal, PALETTE, 256);
@@ -274,6 +276,7 @@ void intro() {
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
+        playTLMOE();
     }
     
     
@@ -522,6 +525,7 @@ void goToLivingRoomOutro() {
     initLivingRoomOutro();
     DMANow(3, outrospritesPal, SPRITEPALETTE, outrospritesPalLen / 2);
     DMANow(3, outrospritesTiles, &CHARBLOCK[4], outrospritesTilesLen / 2);
+    stopSound();
 }
 
 //runs every frame of the living room outro state
@@ -577,6 +581,8 @@ void goToFinale() {
         REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
     }
 
+    playSpettacolo();
+
 }
 
 //run every frame of the finale state
@@ -607,6 +613,7 @@ void goToPause() {
     vOff = 0;
     hOff = 0;
     hideSprites();
+    pauseSound();
 
     DMANow(3, pausescreenPal, PALETTE, 256);
     DMANow(3, pausescreenTiles, &CHARBLOCK[1], pausescreenTilesLen / 2);
@@ -619,6 +626,8 @@ void goToPause() {
 void pause() {
     
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        unpauseSound();
+
         switch(priorState) {
             case INTRO:
                 goToIntro();

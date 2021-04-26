@@ -17,6 +17,7 @@
 #include "musicbg.h"
 #include "sound.h"
 #include "LastManOn8rth.h"
+#include "spettacolo.h"
 
 
 
@@ -438,14 +439,16 @@ void disableSprites() {
 
 //play Spettacolo.wav
 void playSpettacolo() {
+    stopSoundA();
     spettacoloHide(0);
     tlmoeHide(1);
     currSong = SPETTACOLO;
-    stopSound();
+    playSoundA(spettacolo_data, spettacolo_length, 1);
 }
 
 //play LastManOn8rth.wav
 void playTLMOE() {
+    stopSoundA();
     spettacoloHide(1);
     tlmoeHide(0);
     currSong = TLMOE;
