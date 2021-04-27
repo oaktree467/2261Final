@@ -466,7 +466,7 @@ void updateCursor() {
             if (checkCode() && keyFound) {
 
                 openSafeBool = 1;
-                playSoundB(safesfx_data, safesfx_length, 0);
+                playSoundB(safesfx_data, safesfx_length - 1000, 0);
                 safeText(sm_2);
             } else {
 
@@ -489,7 +489,7 @@ int checkCode() {
     for (int i = 0; i < 4; i++) {
         if (enteredCode[i] != answerCode[i]) {
             if (i == 3 && enteredCode[i] == 3) {
-                allEmailsBool = 1;
+                documentsUploaded = 1;
             } else {
                 return 0;
             }

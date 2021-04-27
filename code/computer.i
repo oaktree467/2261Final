@@ -323,7 +323,7 @@ extern const unsigned short musiccollisionBitmap[65536];
 # 17 "computer.c" 2
 # 1 "musicbg.h" 1
 # 22 "musicbg.h"
-extern const unsigned short musicbgTiles[592];
+extern const unsigned short musicbgTiles[624];
 
 
 extern const unsigned short musicbgMap[1024];
@@ -385,11 +385,13 @@ extern char allEmailsBool;
 
 
 void loadComputer() {
-    priorHoff = hOff;
-    priorVoff = vOff;
+    if (priorState != PAUSE && priorState != INSTRUCTIONS) {
+        priorHoff = hOff;
+        priorVoff = vOff;
 
-    hOff = 0;
-    vOff = 0;
+        hOff = 0;
+        vOff = 0;
+    }
 
     totalMapWidth = 256;
     totalMapHeight = 256;
@@ -660,9 +662,9 @@ void updateMouse() {
 
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
         if (activeSprite != 
-# 307 "computer.c" 3 4
+# 309 "computer.c" 3 4
                            ((void *)0)
-# 307 "computer.c"
+# 309 "computer.c"
                                ) {
             loadSecondaryScreen();
         }
@@ -678,9 +680,9 @@ void checkComputerSpriteCollision() {
     u16 currColor = 0;
     currColor = checkCollisionMapColor(mouse.worldCol, mouse.worldRow);
     activeSprite = 
-# 321 "computer.c" 3 4
+# 323 "computer.c" 3 4
                   ((void *)0)
-# 321 "computer.c"
+# 323 "computer.c"
                       ;
 
     if (currColor != 0) {
@@ -747,7 +749,7 @@ void loadSecondaryScreen() {
         computerSpritesArr[3].worldRow = 14;
      } else if (activeSprite == &computerSpritesArr[7]) {
 
-        DMANow(3, musicbgTiles, &((charblock *)0x6000000)[0], 1184 / 2);
+        DMANow(3, musicbgTiles, &((charblock *)0x6000000)[0], 1248 / 2);
         DMANow(3, musicbgMap, &((screenblock *)0x6000000)[24], 2048 / 2);
 
         computerSpritesArr[3].worldCol = 38;
@@ -806,7 +808,7 @@ void playSpettacolo() {
     spettacoloHide(0);
     tlmoeHide(1);
     currSong = SPETTACOLO;
-    playSoundA(spettacolo_data, spettacolo_length, 1);
+    playSoundA(spettacolo_data, spettacolo_length - 1000, 1);
 }
 
 
@@ -815,7 +817,7 @@ void playTLMOE() {
     spettacoloHide(1);
     tlmoeHide(0);
     currSong = TLMOE;
-    playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
+    playSoundA(LastManOn8rth_data, LastManOn8rth_length - 1000, 1);
 
 }
 

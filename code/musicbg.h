@@ -5,11 +5,11 @@
 //
 //	musicbg, 256x256@4, 
 //	+ palette 256 entries, not compressed
-//	+ 37 tiles (t|f|p reduced) not compressed
+//	+ 39 tiles (t|f|p reduced) not compressed
 //	+ regular map (in SBBs), not compressed, 32x32 
-//	Total size: 512 + 1184 + 2048 = 3744
+//	Total size: 512 + 1248 + 2048 = 3808
 //
-//	Time-stamp: 2021-04-21, 22:55:17
+//	Time-stamp: 2021-04-26, 19:49:07
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.3
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -18,8 +18,8 @@
 #ifndef GRIT_MUSICBG_H
 #define GRIT_MUSICBG_H
 
-#define musicbgTilesLen 1184
-extern const unsigned short musicbgTiles[592];
+#define musicbgTilesLen 1248
+extern const unsigned short musicbgTiles[624];
 
 #define musicbgMapLen 2048
 extern const unsigned short musicbgMap[1024];

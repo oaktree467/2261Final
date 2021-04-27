@@ -1681,7 +1681,7 @@ extern const unsigned short finscreenPal[256];
 # 61 "main.c" 2
 # 1 "instructionscreen.h" 1
 # 22 "instructionscreen.h"
-extern const unsigned short instructionscreenTiles[5200];
+extern const unsigned short instructionscreenTiles[5120];
 
 
 extern const unsigned short instructionscreenMap[1024];
@@ -1911,7 +1911,7 @@ SOUND soundB;
 # 82 "main.c" 2
 # 1 "startscreen.h" 1
 # 22 "startscreen.h"
-extern const unsigned short startscreenTiles[3664];
+extern const unsigned short startscreenTiles[7952];
 
 
 extern const unsigned short startscreenMap[1024];
@@ -2032,11 +2032,13 @@ int main() {
         (*(volatile unsigned short *)0x04000014) = hOff;
         (*(volatile unsigned short *)0x04000016) = vOff;
 
+
         (*(volatile unsigned short *)0x04000018) = hOff * 0.9;
         (*(volatile unsigned short *)0x0400001A) = vOff;
         DMANow(3, shadowOAM, ((OBJ_ATTR*)(0x7000000)), 512);
-
     }
+
+
 }
 
 
@@ -2056,7 +2058,7 @@ void goToStart() {
     state = START;
 
     DMANow(3, startscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, startscreenTiles, &((charblock *)0x6000000)[1], 7328 / 2);
+    DMANow(3, startscreenTiles, &((charblock *)0x6000000)[1], 15904 / 2);
     DMANow(3, startscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
     (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
@@ -2079,13 +2081,18 @@ void goToInstructions() {
     priorState = state;
     state = INSTRUCTIONS;
     DMANow(3, instructionscreenPal, ((unsigned short *)0x5000000), 256);
-    DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10400 / 2);
+    DMANow(3, instructionscreenTiles, &((charblock *)0x6000000)[1], 10240 / 2);
     DMANow(3, instructionscreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 }
 
 
 void instructions() {
     if ((!(~(oldButtons)&((1<<0))) && (~buttons & ((1<<0))))) {
+
+        if (priorState != START) {
+            unpauseSound();
+        }
+
         switch(priorState) {
             case START:
                 goToIntro();
@@ -2093,11 +2100,23 @@ void instructions() {
             case LIVING_ROOM:
                 goToLivingRoom();
                 break;
+            case COMPUTER:
+                goToComputer();
+                break;
             case KITCHEN:
                 goToKitchen();
                 break;
             case BEDROOM:
                 goToBedroom();
+                break;
+            case SAFE:
+                goToSafe();
+                break;
+            case LR_OUTRO:
+                goToLivingRoomOutro();
+                break;
+            case FINALE:
+                goToFinale();
                 break;
         }
     }
@@ -2120,8 +2139,8 @@ void goToIntro() {
 
     (*(volatile unsigned short *)0x4000000) = 0 | (1<<8) | (1<<9) | (1<<12);
 
-    playSoundA(introdrone_data, introdrone_length, 1);
     chapterOneIntro();
+    playSoundA(introdrone_data, introdrone_length, 1);
 
 }
 
@@ -2130,10 +2149,7 @@ void intro() {
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
-        playTLMOE();
     }
-
-
 }
 
 
@@ -2171,8 +2187,10 @@ void goToLivingRoom() {
 
     hideSprites();
 
+
     if (priorState == INTRO) {
         chapterTwoIntro();
+        playTLMOE();
     } else {
         (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
     }
@@ -2235,6 +2253,10 @@ void computer() {
         computerAccessBool = 0;
         goToLivingRoom();
     }
+
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        goToPause();
+    }
 }
 
 
@@ -2276,11 +2298,6 @@ void kitchen() {
 
     if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
         goToPause();
-    }
-
-
-    if ((!(~(oldButtons)&((1<<8))) && (~buttons & ((1<<8))))) {
-        goToLivingRoomOutro();
     }
 }
 
@@ -2368,6 +2385,10 @@ void safe() {
         }
         goToBedroom();
     }
+
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        goToPause();
+    }
 }
 
 
@@ -2431,11 +2452,10 @@ void goToFinale() {
         (*(volatile unsigned short *)0x04000016) = vOff;
         (*(volatile unsigned short *)0x4000000) |= (1<<8) | (1<<10);
         chapterThreeIntro();
+        playSpettacolo();
     } else {
         (*(volatile unsigned short *)0x4000000) = 0 | (1<<9) | (1<<10) | (1<<12);
     }
-
-    playSpettacolo();
 
 }
 
@@ -2456,16 +2476,22 @@ void finale() {
         goToWin();
     }
 
+    if ((!(~(oldButtons)&((1<<2))) && (~buttons & ((1<<2))))) {
+        goToPause();
+    }
+
 }
 
 
 void goToPause() {
     priorState = state;
     state = PAUSE;
-    priorVoff = vOff;
-    priorHoff = hOff;
-    vOff = 0;
-    hOff = 0;
+    if (priorState != COMPUTER) {
+        priorVoff = vOff;
+        priorHoff = hOff;
+        vOff = 0;
+        hOff = 0;
+    }
     hideSprites();
     pauseSound();
 
@@ -2474,6 +2500,8 @@ void goToPause() {
     DMANow(3, pausescreenMap, &((screenblock *)0x6000000)[28], 2048 / 2);
 
     (*(volatile unsigned short*)0x400000A) = ((1)<<2) | ((28)<<8) | (0<<7) | (0<<14) | ((1)<<1);
+
+    (*(volatile unsigned short *)0x4000000) &= ~((1<<8));
 }
 
 
@@ -2483,11 +2511,11 @@ void pause() {
         unpauseSound();
 
         switch(priorState) {
-            case INTRO:
-                goToIntro();
-                break;
             case LIVING_ROOM:
                 goToLivingRoom();
+                break;
+            case COMPUTER:
+                goToComputer();
                 break;
             case KITCHEN:
                 goToKitchen();
@@ -2495,8 +2523,14 @@ void pause() {
             case BEDROOM:
                 goToBedroom();
                 break;
+            case SAFE:
+                goToSafe();
+                break;
             case LR_OUTRO:
                 goToLivingRoomOutro();
+                break;
+            case FINALE:
+                goToFinale();
                 break;
         }
     }
@@ -2517,8 +2551,9 @@ void pause() {
 
 void goToWin() {
     state = WIN;
-    (*(volatile unsigned short *)0x04000014) = 0;
-    (*(volatile unsigned short *)0x04000016) = 0;
+
+    hOff = 0;
+    vOff = 0;
 
     hideSprites();
 

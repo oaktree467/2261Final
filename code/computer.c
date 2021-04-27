@@ -30,11 +30,13 @@ extern char allEmailsBool;
 
 //load computer attributes
 void loadComputer() {
-    priorHoff = hOff;
-    priorVoff = vOff;
+    if (priorState != PAUSE && priorState != INSTRUCTIONS) {
+        priorHoff = hOff;
+        priorVoff = vOff;
 
-    hOff = 0;
-    vOff = 0;
+        hOff = 0;
+        vOff = 0;
+    }
 
     totalMapWidth = 256;
     totalMapHeight = 256;
@@ -443,7 +445,7 @@ void playSpettacolo() {
     spettacoloHide(0);
     tlmoeHide(1);
     currSong = SPETTACOLO;
-    playSoundA(spettacolo_data, spettacolo_length, 1);
+    playSoundA(spettacolo_data, spettacolo_length - 1000, 1);
 }
 
 //play LastManOn8rth.wav
@@ -452,7 +454,7 @@ void playTLMOE() {
     spettacoloHide(1);
     tlmoeHide(0);
     currSong = TLMOE;
-    playSoundA(LastManOn8rth_data, LastManOn8rth_length, 1);
+    playSoundA(LastManOn8rth_data, LastManOn8rth_length - 1000, 1);
 
 }
 

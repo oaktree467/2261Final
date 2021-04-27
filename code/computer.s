@@ -274,51 +274,58 @@ loadComputer:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	mov	ip, #0
+	ldr	r3, .L15
+	ldr	r3, [r3]
+	cmp	r3, #10
+	cmpne	r3, #1
+	push	{r4, r5, lr}
+	beq	.L10
+	mov	r2, #0
+	ldr	r1, .L15+4
+	ldr	r3, .L15+8
+	ldrh	lr, [r1]
+	ldr	r0, .L15+12
+	ldrh	ip, [r3]
+	strh	lr, [r0]	@ movhi
+	ldr	r0, .L15+16
+	strh	r2, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
+	strh	ip, [r0]	@ movhi
+.L10:
 	mov	r3, #256
-	push	{r4, r5, r6, r7, r8, lr}
-	mov	r6, #240
-	mov	r5, #160
+	mov	r4, #240
+	mov	r0, #160
 	mov	r1, #120
-	mov	r4, #8
-	mov	lr, #11
+	mov	lr, #8
 	mov	r2, #72
-	ldr	r0, .L11
-	ldr	r7, .L11+4
-	ldrh	r8, [r0]
-	strh	ip, [r0]	@ movhi
-	ldr	r0, .L11+8
-	strh	r8, [r7]	@ movhi
-	ldrh	r7, [r0]
-	strh	ip, [r0]	@ movhi
-	ldr	r0, .L11+12
-	strh	r7, [r0]	@ movhi
-	ldr	r0, .L11+16
-	str	r3, [r0]
-	ldr	r0, .L11+20
-	str	r3, [r0]
-	ldr	r3, .L11+24
-	str	r6, [r3]
-	ldr	r3, .L11+28
-	str	r5, [r3]
-	ldr	r3, .L11+32
-	ldr	r0, .L11+36
+	mov	ip, #11
+	ldr	r5, .L15+20
+	str	r3, [r5]
+	ldr	r5, .L15+24
+	str	r3, [r5]
+	ldr	r3, .L15+28
+	str	r4, [r3]
+	ldr	r3, .L15+32
+	str	r0, [r3]
+	ldr	r3, .L15+36
+	ldr	r0, .L15+40
 	str	r1, [r3, #4]
 	str	r1, [r3, #12]
-	ldr	r1, .L11+40
-	str	r4, [r3, #16]
-	str	lr, [r3, #20]
-	pop	{r4, r5, r6, r7, r8, lr}
+	ldr	r1, .L15+44
+	str	lr, [r3, #16]
+	pop	{r4, r5, lr}
+	str	ip, [r3, #20]
 	str	r2, [r3]
 	str	r2, [r3, #8]
 	str	r1, [r0]
 	b	initComputerSprites
-.L12:
+.L16:
 	.align	2
-.L11:
+.L15:
+	.word	priorState
 	.word	hOff
-	.word	priorHoff
 	.word	vOff
+	.word	priorHoff
 	.word	priorVoff
 	.word	totalMapWidth
 	.word	totalMapHeight
@@ -340,18 +347,18 @@ drawMouse:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
 	mov	r1, #0
-	ldr	r3, .L14
+	ldr	r3, .L18
 	ldr	r2, [r3, #8]
 	ldr	r0, [r3, #12]
-	ldr	r3, .L14+4
+	ldr	r3, .L18+4
 	orr	r2, r2, #40960
 	strh	r2, [r3]	@ movhi
 	strh	r0, [r3, #2]	@ movhi
 	strh	r1, [r3, #4]	@ movhi
 	bx	lr
-.L15:
+.L19:
 	.align	2
-.L14:
+.L18:
 	.word	mouse
 	.word	shadowOAM
 	.size	drawMouse, .-drawMouse
@@ -367,14 +374,14 @@ drawComputerSprites:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, r5, r6, r7, lr}
 	mov	r5, #512
-	ldr	r3, .L22
-	ldr	r2, .L22+4
+	ldr	r3, .L26
+	ldr	r2, .L26+4
 	add	r4, r3, #780
-.L19:
+.L23:
 	ldr	r1, [r3, #40]
 	cmp	r1, #1
 	strheq	r5, [r2, #8]	@ movhi
-	beq	.L18
+	beq	.L22
 	add	r1, r3, #24
 	ldr	r7, [r3, #32]
 	ldr	r0, [r3, #8]
@@ -389,16 +396,16 @@ drawComputerSprites:
 	strh	r0, [r2, #8]	@ movhi
 	strh	r1, [r2, #12]	@ movhi
 	strh	ip, [r2, #10]	@ movhi
-.L18:
+.L22:
 	add	r3, r3, #52
 	cmp	r3, r4
 	add	r2, r2, #8
-	bne	.L19
+	bne	.L23
 	pop	{r4, r5, r6, r7, lr}
 	bx	lr
-.L23:
+.L27:
 	.align	2
-.L22:
+.L26:
 	.word	computerSpritesArr
 	.word	shadowOAM
 	.size	drawComputerSprites, .-drawComputerSprites
@@ -414,18 +421,18 @@ drawComputer:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
 	mov	r1, #0
-	ldr	r3, .L25
+	ldr	r3, .L29
 	ldr	r2, [r3, #8]
 	ldr	r0, [r3, #12]
-	ldr	r3, .L25+4
+	ldr	r3, .L29+4
 	orr	r2, r2, #40960
 	strh	r2, [r3]	@ movhi
 	strh	r0, [r3, #2]	@ movhi
 	strh	r1, [r3, #4]	@ movhi
 	b	drawComputerSprites
-.L26:
+.L30:
 	.align	2
-.L25:
+.L29:
 	.word	mouse
 	.word	shadowOAM
 	.size	drawComputer, .-drawComputer
@@ -439,24 +446,24 @@ checkComputerSpriteCollision:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L39
+	ldr	r3, .L43
 	push	{r4, r5, r6, lr}
 	ldr	r1, [r3]
-	ldr	r2, .L39+4
+	ldr	r2, .L43+4
 	ldr	r0, [r3, #4]
 	mov	lr, pc
 	bx	r2
 	mov	r1, #0
-	ldr	r5, .L39+8
+	ldr	r5, .L43+8
 	cmp	r0, #0
 	str	r1, [r5]
-	beq	.L27
+	beq	.L31
 	mov	lr, #1
 	mov	r4, r1
 	mov	r6, r1
-	ldr	r3, .L39+12
+	ldr	r3, .L43+12
 	add	ip, r3, #520
-.L32:
+.L36:
 	ldrh	r2, [r3, #44]
 	cmp	r2, r0
 	moveq	r4, r3
@@ -465,15 +472,15 @@ checkComputerSpriteCollision:
 	add	r3, r3, #52
 	moveq	r1, #1
 	cmp	r3, ip
-	bne	.L32
+	bne	.L36
 	cmp	r1, #0
 	strne	r4, [r5]
-.L27:
+.L31:
 	pop	{r4, r5, r6, lr}
 	bx	lr
-.L40:
+.L44:
 	.align	2
-.L39:
+.L43:
 	.word	mouse
 	.word	checkCollisionMapColor
 	.word	activeSprite
@@ -491,15 +498,15 @@ disableSprites:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
 	mov	r2, #1
-	ldr	r3, .L42
+	ldr	r3, .L46
 	str	r2, [r3, #612]
 	str	r2, [r3, #664]
 	str	r2, [r3, #716]
 	str	r2, [r3, #768]
 	bx	lr
-.L43:
+.L47:
 	.align	2
-.L42:
+.L46:
 	.word	computerSpritesArr
 	.size	disableSprites, .-disableSprites
 	.align	2
@@ -513,33 +520,34 @@ playSpettacolo:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, lr}
-	ldr	r3, .L46
+	ldr	r3, .L50
 	mov	lr, pc
 	bx	r3
 	mov	r2, #1
 	mov	ip, #0
-	ldr	r3, .L46+4
-	ldr	r0, .L46+8
-	ldr	r1, .L46+12
+	ldr	r3, .L50+4
+	ldr	r0, .L50+8
+	ldr	r1, [r3]
+	ldr	r3, .L50+12
 	str	r2, [r0]
-	ldr	r4, .L46+16
-	ldr	r1, [r1]
-	ldr	r0, .L46+20
+	ldr	r4, .L50+16
+	ldr	r0, .L50+20
 	str	r2, [r3, #612]
 	str	r2, [r3, #664]
 	str	ip, [r3, #716]
 	str	ip, [r3, #768]
+	sub	r1, r1, #1000
 	mov	lr, pc
 	bx	r4
 	pop	{r4, lr}
 	bx	lr
-.L47:
+.L51:
 	.align	2
-.L46:
+.L50:
 	.word	stopSoundA
-	.word	computerSpritesArr
-	.word	currSong
 	.word	spettacolo_length
+	.word	currSong
+	.word	computerSpritesArr
 	.word	playSoundA
 	.word	spettacolo_data
 	.size	playSpettacolo, .-playSpettacolo
@@ -554,32 +562,33 @@ playTLMOE:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{r4, lr}
-	ldr	r3, .L50
+	ldr	r3, .L54
 	mov	lr, pc
 	bx	r3
 	mov	ip, #0
 	mov	r2, #1
-	ldr	r3, .L50+4
-	ldr	r1, .L50+8
-	ldr	lr, .L50+12
+	ldr	r3, .L54+4
+	ldr	r1, [r3]
+	ldr	r3, .L54+8
+	ldr	lr, .L54+12
 	str	r2, [r3, #716]
 	str	r2, [r3, #768]
 	str	ip, [r3, #612]
 	str	ip, [r3, #664]
-	ldr	r1, [r1]
-	ldr	r0, .L50+16
-	ldr	r3, .L50+20
+	ldr	r0, .L54+16
+	ldr	r3, .L54+20
+	sub	r1, r1, #1000
 	str	ip, [lr]
 	mov	lr, pc
 	bx	r3
 	pop	{r4, lr}
 	bx	lr
-.L51:
+.L55:
 	.align	2
-.L50:
+.L54:
 	.word	stopSoundA
-	.word	computerSpritesArr
 	.word	LastManOn8rth_length
+	.word	computerSpritesArr
 	.word	currSong
 	.word	LastManOn8rth_data
 	.word	playSoundA
@@ -594,70 +603,70 @@ loadSecondaryScreen:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L97
-	ldr	r2, .L97+4
+	ldr	r3, .L101
+	ldr	r2, .L101+4
 	ldr	r3, [r3]
 	cmp	r3, r2
-	beq	.L88
+	beq	.L92
 	push	{r4, r5, r6, lr}
 	sub	r4, r2, #156
 	cmp	r3, r4
-	beq	.L89
+	beq	.L93
 	add	r1, r2, #156
 	cmp	r3, r1
-	beq	.L90
+	beq	.L94
 	sub	r0, r2, #52
 	sub	r1, r2, #104
 	cmp	r3, r1
 	cmpne	r3, r0
 	moveq	r5, #1
 	movne	r5, #0
-	bne	.L59
-	ldr	r3, .L97+8
+	bne	.L63
+	ldr	r3, .L101+8
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	bne	.L91
+	bne	.L95
 	mov	r3, #768
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L97+12
-	ldr	r5, .L97+16
+	ldr	r1, .L101+12
+	ldr	r5, .L101+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+24
+	ldr	r2, .L101+20
+	ldr	r1, .L101+24
 	mov	lr, pc
 	bx	r5
-.L61:
+.L65:
 	mov	r1, #10
 	mov	r0, #14
-	ldr	r3, .L97+28
-	ldr	r2, .L97+32
+	ldr	r3, .L101+28
+	ldr	r2, .L101+32
 	str	r1, [r4, #160]
 	str	r0, [r4, #156]
 	str	r2, [r3]
-	b	.L56
-.L90:
-	ldr	r3, .L97+36
+	b	.L60
+.L94:
+	ldr	r3, .L101+36
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	bne	.L92
-.L58:
+	bne	.L96
+.L62:
 	add	r0, r4, #156
 	ldm	r0, {r0, r1}
-.L56:
-	ldr	r3, .L97+40
+.L60:
+	ldr	r3, .L101+40
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	beq	.L71
-.L68:
-	ldr	r3, .L97+44
+	beq	.L75
+.L72:
+	ldr	r3, .L101+44
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	bne	.L72
-.L71:
+	bne	.L76
+.L75:
 	mov	r3, #67108864
 	mov	r2, #6144
 	strh	r2, [r3, #8]	@ movhi
@@ -668,97 +677,97 @@ loadSecondaryScreen:
 	strh	r2, [r3]	@ movhi
 	pop	{r4, r5, r6, lr}
 	bx	lr
-.L59:
+.L63:
 	add	r1, r2, #208
 	cmp	r3, r1
-	beq	.L93
+	beq	.L97
 	add	r1, r2, #260
 	cmp	r3, r1
-	beq	.L94
+	beq	.L98
 	add	r1, r2, #312
 	cmp	r3, r1
-	beq	.L95
+	beq	.L99
 	add	r2, r2, #52
 	cmp	r3, r2
-	beq	.L96
+	beq	.L100
 	add	r2, r4, #260
 	cmp	r3, r2
-	bne	.L58
+	bne	.L62
 	mov	r3, #3952
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L97+48
-	ldr	r5, .L97+16
+	ldr	r1, .L101+48
+	ldr	r5, .L101+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+52
+	ldr	r2, .L101+20
+	ldr	r1, .L101+52
 	mov	lr, pc
 	bx	r5
 	mov	r0, #1
-	ldr	r3, .L97+40
-	ldr	r1, .L97+44
+	ldr	r3, .L101+40
+	ldr	r1, .L101+44
 	ldrb	ip, [r3]	@ zero_extendqisi2
-	ldr	r2, .L97+56
-	ldr	r3, .L97+28
+	ldr	r2, .L101+56
+	ldr	r3, .L101+28
 	strb	r0, [r1]
 	cmp	ip, #0
 	add	r0, r4, #156
 	str	r2, [r3]
 	ldm	r0, {r0, r1}
-	beq	.L71
-.L72:
+	beq	.L75
+.L76:
 	mov	r2, #1
-	ldr	r3, .L97+60
+	ldr	r3, .L101+60
 	strb	r2, [r3]
-	b	.L71
-.L91:
+	b	.L75
+.L95:
 	mov	ip, #1
 	mov	r3, #1584
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L97+64
-	ldr	r5, .L97+16
+	ldr	r1, .L101+64
+	ldr	r5, .L101+16
 	str	ip, [r4, #560]
 	mov	lr, pc
 	bx	r5
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+68
+	ldr	r2, .L101+20
+	ldr	r1, .L101+68
 	mov	lr, pc
 	bx	r5
-	b	.L61
-.L92:
+	b	.L65
+.L96:
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r3, .L97+72
-	ldr	r1, .L97+76
-	ldr	r5, .L97+16
+	ldr	r3, .L101+72
+	ldr	r1, .L101+76
+	ldr	r5, .L101+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+80
+	ldr	r2, .L101+20
+	ldr	r1, .L101+80
 	mov	lr, pc
 	bx	r5
 	mov	r1, #0
 	mov	r2, #1
-	ldr	r3, .L97+8
+	ldr	r3, .L101+8
 	add	r0, r4, #156
 	str	r1, [r4, #560]
 	strb	r2, [r3]
 	ldm	r0, {r0, r1}
-	b	.L56
-.L88:
+	b	.L60
+.L92:
 	mov	r1, #67108864
 	mov	r0, #4608
 	mov	r2, #1
 	strh	r0, [r1]	@ movhi
-	ldr	r1, .L97+8
+	ldr	r1, .L101+8
 	ldrb	ip, [r1]	@ zero_extendqisi2
 	cmp	ip, #0
 	str	r2, [r3, #456]
@@ -766,50 +775,50 @@ loadSecondaryScreen:
 	str	r2, [r3, #560]
 	str	r2, [r3, #612]
 	movne	r2, #0
-	ldr	r1, .L97+28
-	ldr	r0, .L97+84
+	ldr	r1, .L101+28
+	ldr	r0, .L101+84
 	sub	r3, r3, #156
 	str	r0, [r1]
 	strne	r2, [r3, #560]
 	bx	lr
-.L89:
+.L93:
 	mov	r3, #4032
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L97+88
-	ldr	r5, .L97+16
+	ldr	r1, .L101+88
+	ldr	r5, .L101+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+92
+	ldr	r2, .L101+20
+	ldr	r1, .L101+92
 	mov	lr, pc
 	bx	r5
 	mov	r1, #38
 	mov	r0, #16
-	ldr	r3, .L97+28
-	ldr	r2, .L97+96
+	ldr	r3, .L101+28
+	ldr	r2, .L101+96
 	str	r1, [r4, #160]
 	str	r0, [r4, #156]
 	str	r2, [r3]
-	b	.L56
-.L93:
-	mov	r3, #592
+	b	.L60
+.L97:
+	mov	r3, #624
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r1, .L97+100
-	ldr	r6, .L97+16
+	ldr	r1, .L101+100
+	ldr	r6, .L101+16
 	mov	lr, pc
 	bx	r6
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+104
+	ldr	r2, .L101+20
+	ldr	r1, .L101+104
 	mov	lr, pc
 	bx	r6
 	mov	r2, #16
-	ldr	r3, .L97+108
+	ldr	r3, .L101+108
 	ldr	r3, [r3]
 	cmp	r3, #0
 	movne	r3, #1
@@ -822,51 +831,51 @@ loadSecondaryScreen:
 	streq	r2, [r4, #768]
 	strne	r3, [r4, #612]
 	strne	r3, [r4, #664]
-	ldr	r2, .L97+112
-	ldr	r3, .L97+28
+	ldr	r2, .L101+112
+	ldr	r3, .L101+28
 	str	r1, [r4, #160]
 	mov	r0, #16
 	mov	r1, #38
 	strne	r5, [r4, #716]
 	strne	r5, [r4, #768]
 	str	r2, [r3]
-	b	.L56
-.L94:
+	b	.L60
+.L98:
 	bl	playSpettacolo
 	add	r0, r4, #156
 	ldm	r0, {r0, r1}
-	b	.L56
-.L95:
+	b	.L60
+.L99:
 	bl	playTLMOE
 	add	r0, r4, #156
 	ldm	r0, {r0, r1}
-	b	.L56
-.L96:
+	b	.L60
+.L100:
 	mov	r2, #100663296
 	mov	r0, #3
-	ldr	r3, .L97+116
-	ldr	r1, .L97+120
-	ldr	r5, .L97+16
+	ldr	r3, .L101+116
+	ldr	r1, .L101+120
+	ldr	r5, .L101+16
 	mov	lr, pc
 	bx	r5
 	mov	r3, #1024
 	mov	r0, #3
-	ldr	r2, .L97+20
-	ldr	r1, .L97+124
+	ldr	r2, .L101+20
+	ldr	r1, .L101+124
 	mov	lr, pc
 	bx	r5
 	mov	r0, #1
-	ldr	r1, .L97+40
-	ldr	r3, .L97+28
-	ldr	r2, .L97+56
+	ldr	r1, .L101+40
+	ldr	r3, .L101+28
+	ldr	r2, .L101+56
 	strb	r0, [r1]
 	add	r0, r4, #156
 	str	r2, [r3]
 	ldm	r0, {r0, r1}
-	b	.L68
-.L98:
+	b	.L72
+.L102:
 	.align	2
-.L97:
+.L101:
 	.word	activeSprite
 	.word	computerSpritesArr+156
 	.word	documentsUploaded
@@ -910,22 +919,22 @@ updateMouse:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	ldr	r3, .L114
+	ldr	r3, .L118
 	ldrh	r3, [r3, #48]
 	tst	r3, #64
 	push	{r4, lr}
-	ldr	r4, .L114+4
-	bne	.L100
+	ldr	r4, .L118+4
+	bne	.L104
 	ldr	r3, [r4]
 	cmp	r3, #0
 	subgt	r3, r3, #1
 	strgt	r3, [r4]
-.L100:
-	ldr	r3, .L114
+.L104:
+	ldr	r3, .L118
 	ldrh	r3, [r3, #48]
 	tst	r3, #128
-	bne	.L101
-	ldr	r3, .L114+8
+	bne	.L105
+	ldr	r3, .L118+8
 	ldr	r1, [r4, #20]
 	ldr	r2, [r3]
 	ldr	r3, [r4]
@@ -933,21 +942,21 @@ updateMouse:
 	add	r3, r3, #1
 	cmp	r3, r2
 	strlt	r3, [r4]
-.L101:
-	ldr	r3, .L114
+.L105:
+	ldr	r3, .L118
 	ldrh	r3, [r3, #48]
 	tst	r3, #32
-	bne	.L102
+	bne	.L106
 	ldr	r3, [r4, #4]
 	cmp	r3, #0
 	subgt	r3, r3, #1
 	strgt	r3, [r4, #4]
-.L102:
-	ldr	r3, .L114
+.L106:
+	ldr	r3, .L118
 	ldrh	r3, [r3, #48]
 	tst	r3, #16
-	bne	.L103
-	ldr	r3, .L114+12
+	bne	.L107
+	ldr	r3, .L118+12
 	ldr	r1, [r4, #16]
 	ldr	r2, [r3]
 	ldr	r3, [r4, #4]
@@ -955,22 +964,22 @@ updateMouse:
 	add	r3, r3, #1
 	cmp	r3, r2
 	strlt	r3, [r4, #4]
-.L103:
-	ldr	r3, .L114+16
+.L107:
+	ldr	r3, .L118+16
 	ldrh	r3, [r3]
 	tst	r3, #1
-	beq	.L104
-	ldr	r3, .L114+20
+	beq	.L108
+	ldr	r3, .L118+20
 	ldrh	r3, [r3]
 	tst	r3, #1
-	bne	.L104
-	ldr	r3, .L114+24
+	bne	.L108
+	ldr	r3, .L118+24
 	ldr	r3, [r3]
 	cmp	r3, #0
 	blne	loadSecondaryScreen
-.L104:
-	ldr	r2, .L114+28
-	ldr	r3, .L114+32
+.L108:
+	ldr	r2, .L118+28
+	ldr	r3, .L118+32
 	ldrh	r0, [r2]
 	ldrh	r1, [r3]
 	ldr	r2, [r4, #4]
@@ -981,9 +990,9 @@ updateMouse:
 	str	r3, [r4, #8]
 	pop	{r4, lr}
 	bx	lr
-.L115:
+.L119:
 	.align	2
-.L114:
+.L118:
 	.word	67109120
 	.word	mouse
 	.word	visMapHeight
@@ -1020,13 +1029,13 @@ tlmoeHide:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r3, .L119
+	ldr	r3, .L123
 	str	r0, [r3, #612]
 	str	r0, [r3, #664]
 	bx	lr
-.L120:
+.L124:
 	.align	2
-.L119:
+.L123:
 	.word	computerSpritesArr
 	.size	tlmoeHide, .-tlmoeHide
 	.align	2
@@ -1040,13 +1049,13 @@ spettacoloHide:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	ldr	r3, .L122
+	ldr	r3, .L126
 	str	r0, [r3, #716]
 	str	r0, [r3, #768]
 	bx	lr
-.L123:
+.L127:
 	.align	2
-.L122:
+.L126:
 	.word	computerSpritesArr
 	.size	spettacoloHide, .-spettacoloHide
 	.comm	mouse,48,4

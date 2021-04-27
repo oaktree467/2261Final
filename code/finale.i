@@ -1122,29 +1122,27 @@ STATIONARYSPRITE finaleSpritesArr[5];
 
 
 void loadFinale() {
+
     visMapWidth = 336;
     totalMapWidth = 512;
     visMapHeight = 160;
     totalMapHeight = 256;
 
-    protag.worldRow = 90;
-    protag.worldCol = 300;
-    protag.currFrame = 3;
-
-    hOff = (visMapWidth - 240);
-    vOff = (visMapHeight - 160);
-
     if (priorState != PAUSE && priorState != INSTRUCTIONS) {
-            hOff = (visMapWidth - 240);
-            vOff = (visMapHeight - 160);
-            marsInteractBool = 0;
-            messageNum = 0;
-            replyBool = 0;
-            replyNum = 0;
+        protag.worldRow = 90;
+        protag.worldCol = 300;
+        protag.currFrame = 3;
 
-            checkOneBool = 0;
-            checkTwoBool = 0;
-            checkThreeBool = 0;
+        hOff = (visMapWidth - 240);
+        vOff = (visMapHeight - 160);
+        marsInteractBool = 0;
+        messageNum = 0;
+        replyBool = 0;
+        replyNum = 0;
+
+        checkOneBool = 0;
+        checkTwoBool = 0;
+        checkThreeBool = 0;
     } else {
         hOff = priorHoff;
         vOff = priorVoff;

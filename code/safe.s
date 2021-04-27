@@ -259,7 +259,7 @@ checkCode:
 .L28:
 	.word	.LANCHOR0
 	.word	.LANCHOR1
-	.word	allEmailsBool
+	.word	documentsUploaded
 	.size	checkCode, .-checkCode
 	.align	2
 	.global	safeText
@@ -582,11 +582,12 @@ updateCursor:
 	beq	.L68
 	mov	lr, #1
 	ldr	r3, .L103+52
-	ldr	ip, .L103+56
 	ldr	r1, [r3]
+	ldr	ip, .L103+56
 	ldr	r0, .L103+60
 	mov	r2, #0
 	ldr	r3, .L103+64
+	sub	r1, r1, #1000
 	strb	lr, [ip]
 	mov	lr, pc
 	bx	r3
@@ -607,7 +608,7 @@ updateCursor:
 	.word	1717986919
 	.word	middleHighlight
 	.word	.LANCHOR1
-	.word	allEmailsBool
+	.word	documentsUploaded
 	.word	keyFound
 	.word	safesfx_length
 	.word	openSafeBool

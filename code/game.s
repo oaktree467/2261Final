@@ -989,10 +989,11 @@ checkMoreInfo:
 .L168:
 	mov	r2, #1
 	ldr	r3, .L169+80
-	ldr	ip, .L169+60
 	ldr	r1, [r3]
+	ldr	ip, .L169+60
 	ldr	r0, .L169+84
 	ldr	r3, .L169+88
+	sub	r1, r1, #1000
 	strb	r2, [ip]
 	mov	lr, pc
 	bx	r3

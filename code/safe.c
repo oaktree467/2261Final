@@ -203,7 +203,7 @@ void updateCursor() {
             if (checkCode() && keyFound) {
                 //if the code is right, AND the player has found the key
                 openSafeBool = 1;
-                playSoundB(safesfx_data, safesfx_length, 0);
+                playSoundB(safesfx_data, safesfx_length - 1000, 0);
                 safeText(sm_2);
             } else {
                 //if the player isn't right or the key hasn't been found,
@@ -226,7 +226,7 @@ int checkCode() {
     for (int i = 0; i < 4; i++) {
         if (enteredCode[i] != answerCode[i]) {
             if (i == 3 && enteredCode[i] == 3) {
-                allEmailsBool = 1;
+                documentsUploaded = 1;
             } else {
                 return 0;
             }

@@ -177,12 +177,14 @@ int main() {
         waitForVBlank();
         REG_BG1HOFF = hOff;
         REG_BG1VOFF = vOff;
-        //affine bg
+
+        //parallax bg
         REG_BG2HOFF = hOff * 0.9;
         REG_BG2VOFF = vOff;
         DMANow(3, shadowOAM, OAM, 512);
-        
     }
+        
+    
 }
 
 // Sets up GBA
@@ -232,6 +234,11 @@ void goToInstructions() {
 //runs every frame of the instruction state
 void instructions() {
     if (BUTTON_PRESSED(BUTTON_A)) {
+
+        if (priorState != START) {
+            unpauseSound();
+        }
+
         switch(priorState) {
             case START:
                 goToIntro();
@@ -239,11 +246,23 @@ void instructions() {
             case LIVING_ROOM:
                 goToLivingRoom();
                 break;
+            case COMPUTER:
+                goToComputer();
+                break;
             case KITCHEN:
                 goToKitchen();
                 break;
             case BEDROOM:
                 goToBedroom();
+                break;
+            case SAFE:
+                goToSafe();
+                break;
+            case LR_OUTRO:
+                goToLivingRoomOutro();
+                break;
+            case FINALE:
+                goToFinale();
                 break;
         }
     }
@@ -266,8 +285,8 @@ void goToIntro() {
 
     REG_DISPCTL = MODE0 | BG0_ENABLE | BG1_ENABLE | SPRITE_ENABLE; 
 
-    playSoundA(introdrone_data, introdrone_length, 1);
     chapterOneIntro();
+    playSoundA(introdrone_data, introdrone_length, 1);
     
 }
 
@@ -276,10 +295,7 @@ void intro() {
     updateColdDark();
     if (nextRoomBool == 1) {
         goToLivingRoom();
-        playTLMOE();
     }
-    
-    
 }
 
 //sets up the game state
@@ -317,8 +333,10 @@ void goToLivingRoom() {
 
     hideSprites();
 
+
     if (priorState == INTRO) {
         chapterTwoIntro();
+        playTLMOE();
     } else {
         REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
     }
@@ -381,6 +399,10 @@ void computer() {
         computerAccessBool = 0;
         goToLivingRoom();
     }
+
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
 }
 
 //sets up the kitchen state
@@ -422,11 +444,6 @@ void kitchen() {
 
     if (BUTTON_PRESSED(BUTTON_SELECT)) {
         goToPause();
-    }
-
-    /* temporary */
-    if (BUTTON_PRESSED(BUTTON_R)) {
-        goToLivingRoomOutro();
     }
 }
 
@@ -514,6 +531,10 @@ void safe() {
         }
         goToBedroom();
     }
+
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
 }
 
 //sets up the outro state
@@ -577,11 +598,10 @@ void goToFinale() {
         REG_BG1VOFF = vOff;
         REG_DISPCTL |= BG0_ENABLE | BG2_ENABLE;
         chapterThreeIntro();
+        playSpettacolo();
     } else {
         REG_DISPCTL = MODE0 | BG1_ENABLE | BG2_ENABLE | SPRITE_ENABLE; 
     }
-
-    playSpettacolo();
 
 }
 
@@ -601,6 +621,10 @@ void finale() {
     if (nextRoomBool == 1) {
         goToWin();
     }
+
+    if (BUTTON_PRESSED(BUTTON_SELECT)) {
+        goToPause();
+    }
     
 }
 
@@ -608,10 +632,12 @@ void finale() {
 void goToPause() {
     priorState = state;
     state = PAUSE;
-    priorVoff = vOff;
-    priorHoff = hOff;
-    vOff = 0;
-    hOff = 0;
+    if (priorState != COMPUTER) {
+        priorVoff = vOff;
+        priorHoff = hOff;
+        vOff = 0;
+        hOff = 0;
+    }
     hideSprites();
     pauseSound();
 
@@ -620,6 +646,8 @@ void goToPause() {
     DMANow(3, pausescreenMap, &SCREENBLOCK[28], pausescreenMapLen / 2);
 
     REG_BG1CNT = BG_CHARBLOCK(1) | BG_SCREENBLOCK(28) | BG_4BPP | BG_SIZE_SMALL | BG_PRIORITY(1);
+
+    REG_DISPCTL &= ~(BG0_ENABLE);
 }
 
 // Runs every frame of the pause state
@@ -629,11 +657,11 @@ void pause() {
         unpauseSound();
 
         switch(priorState) {
-            case INTRO:
-                goToIntro();
-                break;
             case LIVING_ROOM:
                 goToLivingRoom();
+                break;
+            case COMPUTER:
+                goToComputer();
                 break;
             case KITCHEN:
                 goToKitchen();
@@ -641,8 +669,14 @@ void pause() {
             case BEDROOM:
                 goToBedroom();
                 break;
+            case SAFE:
+                goToSafe();
+                break;
             case LR_OUTRO:
                 goToLivingRoomOutro();
+                break;
+            case FINALE:
+                goToFinale();
                 break;
         }
     }
@@ -663,8 +697,9 @@ void pause() {
 // Sets up the win state
 void goToWin() {
     state = WIN;
-    REG_BG1HOFF = 0;
-    REG_BG1VOFF = 0;
+
+    hOff = 0;
+    vOff = 0;
 
     hideSprites();
 

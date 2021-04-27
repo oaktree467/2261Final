@@ -100,39 +100,39 @@ loadFinale:
 	@ Function supports interworking.
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	push	{r4, r5, r6, r7, r8, lr}
-	mov	r7, #336
-	mov	r6, #512
-	mov	r5, #160
-	mov	r4, #256
 	ldr	r3, .L10
-	mov	r0, #90
-	mov	r1, #300
+	mov	r1, #336
 	ldr	r3, [r3]
-	mov	lr, #3
+	push	{r4, lr}
 	cmp	r3, #10
 	cmpne	r3, #1
-	mov	ip, #96
-	mov	r3, #0
-	ldr	r2, .L10+4
-	str	r7, [r2]
-	ldr	r2, .L10+8
-	str	r6, [r2]
-	ldr	r2, .L10+12
-	str	r5, [r2]
-	ldr	r2, .L10+16
-	str	r4, [r2]
-	ldr	r2, .L10+20
-	str	r0, [r2]
-	str	r1, [r2, #4]
-	ldr	r0, .L10+24
-	ldr	r1, .L10+28
-	str	lr, [r2, #36]
-	strh	ip, [r0]	@ movhi
-	strh	r3, [r1]	@ movhi
+	mov	lr, #512
+	mov	r0, #160
+	mov	r2, #256
+	ldr	r3, .L10+4
+	ldr	ip, .L10+8
+	str	r1, [r3]
+	ldr	r1, .L10+12
+	ldr	r3, .L10+16
+	str	lr, [ip]
+	str	r0, [r1]
+	str	r2, [r3]
 	beq	.L7
+	mov	ip, #90
+	mov	r0, #300
+	mov	r1, #3
+	mov	r3, #0
+	mov	lr, #96
+	ldr	r2, .L10+20
+	str	ip, [r2]
+	str	r0, [r2, #4]
+	ldr	ip, .L10+24
+	ldr	r0, .L10+28
+	str	r1, [r2, #36]
 	ldr	r1, .L10+32
 	ldr	r2, .L10+36
+	strh	lr, [ip]	@ movhi
+	strh	r3, [r0]	@ movhi
 	strb	r3, [r1]
 	strb	r3, [r2]
 	ldr	lr, .L10+40
@@ -167,15 +167,17 @@ loadFinale:
 	ldrh	r2, [r3, #10]
 	orr	r2, r2, #128
 	strh	r2, [r3, #10]	@ movhi
-	pop	{r4, r5, r6, r7, r8, lr}
+	pop	{r4, lr}
 	bx	lr
 .L7:
 	ldr	r2, .L10+88
 	ldr	r3, .L10+92
-	ldrh	r2, [r2]
-	ldrh	r3, [r3]
-	strh	r2, [r0]	@ movhi
-	strh	r3, [r1]	@ movhi
+	ldrh	r0, [r2]
+	ldr	r1, .L10+24
+	ldrh	r2, [r3]
+	ldr	r3, .L10+28
+	strh	r0, [r1]	@ movhi
+	strh	r2, [r3]	@ movhi
 	b	.L8
 .L11:
 	.align	2

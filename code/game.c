@@ -314,7 +314,7 @@ void checkMoreInfo() {
             if (activeSprite == &kitchenSpritesArr[1]) {
                 if (!enableKeyFind) {
                     phoneRinging = 1;
-                    playSoundB(phonering_data, phonering_length, 1);
+                    playSoundB(phonering_data, phonering_length - 1000, 1);
                 } else {
                     //if the protagonist checks the refrigerator a second time after answering the phone,
                     //the key is found
